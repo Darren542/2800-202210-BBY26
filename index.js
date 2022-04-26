@@ -21,6 +21,17 @@ app.get("/", function (req, res) {
     res.send(doc);
 });
 
+app.get("/nav", function(req, res) {
+    let doc = fs.readFileSync("./app/templates/nav.html", "utf8");
+    res.send(doc);
+})
+
+
+app.get("/footer", function(req, res) {
+    let doc = fs.readFileSync("./app/templates/footer.html", "utf8");
+    res.send(doc);
+})
+
 // for page not found (i.e., 404)
 app.use(function (req, res, next) {
     // this could be a separate file too - but you'd have to make sure that you have the path
