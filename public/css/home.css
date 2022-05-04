@@ -79,7 +79,18 @@
         height: auto;
         display: grid;
         grid-template-rows: 25% 25% 25% 25%;
+    }
+    #posts-loader {
+        display: flex;
+        flex-direction: column;
+        background: rgb(236, 202, 202);
+        grid-row: 4 / span 1;
+        width: 95%;
+        margin: auto;
+    }
 
+    #posts-loader p {
+        margin: auto;
     }
 
     #posts-header {
