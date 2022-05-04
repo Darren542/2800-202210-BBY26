@@ -1,21 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8"/>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>K9 Meet Splash</title>
   <link rel="stylesheet" href="css/client.css">
   <link rel="stylesheet" href="css/splash.css">
 </head>
+
 <body>
   <div id="navbar-placeholder"></div>
 
   <div id="content">
-    <p>This is the main content</p>
+
+    <!-- Then main image and display of the Splash Page. -->
+    <div id="figure">
+      <div class="main-image-container">
+        <img id="main-image" alt="Dog" src="./img/splash-image.jpg" />
+      </div>
+      <figcaption id="fig-caption">
+        <h2 id="welcome">Welcome to K9 Meet</h2>
+        <h2 id="welcome-follow-up">Lets get you signed up.</h2>
+      </figcaption>
+      <div id="buttons-div">
+        <button class="btn" id="log-in">Log in</button>
+        <button class="btn" id="sign-up">Sign Up</button>
+      </div>
+    </div>
+
+    <!-- Displays a popular upcoming event. -->
+    <div id="popular-event">
+      <div id="popular-event-header">
+        <h3>Popular Upcoming Event</h3>
+      </div>
+      <div id="popular-event-image">
+        <img id="event-image" alt="Events Image" src="./img/steveston-dog-park.jpg" />
+      </div>
+      <div id="popular-event-name">
+        <a id="popular-event-link" href="#">Play time for small dogs at Steveston Community Park</a>
+      </div>
+    </div>
+
   </div>
 
   <div id="footer-placeholder"></div>
+  
   <script src="js/client.js"></script>
 </body>
+
 </html>
