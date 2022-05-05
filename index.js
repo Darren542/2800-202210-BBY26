@@ -8,6 +8,7 @@ app.use(express.json());
 const fs = require("fs");
 const session = require("express-session");
 const { JSDOM } = require('jsdom');
+const { ppid } = require("process");
 
 // just like a simple web server like Apache web server
 // we are mapping file system paths to the app's virtual paths
@@ -27,7 +28,7 @@ app.use(session(
 app.get("/", function (req, res) {
     //Need to add code to check if user logged in
     // let doc = fs.readFileSync("./app/html/home.html", "utf8");
-    
+
     if (req.session.loggedIn) {
         res.redirect("/profile");
     } else {
@@ -39,6 +40,14 @@ app.get("/", function (req, res) {
     }
 });
 
+app.get("/login", function (req, res) {
+    if (req.session.loggedIn) {
+        res.redirect("/");
+    } else {
+        let doc = fs.readFileSync("./app/html/login.html", "utf8");
+        res.send(doc)
+    }
+});
 
 app.get("/profile", function (req, res) {
 
@@ -60,22 +69,38 @@ app.use(express.urlencoded({ extended: true }));
 
 
 app.post("/login", function (req, res) {
-    res.setHeader("Content-Type", "application/json");
 
-
-    if (req.body.email == "arron_ferguson@bcit.ca" && req.body.password == "abc123") {
-        // user authenticated, create a session
-        req.session.loggedIn = true;
-        req.session.email = "arron_ferguson@bcit.ca";
-        req.session.name = "Arron";
-        req.session.save(function (err) {
-            
+    const mysql = require("mysql2");
+    const connection = mysql.createConnection({
+        host: "localhost",
+        user: "root",
+        password: "",
+        database: "bby26"
+    });
+    connection.connect();
+    connection.execute(
+        "SELECT * FROM users WHERE username = ?",
+        [req.body.username],
+        function (error, results) {
+            console.log("results:", results);
+            myResults = results;
+            if (error) {
+                console.log(error);
+            }
+            if (results[0] != null && req.body.password == results[0].pw) {
+                req.session.loggedIn = true;
+                req.session.userID = results[0].userID;
+                req.session.username = results[0].username;
+                req.session.email = results[0].email;
+                req.session.isAdmin = results[0].isAdmin;
+                req.session.save(function (err) {
+                });
+                res.send({ status: "success", msg: "Logged in." });
+            } else {
+                res.send({ status: "fail", msg: "User account not found." });
+            }
         });
-        
-        res.send({ status: "success", msg: "Logged in." });
-    } else {
-        res.send({ status: "fail", msg: "User account not found." });
-    }
+    connection.end();
 });
 
 app.get("/signup.html", function (req, res) {
@@ -92,18 +117,18 @@ app.get("/signup", function (req, res) {
     res.send(doc);
 });
 
-app.get("/nav", function(req, res) {
+app.get("/nav", function (req, res) {
     let doc = fs.readFileSync("./app/templates/nav.html", "utf8");
     res.send(doc);
 })
 
 
-app.get("/footer", function(req, res) {
+app.get("/footer", function (req, res) {
     let doc = fs.readFileSync("./app/templates/footer.html", "utf8");
     res.send(doc);
 })
 
-app.get("/splash", function(req, res) {
+app.get("/splash", function (req, res) {
     let doc = fs.readFileSync("./app/html/splash.html", "utf8");
     res.send(doc);
 })
