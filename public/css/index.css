@@ -1,5 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+body{
+    margin: 0px;
+    font-family: 'Inter', sans-serif;
+}
+
+#fill {
+    display: grid;
+    grid-template-rows: 27% 27% 27% 27% 27%;
+    grid-template-columns: 180%;
+
+}
+
+.label {
+    margin-top: 7px;
+    padding: 3px;
+}
+
+#log {
+    margin-top: 20px;
+
+}
+
+#img {
+    max-width: 45vw;
+    max-height: 60vh;
+}
+
 #content {
-    width: 100vw;
-    height: 100vh;
-    background: orange;
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+}
+
+#login {
+    margin-left: 30px;
+    margin-top: 30px;
+}
+
+@media screen and (max-width: 850px) {
+    #content {
+        display: flex;
+        justify-content: flex-start;
+        margin: 7px;
+        flex-direction: column;
+    }
+
+    #img {
+        max-width: 70vw;
+        max-height: 60vh;
+        margin-left: 30px;
+    }
+
+    #fill {
+        display: grid;
+        grid-template-rows: 20% 20% 20% 20% 27%;
+        grid-template-columns: 80%;
+    
+    }
+    #content {
+        min-height: 60vh;
+    }
+    #login{
+        margin-top: 10px;
+    }
+    #footer-placeholder{
+        
+    }
+    
 }
