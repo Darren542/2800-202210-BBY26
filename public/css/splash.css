@@ -68,8 +68,8 @@
 
 h2 {
     font-size: 1.9em;
-    color: rgb(69, 69, 206);
-    -webkit-text-stroke: .5px rgb(255, 255, 255);
+    color: white;
+    -webkit-text-stroke: .7px black;
     margin-bottom: 0;
 }
 
@@ -81,11 +81,11 @@ h2 {
 
 .btn {
     font-size: 1.4em;
-    color: white;
+    color: black;
     width: 100px;
     height: 50px;
     background-color:rgb(130, 177, 221);
-    border: 1px solid white;
+    border: 1px solid black;
     border-radius: 10px;
 }
 
@@ -111,7 +111,9 @@ h2 {
 #popular-event-header {
     grid-row: 1 / span 1;
     grid-column: 1 / span 1;
-    padding-left: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
 }
 
 #popular-event-image {
@@ -142,4 +144,36 @@ h2 {
 
 #popular-event-link:hover {
     background-color: rgb(69, 69, 206);
+}
+
+/* Layout for desktop screens */
+@media (min-width: 736px){
+    
+    #main-image {
+        height: 400px;
+        width: 600px;
+    }
+
+    .btn {
+        font-size: 1.8em;
+        width: 150px;
+        height: 70px;
+    }
+
+    #welcome {
+        text-align:center;
+        margin-right: 130px;
+    }
+    
+    #welcome-follow-up {
+        text-align: center;
+        margin-left: 130px;
+    }
+    
+    h2 {
+        font-size: 2.4em;
+        color: white;
+        -webkit-text-stroke: .7px black;
+        margin-bottom: 0;
+    }
 }
