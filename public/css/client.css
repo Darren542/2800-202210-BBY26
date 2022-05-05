@@ -5,43 +5,10 @@ body {
     display: grid;
     grid-template-rows: 100px 1fr 50px;
     grid-template-columns: 1fr;
-
+    max-width: 100vw;
 }
 
-#nav {
-    height: 100px;
-    width:100%;
-    position: fixed;
-    background-color:white;
-    z-index: 100;
-}
-
-#navbar-placeholder {
-    height: 100px;
-    width:100%;
-    position: fixed;
-    background-color:white;
-    z-index: 100;
-}
-
-#navbar {
-    height: 100px;
-    width:100%;
-    background-color:white;
-    z-index: 100;
-    display:flex;
-}
-
-#nav-items {
-    display: flex;
-    font-size: 1em;
-    list-style:none;
-}
-
-#nav-items li {
-    padding-right:3px;  
-}
-
+/* Body of page styling */
 #content {
     grid-row: 2 / span 1;
     grid-column: 1 / span 1;
@@ -50,6 +17,114 @@ body {
     z-index: 10;
 }
 
+/* Navbar styling */
+#nav {
+    height: 100px;
+    width:100%;
+    position: fixed;
+    z-index: 100;
+}
+
+#navbar-placeholder {
+    height: 100px;
+    width:100%;
+    position: fixed;
+    z-index: 100;
+}
+
+#navbar {
+    height: 100px;
+    width:100%;
+    background-color:rgb(51, 72, 210);
+    display:grid;
+    grid-template-rows: 100%;
+    grid-template-columns: 1fr 100px;
+}
+
+#logo-div {
+    grid-row: 1 / span 1;
+    grid-column: 1 / span 1;
+    height: 100px;
+    width: 161px;
+}
+
+#logo-image {
+    height: 95%;
+    width: 95%;
+    object-fit: cover;
+}
+
+#logo-image:hover {
+    cursor:pointer;
+}
+
+#hamburger-menu {
+    grid-row: 1 / span 1;
+    grid-column: 2 / span 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#hamburger-menu:hover {
+    cursor:pointer;
+}
+
+#nav-items {
+    position: fixed;
+    top: 100px;
+    right: 0;
+    width: 70%;
+    height: calc(100vh);
+    padding: 30px;
+    list-style:none;
+    background-color:aqua;
+    padding:0;
+    margin:0;
+    flex-direction: column;
+    align-items: center;
+    gap:30px;
+    padding-top: 20px;
+    transition: all 1s;
+}
+
+#nav-items li {
+    width: 150px;
+}
+
+.nav-btn {
+    font-size: 1.4em;
+    color: black;
+    width: 150px;
+    height: 50px;
+    background-color:rgb(130, 177, 221);
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+.nav-btn:hover {
+    cursor: pointer;
+    background-color: rgb(69, 69, 206);
+}
+
+#hambuger-icon {
+    object-fit: contain;
+    font-size: 3em;
+}
+
+.hidden {
+    transform: translateX(100%);
+  }
+
+.flex {
+    display:flex;
+}
+
+.grid {
+    display:grid;
+}
+
+/* Footer Styling */
 #footer {
     grid-row: 3 / span 1;
     grid-column: 1 / span 1;
