@@ -78,6 +78,12 @@ app.post("/login", function (req, res) {
     }
 });
 
+app.get("/login", function (req, res) {
+    let doc = fs.readFileSync("./app/html/login.html", "utf8");
+
+    res.send(doc);
+});
+
 app.get("/signup.html", function (req, res) {
     let doc = fs.readFileSync("./app/html/signup.html", "utf8");
 
