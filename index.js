@@ -78,6 +78,20 @@ app.post("/login", function (req, res) {
     }
 });
 
+app.get("/signup.html", function (req, res) {
+    let doc = fs.readFileSync("./app/html/signup.html", "utf8");
+
+    // just send the text stream
+    res.send(doc);
+});
+
+app.get("/signup", function (req, res) {
+    let doc = fs.readFileSync("./app/html/signup.html", "utf8");
+
+    // just send the text stream
+    res.send(doc);
+});
+
 app.get("/nav", function(req, res) {
     let doc = fs.readFileSync("./app/templates/nav.html", "utf8");
     res.send(doc);
