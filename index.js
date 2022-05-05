@@ -15,7 +15,9 @@ app.use("/img", express.static("./public/img"));
 
 
 app.get("/", function (req, res) {
-    let doc = fs.readFileSync("./app/html/home.html", "utf8");
+    //Need to add code to check if user logged in
+    // let doc = fs.readFileSync("./app/html/home.html", "utf8");
+    let doc = fs.readFileSync("./app/html/splash.html", "utf8");
 
     // just send the text stream
     res.send(doc);
@@ -29,6 +31,11 @@ app.get("/nav", function(req, res) {
 
 app.get("/footer", function(req, res) {
     let doc = fs.readFileSync("./app/templates/footer.html", "utf8");
+    res.send(doc);
+})
+
+app.get("/splash", function(req, res) {
+    let doc = fs.readFileSync("./app/html/splash.html", "utf8");
     res.send(doc);
 })
 
