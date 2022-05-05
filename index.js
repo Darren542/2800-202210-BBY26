@@ -15,7 +15,7 @@ app.use("/img", express.static("./public/img"));
 
 
 app.get("/", function (req, res) {
-    let doc = fs.readFileSync("./app/html/index.html", "utf8");
+    let doc = fs.readFileSync("./app/html/home.html", "utf8");
 
     // just send the text stream
     res.send(doc);

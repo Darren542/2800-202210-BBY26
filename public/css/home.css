@@ -1,0 +1,116 @@
+/* For Desktop */
+
+
+
+
+/* For Mobile */
+@media only screen and (max-width: 600px) {
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background: #ffbbbb;
+        min-width: 160px;
+        z-index: 1;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+    
+    .dropdown {
+        min-width: 10vw;
+    }
+    body {
+        overflow-y: auto;
+    }
+
+    .post {
+        display: grid;
+        grid-template-columns: 50% 50%;
+        grid-template-rows: 1fr 1fr 1fr;
+    }
+    .post > img{
+        width: 95%;
+        grid-column: 1 / span 1;
+        grid-row: 1 / span 3;
+        border: 1px solid grey;
+    }
+
+    #post-location {
+        grid-row: 1 / span 1;
+        grid-column: 2 / span 1;
+    }
+    #post-date {
+        grid-row: 2 / span 1;
+        grid-column: 2 / span 1;
+    }
+    #post-time {
+        grid-row: 3 / span 1;
+        grid-column: 2 / span 1;
+    }
+
+    #epic {
+        display: flex;
+        justify-content: center;
+    }
+
+    #epic>img {
+        width: 80vw;
+        height: auto;
+    }
+
+    #greeting {
+        width: 100%;
+        height: auto;
+        display: grid;
+        grid-template-rows: 10% 40% 40% 10%;
+    }
+
+    #welcome {
+        grid-row: 2 / span 1;
+    }
+
+    #username-placeholder {
+        grid-row: 3 / span 1;
+    }
+
+    #posts-container {
+        width: 100%;
+        height: auto;
+        display: grid;
+        grid-template-rows: 25% 25% 25% 25%;
+    }
+    #posts-loader {
+        display: flex;
+        flex-direction: column;
+        background: rgb(236, 202, 202);
+        grid-row: 4 / span 1;
+        width: 95%;
+        margin: auto;
+    }
+
+    #posts-loader p {
+        margin: auto;
+    }
+
+    #posts-header {
+        margin: auto;
+        font-size: 10vw;
+        grid-row: 1 / span 1;
+        color: rgb(175, 175, 205);
+    }
+
+    #posts-container #sort-option {
+        margin: auto;
+        margin-top: 15px;
+        grid-row: 2 / span 1;
+        font-size: 6vw;
+        color: rgb(175, 175, 205);
+    }
+
+    #greeting p {
+        margin: auto;
+        font-size: 15vw;
+        color: rgb(175, 175, 205);
+    }
+}
