@@ -1,0 +1,40 @@
+#container {
+    /* background-color: aqua; */
+    display: grid;
+    grid-template-columns: 10% 80% 10%;
+    height: 100vh;
+}
+
+@media (max-width: 751px) {
+
+    * {
+        margin: 0%;
+        padding: 0%;
+    }
+
+    body {
+        background-image: url("dog-signup.png");
+        background-size: cover;
+    }
+
+    #sign-up {
+        grid-column: 2 / 3;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+    }
+
+    #signup-info {
+        backdrop-filter: blur(10px);
+    }
+
+    #header {
+        backdrop-filter: blur(10px);
+    }
+}
+
+/*  https://www.w3schools.com/html/html_forms.asp used this make fromes */
+
+/* https://www.w3schools.com/cssref/pr_background-image.asp */
+
+/* https://developer.mozilla.org/en-US/docs/Web/CSS/backdrop-filter */
