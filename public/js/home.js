@@ -1,3 +1,4 @@
+"use strict";
 function ready() {
     const getname = new XMLHttpRequest();
     getname.onreadystatechange = function () {
