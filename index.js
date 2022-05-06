@@ -66,11 +66,11 @@ app.post("/login", async function (req, res) {
         host: "localhost",
         user: "root",
         password: "",
-        database: "test"
+        database: "bby26"
     });
     let myResults = null;
     connection.connect();
-    const [rows, fields] = await connection.execute("SELECT * FROM users.sql");
+    const [rows, fields] = await connection.execute("SELECT * FROM users");
     var isthere = false;
     var username;
     var password;
