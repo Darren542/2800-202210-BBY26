@@ -141,6 +141,18 @@ app.post("/login", function (req, res) {
     connection.end();
 });
 
+app.get("/logout", function (req, res) {
+    if (req.session) {
+        req.session.destroy(function (error) {
+            if (error) {
+                res.status(400).send("Unable to log out")
+            } else {
+                res.redirect("/");
+            }
+        });
+    }
+})
+
 app.get("/login", function (req, res) {
     let doc = fs.readFileSync("./app/html/login.html", "utf8");
 
