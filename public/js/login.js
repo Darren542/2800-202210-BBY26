@@ -91,11 +91,11 @@ ready(function () {
     // POST TO THE SERVER
     document.querySelector("#log").addEventListener("click", function (e) {
         e.preventDefault();
-        let username = document.getElementById("email");
+        let username = document.getElementById("username");
         let password = document.getElementById("password");
         let queryString = "username=" + username.value + "&password=" + password.value;
         //console.log("data that we will send", email.value, password.value);
-        const vars = { "email": username, "password": password }
+        const vars = { "username": username, "password": password }
         ajaxPOST("/login", function (data) {
 
             if (data) {

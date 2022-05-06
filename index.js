@@ -45,7 +45,7 @@ app.get("/profile", function (req, res) {
     // check for a session first!
     if (req.session.loggedIn) {
 
-        res.send("Welcome sir");
+        res.send("./app/html/home.html");
 
     } else {
         // not logged in - no session and no access, redirect to home!
@@ -59,19 +59,37 @@ app.use(express.urlencoded({ extended: true }));
 
 
 
-app.post("/login", function (req, res) {
+app.post("/login", async function (req, res) {
     res.setHeader("Content-Type", "application/json");
+    const mysql = require("mysql2");
+    const connection = mysql.createConnection({
+        host: "localhost",
+        user: "root",
+        password: "",
+        database: "test"
+    });
+    let myResults = null;
+    connection.connect();
+    const [rows, fields] = await connection.execute("SELECT * FROM users.sql");
+    var isthere = false;
+    var username;
+    var password;
 
+    for(var i = 0; i < rows.length; i++){
+        if (rows[i].Email_address == req.body.username && rows[i].pwd == req.body.password){
+            isthere = true;
+            id = rows[i].ID;
+            username = rows[i].username;
+        }
+    }
 
-    if (req.body.email == "arron_ferguson@bcit.ca" && req.body.password == "abc123") {
-        // user authenticated, create a session
+    if (isthere) {
         req.session.loggedIn = true;
-        req.session.email = "arron_ferguson@bcit.ca";
-        req.session.name = "Arron";
+        req.session.username = username;
         req.session.save(function (err) {
-            
+
         });
-        
+
         res.send({ status: "success", msg: "Logged in." });
     } else {
         res.send({ status: "fail", msg: "User account not found." });
