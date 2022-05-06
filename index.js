@@ -139,6 +139,7 @@ app.post("/add-user", function (req, res) {
         if (results.length != 0) {
             console.log("match")
             res.send({ status: "failure", msg: "Email Taken" });
+            connection.end();
         }
         else {
             console.log("no-match")
@@ -153,11 +154,9 @@ app.post("/add-user", function (req, res) {
                     res.send({ status: "success", msg: "Record added." });
         
                 });
+            connection.end();
         }
     });
-
-    connection.end();
-
 });
 
 // for page not found (i.e., 404)

@@ -1,36 +1,3 @@
-function getUser() {
-
-    const xhr = new XMLHttpRequest();
-    xhr.onload = function () {
-        if (this.readyState == XMLHttpRequest.DONE) {
-
-            // 200 means everthing worked
-            if (xhr.status === 200) {
-
-                let data = JSON.parse(this.responseText);
-                if (data.status == "success") {
-
-
-                } else {
-                    console.log("Error!");
-                }
-
-            } else {
-
-                // not a 200, could be anything (404, 500, etc.)
-                console.log(this.status);
-
-            }
-
-        } else {
-            console.log("ERROR", this.status);
-        }
-    }
-    xhr.open("GET", "/get-customers");
-    xhr.send();
-}
-// getUser();
-
 document.getElementById("submit").addEventListener("click", function (e) {
     e.preventDefault();
 
@@ -76,27 +43,4 @@ document.getElementById("submit").addEventListener("click", function (e) {
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.send("username=" + formData.username + "&email=" + formData.email + "&password=" + formData.password);
     }
-})
-
-
-
-
-function checkPassword() {
-
-    let validation = '';
-
-    // Get the form values
-    let password = document.getElementById('password');
-    let confrimPassword = document.getElementById('confirm-password');
-
-    // Check if confrimPassword isn't null or undefined or empty
-    if (confrimPassword == null || confrimPassword == undefined) {
-
-        console.log('confirmm password field null');
-        // document.getElementById('chech=')
-    } else {
-        validation = (password === confrimPassword ? '' : 'Passwords must Match');
-    }
-
-    document.getElementById('check-password') = validation;
-}
+});
