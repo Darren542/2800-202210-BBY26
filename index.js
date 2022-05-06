@@ -49,7 +49,7 @@ app.get("/users", function (req, res) {
         connection.execute(
             "SELECT * FROM BBY_26_users",
             function (error, results) {
-                console.log("results:", results);
+                //console.log("results:", results);
                 if (error) {
                     console.log(error);
                 }
@@ -200,12 +200,6 @@ app.post("/add-user", function (req, res) {
 app.use(function (req, res, next) {
     res.status(404).send("<html><head><title>Page not found!</title></head><body><p>Nothing here.</p></body></html>");
 });
-
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-
 
 let port = 8000;
 app.listen(port, function () {
