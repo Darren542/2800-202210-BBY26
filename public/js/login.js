@@ -1,4 +1,6 @@
 "use strict";
+
+
 ready(function () {
     function ajaxPOST(url, callback, data) {
         let params = typeof data == 'string' ? data : Object.keys(data).map(
@@ -29,7 +31,7 @@ ready(function () {
                 let dataParsed = JSON.parse(data);
                 //console.log(dataParsed);
                 if (dataParsed.status == "fail") {
-                    //console.log(dataParsed.msg);
+                    document.getElementById("no-match").classList.remove("no-show");
                 } else {
                     window.location.href = "/";
                 }
@@ -38,6 +40,7 @@ ready(function () {
     });
 
 });
+
 
 function ready(callback) {
     if (document.readyState != "loading") {
