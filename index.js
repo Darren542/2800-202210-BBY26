@@ -136,19 +136,26 @@ app.post("/add-user", function (req, res) {
             console.log(error);
         }
         console.log('Rows returned are: ', results);
+        if (results.length != 0) {
+            console.log("match")
+            res.send({ status: "failure", msg: "Email Taken" });
+        }
+        else {
+            console.log("no-match")
+            connection.query('INSERT INTO Users (email, username, pw) values (?, ?, ?)',
+            // need to edit from here
+                [req.body.email, req.body.username, req.body.password],
+                function (error, results, fields) {
+                    if (error) {
+                        console.log(error);
+                    }
+                    //console.log('Rows returned are: ', results);
+                    res.send({ status: "success", msg: "Record added." });
+        
+                });
+        }
     });
 
-    connection.query('INSERT INTO Users (email, username, pw) values (?, ?, ?)',
-    // need to edit from here
-        [req.body.email, req.body.username, req.body.password],
-        function (error, results, fields) {
-            if (error) {
-                console.log(error);
-            }
-            //console.log('Rows returned are: ', results);
-            res.send({ status: "success", msg: "Record added." });
-
-        });
     connection.end();
 
 });

@@ -53,6 +53,12 @@ document.getElementById("submit").addEventListener("click", function (e) {
             if (this.readyState == XMLHttpRequest.DONE) {
                 // 200 means everthing worked
                 if (xhr.status === 200) {
+                    let reply = JSON.parse(xhr.response);
+                    if (reply.status == "failure") {
+                        document.getElementById("email-taken").classList.remove("no-show");
+                    } else {
+                        console.log("email not taken");
+                    }
                     //getUser();
                 } else {
                 // not a 200, could be anything (404, 500, etc.)

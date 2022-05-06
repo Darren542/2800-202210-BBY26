@@ -9,6 +9,10 @@
     color: red;
 }
 
+#email-taken {
+    color: red;
+}
+
 .no-show {
     display: none;
 }
