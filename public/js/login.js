@@ -26,6 +26,8 @@ ready(function () {
         let username = document.getElementById("username");
         let password = document.getElementById("password");
         let queryString = "username=" + username.value + "&password=" + password.value;
+        //console.log("data that we will send", email.value, password.value);
+        const vars = { "username": username, "password": password }
         ajaxPOST("/login", function (data) {
             if (data) {
                 let dataParsed = JSON.parse(data);

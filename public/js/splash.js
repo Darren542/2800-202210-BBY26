@@ -1,5 +1,5 @@
 document.querySelector("#log-in").addEventListener("click", () => {
-    window.location.href = "/login";
+    window.location.href = "login.html";
     console.log("Button clicked");
 })
 
