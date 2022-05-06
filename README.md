@@ -74,3 +74,8 @@ C:.
             skeleton.js
             splash.js
 ```
+Desktop image for sign up page
+https://www.google.com/url?sa=i&url=https%3A%2F%2Funsplash.com%2Fs%2Fphotos%2Fdog-playing&psig=AOvVaw1BglTxmXbKyDWh4352h0qf&ust=1651963965182000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCPjxib37y_cCFQAAAAAdAAAAABAD
+
+    This is where I got the image puppy image for Mobile. For the background.
+    https://www.pinterest.com/pin/662803270141957661/
