@@ -10,6 +10,7 @@ body {
     padding: 0%;
 }
 
+/*  will be put inside the client.css */
 .btn {
     font-size: 1.4em;
     color: black;
@@ -18,6 +19,12 @@ body {
     background-color: rgb(130, 177, 221);
     border: 1px solid black;
     border-radius: 10px;
+}
+
+#button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #container {
@@ -70,15 +77,13 @@ body {
     justify-content: center;
 }
 
-@media (min-width: 751px) {
-
-    #header {
-        color: aliceblue;
-        font-family: 'Koulen';
-        font-family: 'Saira', sans-serif;
-        font-family: 'Sansita Swashed', cursive;
-        font-family: 'Square Peg', cursive;
-    }
+#header {
+    color: aliceblue;
+    font-family: 'Koulen';
+    font-family: 'Saira', sans-serif;
+    font-family: 'Sansita Swashed', cursive;
+    font-family: 'Square Peg', cursive;
+}
 
     label {
         color: aliceblue;
@@ -88,6 +93,8 @@ body {
         font-family: 'Square Peg', cursive;
         font-family: 'Work Sans', sans-serif;
     }
+
+@media (min-width: 751px) {
 
     #header {
         backdrop-filter: blur(8px);
@@ -102,6 +109,8 @@ body {
         align-items: flex-start;
         justify-content: center;
     }
+
+
 
 }
 
