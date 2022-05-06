@@ -1,0 +1,147 @@
+/* Heading stlying */
+@import url('https://fonts.googleapis.com/css2?family=Koulen&family=Saira:ital,wght@1,500&family=Sansita+Swashed:wght@500&family=Square+Peg&display=swap');
+
+/* text stlying  */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300&family=Saira:ital,wght@1,500&family=Sansita+Swashed:wght@500&family=Square+Peg&family=Work+Sans:wght@300&display=swap');
+
+
+body {
+    margin: 0%;
+    padding: 0%;
+}
+
+/*  will be put inside the client.css */
+.btn {
+    font-size: 1.4em;
+    color: black;
+    width: 100px;
+    height: 50px;
+    background-color: rgb(130, 177, 221);
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+.btn:hover {
+    cursor: pointer;
+    background-color:rgb(69, 69, 206);
+}
+
+#button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#container {
+    /* background-color: aqua; */
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 150px 1fr;
+    height: 100%;
+}
+
+#no-match {
+    color: red;
+}
+
+#email-taken {
+    color: red;
+}
+
+.no-show {
+    display: none;
+}
+
+#container {
+    background-image: url("../img/dog-signup.jpg");
+    background-position: center bottom;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: rgb(50, 136, 159);
+}
+
+#sign-up {
+    grid-column: 1 / span 1;
+    grid-row: 2 / span 1;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+#header {
+    backdrop-filter: blur(8px);
+    grid-column: 1 / span 1;
+    grid-row: 1 / span 1;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width:100vw;
+    font-family: 'Koulen';
+    font-family: 'Saira', sans-serif;
+    font-family: 'Sansita Swashed', cursive;
+    font-family: 'Square Peg', cursive;
+}
+
+label {
+    color: rgb(0, 0, 0);
+    font-family: 'Inter', sans-serif;
+    font-family: 'Saira', sans-serif;
+    font-family: 'Sansita Swashed', cursive;
+    font-family: 'Square Peg', cursive;
+    font-family: 'Work Sans', sans-serif;
+}
+
+@media (min-width: 751px) {
+
+    #container {
+        background-image: url("../img/signup-page-desktop.jpg");
+        background-position: center bottom;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-color: rgb(50, 136, 159);
+    }
+
+    #header {
+        color: aliceblue;
+        font-family: 'Koulen';
+        font-family: 'Saira', sans-serif;
+        font-family: 'Sansita Swashed', cursive;
+        font-family: 'Square Peg', cursive;
+    }
+
+    label {
+        color: aliceblue;
+        font-family: 'Inter', sans-serif;
+        font-family: 'Saira', sans-serif;
+        font-family: 'Sansita Swashed', cursive;
+        font-family: 'Square Peg', cursive;
+        font-family: 'Work Sans', sans-serif;
+    }
+
+    #header {
+        backdrop-filter: blur(8px);
+        grid-column: 1 / span 1;
+        grid-row: 1 / span 1;
+    }
+
+    #sign-up {
+        grid-column: 1 / span 1;
+        grid-row: 2 / span 1;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+    }
+
+
+
+    /* I used this to set a the background image. */
+    /* https://www.w3schools.com/cssref/pr_background-image.asp */
+    
+    /* I used this to have background filter. */
+    /* https://developer.mozilla.org/en-US/docs/Web/CSS/backdrop-filter */
+    
+    /* This is where i got the image. For the background */
+    /* https://www.pinterest.com/pin/662803270141957661/ */
+}
+

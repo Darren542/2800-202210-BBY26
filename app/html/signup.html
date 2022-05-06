@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SignUp Page</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="css/client.css">
+  <link rel="stylesheet" href="css/signup.css">
+</head>
+
+
+<body>
+  <!-- nav bar -->
+  <div id="navbar-placeholder"></div><br>
+
+
+  <div id="container">
+
+    <!-- header -->
+    <div id="header">
+      <h1>Create an Account Today. 🐶</h1>
+    </div>
+    <!-- From for email & password -->
+    <div id="sign-up">
+    
+      <div id="signup-info">
+        <div id="email-taken" class="no-show">Account Exists</div>
+        <form method="get"><br><br>
+          <label for="email">Email:</label><br>
+          <input type="text" id="email" name="email"><br>
+          <label for="username">Username:</label><br>
+          <input type="text" id="username" name="username"><br>
+          <label for="password">Password:</label><br>
+          <input type="password" id="password"><br>
+          <label for="password">Confirm Password:</label><br>
+          <input type="password" id="confirm-password">
+          <div id="check-password"></div>
+          <div id="no-match" class="no-show">Passwords do not match</div><br>
+          <div id="button">
+            <button id="submit" class="btn" name="submit" type="button">Sign-Up</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- footer -->
+  <div id="footer-placeholder"></div>
+
+  <!-- fix this later -->
+  <script src="js/skeleton.js"></script>
+  <script src="js/signup.js"></script>
+
+</body>
+
+</html>
