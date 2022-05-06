@@ -1,10 +1,46 @@
 /* For Desktop */
+@media only screen and (min-width: 601px) {
+    #content {
+        display: grid;
+        grid-template-columns: 30% 70%;
+        grid-template-rows: 25% 25% 25% 25%;
+    }
 
+    #epic {
+        display: grid;
+        grid-template-rows: 20% 60% 20%;
+        grid-column: 1 / span 1;
+        grid-row: 1 / span 4;
+    }
 
+    #epic>img {
+        grid-row: 2 / span 1;
+        height: 100%;
+        width: 100%;
+    }
 
+    #greeting {
+        grid-column: 1 / span 1;
+        grid-row: 1 / span 1;
+        width: 100%;
+        height: auto;
+        display: grid;
+        grid-template-rows: 40% 50% 10%;
+    }
 
-/* For Mobile */
-@media only screen and (max-width: 600px) {
+    #welcome {
+        grid-row: 1 / span 1;
+    }
+
+    #username-placeholder {
+        grid-row: 2 / span 1;
+    }
+    #greeting>p {
+        margin: auto;
+        font-size: 3vw;
+        color: rgb(175, 175, 205);
+    }
+
     .dropdown-content {
         display: none;
         position: absolute;
@@ -16,9 +52,9 @@
     .dropdown:hover .dropdown-content {
         display: block;
     }
-    
+
     .dropdown {
-        min-width: 10vw;
+        min-width: 120px;
     }
 
     .post {
@@ -26,7 +62,15 @@
         grid-template-columns: 50% 50%;
         grid-template-rows: 1fr 1fr 1fr;
     }
-    .post > img{
+    #posts-container {
+        grid-row: 1 / span 4;
+        grid-column: 2 / span 1;
+        margin-left: 5%;
+        margin-right: 5%;
+        border: 1px solid rgb(44, 25, 28);
+        padding-left: 5%;
+    }
+    .post>img {
         width: 95%;
         grid-column: 1 / span 1;
         grid-row: 1 / span 3;
@@ -37,13 +81,35 @@
         grid-row: 1 / span 1;
         grid-column: 2 / span 1;
     }
+
     #post-date {
         grid-row: 2 / span 1;
         grid-column: 2 / span 1;
     }
+
     #post-time {
         grid-row: 3 / span 1;
         grid-column: 2 / span 1;
+    }
+}
+
+/* For Mobile */
+@media only screen and (max-width: 600px) {
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background: #ffbbbb;
+        min-width: 160px;
+        z-index: 1;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    .dropdown {
+        min-width: 10vw;
     }
 
     #epic {
@@ -77,6 +143,7 @@
         display: grid;
         grid-template-rows: 25% 25% 25% 25%;
     }
+
     #posts-loader {
         display: flex;
         flex-direction: column;
