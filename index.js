@@ -43,11 +43,11 @@ app.get("/users", function (req, res) {
             host: "localhost",
             user: "root",
             password: "",
-            database: "bby26"
+            database: "BBY_26"
         });
         connection.connect();
         connection.execute(
-            "SELECT * FROM users",
+            "SELECT * FROM BBY_26_users",
             function (error, results) {
                 console.log("results:", results);
                 if (error) {
@@ -58,7 +58,6 @@ app.get("/users", function (req, res) {
         connection.end();
     }
 })
-
 
 app.get("/login", function (req, res) {
     if (req.session.loggedIn) {
@@ -71,7 +70,7 @@ app.get("/login", function (req, res) {
 
 app.get("/profile", function (req, res) {
     if (req.session.loggedIn) {
-        res.send("./app/html/home.html");
+        res.redirect("/");
     } else {
         res.redirect("/");
     }
@@ -90,11 +89,11 @@ app.post("/login", function (req, res) {
         host: "localhost",
         user: "root",
         password: "",
-        database: "bby26"
+        database: "BBY_26"
     });
     connection.connect();
     connection.execute(
-        "SELECT * FROM users WHERE username = ?",
+        "SELECT * FROM BBY_26_users WHERE username = ?",
         [req.body.username],
         function (error, results) {
             if (error) {
@@ -174,10 +173,10 @@ app.post("/add-user", function (req, res) {
         host: 'localhost',
         user: 'root',
         password: '',
-        database: 'bby26'
+        database: 'BBY_26'
     });
     connection.connect();
-    connection.query('SELECT * FROM Users WHERE email = ?',[req.body.email], function (error, results, fields) {
+    connection.query('SELECT * FROM BBY_26_users WHERE email = ?',[req.body.email], function (error, results, fields) {
         if (error) {
         }
         if (results.length != 0) {
@@ -185,7 +184,7 @@ app.post("/add-user", function (req, res) {
             connection.end();
         }
         else {
-            connection.query('INSERT INTO Users (email, username, pw) values (?, ?, ?)',
+            connection.query('INSERT INTO BBY_26_users (email, username, pw) values (?, ?, ?)',
                 [req.body.email, req.body.username, req.body.password],
                 function (error, results, fields) {
                     if (error) {
