@@ -34,18 +34,12 @@ document.getElementById("submit").addEventListener("click", function (e) {
                         }, queryString);
                     }
                 } else {
-<<<<<<< HEAD
-            }
-        } 
-            else {
-=======
                 // not a 200, could be anything (404, 500, etc.)
                 //console.log(this.status);
             }
         } 
             else {
                 //console.log("ERROR", this.status);
->>>>>>> f252d123841189e9938ba1bd6d8b9dd3f0aed88a
             }
         }
         document.getElementById("password").value = "";

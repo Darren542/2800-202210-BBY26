@@ -10,10 +10,7 @@ ready(function () {
                 callback(this.responseText);
 
             } else {
-<<<<<<< HEAD
-=======
                 //console.log(this.status);
->>>>>>> f252d123841189e9938ba1bd6d8b9dd3f0aed88a
             }
         }
         xhr.open("POST", url);
@@ -30,13 +27,9 @@ ready(function () {
         ajaxPOST("/login", function (data) {
             if (data) {
                 let dataParsed = JSON.parse(data);
-<<<<<<< HEAD
-                if (dataParsed.status == "fail") {
-=======
                 //console.log(dataParsed);
                 if (dataParsed.status == "fail") {
                     //console.log(dataParsed.msg);
->>>>>>> f252d123841189e9938ba1bd6d8b9dd3f0aed88a
                 } else {
                     window.location.href = "/";
                 }
@@ -49,14 +42,9 @@ ready(function () {
 function ready(callback) {
     if (document.readyState != "loading") {
         callback();
-<<<<<<< HEAD
-    } else {
-        document.addEventListener("DOMContentLoaded", callback);
-=======
         //console.log("ready state is 'complete'");
     } else {
         document.addEventListener("DOMContentLoaded", callback);
         //console.log("Listener was invoked");
->>>>>>> f252d123841189e9938ba1bd6d8b9dd3f0aed88a
     }
 }

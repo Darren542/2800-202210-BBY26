@@ -1,15 +1,10 @@
 "use strict";
 async function loadSkeleton() {
-<<<<<<< HEAD
-    await ($('#navbar-placeholder').load('/nav'));
-    await ($('#footer-placeholder').load('/footer'));
-=======
     await $('#navbar-placeholder').load('/nav');
     await $('#footer-placeholder').load('/footer');
 
 
 
->>>>>>> f252d123841189e9938ba1bd6d8b9dd3f0aed88a
 }
 loadSkeleton(); 
 
