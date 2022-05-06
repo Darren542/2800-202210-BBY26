@@ -7,7 +7,6 @@ const app = express();
 app.use(express.json());
 const fs = require("fs");
 const session = require("express-session");
-const { JSDOM } = require('jsdom');
 
 // just like a simple web server like Apache web server
 // we are mapping file system paths to the app's virtual paths
@@ -27,7 +26,7 @@ app.use(session(
 app.get("/", function (req, res) {
     //Need to add code to check if user logged in
     // let doc = fs.readFileSync("./app/html/home.html", "utf8");
-    
+
     if (req.session.loggedIn) {
         res.redirect("/profile");
     } else {
@@ -58,7 +57,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
-
+// Arron's example Word for Word
 app.post("/login", function (req, res) {
     res.setHeader("Content-Type", "application/json");
 
@@ -69,9 +68,9 @@ app.post("/login", function (req, res) {
         req.session.email = "arron_ferguson@bcit.ca";
         req.session.name = "Arron";
         req.session.save(function (err) {
-            
+
         });
-        
+
         res.send({ status: "success", msg: "Logged in." });
     } else {
         res.send({ status: "fail", msg: "User account not found." });
@@ -98,18 +97,18 @@ app.get("/signup", function (req, res) {
     res.send(doc);
 });
 
-app.get("/nav", function(req, res) {
+app.get("/nav", function (req, res) {
     let doc = fs.readFileSync("./app/templates/nav.html", "utf8");
     res.send(doc);
 })
 
 
-app.get("/footer", function(req, res) {
+app.get("/footer", function (req, res) {
     let doc = fs.readFileSync("./app/templates/footer.html", "utf8");
     res.send(doc);
 })
 
-app.get("/splash", function(req, res) {
+app.get("/splash", function (req, res) {
     let doc = fs.readFileSync("./app/html/splash.html", "utf8");
     res.send(doc);
 })
@@ -121,6 +120,42 @@ app.use(function (req, res, next) {
     res.status(404).send("<html><head><title>Page not found!</title></head><body><p>Nothing here.</p></body></html>");
 });
 
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Notice that this is a 'POST'
+app.post('/add-user', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+
+    console.log("Email", req.body.email);
+    console.log("Password", req.body.password);
+    console.log("Confrim_Password", req.body.confirmPassword);
+
+    let connection = mysql.createConnection({
+        host: 'localhost',
+        user: 'root',
+        password: '',
+        // our database name
+        database: 'bby-26'
+    });
+    connection.connect();
+    // TO PREVENT SQL INJECTION, DO THIS:
+    // (FROM https://www.npmjs.com/package/mysql#escaping-query-values)
+    connection.query('INSERT INTO Users (email, password, confrimPassword) values (?, ?)',
+    // need to edit from here
+        [req.body.name, req.body.email],
+        function (error, results, fields) {
+            if (error) {
+                console.log(error);
+            }
+            //console.log('Rows returned are: ', results);
+            res.send({ status: "success", msg: "Record added." });
+
+        });
+    connection.end();
+
+});
 
 // RUN SERVER
 let port = 8000;

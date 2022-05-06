@@ -11,6 +11,12 @@
         margin: 0%;
         padding: 0%;
     }
+    
+    #header {
+        backdrop-filter: blur(10px);
+        grid-column: 2 / 3;
+        grid-row: 1 / 2;
+    }
 
     body {
         background-image: url("dog-signup.png");
@@ -19,6 +25,7 @@
 
     #sign-up {
         grid-column: 2 / 3;
+        grid-row: 2 / 10;
         display: flex;
         align-items: flex-start;
         justify-content: center;
@@ -28,9 +35,6 @@
         backdrop-filter: blur(10px);
     }
 
-    #header {
-        backdrop-filter: blur(10px);
-    }
 }
 
 /*  https://www.w3schools.com/html/html_forms.asp used this make fromes */

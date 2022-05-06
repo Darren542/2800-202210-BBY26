@@ -2,11 +2,13 @@
 <html lang="en">
 
 <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SignUp Page</title>
     <link rel="stylesheet" href="css/signup.css">
+    <link rel="stylesheet" href="css/client.css">
 </head>
 
 
@@ -14,13 +16,14 @@
     <!-- nav bar -->
     <div id="navbar-placeholder"></div><br>
 
-    <!--  -->
-    <div id="header">
-        <p><h2>Create an Account Today. 🐶</h2></p>
-    </div>
     
     <div id="container">
 
+        <!-- header -->
+        <div id="header">
+            <p><h2>Create an Account Today. 🐶</h2></p>
+        </div>
+        
         <!-- From for email & password -->
         <div id="sign-up">
             <div id="signup-info">
@@ -30,9 +33,9 @@
                     <label for="password">Password:</label><br>
                     <input type="text" id="password"><br>
                     <label for="password">Confirm Password:</label><br>
-                    <input type="text" id="password"><br><br>
-                    <!-- <a href="#">Forgot Password?</a><br><br> -->
-                    <button class="buttons" id="signup-button">Sign-Up</button>
+                    <input type="text" id="confirm-password"><br><br>
+                    <div id="check-password"></div><br><br>
+                    <button class="buttons" id="signup-button" onclick="checkPassword()">Sign-Up</button>
                 </form>
             </div>
         </div>
@@ -42,7 +45,7 @@
     <div id="footer-placeholder"></div>
 
     <!-- fix this later -->
-    <script src="js/client.js"></script>
+    <script src="js/skeleton.js"></script>
     <script src="js/signup.js"></script>
 
 </body>
