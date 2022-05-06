@@ -25,6 +25,18 @@ document.getElementById("submit").addEventListener("click", function (e) {
                         document.getElementById("email-taken").classList.remove("no-show");
                     } else {
                         console.log("email not taken");
+                        let queryString = "username=" + formData.username + "&password=" + formData.password;
+                        ajaxPOST("/login", function (data) {
+                            if (data) {
+                                let dataParsed = JSON.parse(data);
+                                console.log(dataParsed);
+                                if (dataParsed.status == "fail") {
+                                    console.log(dataParsed.msg);
+                                } else {
+                                    window.location.href = "/";
+                                }
+                            }
+                        }, queryString);
                     }
                     //getUser();
                 } else {
@@ -44,3 +56,24 @@ document.getElementById("submit").addEventListener("click", function (e) {
         xhr.send("username=" + formData.username + "&email=" + formData.email + "&password=" + formData.password);
     }
 });
+
+function ajaxPOST(url, callback, data) {
+    let params = typeof data == 'string' ? data : Object.keys(data).map(
+        function (k) { return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]) }
+    ).join('&');
+    const xhr = new XMLHttpRequest();
+    xhr.onload = function () {
+        if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
+            //console.log('responseText:' + xhr.responseText);
+            callback(this.responseText);
+
+        } else {
+            console.log(this.status);
+        }
+    }
+    xhr.open("POST", url);
+
+    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.send(params);
+}
