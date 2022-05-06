@@ -59,10 +59,10 @@ C:.
     |       splash.css
     |       
     +---img
-    |       dog-signup.jpg              
+    |       dog-signup.jpg              // From Pinterest.com
     |       K_9_Meet-logos.jpeg         // Made using Adobe logomaker
     |       logo-transparent.png        // Made using Adobe logomaker
-    |       signup-page-desktop.jpg     
+    |       signup-page-desktop.jpg     // From Pinterest.com
     |       splash-image.jpg            // Image taken by Darren
     |       steveston-dog-park.jpg      // Image of steveston dog park from thedognetwork.ca
     |       
@@ -74,8 +74,3 @@ C:.
             skeleton.js
             splash.js
 ```
-Desktop image for sign up page
-https://www.google.com/url?sa=i&url=https%3A%2F%2Funsplash.com%2Fs%2Fphotos%2Fdog-playing&psig=AOvVaw1BglTxmXbKyDWh4352h0qf&ust=1651963965182000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCPjxib37y_cCFQAAAAAdAAAAABAD
-
-    This is where I got the image puppy image for Mobile. For the background.
-    https://www.pinterest.com/pin/662803270141957661/
