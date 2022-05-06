@@ -160,7 +160,12 @@ app.get("/signup", function (req, res) {
 });
 
 app.get("/nav", function (req, res) {
-    let doc = fs.readFileSync("./app/templates/nav.html", "utf8");
+    let doc;
+    if (req.session.loggedIn) {
+        doc = fs.readFileSync("./app/templates/nav.html", "utf8");
+    } else {
+        doc = fs.readFileSync("./app/templates/nav-logged-out.html", "utf8");
+    }
     res.send(doc);
 })
 
