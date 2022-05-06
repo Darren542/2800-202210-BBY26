@@ -3,8 +3,8 @@
 // (navbar, footer, and other things) into html doc. 
 //---------------------------------------------------
 async function loadSkeleton() {
-    await console.log($('#navbar-placeholder').load('/nav'));
-    await console.log($('#footer-placeholder').load('/footer'));
+    await $('#navbar-placeholder').load('/nav');
+    await $('#footer-placeholder').load('/footer');
 
 
 
