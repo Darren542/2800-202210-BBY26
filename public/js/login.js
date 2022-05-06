@@ -10,7 +10,7 @@ ready(function () {
                 callback(this.responseText);
 
             } else {
-                console.log(this.status);
+                //console.log(this.status);
             }
         }
         xhr.open("POST", url);
@@ -31,9 +31,9 @@ ready(function () {
         ajaxPOST("/login", function (data) {
             if (data) {
                 let dataParsed = JSON.parse(data);
-                console.log(dataParsed);
+                //console.log(dataParsed);
                 if (dataParsed.status == "fail") {
-                    console.log(dataParsed.msg);
+                    //console.log(dataParsed.msg);
                 } else {
                     window.location.href = "/";
                 }
@@ -46,9 +46,9 @@ ready(function () {
 function ready(callback) {
     if (document.readyState != "loading") {
         callback();
-        console.log("ready state is 'complete'");
+        //console.log("ready state is 'complete'");
     } else {
         document.addEventListener("DOMContentLoaded", callback);
-        console.log("Listener was invoked");
+        //console.log("Listener was invoked");
     }
 }

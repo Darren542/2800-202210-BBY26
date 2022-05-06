@@ -7,8 +7,6 @@ document.getElementById("submit").addEventListener("click", function (e) {
         password: document.getElementById("password").value,
         confirmPassword: document.getElementById("confirm-password").value
     };
-    console.log("password", formData.password);
-    console.log("c-password", formData.confirmPassword);
     if (formData.password != formData.confirmPassword) {
         document.getElementById("password").value = "";
         document.getElementById("confirm-password").value = "";
@@ -24,28 +22,24 @@ document.getElementById("submit").addEventListener("click", function (e) {
                     if (reply.status == "failure") {
                         document.getElementById("email-taken").classList.remove("no-show");
                     } else {
-                        console.log("email not taken");
                         let queryString = "username=" + formData.username + "&password=" + formData.password;
                         ajaxPOST("/login", function (data) {
                             if (data) {
                                 let dataParsed = JSON.parse(data);
-                                console.log(dataParsed);
                                 if (dataParsed.status == "fail") {
-                                    console.log(dataParsed.msg);
                                 } else {
                                     window.location.href = "/";
                                 }
                             }
                         }, queryString);
                     }
-                    //getUser();
                 } else {
                 // not a 200, could be anything (404, 500, etc.)
-                console.log(this.status);
+                //console.log(this.status);
             }
         } 
             else {
-                console.log("ERROR", this.status);
+                //console.log("ERROR", this.status);
             }
         }
         document.getElementById("password").value = "";
