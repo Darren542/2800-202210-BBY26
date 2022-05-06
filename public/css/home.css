@@ -174,7 +174,7 @@
 
     #greeting p {
         margin: auto;
-        font-size: 15vw;
+        font-size: 10vw;
         color: rgb(175, 175, 205);
     }
 }
