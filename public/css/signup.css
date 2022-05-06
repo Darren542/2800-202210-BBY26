@@ -48,9 +48,9 @@ body {
 }
 
 #container {
-    background-image: url("../img/dog-signup.png");
-    background-position: center;
-    background-size: contain;
+    background-image: url("../img/dog-signup.jpg");
+    background-position: center bottom;
+    background-size: cover;
     background-repeat: no-repeat;
     background-color: rgb(50, 136, 159);
 }
@@ -63,27 +63,47 @@ body {
     justify-content: center;
 }
 
-#signup-info {
-    backdrop-filter: blur(8px);
-}
-
 #header {
     backdrop-filter: blur(8px);
-    grid-column: 2 / span 1;
+    grid-column: 1 / span 2;
     grid-row: 1 / span 1;
     text-align: center;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-#header {
-    color: aliceblue;
+    width:100vw;
     font-family: 'Koulen';
     font-family: 'Saira', sans-serif;
     font-family: 'Sansita Swashed', cursive;
     font-family: 'Square Peg', cursive;
 }
+
+label {
+    color: rgb(0, 0, 0);
+    font-family: 'Inter', sans-serif;
+    font-family: 'Saira', sans-serif;
+    font-family: 'Sansita Swashed', cursive;
+    font-family: 'Square Peg', cursive;
+    font-family: 'Work Sans', sans-serif;
+}
+
+@media (min-width: 751px) {
+
+    #container {
+        background-image: url("../img/signup-page-desktop.jpg");
+        background-position: center bottom;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-color: rgb(50, 136, 159);
+    }
+
+    #header {
+        color: aliceblue;
+        font-family: 'Koulen';
+        font-family: 'Saira', sans-serif;
+        font-family: 'Sansita Swashed', cursive;
+        font-family: 'Square Peg', cursive;
+    }
 
     label {
         color: aliceblue;
@@ -93,8 +113,6 @@ body {
         font-family: 'Square Peg', cursive;
         font-family: 'Work Sans', sans-serif;
     }
-
-@media (min-width: 751px) {
 
     #header {
         backdrop-filter: blur(8px);
@@ -112,14 +130,13 @@ body {
 
 
 
+    /* I used this to set a the background image. */
+    /* https://www.w3schools.com/cssref/pr_background-image.asp */
+    
+    /* I used this to have background filter. */
+    /* https://developer.mozilla.org/en-US/docs/Web/CSS/backdrop-filter */
+    
+    /* This is where i got the image. For the background */
+    /* https://www.pinterest.com/pin/662803270141957661/ */
 }
 
-
-/* I used this to set a the background image. */
-/* https://www.w3schools.com/cssref/pr_background-image.asp */
-
-/* I used this to have background filter. */
-/* https://developer.mozilla.org/en-US/docs/Web/CSS/backdrop-filter */
-
-/* This is where i got the image. For the background */
-/* https://www.pinterest.com/pin/662803270141957661/ */

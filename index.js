@@ -89,7 +89,7 @@ app.get("/profile", function (req, res) {
     // check for a session first!
     if (req.session.loggedIn) {
 
-        res.send("Welcome sir");
+        res.send("./app/html/home.html");
 
     } else {
         // not logged in - no session and no access, redirect to home!
@@ -102,9 +102,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
-app.get("/username", function (req, res){
-    res.send(req.session.username);
-});
+
+
 
 app.post("/login", function (req, res) {
 
