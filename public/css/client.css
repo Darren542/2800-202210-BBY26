@@ -112,6 +112,10 @@ body {
     font-size: 3em;
 }
 
+.no-scroll {
+    overflow: hidden;
+  }
+
 .hidden {
     transform: translateX(100%);
   }
@@ -125,16 +129,32 @@ body {
 }
 
 /* Footer Styling */
-#footer {
-    grid-row: 3 / span 1;
-    grid-column: 1 / span 1;
-    height: 50px;
-    width:100%;
-}
 
 #footer-placeholder {
     grid-row: 3 / span 1;
     grid-column: 1 / span 1;
     height: 50px;
     width:100%;
+    background: rgb(51, 72, 210);
+}
+
+#footer {
+    display:flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100%
+}
+
+.footer-item {
+    color:white;
+}
+
+.footer-link {
+    color:white;
+    text-decoration: underline;
+}
+
+.footer-link:hover {
+    cursor: pointer;
+    color:rgb(182, 220, 253);
 }

@@ -18,8 +18,9 @@ $(document).ready(function() {
     })
     let mobileNav =  document.querySelector("#nav-items");
     document.querySelector("#hamburger-menu").addEventListener("click", () => {
-        mobileNav.classList.toggle('hidden')
-        mobileNav.classList.toggle('flex')
+        mobileNav.classList.toggle('hidden');
+        mobileNav.classList.toggle('flex');
+        document.body.classList.toggle('no-scroll');
         console.log("Button clicked");
     })
 });
