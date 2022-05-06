@@ -20,9 +20,6 @@
     .dropdown {
         min-width: 10vw;
     }
-    body {
-        overflow-y: auto;
-    }
 
     .post {
         display: grid;

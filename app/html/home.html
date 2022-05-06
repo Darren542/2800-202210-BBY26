@@ -6,36 +6,40 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>K9M - Home</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/client.css">
 </head>
 
 <body>
     <div id="navbar-placeholder"></div>
 
-    <div id="greeting">
-        <p id="welcome">Welcome Back</p>
-        <p id="username-placeholder">Placeholder</p>
+    <div id="content">
+        <div id="greeting">
+            <p id="welcome">Welcome Back</p>
+            <p id="username-placeholder">Placeholder</p>
+        </div>
+    
+        <div id="epic">
+            <img src="https://i.ytimg.com/vi/FHytoCvj90w/maxresdefault.jpg" alt="epic-image">
+        </div>
+    
+        <div id="posts-container">
+            <p id="posts-header">Browse Events</p>
+            <p id="sort-option">Sort by <button class="dropdown"> distance </button> </p>
+            <div class="dropdown-content">
+                <p id="dropdown-option-1">distance</p>
+                <p id="dropdown-option-2">date</p>
+                <p id="dropdown-option-3">participants</p>
+            </div>
+            <div id="posts-loader">
+                <p>No posts found!<p>
+            </div>
+        </div>
     </div>
 
-    <div id="epic">
-        <img src="https://i.ytimg.com/vi/FHytoCvj90w/maxresdefault.jpg" alt="epic-image">
-    </div>
-
-    <div id="posts-container">
-        <p id="posts-header">Browse Events</p>
-        <p id="sort-option">Sort by <button class="dropdown"> distance </button> </p>
-        <div class="dropdown-content">
-            <p id="dropdown-option-1">distance</p>
-            <p id="dropdown-option-2">date</p>
-            <p id="dropdown-option-3">participants</p>
-        </div>
-        <div id="posts-loader">
-            <p>No posts found!<p>
-        </div>
-    </div>
 
     <div id="footer-placeholder"></div>
-    <script src="js/client.js"></script>
     <script src="js/skeleton.js"></script>
 </body>
 
