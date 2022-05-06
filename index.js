@@ -30,7 +30,16 @@ app.get("/", function (req, res) {
     // let doc = fs.readFileSync("./app/html/home.html", "utf8");
 
     if (req.session.loggedIn) {
-        res.redirect("/profile");
+        if (req.session.isAdmin) {
+            let doc = fs.readFileSync("./app/html/admin.html", "utf8");
+            //res.set("Server", "Wazubi Engine");
+            //res.set("X-Powered-By", "Wazubi");
+            res.send(doc);
+        }
+        let doc = fs.readFileSync("./app/html/splash.html", "utf8");
+        //res.set("Server", "Wazubi Engine");
+        //res.set("X-Powered-By", "Wazubi");
+        res.send(doc);
     } else {
 
         let doc = fs.readFileSync("./app/html/splash.html", "utf8");
@@ -39,6 +48,31 @@ app.get("/", function (req, res) {
         res.send(doc);
     }
 });
+
+app.get("/users", function (req, res) {
+    if (req.session.loggedIn && req.session.isAdmin) {
+        const mysql = require("mysql2");
+        const connection = mysql.createConnection({
+            host: "localhost",
+            user: "root",
+            password: "",
+            database: "bby26"
+        });
+        connection.connect();
+        connection.execute(
+            "SELECT * FROM users",
+            function (error, results) {
+                console.log("results:", results);
+                myResults = results;
+                if (error) {
+                    console.log(error);
+                }
+                res.send(results);
+            });
+        connection.end();
+    }
+})
+
 
 app.get("/login", function (req, res) {
     if (req.session.loggedIn) {
@@ -67,7 +101,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
-
+app.get("/username", function (req, res){
+    res.send(req.session.username);
+})
 app.post("/login", function (req, res) {
 
     const mysql = require("mysql2");
