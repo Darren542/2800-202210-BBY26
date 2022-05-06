@@ -29,45 +29,47 @@ function getUser() {
     xhr.open("GET", "/get-customers");
     xhr.send();
 }
-getUser();
+// getUser();
 
 document.getElementById("submit").addEventListener("click", function (e) {
     e.preventDefault();
 
     let formData = {
-        name: document.getElementById("name").value,
-        email: document.getElementById("email").value
+        username: document.getElementById("username").value,
+        email: document.getElementById("email").value,
+        password: document.getElementById("password").value,
+        confirmPassword: document.getElementById("confirm-password").value
     };
-    document.getElementById("name").value = "";
-    document.getElementById("email").value = "";
-
-
-    const xhr = new XMLHttpRequest();
-    xhr.onload = function () {
-        if (this.readyState == XMLHttpRequest.DONE) {
-
-            // 200 means everthing worked
-            if (xhr.status === 200) {
-
-                getUser();
-                document.getElementById("status").innerHTML = "DB updated.";
-
-            } else {
-
+    console.log("password", formData.password);
+    console.log("c-password", formData.confirmPassword);
+    if (formData.password != formData.confirmPassword) {
+        document.getElementById("password").value = "";
+        document.getElementById("confirm-password").value = "";
+        document.getElementById("no-match").classList.remove("no-show");
+    } 
+    else {
+        const xhr = new XMLHttpRequest();
+        xhr.onload = function () {
+            if (this.readyState == XMLHttpRequest.DONE) {
+                // 200 means everthing worked
+                if (xhr.status === 200) {
+                    //getUser();
+                } else {
                 // not a 200, could be anything (404, 500, etc.)
                 console.log(this.status);
-
             }
-
-        } else {
-            console.log("ERROR", this.status);
+        } 
+            else {
+                console.log("ERROR", this.status);
+            }
         }
+        document.getElementById("password").value = "";
+        document.getElementById("confirm-password").value = "";
+        xhr.open("POST", "/add-user");
+        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send("username=" + formData.username + "&email=" + formData.email + "&password=" + formData.password);
     }
-    xhr.open("POST", "/add-customer");
-    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.send("name=" + formData.name + "&email=" + formData.email);
-
 })
 
 
@@ -84,7 +86,7 @@ function checkPassword() {
     // Check if confrimPassword isn't null or undefined or empty
     if (confrimPassword == null || confrimPassword == undefined) {
 
-        console.log('confrim password fild null');
+        console.log('confirmm password field null');
         // document.getElementById('chech=')
     } else {
         validation = (password === confrimPassword ? '' : 'Passwords must Match');

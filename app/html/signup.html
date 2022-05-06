@@ -30,12 +30,16 @@
                 <form method="get"><br><br>
                     <label for="email">Email:</label><br>
                     <input type="text" id="email" name="email"><br>
+                    <label for="username">Username:</label><br>
+                    <input type="text" id="username" name="username"><br>
                     <label for="password">Password:</label><br>
-                    <input type="text" id="password"><br>
+                    <input type="password" id="password"><br>
                     <label for="password">Confirm Password:</label><br>
-                    <input type="text" id="confirm-password"><br><br>
+                    <input type="password" id="confirm-password"><br><br>
                     <div id="check-password"></div><br><br>
-                    <button class="buttons" id="signup-button" onclick="checkPassword()">Sign-Up</button>
+                    <button class="buttons" id="signup-button" onclick="checkPassword()">Check account</button>
+                    <button class="buttons" id="submit" name="submit" type="button">Sign-Up</button>
+                    <div id="no-match" class="no-show">Passwords do not match</div>
                 </form>
             </div>
         </div>

@@ -5,6 +5,14 @@
     height: 100vh;
 }
 
+#no-match {
+    color: red;
+}
+
+.no-show {
+    display: none;
+}
+
 @media (max-width: 751px) {
     
     #header {
