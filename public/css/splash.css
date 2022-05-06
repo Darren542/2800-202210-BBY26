@@ -68,7 +68,9 @@
 }
 
 h2 {
-    font-size: 1.9em;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: 2.4em;
+    font-weight: bold;
     color: white;
     -webkit-text-stroke: .7px black;
     margin-bottom: 0;
