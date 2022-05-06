@@ -140,6 +140,10 @@ app.post("/login", function (req, res) {
     connection.end();
 });
 
+app.get("/username", function (req, res){
+    res.send(req.session.username);
+})
+
 app.get("/logout", function (req, res) {
     if (req.session) {
         req.session.destroy(function (error) {
