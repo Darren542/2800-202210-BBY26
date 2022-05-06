@@ -1,3 +1,25 @@
+/* Heading stlying */
+@import url('https://fonts.googleapis.com/css2?family=Koulen&family=Saira:ital,wght@1,500&family=Sansita+Swashed:wght@500&family=Square+Peg&display=swap');
+
+/* text stlying  */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300&family=Saira:ital,wght@1,500&family=Sansita+Swashed:wght@500&family=Square+Peg&family=Work+Sans:wght@300&display=swap');
+
+
+body {
+    margin: 0%;
+    padding: 0%;
+}
+
+.btn {
+    font-size: 1.4em;
+    color: black;
+    width: 100px;
+    height: 50px;
+    background-color: rgb(130, 177, 221);
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
 #container {
     /* background-color: aqua; */
     display: grid;
@@ -10,59 +32,67 @@
     color: red;
 }
 
-    #container {
-        background-image: url("dog-signup.png");
-        background-position: center;
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-color: rgb(50, 136, 159);
-    }
+#email-taken {
+    color: red;
+}
 
-    #sign-up {
-        grid-column: 2 / span 1;
-        grid-row: 2 / span 1;
-        display: flex;
-        align-items: flex-start;
-        justify-content: center;
-    }
+.no-show {
+    display: none;
+}
 
-    #signup-info {
-        backdrop-filter: blur(8px);
-    }
+#container {
+    background-image: url("../img/dog-signup.png");
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: rgb(50, 136, 159);
+}
 
-    #header {
-        backdrop-filter: blur(10px);
-        grid-column: 2 / span 1;
-        grid-row: 1 / span 1;
-        text-align: center;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+#sign-up {
+    grid-column: 2 / span 1;
+    grid-row: 2 / span 1;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+#signup-info {
+    backdrop-filter: blur(8px);
+}
+
+#header {
+    backdrop-filter: blur(8px);
+    grid-column: 2 / span 1;
+    grid-row: 1 / span 1;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 @media (min-width: 751px) {
-    body {
-        margin: 0%;
-        padding: 0%;
-    }
 
-    h2 {
+    #header {
         color: aliceblue;
+        font-family: 'Koulen';
+        font-family: 'Saira', sans-serif;
+        font-family: 'Sansita Swashed', cursive;
+        font-family: 'Square Peg', cursive;
     }
 
     label {
         color: aliceblue;
+        font-family: 'Inter', sans-serif;
+        font-family: 'Saira', sans-serif;
+        font-family: 'Sansita Swashed', cursive;
+        font-family: 'Square Peg', cursive;
+        font-family: 'Work Sans', sans-serif;
     }
-    
+
     #header {
         backdrop-filter: blur(8px);
         grid-column: 1 / 3;
         grid-row: 1 / 2;
-    }
-
-    body {
-        background-image: url("signup-page-desktop.jpg");
-        background-size: cover;
     }
 
     #sign-up {
@@ -71,10 +101,6 @@
         display: flex;
         align-items: flex-start;
         justify-content: center;
-    }
-
-    #signup-info {
-        backdrop-filter: blur(8px);
     }
 
 }
