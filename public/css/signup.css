@@ -21,6 +21,11 @@ body {
     border-radius: 10px;
 }
 
+.btn:hover {
+    cursor: pointer;
+    background-color:rgb(69, 69, 206);
+}
+
 #button {
     display: flex;
     align-items: center;
