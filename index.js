@@ -36,7 +36,7 @@ app.get("/", function (req, res) {
             //res.set("X-Powered-By", "Wazubi");
             res.send(doc);
         }
-        let doc = fs.readFileSync("./app/html/splash.html", "utf8");
+        let doc = fs.readFileSync("./app/html/home.html", "utf8");
         //res.set("Server", "Wazubi Engine");
         //res.set("X-Powered-By", "Wazubi");
         res.send(doc);

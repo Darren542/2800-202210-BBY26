@@ -1,6 +1,6 @@
 CREATE database bby26;
 
-USE database bby26;
+USE bby26;
 
 CREATE table users(
 	userID int NOT NULL AUTO_INCREMENT PRIMARY KEY, 
