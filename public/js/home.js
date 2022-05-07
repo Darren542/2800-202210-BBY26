@@ -1,3 +1,7 @@
+"use strict";
+//------------------------------------------------
+// Gets users name to display on page.
+//------------------------------------------------
 function ready() {
     const getname = new XMLHttpRequest();
     getname.onreadystatechange = function () {

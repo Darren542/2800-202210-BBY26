@@ -1,0 +1,29 @@
+#user_container {
+    /* background-color: aqua; */
+    display: grid;
+    grid-template-columns: 1fr;
+    height: 100vh;
+}
+
+body {
+    background-color:cyan;
+}
+
+#user-info {
+    grid-row: 2 / 5;
+}
+
+#user-info {
+    font-size: large;
+}
+
+@media (min-width: 751px) {
+
+    body {
+        background-color:darkcyan;
+    }
+
+    #user-info {
+        font-size: medium;
+    }
+}

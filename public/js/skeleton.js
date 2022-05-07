@@ -1,15 +1,12 @@
-//---------------------------------------------------
-// This function loads the parts of your skeleton 
-// (navbar, footer, and other things) into html doc. 
-//---------------------------------------------------
+"use strict";
 async function loadSkeleton() {
-    await console.log($('#navbar-placeholder').load('/nav'));
-    await console.log($('#footer-placeholder').load('/footer'));
+    await $('#navbar-placeholder').load('/nav');
+    await $('#footer-placeholder').load('/footer');
 
 
 
 }
-loadSkeleton();  //invoke the function
+loadSkeleton(); 
 
 $(document).ready(function () {
 

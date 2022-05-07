@@ -4,6 +4,15 @@ body{
     font-family: 'Inter', sans-serif;
 }
 
+
+#no-match {
+    color: red;
+}
+
+.no-show {
+    display: none;
+}
+
 #fill {
     display: grid;
     grid-template-rows: 27% 27% 27% 27% 27%;
@@ -38,6 +47,14 @@ body{
 }
 
 @media screen and (max-width: 850px) {
+        
+    #no-match {
+        color: red;
+    }
+        
+    .no-show {
+        display: none;
+    }
     #content {
         display: flex;
         justify-content: flex-start;
