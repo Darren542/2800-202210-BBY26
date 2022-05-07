@@ -7,7 +7,6 @@ app.use(express.json());
 const fs = require("fs");
 const session = require("express-session");
 const { JSDOM } = require('jsdom');
-const { ppid } = require("process");
 const mysql = require('mysql2');
 
 app.use("/js", express.static("./public/js"));
@@ -27,9 +26,10 @@ app.get("/", function (req, res) {
         if (req.session.isAdmin) {
             let doc = fs.readFileSync("./app/html/admin.html", "utf8");
             res.send(doc);
+        } else {
+            let doc = fs.readFileSync("./app/html/home.html", "utf8");
+            res.send(doc);
         }
-        let doc = fs.readFileSync("./app/html/home.html", "utf8");
-        res.send(doc);
     } else {
         let doc = fs.readFileSync("./app/html/splash.html", "utf8");
         res.send(doc);
@@ -78,9 +78,6 @@ app.get("/profile", function (req, res) {
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-
-
 
 
 app.post("/login", function (req, res) {
@@ -149,15 +146,11 @@ app.get("/nav", function (req, res) {
     res.send(doc);
 })
 
-app.get("/search", function (req, res) {
-    //to be implemented
-    res.redirect("/");
-});
-
 app.get("/footer", function (req, res) {
     let doc = fs.readFileSync("./app/templates/footer.html", "utf8");
     res.send(doc);
 })
+
 
 app.get("/splash", function (req, res) {
     if (req.session.loggedIn){
@@ -166,6 +159,26 @@ app.get("/splash", function (req, res) {
     let doc = fs.readFileSync("./app/html/splash.html", "utf8");
     res.send(doc);
 })
+
+app.get("/event", function (req, res) {
+    let doc = fs.readFileSync("./app/html/event.html", "utf8");
+    res.send(doc);
+})
+
+app.get("/search", function (req, res) {
+    let doc = fs.readFileSync("./app/html/search.html", "utf8");
+    res.send(doc);
+})
+
+app.get("/create", function (req, res) {
+    if (req.session.loggedIn){
+        let doc = fs.readFileSync("./app/html/create.html", "utf8");
+        res.send(doc);
+    } else {
+        res.redirect("/");
+    }    
+})
+
 
 app.post("/add-user", function (req, res) {
     res.setHeader('Content-Type', 'application/json');
