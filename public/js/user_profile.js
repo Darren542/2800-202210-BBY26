@@ -1,3 +1,4 @@
+"use strict";
 function getname() {
     const getname = new XMLHttpRequest();
     getname.onreadystatechange = function () {
@@ -13,7 +14,7 @@ getname();
 
 function getemail() {
     const getemail = new XMLHttpRequest();
-    getname.onreadystatechange = function () {
+    getemail.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("useremail").innerHTML = this.responseText;
         }

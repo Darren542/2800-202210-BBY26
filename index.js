@@ -116,7 +116,7 @@ app.get("/username", function (req, res){
 })
 
 app.get("/email", function (req, res){
-    res.send(req.session.username);
+    res.send(req.session.email);
 })
 
 app.get("/logout", function (req, res) {
@@ -142,10 +142,12 @@ app.get("/signup", function (req, res) {
 
 app.get("/user_profile", function (req, res) {
     if (req.session.loggedIn) {
+        let doc = fs.readFileSync("./app/html/user_profile.html", "utf8");
+        res.send(doc);
+    } else {
         res.redirect("/");
     }
-    let doc = fs.readFileSync("./app/html/user_profile.html", "utf8");
-    res.send(doc);
+
 });
 
 app.get("/nav", function (req, res) {
