@@ -119,6 +119,10 @@ app.get("/username", function (req, res){
     res.send(req.session.username);
 })
 
+app.get("/email", function (req, res){
+    res.send(req.session.username);
+})
+
 app.get("/logout", function (req, res) {
     if (req.session) {
         req.session.destroy(function (error) {
@@ -137,6 +141,14 @@ app.get("/signup", function (req, res) {
         res.redirect("/");
     }
     let doc = fs.readFileSync("./app/html/signup.html", "utf8");
+    res.send(doc);
+});
+
+app.get("/user_profile", function (req, res) {
+    if (req.session.loggedIn) {
+        res.redirect("/");
+    }
+    let doc = fs.readFileSync("./app/html/user_profile.html", "utf8");
     res.send(doc);
 });
 

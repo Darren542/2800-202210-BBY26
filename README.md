@@ -10,7 +10,7 @@ This is a web app for made for Comp 2800 & Comp 2537.
 Members:
 * Darren Luck
 * Brian Cherng
-* Aryan Jand
+* Aryan Jand (A01169131)
 * Pahul Sidhu
 * Germanpreet Singh
 
