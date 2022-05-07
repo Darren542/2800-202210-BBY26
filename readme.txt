@@ -1,11 +1,10 @@
 Team Members:
-Darren Luck, A00964037, SET 1D, May 6th 2022
-Brian Cherng, [Student ID], [Set], [Date]
-Aryan Jand, [Student ID], [Set], [Date]
-Pahul Sidhu, [Student ID], [Set], [Date]
-Germanpreet Singh, [Student ID], [Set], [Date]
+Darren Luck, A00964037, Set 1D, May 6th 2022
+Brian Cherng, A01056291, Set 1C, May 6th 2022
+Aryan Jand, [Student ID], [Set], May 6th 2022
+Pahul Sidhu, [Student ID], [Set], May 6th 2022
+Germanpreet Singh, A01312851, Set 1A, May 6th 2022
 
-This assignment is [enter percent]% complete.
+This assignment is 95% complete.
 
-[explanation if not complete, what is working/not 
-working]
+Profile page needs to be added.

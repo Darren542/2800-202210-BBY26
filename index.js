@@ -7,7 +7,6 @@ app.use(express.json());
 const fs = require("fs");
 const session = require("express-session");
 const { JSDOM } = require('jsdom');
-const { ppid } = require("process");
 const mysql = require('mysql2');
 
 app.use("/js", express.static("./public/js"));
@@ -27,9 +26,10 @@ app.get("/", function (req, res) {
         if (req.session.isAdmin) {
             let doc = fs.readFileSync("./app/html/admin.html", "utf8");
             res.send(doc);
+        } else {
+            let doc = fs.readFileSync("./app/html/home.html", "utf8");
+            res.send(doc);
         }
-        let doc = fs.readFileSync("./app/html/home.html", "utf8");
-        res.send(doc);
     } else {
         let doc = fs.readFileSync("./app/html/splash.html", "utf8");
         res.send(doc);
@@ -43,13 +43,13 @@ app.get("/users", function (req, res) {
             host: "localhost",
             user: "root",
             password: "",
-            database: "bby26"
+            database: "BBY_26"
         });
         connection.connect();
         connection.execute(
-            "SELECT * FROM users",
+            "SELECT * FROM BBY_26_users",
             function (error, results) {
-                console.log("results:", results);
+                //console.log("results:", results);
                 if (error) {
                     console.log(error);
                 }
@@ -58,7 +58,6 @@ app.get("/users", function (req, res) {
         connection.end();
     }
 })
-
 
 app.get("/login", function (req, res) {
     if (req.session.loggedIn) {
@@ -71,7 +70,7 @@ app.get("/login", function (req, res) {
 
 app.get("/profile", function (req, res) {
     if (req.session.loggedIn) {
-        res.send("./app/html/home.html");
+        res.redirect("/");
     } else {
         res.redirect("/");
     }
@@ -81,20 +80,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
-
-
-
 app.post("/login", function (req, res) {
     const mysql = require("mysql2");
     const connection = mysql.createConnection({
         host: "localhost",
         user: "root",
         password: "",
-        database: "bby26"
+        database: "BBY_26"
     });
     connection.connect();
     connection.execute(
-        "SELECT * FROM users WHERE username = ?",
+        "SELECT * FROM BBY_26_users WHERE username = ?",
         [req.body.username],
         function (error, results) {
             if (error) {
@@ -162,15 +158,11 @@ app.get("/nav", function (req, res) {
     res.send(doc);
 })
 
-app.get("/search", function (req, res) {
-    //to be implemented
-    res.redirect("/");
-});
-
 app.get("/footer", function (req, res) {
     let doc = fs.readFileSync("./app/templates/footer.html", "utf8");
     res.send(doc);
 })
+
 
 app.get("/splash", function (req, res) {
     if (req.session.loggedIn){
@@ -180,16 +172,36 @@ app.get("/splash", function (req, res) {
     res.send(doc);
 })
 
+app.get("/event", function (req, res) {
+    let doc = fs.readFileSync("./app/html/event.html", "utf8");
+    res.send(doc);
+})
+
+app.get("/search", function (req, res) {
+    let doc = fs.readFileSync("./app/html/search.html", "utf8");
+    res.send(doc);
+})
+
+app.get("/create", function (req, res) {
+    if (req.session.loggedIn){
+        let doc = fs.readFileSync("./app/html/create.html", "utf8");
+        res.send(doc);
+    } else {
+        res.redirect("/");
+    }    
+})
+
+
 app.post("/add-user", function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let connection = mysql.createConnection({
         host: 'localhost',
         user: 'root',
         password: '',
-        database: 'bby26'
+        database: 'BBY_26'
     });
     connection.connect();
-    connection.query('SELECT * FROM Users WHERE email = ?',[req.body.email], function (error, results, fields) {
+    connection.query('SELECT * FROM BBY_26_users WHERE email = ?',[req.body.email], function (error, results, fields) {
         if (error) {
         }
         if (results.length != 0) {
@@ -197,7 +209,7 @@ app.post("/add-user", function (req, res) {
             connection.end();
         }
         else {
-            connection.query('INSERT INTO Users (email, username, pw) values (?, ?, ?)',
+            connection.query('INSERT INTO BBY_26_users (email, username, pw) values (?, ?, ?)',
                 [req.body.email, req.body.username, req.body.password],
                 function (error, results, fields) {
                     if (error) {
@@ -213,12 +225,6 @@ app.post("/add-user", function (req, res) {
 app.use(function (req, res, next) {
     res.status(404).send("<html><head><title>Page not found!</title></head><body><p>Nothing here.</p></body></html>");
 });
-
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-
 
 let port = 8000;
 app.listen(port, function () {
