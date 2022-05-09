@@ -5,7 +5,6 @@
     "fs": "^0.0.1-security",
     "jsdom": "^19.0.0",
     "mysql2": "^2.3.3"
-  },
-  "start":"node index.js"
+  }
 }
 
