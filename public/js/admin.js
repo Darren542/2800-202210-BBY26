@@ -24,7 +24,7 @@ function ready() {
                 let deleteBtn = document.createElement("button");
                 deleteBtn.username = data[index].username;
                 deleteBtn.innerHTML = "Delete User";
-                
+
                 deleteBtn.addEventListener("click", deleteUser);
 
 
@@ -68,7 +68,6 @@ function deleteUser() {
     some form of confirmation
     */
     let params = "username=" + this.username;
-    console.log(params);
     const xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -83,25 +82,29 @@ function deleteUser() {
 
 function modifyPrivilege() {
     let text;
-    if (this.isAdmin){
+    if (this.isAdmin) {
         text = "This will demote the user.\nOk or Cancel.";
     } else {
         text = "This will promote the user.\nOk or Cancel.";
     }
-    if (confirm(text)){
+    if (confirm(text)) {
         const xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                location.reload();
+                if (this.responseText == "Need at least one account with admin privilege!") {
+                    document.getElementById("error-message").innerHTML = this.responseText;
+                } else {
+                    location.reload();
+                }
             }
         }
         xhttp.open("POST", "/modify-privilege");
         xhttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
         xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        if (this.isAdmin){
-            xhttp.send("username="+this.username+"&changeTo="+0);
+        if (this.isAdmin) {
+            xhttp.send("username=" + this.username + "&changeTo=" + 0);
         } else {
-            xhttp.send("username="+this.username+"&changeTo="+1);
+            xhttp.send("username=" + this.username + "&changeTo=" + 1);
         }
     };
 }

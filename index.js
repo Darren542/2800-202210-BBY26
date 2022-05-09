@@ -80,28 +80,50 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.post("/modify-privilege", function (req, res) {
-    const connection = mysql.createConnection({
+    const connection2 = mysql.createConnection({
         host: "localhost",
         user: "root",
         password: "",
         database: "BBY_26"
     });
-    connection.connect();
-    connection.execute(
-        "UPDATE BBY_26_users SET isAdmin = ? WHERE username = ?",
-        [req.body.changeTo, req.body.username],
+    connection2.connect();
+    connection2.execute(
+        "SELECT COUNT(isAdmin) AS DATA FROM BBY_26_users WHERE isAdmin = 1",
         function (error, results) {
             if (error) {
             }
-            if (results[0] != null) {
-                res.send({ status: "success", msg: "Deleted user." });
+            if (results[0].DATA != 1 || req.body.changeTo == 1) {
+                const connection = mysql.createConnection({
+                    host: "localhost",
+                    user: "root",
+                    password: "",
+                    database: "BBY_26"
+                });
+                connection.connect();
+                connection.execute(
+                    "UPDATE BBY_26_users SET isAdmin = ? WHERE username = ?",
+                    [req.body.changeTo, req.body.username],
+                    function (error, results) {
+                        if (error) {
+                        }
+                        if (results[0] != null) {
+                            res.send({ status: "success", msg: "Changed privilege." });
+                            location.reload();
+                        } else {
+                            res.send({ status: "fail", msg: "User account not found." });
+                        }
+                    }
+                );
+                connection.end();
             } else {
-                res.send({ status: "fail", msg: "User account not found." });
+                res.send("Need at least one account with admin privilege!");
             }
-        });
-    connection.end();
+        }
+    );
+    connection2.end();
 });
 app.post("/delete-user", function (req, res) {
+    console.log("username: " + req.body.username);
     const connection = mysql.createConnection({
         host: "localhost",
         user: "root",
@@ -154,11 +176,11 @@ app.post("/login", function (req, res) {
     connection.end();
 });
 
-app.get("/username", function (req, res){
+app.get("/username", function (req, res) {
     res.send(req.session.username);
 })
 
-app.get("/email", function (req, res){
+app.get("/email", function (req, res) {
     res.send(req.session.email);
 })
 
@@ -210,7 +232,7 @@ app.get("/footer", function (req, res) {
 
 
 app.get("/splash", function (req, res) {
-    if (req.session.loggedIn){
+    if (req.session.loggedIn) {
         res.redirect("/");
     }
     let doc = fs.readFileSync("./app/html/splash.html", "utf8");
@@ -228,12 +250,12 @@ app.get("/search", function (req, res) {
 })
 
 app.get("/create", function (req, res) {
-    if (req.session.loggedIn){
+    if (req.session.loggedIn) {
         let doc = fs.readFileSync("./app/html/create.html", "utf8");
         res.send(doc);
     } else {
         res.redirect("/");
-    }    
+    }
 })
 
 
@@ -246,7 +268,7 @@ app.post("/add-user", function (req, res) {
         database: 'BBY_26'
     });
     connection.connect();
-    connection.query('SELECT * FROM BBY_26_users WHERE email = ?',[req.body.email], function (error, results, fields) {
+    connection.query('SELECT * FROM BBY_26_users WHERE email = ?', [req.body.email], function (error, results, fields) {
         if (error) {
         }
         if (results.length != 0) {
@@ -260,7 +282,7 @@ app.post("/add-user", function (req, res) {
                     if (error) {
                     }
                     res.send({ status: "success", msg: "Record added." });
-        
+
                 });
             connection.end();
         }

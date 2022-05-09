@@ -1,11 +1,7 @@
-td {
-    border: 1px solid black;
+#error-message {
+    font-size: 32px;
+    color: red;
 }
-
-th {
-    border: 1px solid black;
-}
-
 body {
     background: rgb(239, 203, 203);
 }
