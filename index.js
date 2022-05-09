@@ -136,8 +136,10 @@ app.get("/signup", function (req, res) {
     if (req.session.loggedIn) {
         res.redirect("/");
     }
-    let doc = fs.readFileSync("./app/html/signup.html", "utf8");
-    res.send(doc);
+    else {
+        let doc = fs.readFileSync("./app/html/signup.html", "utf8");
+        res.send(doc);
+    }
 });
 
 app.get("/user_profile", function (req, res) {

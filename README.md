@@ -30,25 +30,26 @@ C:.
 |   database.sql
 |   dev.txt
 |   index.js
-|   package-lock.json
-|   package.json
 |   README.md
-|   tree.txt
-|   tree2.txt
+|   readme.txt
 |   
 +---app
 |   +---html
 |   |       admin.html
+|   |       create.html
+|   |       event.html
 |   |       home.html
 |   |       login.html
+|   |       search.html
 |   |       signup.html
 |   |       splash.html
+|   |       user_profile.html
 |   |       
 |   \---templates
 |           footer.html
 |           nav-logged-out.html
 |           nav.html
-|                      
+|                     
 \---public
     +---css
     |       admin.css
@@ -57,8 +58,10 @@ C:.
     |       login.css
     |       signup.css
     |       splash.css
+    |       user_profile.css
     |       
     +---img
+    |       favicon.ico                 // Made with favicon.io
     |       dog-signup.jpg              // From Pinterest.com
     |       K_9_Meet-logos.jpeg         // Made using Adobe logomaker
     |       logo-transparent.png        // Made using Adobe logomaker
@@ -73,4 +76,6 @@ C:.
             signup.js
             skeleton.js
             splash.js
+            user_profile.js
+            
 ```
