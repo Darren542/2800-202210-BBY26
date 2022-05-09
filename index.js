@@ -79,7 +79,50 @@ app.get("/profile", function (req, res) {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
+app.post("/modify-privilege", function (req, res) {
+    const connection = mysql.createConnection({
+        host: "localhost",
+        user: "root",
+        password: "",
+        database: "BBY_26"
+    });
+    connection.connect();
+    connection.execute(
+        "UPDATE BBY_26_users SET isAdmin = ? WHERE username = ?",
+        [req.body.changeTo, req.body.username],
+        function (error, results) {
+            if (error) {
+            }
+            if (results[0] != null) {
+                res.send({ status: "success", msg: "Deleted user." });
+            } else {
+                res.send({ status: "fail", msg: "User account not found." });
+            }
+        });
+    connection.end();
+});
+app.post("/delete-user", function (req, res) {
+    const connection = mysql.createConnection({
+        host: "localhost",
+        user: "root",
+        password: "",
+        database: "BBY_26"
+    });
+    connection.connect();
+    connection.execute(
+        "DELETE FROM BBY_26_users WHERE username = ?",
+        [req.body.username],
+        function (error, results) {
+            if (error) {
+            }
+            if (results[0] != null) {
+                res.send({ status: "success", msg: "Deleted user." });
+            } else {
+                res.send({ status: "fail", msg: "User account not found." });
+            }
+        });
+    connection.end();
+});
 app.post("/login", function (req, res) {
     const mysql = require("mysql2");
     const connection = mysql.createConnection({
