@@ -230,7 +230,7 @@ app.use(function (req, res, next) {
     res.status(404).send("<html><head><title>Page not found!</title></head><body><p>Nothing here.</p></body></html>");
 });
 
-let port = 8000;
+let port = process.env.port || 8000;
 app.listen(port, function () {
     console.log("Example app listening on port " + port + "!");
 });
