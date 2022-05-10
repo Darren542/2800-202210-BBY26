@@ -81,34 +81,66 @@ app.use(express.urlencoded({ extended: true }));
 
 
 app.post("/login", function (req, res) {
-    const mysql = require("mysql2");
-    const connection = mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "",
-        database: "BBY_26"
-    });
-    connection.connect();
-    connection.execute(
-        "SELECT * FROM BBY_26_users WHERE username = ?",
-        [req.body.username],
-        function (error, results) {
-            if (error) {
-            }
-            if (results[0] != null && req.body.password == results[0].pw) {
-                req.session.loggedIn = true;
-                req.session.userID = results[0].userID;
-                req.session.username = results[0].username;
-                req.session.email = results[0].email;
-                req.session.isAdmin = results[0].isAdmin;
-                req.session.save(function (err) {
-                });
-                res.send({ status: "success", msg: "Logged in." });
-            } else {
-                res.send({ status: "fail", msg: "User account not found." });
-            }
+
+    //-------------------------------------------------------------------------
+    // Code to prevent nodejs server from crashing if database not found from
+    // @author banguncool & Dharman
+    // @see https://stackoverflow.com/questions/57469707/how-to-catch-connection-error-with-nodejs-mysql2-library-async-await
+    //--------------------------------------------------------------------------
+    function testConnection() {
+        let connection;
+        let myPromise = new Promise((resolve, reject) => {
+
+            connection = mysql.createConnection({
+                host: "localhost",
+                user: "root",
+                password: "",
+                database: "BBY_26"
+            });
+
+            connection.connect(err => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(true);
+                }
+            });
+
         });
-    connection.end();
+
+        myPromise.then(
+            function (value) {
+                connection.execute(
+                    "SELECT * FROM BBY_26_users WHERE username = ?",
+                    [req.body.username],
+                    function (error, results) {
+                        if (error) {
+                            console.log(error);
+                        }
+                        else {
+                            if (results[0] != null && req.body.password == results[0].pw) {
+                                req.session.loggedIn = true;
+                                req.session.userID = results[0].userID;
+                                req.session.username = results[0].username;
+                                req.session.email = results[0].email;
+                                req.session.isAdmin = results[0].isAdmin;
+                                req.session.save(function (err) {
+                                });
+                                res.send({ status: "success", msg: "Logged in." });
+                            }
+                            else {
+                                res.send({ status: "fail", msg: "User account not found." });
+                            }
+                        }
+                    });
+                connection.end();
+            },
+            function (error) {
+                console.log(error);
+            }
+        );
+    }
+    testConnection();
 });
 
 app.get("/username", function (req, res){
@@ -198,32 +230,55 @@ app.get("/create", function (req, res) {
 
 app.post("/add-user", function (req, res) {
     res.setHeader('Content-Type', 'application/json');
-    let connection = mysql.createConnection({
-        host: 'localhost',
-        user: 'root',
-        password: '',
-        database: 'BBY_26'
-    });
-    connection.connect();
-    connection.query('SELECT * FROM BBY_26_users WHERE email = ?',[req.body.email], function (error, results, fields) {
-        if (error) {
-        }
-        if (results.length != 0) {
-            res.send({ status: "failure", msg: "Email Taken" });
-            connection.end();
-        }
-        else {
-            connection.query('INSERT INTO BBY_26_users (email, username, pw) values (?, ?, ?)',
-                [req.body.email, req.body.username, req.body.password],
-                function (error, results, fields) {
+    function tryConnection() {
+        let connection;
+        let myPromise = new Promise((resolve, reject) => {
+
+            connection = mysql.createConnection({
+                host: "localhost",
+                user: "root",
+                password: "",
+                database: "BBY_26"
+            });
+
+            connection.connect(err => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(true);
+                }
+            });
+
+        });
+
+        myPromise.then(
+            function (value) {
+                connection.query('SELECT * FROM BBY_26_users WHERE email = ?', [req.body.email], function (error, results, fields) {
                     if (error) {
                     }
-                    res.send({ status: "success", msg: "Record added." });
-        
+                    if (results.length != 0) {
+                        res.send({ status: "failure", msg: "Email Taken" });
+                        connection.end();
+                    }
+                    else {
+                        connection.query('INSERT INTO BBY_26_users (email, username, pw) values (?, ?, ?)',
+                            [req.body.email, req.body.username, req.body.password],
+                            function (error, results, fields) {
+                                if (error) {
+                                }
+                                res.send({ status: "success", msg: "Record added." });
+
+                            });
+                        connection.end();
+                    }
                 });
-            connection.end();
-        }
-    });
+            },
+            function (error) {
+                console.log(error);
+            }
+        );
+    }
+    tryConnection()
 });
 
 app.use(function (req, res, next) {
