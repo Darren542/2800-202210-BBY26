@@ -282,6 +282,7 @@ app.post("/add-user", function (req, res) {
             },
             function (error) {
                 console.log(error);
+                res.send({ status: "database-fail", msg: "database not found" });
             }
         );
     }

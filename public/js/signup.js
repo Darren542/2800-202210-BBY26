@@ -33,6 +33,9 @@ document.getElementById("submit").addEventListener("click", function (e) {
                     } else if (reply.status == "ufailure"){
                         document.getElementById("top-filler").classList.add("no-show");
                         document.getElementById("username-taken").classList.remove("no-show");
+                    } else if (reply.status == "database-fail"){
+                        document.getElementById("top-filler").classList.add("no-show");
+                        document.getElementById("database-missing").classList.remove("no-show");
                     } else {
                         let queryString = "username=" + formData.username + "&password=" + formData.password;
                         ajaxPOST("/login", function (data) {
