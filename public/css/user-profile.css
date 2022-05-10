@@ -1,25 +1,72 @@
-#user_container {
+#content {
     /* background-color: aqua; */
     display: grid;
-    grid-template-columns: 1fr;
     min-height: 100%;
-}
-
-body {
     background-color:cyan;
+    grid-template-columns: 150px 1fr 1fr;
+    grid-template-rows: 150px 100px minmax(150px, 1fr) 75px 2fr;
+}
+
+#profile-image-div {
+    grid-row: 1 / span 1;
+    grid-column: 1 / span 1;
+    height: 100%;
+    width: 100%;
+    background-color:red;
+}
+
+#user-quote {
+    grid-row: 1 / span 1;
+    grid-column: 2 / span 2;
+    height: 100%;
+    width: 100%;
+    background-color:rgb(85, 141, 206);
 }
 
 #user-info {
-    grid-row: 2 / 5;
+    grid-row: 2 / span 1;
+    grid-column: 1 / span 1;
+    height: 100%;
+    width: 100%;
+    background-color:rgb(51, 165, 89);
 }
 
-#user-info {
-    font-size: large;
+#optional-button {
+    grid-row: 2 / span 1;
+    grid-column: 3 / span 1;
+    height: 100%;
+    width: 100%;
+    background-color:rgb(132, 34, 141);
 }
+
+#user-description-box {
+    grid-row: 3 / span 1;
+    grid-column: 1 / span 3;
+    height: 100%;
+    width: 100%;
+    background-color:rgb(151, 163, 46);
+}
+
+#profile-menu {
+    grid-row: 4 / span 1;
+    grid-column: 1 / span 3;
+    height: 100%;
+    width: 100%;
+    background-color:rgb(171, 160, 201);
+}
+
+#menu-display {
+    grid-row: 5 / span 1;
+    grid-column: 1 / span 3;
+    height: 100%;
+    width: 100%;
+    background-color:rgb(167, 109, 109);
+}
+
 
 @media (min-width: 751px) {
 
-    body {
+    #content {
         background-color:darkcyan;
     }
 
