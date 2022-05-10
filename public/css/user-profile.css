@@ -2,7 +2,7 @@
     /* background-color: aqua; */
     display: grid;
     grid-template-columns: 1fr;
-    height: 100vh;
+    min-height: 100%;
 }
 
 body {

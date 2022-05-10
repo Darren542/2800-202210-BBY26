@@ -16,7 +16,7 @@ function getemail() {
     const getemail = new XMLHttpRequest();
     getemail.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("useremail").innerHTML = this.responseText;
+            document.getElementById("user-email").innerHTML = this.responseText;
         }
     }
     getemail.open("GET", "/email", true);
