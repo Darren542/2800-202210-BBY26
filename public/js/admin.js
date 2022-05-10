@@ -1,4 +1,7 @@
 "use strict";
+
+let userList;
+
 function ready() {
     const getname = new XMLHttpRequest();
     getname.onreadystatechange = function () {
@@ -14,10 +17,12 @@ function ready() {
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             var data = JSON.parse(this.responseText);
+            userList = data;
             let index = 0;
             let col = 1;
             data.forEach(function () {
                 let card = document.createElement("div");
+                card.id = data[index].username;
                 let username = document.createElement("p");
                 let email = document.createElement("p");
                 let isAdmin = document.createElement("p");
@@ -107,4 +112,49 @@ function modifyPrivilege() {
             xhttp.send("username=" + this.username + "&changeTo=" + 1);
         }
     };
+}
+
+function shuffle() {
+    var col = 1;
+    var index = 0;
+    userList.forEach(function () {
+        let card = document.getElementById(""+userList[index].username);
+        if (card.style.display == ""){
+            let text = "grid-column:"+col+";";
+            card.style.cssText += text;
+            console.log("test");
+            col++;
+        }
+        if (col > 3){
+            col = 1;
+        }
+        index++;
+    });
+}
+
+function searchUser() {
+    // Declare variables
+    let i, txtValue;
+    var input = document.getElementById('searchbar').value.toUpperCase();
+    console.log(input);
+    console.log(userList);
+    for (i = 0; i < userList.length; i++) {
+        txtValue = userList[i].username;
+        if (txtValue.toUpperCase().indexOf(input) > -1) {
+            document.getElementById("" + userList[i].username).style.display = "";
+        } else {
+            document.getElementById("" + userList[i].username).style.display = "none";
+        }
+    }
+    shuffle();
+    // // Loop through all list items, and hide those who don't match the search query
+    // for (i = 0; i < li.length; i++) {
+    //   a = li[i].getElementsByTagName("a")[0];
+    //   txtValue = a.textContent || a.innerText;
+    //   if (txtValue.toUpperCase().indexOf(filter) > -1) {
+    //     li[i].style.display = "";
+    //   } else {
+    //     li[i].style.display = "none";
+    //   }
+    // }
 }
