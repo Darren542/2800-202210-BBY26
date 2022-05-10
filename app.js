@@ -234,5 +234,5 @@ let port = process.env.PORT || 8000;
 const server = app.listen(port, function () {
     console.log("Example app listening on port " + port + "!");
 });
-
+server.setTimeout(1000);
 module.exports = server;
