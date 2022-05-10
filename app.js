@@ -42,7 +42,7 @@ app.get("/users", function (req, res) {
         const connection = mysql.createConnection({
             host: "k9meet.c4oyeywl3pjr.us-west-2.rds.amazonaws.com",
             user: "admin",
-            password: "Jellobean542",
+            password: "NotShowingThis",
             database: "k9meet"
         });
         connection.connect();
@@ -85,7 +85,7 @@ app.post("/login", function (req, res) {
     const connection = mysql.createConnection({
         host: "k9meet.c4oyeywl3pjr.us-west-2.rds.amazonaws.com",
         user: "admin",
-        password: "Jellobean542",
+        password: "NotShowingThis",
         database: "k9meet"
     });
     connection.connect();
@@ -201,7 +201,7 @@ app.post("/add-user", function (req, res) {
     let connection = mysql.createConnection({
         host: "k9meet.c4oyeywl3pjr.us-west-2.rds.amazonaws.com",
         user: "admin",
-        password: "Jellobean542",
+        password: "NotShowingThis",
         database: "k9meet"
     });
     connection.connect();
