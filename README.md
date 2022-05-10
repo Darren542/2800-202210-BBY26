@@ -61,10 +61,11 @@ C:.
     |       user_profile.css
     |       
     +---img
-    |       favicon.ico                 // Made with favicon.io
     |       dog-signup.jpg              // From Pinterest.com
+    |       favicon.ico                 // Made with favicon.io
     |       K_9_Meet-logos.jpeg         // Made using Adobe logomaker
     |       logo-transparent.png        // Made using Adobe logomaker
+    |       profile.jpg                 // Made by Darren in paint
     |       signup-page-desktop.jpg     // From Pinterest.com
     |       splash-image.jpg            // Image taken by Darren
     |       steveston-dog-park.jpg      // Image of steveston dog park from thedognetwork.ca
