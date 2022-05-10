@@ -23,6 +23,7 @@ function ready() {
             data.forEach(function () {
                 let card = document.createElement("div");
                 card.id = data[index].username;
+                card.classList.add('card')
                 let username = document.createElement("p");
                 let email = document.createElement("p");
                 let isAdmin = document.createElement("p");
@@ -37,7 +38,7 @@ function ready() {
                 modifyBtn.username = data[index].username;
                 modifyBtn.isAdmin = data[index].isAdmin;
                 modifyBtn.addEventListener("click", modifyPrivilege, "username=" + data[index].username + "&isAdmin=" + data[index].isAdmin);
-                card.style = "margin: auto;border: 1px solid black; background: white; width: 30vw; height: auto; grid-column:" + col;
+                card.style = "border: 1px solid black; background: white; width: 30vw; height: auto; grid-column:" + col;
                 col++;
                 if (col > 3) {
                     col = 1;
@@ -147,14 +148,4 @@ function searchUser() {
         }
     }
     shuffle();
-    // // Loop through all list items, and hide those who don't match the search query
-    // for (i = 0; i < li.length; i++) {
-    //   a = li[i].getElementsByTagName("a")[0];
-    //   txtValue = a.textContent || a.innerText;
-    //   if (txtValue.toUpperCase().indexOf(filter) > -1) {
-    //     li[i].style.display = "";
-    //   } else {
-    //     li[i].style.display = "none";
-    //   }
-    // }
 }

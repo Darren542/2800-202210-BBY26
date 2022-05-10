@@ -8,6 +8,8 @@ const fs = require("fs");
 const session = require("express-session");
 const { JSDOM } = require('jsdom');
 const mysql = require('mysql2');
+const req = require("express/lib/request");
+const res = require("express/lib/response");
 
 app.use("/js", express.static("./public/js"));
 app.use("/css", express.static("./public/css"));
@@ -32,6 +34,14 @@ app.get("/", function (req, res) {
         }
     } else {
         let doc = fs.readFileSync("./app/html/splash.html", "utf8");
+        res.send(doc);
+    }
+});
+
+//ONLY FOR ADMINS
+app.get("/home", function (req, res) {
+    if (req.session.loggedIn && req.session.isAdmin){
+        let doc = fs.readFileSync("./app/html/home.html", "utf8");
         res.send(doc);
     }
 });
