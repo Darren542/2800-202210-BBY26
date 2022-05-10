@@ -40,10 +40,10 @@ app.get("/users", function (req, res) {
     if (req.session.loggedIn && req.session.isAdmin) {
         const mysql = require("mysql2");
         const connection = mysql.createConnection({
-            host: "localhost",
-            user: "root",
-            password: "",
-            database: "BBY_26"
+            host: "k9meet.c4oyeywl3pjr.us-west-2.rds.amazonaws.com",
+            user: "admin",
+            password: "Jellobean542",
+            database: "k9meet"
         });
         connection.connect();
         connection.execute(
@@ -83,10 +83,10 @@ app.use(express.urlencoded({ extended: true }));
 app.post("/login", function (req, res) {
     const mysql = require("mysql2");
     const connection = mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "",
-        database: "BBY_26"
+        host: "k9meet.c4oyeywl3pjr.us-west-2.rds.amazonaws.com",
+        user: "admin",
+        password: "Jellobean542",
+        database: "k9meet"
     });
     connection.connect();
     connection.execute(
@@ -199,10 +199,10 @@ app.get("/create", function (req, res) {
 app.post("/add-user", function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let connection = mysql.createConnection({
-        host: 'localhost',
-        user: 'root',
-        password: '',
-        database: 'BBY_26'
+        host: "k9meet.c4oyeywl3pjr.us-west-2.rds.amazonaws.com",
+        user: "admin",
+        password: "Jellobean542",
+        database: "k9meet"
     });
     connection.connect();
     connection.query('SELECT * FROM BBY_26_users WHERE email = ?',[req.body.email], function (error, results, fields) {
