@@ -142,9 +142,9 @@ app.get("/signup", function (req, res) {
     }
 });
 
-app.get("/user_profile", function (req, res) {
+app.get("/user-profile", function (req, res) {
     if (req.session.loggedIn) {
-        let doc = fs.readFileSync("./app/html/user_profile.html", "utf8");
+        let doc = fs.readFileSync("./app/html/user-profile.html", "utf8");
         res.send(doc);
     } else {
         res.redirect("/");
