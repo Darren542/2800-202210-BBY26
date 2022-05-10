@@ -18,6 +18,7 @@ ready(function () {
         xhr.open("POST", url);
         xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        console.log('params', params);
         xhr.send(params);
     }
 
