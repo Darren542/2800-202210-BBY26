@@ -253,11 +253,18 @@ app.post("/add-user", function (req, res) {
 
         myPromise.then(
             function (value) {
-                connection.query('SELECT * FROM BBY_26_users WHERE email = ?', [req.body.email], function (error, results, fields) {
+                connection.query('SELECT * FROM BBY_26_users WHERE email = ? OR username = ?', [req.body.email, req.body.username], function (error, results, fields) {
                     if (error) {
                     }
-                    if (results.length != 0) {
-                        res.send({ status: "failure", msg: "Email Taken" });
+                    console.log("lookup results", results);
+                    if (results && results[0] != null) {
+                        if ( results[0].username == req.body.username) {
+                            res.send({ status: "ufailure", msg: "Username Taken" });
+                        } else if (results[0].email == req.body.email) {
+                            res.send({ status: "efailure", msg: "Email Taken" });
+                        } else {
+                            console.log("This should only show if their are errors in the database lookups")
+                        }
                         connection.end();
                     }
                     else {

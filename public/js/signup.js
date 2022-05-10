@@ -2,6 +2,13 @@
 document.getElementById("submit").addEventListener("click", function (e) {
     e.preventDefault();
 
+    // reset the error messages on each click 
+    document.getElementById("email-taken").classList.add("no-show");
+    document.getElementById("username-taken").classList.add("no-show");
+    document.getElementById("no-match").classList.add("no-show");
+    document.getElementById("top-filler").classList.remove("no-show");
+    document.getElementById("bottom-filler").classList.remove("no-show");
+    
     let formData = {
         username: document.getElementById("username").value,
         email: document.getElementById("email").value,
@@ -11,6 +18,7 @@ document.getElementById("submit").addEventListener("click", function (e) {
     if (formData.password != formData.confirmPassword) {
         document.getElementById("password").value = "";
         document.getElementById("confirm-password").value = "";
+        document.getElementById("bottom-filler").classList.add("no-show");
         document.getElementById("no-match").classList.remove("no-show");
     } 
     else {
@@ -19,8 +27,12 @@ document.getElementById("submit").addEventListener("click", function (e) {
             if (this.readyState == XMLHttpRequest.DONE) {
                 if (xhr.status === 200) {
                     let reply = JSON.parse(xhr.response);
-                    if (reply.status == "failure") {
+                    if (reply.status == "efailure") {
+                        document.getElementById("top-filler").classList.add("no-show");
                         document.getElementById("email-taken").classList.remove("no-show");
+                    } else if (reply.status == "ufailure"){
+                        document.getElementById("top-filler").classList.add("no-show");
+                        document.getElementById("username-taken").classList.remove("no-show");
                     } else {
                         let queryString = "username=" + formData.username + "&password=" + formData.password;
                         ajaxPOST("/login", function (data) {
