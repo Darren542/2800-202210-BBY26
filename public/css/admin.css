@@ -7,13 +7,15 @@
     .card {
         grid-column: 1 !important;
         width: 95% !important;
-        margin: auto !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
         margin-bottom: 7px !important;
         border-radius: 30px;
     }
 
     body {
         background: rgb(239, 203, 203);
+        min-width: 400px;
     }
 
     .card>p {
@@ -41,8 +43,10 @@
     }
     #epic-image {
         position: relative;
-        left: 0px;
-        top: 0px;
+        width: 60px;
+        height: 60px;
+        left: 300px;
+        top: 62px;
         z-index: 1;
     }
 
@@ -94,8 +98,8 @@
 
     .card {
         border-radius: 30px;
-        margin-left: auto;
-        margin-right: auto;
+        margin-left: auto !important;
+        margin-right: auto !important;
         margin-bottom: 7px;
         overflow-x: hidden;
         box-shadow: 0px 5px rgb(240, 157, 157);
@@ -158,10 +162,9 @@
     }
 
     .card > button {
-        height: 5.5vh;
+        height: 3.5vw;
         display: grid;
         border: solid .25vw transparent;
-        /* padding: .0vw .0vw; */
         border-radius: 0.9vw;
         font-size: 1.2vw;
         background: 
