@@ -106,11 +106,11 @@ app.post("/login", function (req, res) {
 
 app.get("/username", function (req, res){
     res.send(req.session.username);
-})
+});
 
 app.get("/email", function (req, res){
     res.send(req.session.email);
-})
+});
 
 app.get("/logout", function (req, res) {
     if (req.session) {
@@ -227,6 +227,22 @@ app.get("/profile-info/:id", function (req, res) {
         );
     }
     testConnection();
+});
+
+app.get("/dogs", function (req, res){
+    res.send("dog section is still under construction");
+});
+
+app.get("/photos", function (req, res){
+    res.send("photos section is still under construction");
+});
+
+app.get("/my-events", function (req, res){
+    res.send("events section is still under construction");
+});
+
+app.get("/my-groups", function (req, res){
+    res.send("groups section is still under construction");
 });
 
 app.get("/nav", function (req, res) {

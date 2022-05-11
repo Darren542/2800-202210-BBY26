@@ -32,21 +32,71 @@ document.querySelector("#edit-button").addEventListener("click", () => {
 });
 
 document.querySelector("#dogs-option").addEventListener("click", () => {
-    getdogs();
+    getDogs();
 });
 
-function getdogs() {
-    const getdogs = new XMLHttpRequest();
-    getname.onreadystatechange = function () {
+document.querySelector("#photos-option").addEventListener("click", () => {
+    getPhotos();
+});
+
+document.querySelector("#groups-option").addEventListener("click", () => {
+    getGroups();
+});
+
+document.querySelector("#events-option").addEventListener("click", () => {
+    getEvents();
+});
+
+function getDogs() {
+    const theDogs = new XMLHttpRequest();
+    theDogs.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("menu-display").innerHTML = this.responseText;
         }
     }
-    getdogs.open("GET", "/dogs", true);
-    getdogs.send();
+    theDogs.open("GET", "/dogs", true);
+    theDogs.send();
+    updateProfileMenu("dogs-option");
 }
 
-// getdogs();
+function getPhotos() {
+    const thePhotos = new XMLHttpRequest();
+    thePhotos.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("menu-display").innerHTML = this.responseText;
+        }
+    }
+    thePhotos.open("GET", "/photos", true);
+    thePhotos.send();
+    updateProfileMenu("photos-option");
+}
+
+function getGroups() {
+    const theGroups = new XMLHttpRequest();
+    theGroups.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("menu-display").innerHTML = this.responseText;
+        }
+    }
+    theGroups.open("GET", "/my-groups", true);
+    theGroups.send();
+    updateProfileMenu("groups-option");
+}
+
+function getEvents() {
+    const theEvents = new XMLHttpRequest();
+    theEvents.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("menu-display").innerHTML = this.responseText;
+        }
+    }
+    theEvents.open("GET", "/my-events", true);
+    theEvents.send();
+    updateProfileMenu("events-option");
+}
+
+
+getDogs();
 
 //----------------------------------------------------------------------
 // takes the whole path as a parameter.
@@ -95,4 +145,15 @@ function displayProfileInfo(data) {
     
     document.getElementById("user-quote").innerHTML = data.quote;
     document.getElementById("user-quote").innerHTML = data.quote;
+}
+
+//--------------------------------------------------------------
+// Menu bar highligher funcion
+// Changes the menu bar to show the spot
+//--------------------------------------------------------------
+function updateProfileMenu(selected) {
+    document.querySelectorAll(".profile-menu").forEach((option) => {
+        option.classList.remove("selected");
+    });
+    document.getElementById(selected).classList.add("selected");
 }
