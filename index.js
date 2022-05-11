@@ -348,7 +348,6 @@ app.post("/add-user", function (req, res) {
                 connection.query('SELECT * FROM BBY_26_users WHERE email = ? OR username = ?', [req.body.email, req.body.username], function (error, results, fields) {
                     if (error) {
                     }
-                    console.log("lookup results", results);
                     if (results && results[0] != null) {
                         if ( results[0].username == req.body.username) {
                             res.send({ status: "ufailure", msg: "Username Taken" });
