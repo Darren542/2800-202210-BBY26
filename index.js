@@ -68,13 +68,6 @@ app.get("/login", function (req, res) {
     }
 });
 
-app.get("/profile", function (req, res) {
-    if (req.session.loggedIn) {
-        res.redirect("/");
-    } else {
-        res.redirect("/");
-    }
-});
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -145,11 +138,11 @@ app.post("/login", function (req, res) {
 
 app.get("/username", function (req, res){
     res.send(req.session.username);
-})
+});
 
 app.get("/email", function (req, res){
     res.send(req.session.email);
-})
+});
 
 app.get("/logout", function (req, res) {
     if (req.session) {
@@ -174,14 +167,113 @@ app.get("/signup", function (req, res) {
     }
 });
 
-app.get("/user_profile", function (req, res) {
+// /profile sends them to the correct profile url
+app.get("/profile", function (req, res) {
     if (req.session.loggedIn) {
-        let doc = fs.readFileSync("./app/html/user_profile.html", "utf8");
+        res.redirect(`/user-profile/${req.session.username}`);
+    } else {
+        res.redirect("/");
+    }
+});
+
+// sends the user to their own profile page
+app.get("/user-profile/", function (req, res) {
+    if (req.session.loggedIn) {
+        // let doc = fs.readFileSync("./app/html/user-profile.html", "utf8");
+        //res.send(doc);
+        res.redirect(`/user-profile/${req.session.username}`);
+    } else {
+        res.redirect("/");
+    }
+
+});
+
+// get the page of the wanted users profile
+app.get("/user-profile/:id", function (req, res) {
+    if (req.session.loggedIn) {
+        let doc = fs.readFileSync("./app/html/user-profile.html", "utf8");
         res.send(doc);
     } else {
         res.redirect("/");
     }
 
+});
+
+app.get("/profile-info/:id", function (req, res) {
+    //-------------------------------------------------------------------------
+    // Code to prevent nodejs server from crashing if database not found from
+    // @author banguncool & Dharman
+    // @see https://stackoverflow.com/questions/57469707/how-to-catch-connection-error-with-nodejs-mysql2-library-async-await
+    //--------------------------------------------------------------------------
+    function testConnection() {
+        let connection;
+        let myPromise = new Promise((resolve, reject) => {
+
+            connection = mysql.createConnection({
+                host: "localhost",
+                user: "root",
+                password: "",
+                database: "BBY_26"
+            });
+
+            connection.connect(err => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(true);
+                }
+            });
+
+        });
+
+        myPromise.then(
+            function (value) {
+                connection.execute(
+                    "SELECT * FROM BBY_26_profiles WHERE username = ?",
+                    [req.params.id],
+                    function (error, results) {
+                        if (error) {
+                            console.log(error);
+                        }
+                        else {
+                            if (results[0] != null) {
+                                if (!results[0].showLoc) {
+                                    results[0].country = 'hidden';
+                                    results[0].province = 'hidden';
+                                    results[0].city = 'hidden';
+                                    results[0].test = 'testadd';
+                                }
+                                res.send(results[0]);
+                            }
+                            else {
+                                res.send({ status: "fail", msg: "User account not found." });
+                            }
+                        }
+                    });
+                connection.end();
+            },
+            function (error) {
+                console.log(error);
+            }
+        );
+    }
+    testConnection();
+});
+
+app.get("/dogs", function (req, res){
+    res.send("dog section is still under construction");
+});
+
+app.get("/photos", function (req, res){
+    res.send("photos section is still under construction");
+});
+
+app.get("/my-events", function (req, res){
+    res.send("events section is still under construction");
+});
+
+app.get("/my-groups", function (req, res){
+    res.send("groups section is still under construction");
 });
 
 app.get("/nav", function (req, res) {

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
+    <link rel="stylesheet" href="/css/client.css">
+    <link rel="stylesheet" href="/css/user-profile.css">
+</head>
+
+<body>
+    <!-- nav bar -->
+    <div id="navbar-placeholder"></div>
+
+    <div id="content">
+        <div id="profile-image-div">
+            <img src="/img/profile.jpg" alt="Profile Image" id="profile-image"/>
+        </div>
+        <div id="user-quote">A quote or greeting by the user goes here some more text to check if too big</div>
+        <div class="divider"></div>
+        <div id="user-info">
+            <div id="username">Users name here</div>
+            <div id="user-email">Users email here</div>
+        </div>
+        <div id="optional-button">
+            <button class="btn" id="edit-button">Edit Profile</button>
+        </div>
+        <div id="user-description-box">
+            <div id="user-description">The description of the user</div>
+            <div id="user-location">The location of the user goes here</div>
+        </div>
+        <div id="profile-menu">
+            <button class="profile-menu selected" id="dogs-option">Dogs</button>
+            <button class="profile-menu" id="photos-option" type="button">Photos</button>
+            <button class="profile-menu" id="groups-option" type="button">Groups</button>
+            <button class="profile-menu" id="events-option" type="button">Events</button>
+        </div>
+        <div id="menu-display">
+            Info goes in here about button pressed
+        </div>
+
+
+        <!-- <div id="user-info">
+            <p>Username:</p>
+            <div id="username"></div>
+
+            <p>User Email:</p>
+            <div id="user-email"></div>
+        </div> -->
+    </div>
+    <!-- footer -->
+    <div id="footer-placeholder"></div>
+
+    <script src="/js/skeleton.js"></script>
+    <script src="/js/user-profile.js"></script>
+</body>
+
+</html>
