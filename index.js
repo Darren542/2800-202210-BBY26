@@ -158,7 +158,6 @@ app.get("/user-profile/", function (req, res) {
 
 // get the page of the wanted users profile
 app.get("/user-profile/:id", function (req, res) {
-    console.log(req.params.id);
     if (req.session.loggedIn) {
         let doc = fs.readFileSync("./app/html/user-profile.html", "utf8");
         res.send(doc);

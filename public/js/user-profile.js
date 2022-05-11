@@ -105,17 +105,15 @@ getDogs();
 //----------------------------------------------------------------------
 async function getProfileInfo(path) {
     const requestId = path.substring(path.lastIndexOf('/'));
-    console.log(requestId);
     try {
         let response = await fetch(`/profile-info${requestId}`, {
             method: 'GET'
         });
         if (response.status === 200) {
             let data = await response.json();
-            console.log(data);
             displayProfileInfo(data);
         } else {
-            console.log(response.status, response.text);
+            console.log(response.status);
         }
     } catch(error) {
         console.log(error);
@@ -136,7 +134,6 @@ function displayProfileInfo(data) {
     } else {
         document.getElementById("user-location").innerHTML = "Location hidden"
     }
-    console.log(data.showEmail);
     if (data.showEmail) {
         getemail();
     } else {
