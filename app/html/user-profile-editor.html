@@ -25,40 +25,57 @@
           <div>Spot where editting profile picture content goes</div>
         </div>
         <div class="divider" id="change-profile-divider"></div>
-        <h2>Change Profile</h2>
+        <h2 id="change-profile-header">Change Profile</h2>
         <form action="/update-profile" method="post" id="profile-update-form">
 
-          <div id="display-name-label">Display Name</div>
-          <input type="text" id="display-name"  name="display-name" maxlength="20"></input>
+          <div class="input-label" id="display-name-label">Display Name:<abbr title="max-length is 20 characters">🛈</abbr></div>
+          <div class="profile-input">
+            <input type="text" id="display-name"  name="display-name" maxlength="20"></input>
+          </div>
         
-          <div id="user-quote-label">Quote</div>
-          <input type="text" id="user-quote" name="user-quote" maxlength="60"></input>
-        
-          <div id="country-label">Country</div>
-          <input type="text" id="country" name="country" maxlength="25"></input>
-        
-          <div id="province-label">Province</div>
-          <input type="text" id="province" name="province" maxlength="25"></input>
-        
-          <div id="city-label">City</div>
-          <input type="text" id="city" name="city" maxlength="25"></input>
+          <div class="input-label" id="user-quote-label">Quote: <abbr title="max-length is 60 characters">🛈</abbr></div>
+          <div class="profile-input">
+            <input type="text" id="user-quote" name="user-quote" maxlength="60"></input>
+          </div>
 
-          <div id="description-label">Description</div>
-          <textarea class="form-control" form="profile-update-form" id="description" name="description" rows="5" placeholder="Description"></textarea>
+          <div class="input-label" id="country-label"> Country: <abbr title="max-length is 25 characters">🛈</abbr></div>
+          <div class="profile-input">
+            <input type="text" id="country" name="country" maxlength="25"></input>
+          </div>
 
-          <div id="show-email-label">Show Email</div>
-          <input type="radio" id="show-email-yes" name="show-email-yes" value="true">
-          <label for="show-email-yes">Yes</label><br>
-          <input type="radio" id="show-email-no" name="show-email-no" value="false">
-          <label for="show-email-yes">No</label><br>
+          <div class="input-label" id="province-label"> Province: <abbr title="max-length is 25 characters">🛈</abbr></div>
+          <div class="profile-input">
+            <input type="text" id="province" name="province" maxlength="25"></input>
+          </div>
 
-          <div id="show-location-label">Show Location</div>
-          <input type="radio" id="show-location-yes" name="show-location-yes" value="true">
-          <label for="show-location-yes">Yes</label><br>
-          <input type="radio" id="show-location-no" name="show-location-no" value="false">
-          <label for="show-location-yes">No</label><br>
-        
-          <input type="submit" id="update-profile" value="Update Profile">
+          <div class="input-label" id="city-label"> City: <abbr title="max-length is 25 characters">🛈</abbr></div>
+          <div class="profile-input">
+            <input type="text" id="city" name="city" maxlength="25"></input>
+          </div>
+          <br/>
+          <div class="input-label" id="description-label">Description:<abbr title="max-length is 150 characters">🛈</abbr></div>
+          <div class="profile-input">
+            <textarea class="form-control" form="profile-update-form" id="description" name="description" rows="5" placeholder="Description"></textarea>
+          </div> 
+
+          <div class="yes-no-title" id="yes-title">Yes</div>
+          <div class="yes-no-title" id="no-title">No</div>
+
+          <div class="input-label" id="show-email-label">Show Email:</div>
+          <input class="radio-btn" type="radio" id="show-email-yes" name="show-email" value="true">
+          <!-- <label for="show-email-yes">Yes</label><br> -->
+          <input class="radio-btn" type="radio" id="show-email-no" name="show-email" value="false">
+          <!-- <label for="show-email-yes">No</label><br> -->
+
+          <div class="input-label" id="show-location-label">Show Location:</div>
+          <input class="radio-btn" type="radio" id="show-location-yes" name="show-location" value="true">
+          <!-- <label for="show-location-yes">Yes</label><br> -->
+          <input class="radio-btn" type="radio" id="show-location-no" name="show-location" value="false">
+          <!-- <label for="show-location-yes">No</label><br> -->
+          <div id="update-profile-div">
+            <input type="submit" id="update-profile" value="Update Profile">
+          </div>
+          
 
         </form>
         
