@@ -22,7 +22,7 @@ function getemail() {
     getemail.open("GET", "/email", true);
     getemail.send();
 }
-getemail();
+
 
 // Sends the user to the edit-profile page
 // Will have to change this tell what users page
@@ -62,6 +62,7 @@ async function getProfileInfo(path) {
         });
         if (response.status === 200) {
             let data = await response.json();
+            console.log(data);
             displayProfileInfo(data);
         } else {
             console.log(response.status, response.text);
@@ -80,7 +81,18 @@ getProfileInfo(window.location.pathname);
 function displayProfileInfo(data) {
     document.getElementById("user-quote").innerHTML = data.quote;
     document.getElementById("user-description").innerHTML = data.userDescription;
-    document.getElementById("user-location").innerHTML = data.city + ", " + data.province + ", " + data.country;
+    if (data.showLoc) {
+        document.getElementById("user-location").innerHTML = data.city + ", " + data.province + ", " + data.country;
+    } else {
+        document.getElementById("user-location").innerHTML = "Location hidden"
+    }
+    console.log(data.showEmail);
+    if (data.showEmail) {
+        getemail();
+    } else {
+        document.getElementById("user-email").innerHTML = "Email hidden";
+    }
+    
     document.getElementById("user-quote").innerHTML = data.quote;
     document.getElementById("user-quote").innerHTML = data.quote;
 }

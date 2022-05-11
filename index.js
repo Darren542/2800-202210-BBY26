@@ -206,13 +206,12 @@ app.get("/profile-info/:id", function (req, res) {
                         }
                         else {
                             if (results[0] != null) {
-                                // req.session. = true;
-                                // req.session.userID = results[0].userID;
-                                // req.session.username = results[0].username;
-                                // req.session.email = results[0].email;
-                                // req.session.isAdmin = results[0].isAdmin;
-                                // req.session.save(function (err) {
-                                // });
+                                if (!results[0].showLoc) {
+                                    results[0].country = 'hidden';
+                                    results[0].province = 'hidden';
+                                    results[0].city = 'hidden';
+                                    results[0].test = 'testadd';
+                                }
                                 res.send(results[0]);
                             }
                             else {
