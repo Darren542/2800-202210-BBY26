@@ -3,7 +3,7 @@
     min-height: 100%;
     background-color: rgb(136, 160, 212);
     grid-template-columns: 150px 1fr;
-    grid-template-rows: 150px 5px 60px 1fr;
+    grid-template-rows: 150px 5px 40px 1fr;
 }
 
 .divider {
@@ -44,7 +44,14 @@
     text-align: center;
     width: 100%;
     text-decoration: underline;
+    margin-top: 0;
+    padding-top: 0;
+}
 
+#change-profile-image-header {
+    text-decoration: underline;
+    text-align: center;
+    width: 100%;
 }
 
 #profile-update-form {
@@ -52,7 +59,7 @@
     grid-column: 1 / span 2;
     display: grid;
     grid-template-columns: 150px 50px 50px 8fr;
-    grid-template-rows: 50px 50px 50px 50px 50px 10px 100px 40px 50px 50px;
+    grid-template-rows: 50px 50px 50px 50px 50px 10px 100px 40px 40px 40px;
 }
 
 /* CSS for the form options */
