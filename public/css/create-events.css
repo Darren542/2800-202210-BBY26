@@ -1,0 +1,42 @@
+body {
+    padding: 0%;
+    margin: 0%;
+    background-color: azure;
+}
+
+#container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+}
+
+#header {
+    padding-top: 80px;
+    text-align: center;
+    grid-column: 1 / span 1;
+    grid-row: 1 / 2;
+}
+
+#sub-header1 {
+    padding-left: 1%;
+    grid-column: 1 / span 1;
+    grid-row: 3 / 5;
+}
+
+#sub-header2 {
+    padding-top: 5%;
+    padding-left: 1%;
+    grid-column: 1 / span 1;
+    grid-row: 7 / 9;
+}
+
+#event-date {
+    margin-bottom: 10px;
+}
+
+#button {
+    margin: 15%;
+    margin-left: 45%;
+    grid-column: 1 / span 1;
+    grid-row: 12 / 13;
+}

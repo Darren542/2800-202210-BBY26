@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Event</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
+    <link rel="stylesheet" href="css/create-events.css">
+    <link rel="stylesheet" href="css/client.css">
+</head>
+
+<body>
+
+    <!-- nav bar -->
+    <div id="navbar-placeholder"></div>
+
+    <div id="container">
+        <h1 id="header">Creating an Event</h1>
+
+        <!-- Not yet implemented  -->
+        <div id="progress-bar"></div>
+
+        <div id="sub-header1">
+            <h2>Event Location</h2>
+            <form>
+                <label for="event-city">Enter City: </label>
+                <input type="text" id="event-city" name="event-city">
+            </form>
+
+        </div>
+
+        <div id="sub-header2">
+            <h2>Event Time</h2>
+            <form>
+                <label for="date">Enter Date: </label>
+                <input type="date" id="event-date" name="event-date"><br>
+                <label for="time">Enter Time: </label>
+                <input type="time" id="event-time" name="event-time"><br>
+            </form>
+        </div>
+
+        <div id="button">
+            <button id="submit" class="btn" name="submit" type="button">Submit</button>
+        </div>
+
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="js/skeleton.js"></script>
+    <script src="js/create-events.js"></script>
+</body>
+
+</html>
