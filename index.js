@@ -380,6 +380,15 @@ app.post("/add-user", function (req, res) {
     tryConnection()
 });
 
+app.get("/edit-profile", function (req, res) {
+    if (req.session.loggedIn){
+        let doc = fs.readFileSync("./app/html/user-profile-editor.html", "utf8");
+        res.send(doc);
+    } else {
+        res.redirect("/");
+    }    
+})
+
 app.use(function (req, res, next) {
     res.status(404).send("<html><head><title>Page not found!</title></head><body><p>Nothing here.</p></body></html>");
 });

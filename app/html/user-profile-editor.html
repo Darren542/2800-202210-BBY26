@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
+    <link rel="stylesheet" href="/css/client.css">
+    <link rel="stylesheet" href="/css/user-profile-editor.css">
+</head>
+
+<body>
+    <!-- nav bar -->
+    <div id="navbar-placeholder"></div>
+
+    <div id="content">
+        <div id="profile-image-div">
+            <img src="/img/profile.jpg" alt="Profile Image" id="profile-image"/>
+        </div>
+        <div id="profile-image-edit-div">
+          <h2>Change Avatar</h2>
+          <div>Spot where editting profile picture content goes</div>
+        </div>
+        <div class="divider" id="change-profile-divider"></div>
+        <h2>Change Profile</h2>
+        <form action="/update-profile" method="post" id="profile-update-form">
+
+          <div id="display-name-label">Display Name</div>
+          <input type="text" id="display-name"  name="display-name" maxlength="20"></input>
+        
+          <div id="user-quote-label">Quote</div>
+          <input type="text" id="user-quote" name="user-quote" maxlength="60"></input>
+        
+          <div id="country-label">Country</div>
+          <input type="text" id="country" name="country" maxlength="25"></input>
+        
+          <div id="province-label">Province</div>
+          <input type="text" id="province" name="province" maxlength="25"></input>
+        
+          <div id="city-label">City</div>
+          <input type="text" id="city" name="city" maxlength="25"></input>
+
+          <div id="description-label">Description</div>
+          <textarea class="form-control" form="profile-update-form" id="description" name="description" rows="5" placeholder="Description"></textarea>
+
+          <div id="show-email-label">Show Email</div>
+          <input type="radio" id="show-email-yes" name="show-email-yes" value="true">
+          <label for="show-email-yes">Yes</label><br>
+          <input type="radio" id="show-email-no" name="show-email-no" value="false">
+          <label for="show-email-yes">No</label><br>
+
+          <div id="show-location-label">Show Location</div>
+          <input type="radio" id="show-location-yes" name="show-location-yes" value="true">
+          <label for="show-location-yes">Yes</label><br>
+          <input type="radio" id="show-location-no" name="show-location-no" value="false">
+          <label for="show-location-yes">No</label><br>
+        
+          <input type="submit" id="update-profile" value="Update Profile">
+
+        </form>
+        
+
+    </div>
+    <!-- footer -->
+    <div id="footer-placeholder"></div>
+
+    <script src="/js/skeleton.js"></script>
+    <script src="/js/user-profile-editor.js"></script>
+</body>
+
+</html>
