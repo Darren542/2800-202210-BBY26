@@ -47,3 +47,40 @@ function getdogs() {
 }
 
 // getdogs();
+
+//----------------------------------------------------------------------
+// takes the whole path as a parameter.
+// eg. user-profile/testuser
+// Calls displayProfileInfo
+//----------------------------------------------------------------------
+async function getProfileInfo(path) {
+    const requestId = path.substring(path.lastIndexOf('/'));
+    console.log(requestId);
+    try {
+        let response = await fetch(`/profile-info${requestId}`, {
+            method: 'GET'
+        });
+        if (response.status === 200) {
+            let data = await response.json();
+            displayProfileInfo(data);
+        } else {
+            console.log(response.status, response.text);
+        }
+    } catch(error) {
+        console.log(error);
+    }
+}
+
+getProfileInfo(window.location.pathname);
+
+//--------------------------------------------------
+// Takes the profile info as a JSON object
+// Displays the info on the profile page
+//--------------------------------------------------
+function displayProfileInfo(data) {
+    document.getElementById("user-quote").innerHTML = data.quote;
+    document.getElementById("user-description").innerHTML = data.userDescription;
+    document.getElementById("user-location").innerHTML = data.city + ", " + data.province + ", " + data.country;
+    document.getElementById("user-quote").innerHTML = data.quote;
+    document.getElementById("user-quote").innerHTML = data.quote;
+}

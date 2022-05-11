@@ -14,7 +14,7 @@ CREATE table IF NOT EXISTS BBY_26_users(
 CREATE table IF NOT EXISTS BBY_26_profiles(
 	profileID int NOT NULL AUTO_INCREMENT PRIMARY KEY, 
 	username varchar(20) NOT NULL UNIQUE, 
-	displayName varchar(16),
+	displayName varchar(20),
 	quote varchar(60) DEFAULT "Welcome to my profile page!",
 	userDescription varchar(150) DEFAULT "User has not entered a description yet.",
 	country varchar(25) DEFAULT "Milky Way",

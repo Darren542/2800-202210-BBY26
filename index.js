@@ -168,6 +168,68 @@ app.get("/user-profile/:id", function (req, res) {
 
 });
 
+app.get("/profile-info/:id", function (req, res) {
+    //-------------------------------------------------------------------------
+    // Code to prevent nodejs server from crashing if database not found from
+    // @author banguncool & Dharman
+    // @see https://stackoverflow.com/questions/57469707/how-to-catch-connection-error-with-nodejs-mysql2-library-async-await
+    //--------------------------------------------------------------------------
+    function testConnection() {
+        let connection;
+        let myPromise = new Promise((resolve, reject) => {
+
+            connection = mysql.createConnection({
+                host: "localhost",
+                user: "root",
+                password: "",
+                database: "BBY_26"
+            });
+
+            connection.connect(err => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(true);
+                }
+            });
+
+        });
+
+        myPromise.then(
+            function (value) {
+                connection.execute(
+                    "SELECT * FROM BBY_26_profiles WHERE username = ?",
+                    [req.params.id],
+                    function (error, results) {
+                        if (error) {
+                            console.log(error);
+                        }
+                        else {
+                            if (results[0] != null) {
+                                // req.session. = true;
+                                // req.session.userID = results[0].userID;
+                                // req.session.username = results[0].username;
+                                // req.session.email = results[0].email;
+                                // req.session.isAdmin = results[0].isAdmin;
+                                // req.session.save(function (err) {
+                                // });
+                                res.send(results[0]);
+                            }
+                            else {
+                                res.send({ status: "fail", msg: "User account not found." });
+                            }
+                        }
+                    });
+                connection.end();
+            },
+            function (error) {
+                console.log(error);
+            }
+        );
+    }
+    testConnection();
+});
+
 app.get("/nav", function (req, res) {
     let doc;
     if (req.session.loggedIn) {
