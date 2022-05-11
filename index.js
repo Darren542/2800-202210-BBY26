@@ -68,13 +68,6 @@ app.get("/login", function (req, res) {
     }
 });
 
-app.get("/profile", function (req, res) {
-    if (req.session.loggedIn) {
-        res.redirect("/");
-    } else {
-        res.redirect("/");
-    }
-});
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -142,7 +135,30 @@ app.get("/signup", function (req, res) {
     }
 });
 
-app.get("/user-profile", function (req, res) {
+// /profile sends them to the correct profile url
+app.get("/profile", function (req, res) {
+    if (req.session.loggedIn) {
+        res.redirect(`/user-profile/${req.session.username}`);
+    } else {
+        res.redirect("/");
+    }
+});
+
+// sends the user to their own profile page
+app.get("/user-profile/", function (req, res) {
+    if (req.session.loggedIn) {
+        // let doc = fs.readFileSync("./app/html/user-profile.html", "utf8");
+        //res.send(doc);
+        res.redirect(`/user-profile/${req.session.username}`);
+    } else {
+        res.redirect("/");
+    }
+
+});
+
+// get the page of the wanted users profile
+app.get("/user-profile/:id", function (req, res) {
+    console.log(req.params.id);
     if (req.session.loggedIn) {
         let doc = fs.readFileSync("./app/html/user-profile.html", "utf8");
         res.send(doc);

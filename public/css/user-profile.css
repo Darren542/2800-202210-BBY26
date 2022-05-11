@@ -155,6 +155,11 @@
     background-color: rgb(167, 109, 109);
 }
 
+@media (max-width: 475px) {
+    #user-quote {
+        font-size: 1.4rem;
+    }
+}
 
 @media (min-width: 751px) {
 
