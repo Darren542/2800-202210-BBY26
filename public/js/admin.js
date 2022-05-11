@@ -138,7 +138,6 @@ function shuffle() {
 }
 
 function searchUser() {
-    // Declare variables
     let i, txtValue;
     var input = document.getElementById('searchbar').value.toUpperCase();
     for (i = 0; i < userList.length; i++) {

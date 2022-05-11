@@ -158,12 +158,12 @@
     }
 
     .card > button {
-        height: auto;
+        height: 5.5vh;
         display: grid;
-        border: solid .25em transparent;
-        padding: 10% 1.5em;
-        border-radius: 9em;
-        font-size: 12px;
+        border: solid .25vw transparent;
+        /* padding: .0vw .0vw; */
+        border-radius: 0.9vw;
+        font-size: 1.2vw;
         background: 
             linear-gradient(to right bottom, #eb5b27, #5d2800)
                  border-box;
