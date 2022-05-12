@@ -1,0 +1,23 @@
+#content {
+    display: grid;
+    min-height: 100%;
+    background-color: rgb(136, 160, 212);
+    font-size: 1.8rem;
+}
+
+@media (max-width: 475px) {
+    #content {
+        font-size: 1.4rem;
+    }
+}
+
+@media (min-width: 751px) {
+
+    #content {
+        background-color: darkcyan;
+    }
+
+    #content {
+        font-size: 1.6rem;
+    }
+}
