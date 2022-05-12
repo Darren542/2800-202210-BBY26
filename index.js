@@ -236,6 +236,24 @@ app.get("/create-events", function (req, res) {
     }    
 })
 
+app.get("/event-details", function (req, res) {
+    if (req.session.loggedIn){
+        let doc = fs.readFileSync("./app/html/event-details.html", "utf8");
+        res.send(doc);
+    } else {
+        res.redirect("/");
+    }    
+})
+
+app.get("/event-end", function (req, res) {
+    if (req.session.loggedIn){
+        let doc = fs.readFileSync("./app/html/event-end.html", "utf8");
+        res.send(doc);
+    } else {
+        res.redirect("/");
+    }    
+})
+
 app.post("/add-user", function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     function tryConnection() {

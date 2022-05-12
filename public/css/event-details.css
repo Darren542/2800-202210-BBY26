@@ -4,7 +4,6 @@ body {
     background-color: rgb(167, 214, 238);
 }
 
-
 #container {
     display: grid;
     grid-template-columns: 1fr;
@@ -12,6 +11,11 @@ body {
 }
 
 @media (max-width: 751px) {
+
+    textarea {
+        width: 450px;
+        height: 150px;
+    }
 
     #header {
         padding-top: 80px;
@@ -27,20 +31,16 @@ body {
     }
 
     #sub-header2 {
-        padding-top: 5%;
+        padding: 10px;
         padding-left: 1%;
         grid-column: 1 / span 1;
-        grid-row: 7 / 9;
-    }
-
-    #event-date {
-        margin-bottom: 10px;
+        grid-row: 5 / 7;
     }
 
     #button {
-        margin: 15%;
+        margin: 15px;
         grid-column: 1 / span 1;
-        grid-row: 12 / 13;
+        grid-row: 7 / 8;
         display: flex;
         justify-content: space-evenly;
     }

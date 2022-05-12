@@ -8,12 +8,11 @@
     <title>Create Event</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
-    <link rel="stylesheet" href="css/create-events.css">
+    <link rel="stylesheet" href="css/event-type.css">
     <link rel="stylesheet" href="css/client.css">
 </head>
 
 <body>
-
     <!-- nav bar -->
     <div id="navbar-placeholder"></div>
 
@@ -23,29 +22,14 @@
         <!-- Not yet implemented  -->
         <div id="progress-bar"></div>
 
-        <div id="sub-header1">
-            <h2>Event Location</h2>
-            <form>
-                <label for="event-city">Enter City: </label>
-                <input type="text" id="event-city" name="event-city">
-            </form>
+        <div id="sub-header">
 
-        </div>
-
-        <div id="sub-header2">
-            <h2>Event Time</h2>
-            <form>
-                <label>Enter Date: </label>
-                <input type="date" id="event-date" name="event-date"><br>
-                <label>Enter Time: </label>
-                <input type="time" id="event-time" name="event-time"><br>
-            </form>
         </div>
 
         <div id="button">
             <button id="back" class="btn" name="back" type="button">🡰 Back</button>
             <button id="save-quit" class="btn" name="save-quit" type="button">Save & Quit</button>
-            <button id="next" class="btn" name="back" type="button">Next 🡲</button>
+            <button id="next" class="btn" name="next" type="button">Next 🡲</button>
         </div>
 
     </div>
@@ -53,7 +37,7 @@
     <div id="footer-placeholder"></div>
 
     <script src="js/skeleton.js"></script>
-    <script src="js/create-events.js"></script>
+    <!-- Depending on how many functions I will I have per page i might use the same js file. -->
+    <!-- <script src="js/create-events.js"></script> -->
 </body>
-
 </html>
