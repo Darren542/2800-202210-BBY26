@@ -154,6 +154,7 @@
     grid-column: 4 / span 1;
     display: flex;
     align-items: center;
+    flex-direction:column;
 }
 
 #update-profile {
@@ -167,34 +168,52 @@
     padding: 4px;
 }
 
+.no-show {
+    display: none;
+}
+
+#update-success {
+    color: green;
+}
+
+#update-failure {
+    color: red;
+}
+
+/* Styling to get abbr to work on mobile from:
+https://bitsofco.de/making-abbr-work-for-touchscreen-keyboard-mouse/ */
+.custom-abbr[titled] {
+    position: relative;
+    
+    /* ensure consistent styling across browsers */
+    text-decoration: underline dotted;
+  }
+
+.custom-abbr[titled]:hover::after,
+.custom-abbr[titled]:focus::after {
+    content: attr(titled);
+
+    /* position tooltip like the native one */
+    position: absolute;
+    left: 10px;
+    bottom: -30px;
+    width: auto;
+    white-space: nowrap;
+
+    /* style tooltip */
+    background-color: #1e1e1e;
+    color: #fff;
+    border-radius: 3px;
+    box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.4);
+    font-size: 14px;
+    padding: 3px 5px;
+}
 
 
 
 @media (max-width: 475px) {
     #content {
         background-color: rgb(134, 141, 153);
-    }
-
-/* Styling to get abbr to work on mobile from:
-https://bitsofco.de/making-abbr-work-for-touchscreen-keyboard-mouse/ */
-    abbr[titled]:hover::after,
-    abbr[titled]:focus::after {
-        content: attr(titled);
-
-        /* position tooltip like the native one */
-        position: relative;
-        left: 150px;
-        bottom: -30px;
-        width: auto;
-        white-space: nowrap;
-
-        /* style tooltip */
-        background-color: #1e1e1e;
-        color: #fff;
-        border-radius: 3px;
-        box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.4);
-        font-size: 14px;
-        padding: 3px 5px;
     }
 }
 

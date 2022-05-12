@@ -33,33 +33,33 @@
     <h2 id="change-profile-header">Change Profile</h2>
     <form action="/update-profile" method="post" id="profile-update-form">
 
-      <div class="input-label" id="display-name-label">Display Name:<abbr titled="max-length is 20 characters">🛈</abbr>
+      <div class="input-label" id="display-name-label"><span>Display Name:</span><abbr class="custom-abbr" titled="max-length is 20 characters">🛈</abbr>
       </div>
       <div class="profile-input">
         <input type="text" id="display-name" name="display-name" maxlength="20"></input>
       </div>
 
-      <div class="input-label" id="user-quote-label">Quote: <abbr titled="max-length is 60 characters">🛈</abbr></div>
+      <div class="input-label" id="user-quote-label"><span>Quote: </span><abbr class="custom-abbr" titled="max-length is 60 characters">🛈</abbr></div>
       <div class="profile-input">
         <input type="text" id="user-quote" name="user-quote" maxlength="60"></input>
       </div>
 
-      <div class="input-label" id="country-label"> Country: <abbr titled="max-length is 25 characters">🛈</abbr></div>
+      <div class="input-label" id="country-label"><span>Country: </span><abbr class="custom-abbr" titled="max-length is 25 characters">🛈</abbr></div>
       <div class="profile-input">
         <input type="text" id="country" name="country" maxlength="25"></input>
       </div>
 
-      <div class="input-label" id="province-label"> Province: <abbr titled="max-length is 25 characters">🛈</abbr></div>
+      <div class="input-label" id="province-label"><span>Province:</span> <abbr class="custom-abbr" titled="max-length is 25 characters">🛈</abbr></div>
       <div class="profile-input">
         <input type="text" id="province" name="province" maxlength="25"></input>
       </div>
 
-      <div class="input-label" id="city-label"> City: <abbr titled="max-length is 25 characters">🛈</abbr></div>
+      <div class="input-label" id="city-label"><span>City:</span> <abbr class="custom-abbr" titled="max-length is 25 characters">🛈</abbr></div>
       <div class="profile-input">
         <input type="text" id="city" name="city" maxlength="25"></input>
       </div>
       <br />
-      <div class="input-label" id="description-label">Description:<abbr titled="max-length is 150 characters">🛈</abbr>
+      <div class="input-label" id="description-label"><span>Description:</span><abbr class="custom-abbr" titled="max-length is 150 characters">🛈</abbr>
       </div>
       <div class="profile-input">
         <textarea class="form-control" form="profile-update-form" id="description" maxlength="150" name="description"
@@ -71,17 +71,17 @@
 
       <div class="input-label" id="show-email-label">Show Email:</div>
       <input class="radio-btn" type="radio" id="show-email-yes" name="show-email" value="true">
-      <!-- <label for="show-email-yes">Yes</label><br> -->
       <input class="radio-btn" type="radio" id="show-email-no" name="show-email" value="false">
-      <!-- <label for="show-email-yes">No</label><br> -->
 
       <div class="input-label" id="show-location-label">Show Location:</div>
       <input class="radio-btn" type="radio" id="show-location-yes" name="show-location" value="true">
-      <!-- <label for="show-location-yes">Yes</label><br> -->
       <input class="radio-btn" type="radio" id="show-location-no" name="show-location" value="false">
-      <!-- <label for="show-location-yes">No</label><br> -->
+
       <div id="update-profile-div">
-        <input type="submit" id="update-profile" value="Update Profile">
+        <div id="bottom-filler" class="space-filler"><br></div>
+        <div id="update-success" class="no-show error-message">Success</div>
+        <div id="update-failure" class="no-show error-message">Failure</div>
+        <input type="button" id="update-profile" value="Update Profile">
       </div>
 
 
