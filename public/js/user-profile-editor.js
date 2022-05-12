@@ -61,7 +61,7 @@ async function updateProfileInfo() {
         description: document.getElementById("description").value,
         showEmail: document.getElementById("show-email-yes").checked,
         showLocation:document.getElementById("show-location-yes").checked
-    }
+    };
     
     let path = window.location.pathname;
     const requestId = path.substring(path.lastIndexOf('/'));

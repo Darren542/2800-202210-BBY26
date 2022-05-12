@@ -449,8 +449,177 @@ app.post("/update-profile/:id", function (req, res) {
 
 app.get("/account-settings/", function (req, res) {
     if (req.session.loggedIn) {
+        res.redirect(`/account-settings/${req.session.username}`);       
+    } else {
+        res.redirect("/");
+    }
+});
+
+app.get("/account-settings/:id", function (req, res) {
+    if (req.session.loggedIn) {
         let doc = fs.readFileSync("./app/html/account-settings.html", "utf8");
         res.send(doc);
+    } else {
+        res.redirect("/");
+    }
+});
+
+app.post("/update-username/:id", function (req, res) {
+    // Can only update the profile if you are admin or it is your account
+    
+    if (req.session.loggedIn && (req.session.isAdmin || (req.session.username == req.params.id))) {
+        let connection;
+        let myPromise = new Promise((resolve, reject) => {
+
+            connection = mysql.createConnection({
+                host: "localhost",
+                user: "root",
+                password: "",
+                database: "BBY_26"
+            });
+
+            connection.connect(err => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(true);
+                }
+            });
+
+        });
+
+        myPromise.then(
+            function () {
+                connection.execute(
+                    "UPDATE bby_26_users SET username = ? WHERE username = ?",
+                    [req.body.username, req.params.id],
+                    function (error, results) {
+                        if (error) {
+                            //console.log(error);
+                            if(error.code == 'ER_DUP_ENTRY') {
+                                res.send({ status: "failure", msg: "Username Taken." });
+                            }
+                        }
+                        else {
+                            req.session.username = req.body.username;
+                            res.send({ status: "success", msg: "Updated Username." });
+                        }
+
+                    });
+                connection.end();
+            },
+            function (error) {
+                console.log(error);
+            }
+        );
+
+
+    } else {
+        res.redirect("/");
+    }
+});
+
+app.post("/update-email/:id", function (req, res) {
+    // Can only update the profile if you are admin or it is your account
+    
+    if (req.session.loggedIn && (req.session.isAdmin || (req.session.username == req.params.id))) {
+        let connection;
+        let myPromise = new Promise((resolve, reject) => {
+
+            connection = mysql.createConnection({
+                host: "localhost",
+                user: "root",
+                password: "",
+                database: "BBY_26"
+            });
+
+            connection.connect(err => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(true);
+                }
+            });
+
+        });
+
+        myPromise.then(
+            function () {
+                connection.execute(
+                    "UPDATE bby_26_users SET email = ? WHERE username = ?",
+                    [req.body.email, req.params.id],
+                    function (error, results) {
+                        if (error) {
+                            //console.log(error);
+                            if(error.code == 'ER_DUP_ENTRY') {
+                                res.send({ status: "failure", msg: "Email Taken." });
+                            }
+                        }
+                        else {
+                            req.session.email = req.body.email;
+                            res.send({ status: "success", msg: "Updated Email." });
+                        }
+
+                    });
+                connection.end();
+            },
+            function (error) {
+                console.log(error);
+            }
+        );
+
+
+    } else {
+        res.redirect("/");
+    }
+});
+
+app.post("/update-password/:id", function (req, res) {
+    // Can only update the profile if you are admin or it is your account
+    
+    if (req.session.loggedIn && (req.session.isAdmin || (req.session.username == req.params.id))) {
+        let connection;
+        let myPromise = new Promise((resolve, reject) => {
+
+            connection = mysql.createConnection({
+                host: "localhost",
+                user: "root",
+                password: "",
+                database: "BBY_26"
+            });
+
+            connection.connect(err => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(true);
+                }
+            });
+
+        });
+
+        myPromise.then(
+            function () {
+                connection.execute(
+                    "UPDATE bby_26_users SET pw = ? WHERE username = ?",
+                    [req.body.password, req.params.id],
+                    function (error, results) {
+                        if (error) {
+                            console.log(error);
+                        }
+                        else {
+                            res.send({ status: "success", msg: "Updated Password." });
+                        }
+
+                    });
+                connection.end();
+            },
+            function (error) {
+                console.log(error);
+            }
+        );
+
+
     } else {
         res.redirect("/");
     }
