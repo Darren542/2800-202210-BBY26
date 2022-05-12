@@ -10,7 +10,12 @@ body {
     grid-template-rows: 1fr;
 }
 
+
 @media (max-width: 751px) {
+
+    .no-show {
+        display: none;
+    }
 
     #header {
         padding-top: 80px;
@@ -20,9 +25,9 @@ body {
     }
 
     /* page 1 */
-    #page1 {
+    /* #page1 {
         display: none;
-    }
+    } */
 
     #progress-bar {
         padding-left: 1%;
@@ -59,10 +64,15 @@ body {
         grid-row: 10 / 12;
     }
 
-    /* Page 2 */
-    #page2 {
-        display: none;
+    #event-end-time {
+        margin-top: 5px;
+        margin-left: 62px;
     }
+
+    /* Page 2 */
+    /* #page2 {
+        display: none;
+    } */
 
     #page2-header {
         text-align: center;
@@ -90,7 +100,7 @@ body {
         justify-content: center;
     }
 
-    
+
     #group-call {
         display: flex;
         flex-direction: column;
@@ -112,9 +122,9 @@ body {
     }
 
     /* page 4 */
-    #page4 {
+    /* #page4 {
         display: none;
-    }
+    } */
 
     #guidelines-terms {
         padding: 10px;
