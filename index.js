@@ -371,6 +371,7 @@ app.post("/add-user", function (req, res) {
                                     if (error) {
                                     }
                                     res.send({ status: "success", msg: "Record added." });
+                                    connection.end();
                                 });
                             }
                         });
