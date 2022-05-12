@@ -20,7 +20,7 @@ body {
         grid-row: 1 / 2;
     }
 
-    #sub-header1 {
+    #sub-header {
         padding-left: 1%;
         grid-column: 1 / span 1;
         grid-row: 3 / 5;
@@ -31,6 +31,21 @@ body {
         padding-left: 1%;
         grid-column: 1 / span 1;
         grid-row: 7 / 9;
+    }
+
+    #event-street {
+        margin-bottom: 10px;
+    }
+    
+    #event-city {
+        margin-left: 16px;
+    }
+
+    #sub-header3 {
+        padding-top: 5%;
+        padding-left: 1%;
+        grid-column: 1 / span 1;
+        grid-row: 10 / 12;
     }
 
     #event-date {
