@@ -395,7 +395,7 @@ app.get("/edit-profile/:id", function (req, res) {
     } else {
         res.redirect("/");
     }
-})
+});
 
 app.post("/update-profile/:id", function (req, res) {
     // Can only update the profile if you are admin or it is your account
@@ -445,7 +445,16 @@ app.post("/update-profile/:id", function (req, res) {
     } else {
         res.redirect("/");
     }
-})
+});
+
+app.get("/account-settings/", function (req, res) {
+    if (req.session.loggedIn) {
+        let doc = fs.readFileSync("./app/html/account-settings.html", "utf8");
+        res.send(doc);
+    } else {
+        res.redirect("/");
+    }
+});
 
 
 app.use(function (req, res, next) {
