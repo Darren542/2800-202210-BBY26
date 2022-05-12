@@ -18,6 +18,99 @@
 
   <div id="content">
 
+    <h2 id="account-settings-header">Account Settings</h2>
+    <!-- Section to update the users profile image-->
+    <div id="profile-image-div">
+
+      <img src="/img/profile.jpg" alt="Profile Image" id="profile-image" />
+    </div>
+    <form action="/update-account/avatar" method="post" id="avatar-update-form">
+      <div id="profile-image-edit-div">
+        <h3 id="change-profile-image-header">Change Avatar</h3>
+        <div>Spot where editting profile picture content goes</div>
+
+        <div id="update-account-div">          
+          <input class="btn" type="button" id="update-account-avatar" value="Update Avatar">
+          <div id="profile-filler" class="space-filler"><br/></div>
+          <div id="update-success-avatar" class="no-show update-success error-message">Success</div>
+          <div id="update-failure-avatar" class="no-show update-failure error-message">Failure</div>
+        </div>
+      </div>
+    </form>
+
+    <div class="divider" id="change-profile-divider"></div>
+
+    <!-- Form to update the users username -->
+    <h3 id="change-username-header">Change User Name</h3>
+    <form class="form-class" action="/update-account/username" method="post" id="username-update-form">
+
+      <div class="input-label" id="display-name-label">
+        <abbr class="custom-abbr" titled="max-length is 20 characters">🛈</abbr>
+        <span>Username:</span>
+      </div>
+      <div class="text-input">
+        <input type="text" id="username-name" name="username-name" maxlength="20"></input>
+      </div>
+
+      <div class="button-holder" id="update-username-div">       
+        <input class="btn" type="button" id="update-account-username" value="Change Username">
+        <div id="username-filler" class="space-filler"><br/></div>
+        <div id="update-success-username" class="no-show update-success error-message">Success</div>
+        <div id="update-failure-username" class="no-show update-failure error-message">Failure</div>
+      </div>
+
+    </form>
+
+    <!-- Form to update the users email -->
+    <h3 id="change-email-header">Change Email</h3>
+    <form class="form-class" action="/update-account/email" method="post" id="email-update-form">
+
+      <div class="input-label" id="email-label">
+        <span>Email:</span>
+      </div>
+      <div class="text-input">
+        <input type="text" id="email" name="email"></input>
+      </div>
+
+      <div class="button-holder" id="update-email-div">
+        <input class="btn" type="button" id="update-account-email" value="Change Email">
+        <div id="email-filler" class="space-filler"><br/></div>
+        <div id="update-success-email" class="no-show update-success error-message">Success</div>
+        <div id="update-failure-email" class="no-show update-failure error-message">Failure</div>        
+      </div>
+
+    </form>
+
+    <!-- Form to update the users password -->
+    <h3 id="change-password-header">Change Password</h3>
+    <form class="form-class" action="/update-account/password" method="post" id="password-update-form">
+
+      <div class="input-label" id="new-password-label">
+        <span>New Password:</span>
+      </div>
+      <div class="text-input">
+        <input type="password" id="new-password" name="new-password"></input>
+      </div>
+
+      <div class="input-label" id="confirm-password-label">
+        <span>Confirm Password:</span>
+      </div>
+      <div class="text-input">
+        <input type="password" id="confirm-password" name="confirm-password"></input>
+      </div>
+
+      <div class="button-holder" id="update-password-div">
+        <input class="btn" type="button" id="update-account-password-confirm" value="Change Password">
+        <div id="password-filler" class="space-filler"><br/></div>
+        <div id="update-success-password" class="no-show update-success error-message">Success</div>
+        <div id="update-failure-password" class="no-show update-failure error-message">Failure</div>
+      </div>
+
+    </form>
+
+
+
+    </form>
   </div>
   <!-- footer -->
   <div id="footer-placeholder"></div>
