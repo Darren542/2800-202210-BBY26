@@ -15,16 +15,42 @@
 <body>
   <div id="navbar-placeholder"></div>
 
-
   <div id="content">
+    <div id="background">
+      <div id="add-user-popup">
+        <h3>Create a new user:</h3>
+
+        <div id="email-div">
+          <label for="email">Email:</label><br>
+          <input type="text" id="email" name="email"><br>
+        </div>
+
+        <div id="username-div">
+          <label for="username">Username:</label><br>
+          <input type="text" id="username" name="username"><br>
+        </div>
+
+        <div id="password-div">
+          <label for="password">Password:</label><br>
+          <input type="password" id="password"><br>
+        </div>
+
+        <div id="buttons-div">
+          <button id="confirm">Confirm</button>
+          <button id="cancel">Cancel</button>
+        </div>
+        <p id="create-user-error-message"></p>
+      </div>
+    </div>
     <div id="greeting">
       <img id="avatar" src="/img/K_9_Meet-logos.jpeg">
       <p id="welcome">Welcome Back<span id="username-placeholder"></span></p>
       <img id="epic-image" src="/img/dog.png">
+      <button id="add-user">Add User</button>
     </div>
-    
+
     <p id="error-message"></p>
-    <input type="text" id="searchbar" onkeyup="searchUser()" placeholder="Search by username..">
+    <input type="text" id="searchbar" placeholder="Search by username..">
 
 
     <div id="admin-dashboard">

@@ -3,6 +3,12 @@
 let userList;
 
 function ready() {
+    document.getElementById("searchbar").addEventListener("keyup", searchUser);
+    document.getElementById("add-user").addEventListener("click", showPopup);
+    document.getElementById("cancel").addEventListener("click", hidePopup)
+    document.getElementById("confirm").addEventListener("click", createUser);
+
+
     const getname = new XMLHttpRequest();
     getname.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -73,6 +79,15 @@ function ready() {
 
 ready();
 
+function showPopup() {
+    document.getElementById("background").style = "z-index: 2; opacity: 1;"
+    document.getElementById("add-user-popup").style = "z-index: 2; opacity: 1;";
+}
+
+function hidePopup() {
+    document.getElementById("background").style = "z-index: -2; opacity: 0;"
+    document.getElementById("add-user-popup").style = "z-index: -2; opacity: 0;";
+}
 
 function deleteUser() {
     let text = "This will delete the user.\nOk or Cancel.";
@@ -88,6 +103,37 @@ function deleteUser() {
         xhttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
         xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhttp.send(params);
+    }
+}
+
+
+
+function createUser() {
+    let username = document.getElementById("username").value;
+    let email = document.getElementById("email").value;
+    let password = document.getElementById("password").value;
+    if (username == "" || email == "" || password == "") {
+        document.getElementById("create-user-error-message").innerHTML = "Fields cannot be empty!";
+    } else {
+        const xhr = new XMLHttpRequest();
+        xhr.onload = function () {
+            if (this.readyState == XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    let response = JSON.parse(this.responseText);
+                    let message = document.getElementById("create-user-error-message");
+                    message.display = "";
+                    message.innerHTML = response.msg;
+                    if (response.status === "success"){
+                        location.reload();
+                    }
+                }
+            }
+        }
+        document.getElementById("password").value = "";
+        xhr.open("POST", "/add-user");
+        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send("username=" + username + "&email=" + email + "&password=" + password);
     }
 }
 
@@ -124,13 +170,13 @@ function shuffle() {
     var col = 1;
     var index = 0;
     userList.forEach(function () {
-        let card = document.getElementById(""+userList[index].username);
-        if (card.style.display == "grid"){
-            let text = "grid-column:"+col+";";
+        let card = document.getElementById("" + userList[index].username);
+        if (card.style.display == "grid") {
+            let text = "grid-column:" + col + ";";
             card.style.cssText += text;
             col++;
         }
-        if (col > 3){
+        if (col > 3) {
             col = 1;
         }
         index++;
