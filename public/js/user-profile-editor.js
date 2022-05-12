@@ -1,4 +1,4 @@
-
+"use strict";
 //----------------------------------------------------------------------
 // takes the whole path as a parameter.
 // eg. user-profile/testuser
