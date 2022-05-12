@@ -8,6 +8,8 @@ const fs = require("fs");
 const session = require("express-session");
 const { JSDOM } = require('jsdom');
 const mysql = require('mysql2');
+const req = require("express/lib/request");
+const res = require("express/lib/response");
 
 app.use("/js", express.static("./public/js"));
 app.use("/css", express.static("./public/css"));
@@ -32,6 +34,14 @@ app.get("/", function (req, res) {
         }
     } else {
         let doc = fs.readFileSync("./app/html/splash.html", "utf8");
+        res.send(doc);
+    }
+});
+
+//ONLY FOR ADMINS
+app.get("/home", function (req, res) {
+    if (req.session.loggedIn && req.session.isAdmin){
+        let doc = fs.readFileSync("./app/html/home.html", "utf8");
         res.send(doc);
     }
 });
@@ -72,7 +82,72 @@ app.get("/login", function (req, res) {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
+app.post("/modify-privilege", function (req, res) {
+    const connection2 = mysql.createConnection({
+        host: "localhost",
+        user: "root",
+        password: "",
+        database: "BBY_26"
+    });
+    connection2.connect();
+    connection2.execute(
+        "SELECT COUNT(isAdmin) AS DATA FROM BBY_26_users WHERE isAdmin = 1",
+        function (error, results) {
+            if (error) {
+            }
+            if (results[0].DATA != 1 || req.body.changeTo == 1) {
+                const connection = mysql.createConnection({
+                    host: "localhost",
+                    user: "root",
+                    password: "",
+                    database: "BBY_26"
+                });
+                connection.connect();
+                connection.execute(
+                    "UPDATE BBY_26_users SET isAdmin = ? WHERE username = ?",
+                    [req.body.changeTo, req.body.username],
+                    function (error, results) {
+                        if (error) {
+                        }
+                        if (results[0] != null) {
+                            res.send({ status: "success", msg: "Changed privilege." });
+                            location.reload();
+                        } else {
+                            res.send({ status: "fail", msg: "User account not found." });
+                        }
+                    }
+                );
+                connection.end();
+            } else {
+                res.send("Need at least one account with admin privilege!");
+            }
+        }
+    );
+    connection2.end();
+});
+app.post("/delete-user", function (req, res) {
+    console.log("username: " + req.body.username);
+    const connection = mysql.createConnection({
+        host: "localhost",
+        user: "root",
+        password: "",
+        database: "BBY_26"
+    });
+    connection.connect();
+    connection.execute(
+        "DELETE FROM BBY_26_users WHERE username = ?",
+        [req.body.username],
+        function (error, results) {
+            if (error) {
+            }
+            if (results[0] != null) {
+                res.send({ status: "success", msg: "Deleted user." });
+            } else {
+                res.send({ status: "fail", msg: "User account not found." });
+            }
+        });
+    connection.end();
+});
 app.post("/login", function (req, res) {
 
     //-------------------------------------------------------------------------

@@ -1,11 +1,480 @@
-td {
-    border: 1px solid black;
+@media only screen and (max-width: 600px) {
+
+    #background {
+        width: 100%;
+        height: 100%;
+        background: rgba(17, 16, 16, 0.7);
+        opacity: 0;
+        z-index: -2;
+        position: fixed;
+        display: flex;
+        justify-content: center;
+    }
+
+    #add-user-popup {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 5% 25% 10% 10% 10% 10% 10% 20%;
+        border-radius: 20px;
+        margin-left: 20%;
+        margin-right: 20%;
+        margin-top: 5%;
+        margin-bottom: auto;
+        padding: 20px;
+        padding-left: 50px;
+        opacity: 0;
+        z-index: -2;
+        position: absolute;
+        width: 60%;
+        height: 60%;
+        background: white;
+    }
+
+
+    #add-user-popup>h3 {
+        display: flex;
+        flex-direction: row;
+        grid-row: 2;
+        grid-column: 2 / span 1;
+        width: 80%;
+        height: 4vh;
+        font-size:calc(12px + 1.5vw);
+    }
+
+    #add-user-popup>#email-div {
+        display: flex;
+        flex-direction: row;
+        grid-row: 3;
+        grid-column: 2 / span 1;
+        width: 80%;
+        height: 4vh;
+        font-size:calc(12px + 1.5vw);
+    }
+
+    #add-user-popup>#email-div>* {
+        margin-right: 15px;
+    }
+
+    #add-user-popup>#username-div {
+        display: flex;
+        flex-direction: row;
+        grid-row: 4;
+        grid-column: 2 / span 1;
+        width: 80%;
+        height: 4vh;
+        font-size:calc(12px + 1.5vw);
+    }
+
+    #add-user-popup>#username-div>* {
+        margin-right: 15px;
+    }
+
+    #add-user-popup>#password-div {
+        display: flex;
+        flex-direction: row;
+        grid-row: 5;
+        grid-column: 2 / span 1;
+        width: 80%;
+        height: 4vh;
+        font-size:calc(12px + 1.5vw);
+    }
+
+    #add-user-popup>#password-div>* {
+        margin-right: 15px;
+    }
+
+
+    input {
+        width: 50%;
+    }
+    
+
+    #add-user-popup>#buttons-div {
+        display: flex;
+        flex-direction: row;
+        grid-row: 6;
+        grid-column: 2 / span 1;
+        width: 80%;
+        height: 40px;
+        font-size:calc(12px + 1.5vw);
+    }
+
+    #add-user-popup>#buttons-div>* {
+        width: 100px;
+        margin-right: 15px;
+    }
+
+    #create-user-error-message {
+        grid-row: 7;
+        grid-column: 2 / span 1;
+        color: red;
+    }
+    #add-user {
+        grid-column: 3 / span 1;
+        grid-row: 4 / span 1;
+        margin-left: 40px;
+        margin-top: 0px;
+        width: 10vw;
+        height: 35px;
+        display: grid;
+        border: solid .20vw transparent;
+        border-radius: 0.6vw;
+        font-size: 1.3vw;
+        background: linear-gradient(to left bottom, #23178e, #20c9ad) border-box;
+        text-transform: uppercase;
+        --full: linear-gradient(red 0 0);
+        -webkit-mask: var(--full) text, var(--full) padding-box, var(--full);
+        -webkit-mask-composite: xor;
+        mask: var(--full) padding-box exclude, var(--full);
+        -webkit-text-fill-color: transparent;
+    }
+
+    #error-message {
+        font-size: 32px;
+        color: red;
+    }
+
+    #card-loader {
+        display: grid;
+        grid-template-columns: 100% !important;
+    }
+
+    #add-user {
+        grid-column: 3 / span 1;
+        grid-row: 3 / span 1;
+        margin-left: 10px;
+        width: 100px;
+        height: 30px;
+        display: grid;
+        border: solid .5vw transparent;
+        border-radius: 0.9vw;
+        font-size: 14px;
+        background:
+            linear-gradient(to left bottom, #23178e, #20c9ad) border-box;
+        text-transform: uppercase;
+        --full: linear-gradient(red 0 0);
+        -webkit-mask: var(--full) text, var(--full) padding-box, var(--full);
+        -webkit-mask-composite: xor;
+        mask: var(--full) padding-box exclude, var(--full);
+        -webkit-text-fill-color: transparent;
+    }
+
+    .card {
+        grid-column: 1 !important;
+        width: 93% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        margin-bottom: 7px !important;
+        border-radius: 30px;
+    }
+
+    body {
+        background: rgb(239, 203, 203);  
+        min-width: 400px;
+    }
+
+    .card>p {
+        margin-left: 30px;
+    }
+
+    .card>button {
+        height: 5vw;
+        display: grid;
+        border: solid .5vw transparent;
+        border-radius: 0.9vw;
+        font-size: 2.4vw;
+        background:
+            linear-gradient(to right bottom, #eb5b27, #5d2800) border-box;
+        text-transform: uppercase;
+        --full: linear-gradient(red 0 0);
+        -webkit-mask: var(--full) text, var(--full) padding-box, var(--full);
+        -webkit-mask-composite: xor;
+        mask: var(--full) padding-box exclude, var(--full);
+        -webkit-text-fill-color: transparent;
+    }
+
+    #greeting {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 3% 20% 74% 3%;
+        grid-template-rows: 30% 40% 30%;
+        height: 75px;
+        letter-spacing: -1px;
+    }
+
+    #greeting>#avatar {
+        grid-column: 2 / span 1;
+        grid-row: 2 / span 1;
+        width: 100%;
+        height: 64px;
+        border: 1px solid black;
+    }
+
+    #epic-image {
+        position: relative;
+        width: 60px;
+        height: 60px;
+        left: 300px;
+        top: 62px;
+        z-index: 1;
+    }
+
+    #welcome {
+        width: 100%;
+        grid-column: 3 / span 1;
+        grid-row: 1 / span 1;
+        font-size: 24px;
+        margin-left: 10px;
+    }
+
+    #username-placeholder {
+        grid-column: 3 / span 1;
+        grid-row: 3 / span 1;
+        font-size: 24px;
+        margin-left: 10px;
+    }
+
+    #error-message {
+        font-size: 32px;
+        color: red;
+    }
+
+
+    #searchbar {
+        margin-left: 2%;
+        margin-right: 2%;
+        width: 94%;
+        font-size: 16px;
+        padding: 12px 1% 12px 1%;
+        border: 1px solid rgb(66, 52, 52);
+        margin-bottom: 12px;
+    }
+
 }
 
-th {
-    border: 1px solid black;
-}
+@media only screen and (min-width: 601px) {
 
-body {
-    background: rgb(239, 203, 203);
+    #background {
+        width: 100%;
+        height: 100%;
+        background: rgba(17, 16, 16, 0.7);
+        opacity: 0;
+        z-index: -2;
+        position: fixed;
+        display: flex;
+        justify-content: center;
+    }
+
+    #add-user-popup {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 5% 25% 10% 10% 10% 10% 10% 20%;
+        border-radius: 20px;
+        margin-left: 20%;
+        margin-right: 20%;
+        margin-top: 5%;
+        margin-bottom: auto;
+        padding: 20px;
+        padding-left: 50px;
+        opacity: 0;
+        z-index: -2;
+        position: absolute;
+        width: 60%;
+        height: 60%;
+        background: white;
+    }
+
+    #add-user-popup>h3 {
+        display: flex;
+        flex-direction: row;
+        grid-row: 2;
+        grid-column: 2 / span 1;
+        width: 80%;
+        height: 4vh;
+        font-size:calc(12px + 1.5vw);
+    }
+
+    #add-user-popup>#email-div {
+        display: flex;
+        flex-direction: row;
+        grid-row: 3;
+        grid-column: 2 / span 1;
+        width: 80%;
+        height: 4vh;
+        font-size:calc(12px + 1.5vw);
+    }
+
+    #add-user-popup>#email-div>* {
+        margin-right: 15px;
+    }
+
+    #add-user-popup>#username-div {
+        display: flex;
+        flex-direction: row;
+        grid-row: 4;
+        grid-column: 2 / span 1;
+        width: 80%;
+        height: 4vh;
+        font-size:calc(12px + 1.5vw);
+    }
+
+    #add-user-popup>#username-div>* {
+        margin-right: 15px;
+    }
+
+    #add-user-popup>#password-div {
+        display: flex;
+        flex-direction: row;
+        grid-row: 5;
+        grid-column: 2 / span 1;
+        width: 80%;
+        height: 4vh;
+        font-size:calc(12px + 1.5vw);
+    }
+
+    #add-user-popup>#password-div>* {
+        margin-right: 15px;
+    }
+
+    input {
+        width: 300px;
+    }
+    
+    #add-user-popup>#buttons-div {
+        display: flex;
+        flex-direction: row;
+        grid-row: 6;
+        grid-column: 2 / span 1;
+        width: 80%;
+        height: 40px;
+        font-size:calc(12px + 1.5vw);
+    }
+
+    #add-user-popup>#buttons-div>* {
+        width: 200px;
+        margin-right: 15px;
+    }
+
+    #create-user-error-message {
+        grid-row: 7;
+        grid-column: 2 / span 1;
+        color: red;
+    }
+    #add-user {
+        grid-column: 3 / span 1;
+        grid-row: 4 / span 1;
+        margin-left: 40px;
+        margin-top: -15px;
+        width: 100px;
+        height: 35px;
+        display: grid;
+        border: solid .20vw transparent;
+        border-radius: 0.6vw;
+        font-size: 16px;
+        background: linear-gradient(to left bottom, #23178e, #20c9ad) border-box;
+        text-transform: uppercase;
+        --full: linear-gradient(red 0 0);
+        -webkit-mask: var(--full) text, var(--full) padding-box, var(--full);
+        -webkit-mask-composite: xor;
+        mask: var(--full) padding-box exclude, var(--full);
+        -webkit-text-fill-color: transparent;
+    }
+
+    #error-message {
+        font-size: 32px;
+        color: red;
+    }
+
+    body {
+        background: rgb(239, 203, 203);
+    }
+
+    .card {
+        border-radius: 30px;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        margin-bottom: 7px;
+        overflow-x: hidden;
+        box-shadow: 0px 5px rgb(240, 157, 157);
+    }
+
+    #epic-image {
+        position: relative;
+        width: 120px;
+        height: 120px;
+        left: 70vw;
+        top: 12px;
+        z-index: 1;
+    }
+
+    .card>p {
+        margin-left: 30px;
+    }
+
+    .card>button {
+        margin-left: 30px;
+        margin-bottom: 5px;
+    }
+
+    #greeting {
+        display: grid;
+        grid-template-columns: 3% 8% 86% 3%;
+        grid-template-rows: 30% 40% 30%;
+        height: 75px;
+        letter-spacing: -1px;
+    }
+
+    #greeting>#avatar {
+        grid-column: 2 / span 1;
+        grid-row: 2;
+        width: 100%;
+        min-width: 80px;
+        height: 64px;
+        border: 1px solid black;
+    }
+
+    #welcome {
+        grid-column: 3 / span 1;
+        grid-row: 1 / span 1;
+        font-size: 32px;
+        margin-left: 40px;
+        margin-top: 15px;
+    }
+
+    #username-placeholder {
+        grid-column: 3 / span 1;
+        grid-row: 3 / span 1;
+        font-size: 32px;
+        margin-left: 10px;
+    }
+
+    #searchbar {
+        margin-left: 2%;
+        margin-right: 2%;
+        width: 94%;
+        font-size: 16px;
+        padding: 12px 1% 12px 1%;
+        border: 1px solid rgb(66, 52, 52);
+        margin-bottom: 12px;
+    }
+
+    .card>button {
+        height: 2.5vw;
+        display: grid;
+        border: solid .25vw transparent;
+        border-radius: 0.9vw;
+        font-size: 1vw;
+        background:
+            linear-gradient(to right bottom, #eb5b27, #5d2800) border-box;
+        text-transform: uppercase;
+        --full: linear-gradient(red 0 0);
+        -webkit-mask: var(--full) text, var(--full) padding-box, var(--full);
+        -webkit-mask-composite: xor;
+        mask: var(--full) padding-box exclude, var(--full);
+        -webkit-text-fill-color: transparent;
+    }
+
+    #searchbar>p {
+        margin-left: 50px;
+    }
 }
