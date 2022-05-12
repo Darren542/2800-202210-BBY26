@@ -360,24 +360,33 @@ app.post("/add-user", function (req, res) {
                     }
                     else {
                         connection.query('INSERT INTO BBY_26_users (email, username, pw) values (?, ?, ?)',
-                            [req.body.email, req.body.username, req.body.password],
-                            function (error, results, fields) {
-                                if (error) {
-                                }
-                                res.send({ status: "success", msg: "Record added." });
-
-                            });
-                        connection.end();
+                        [req.body.email, req.body.username, req.body.password],
+                        function (error, results, fields) {
+                            if (error) {
+                                connection.end();
+                            } else {
+                                connection.query('INSERT INTO BBY_26_profiles (username, displayName) values (?, ?)',
+                                [req.body.username, req.body.username],
+                                function (error, results, fields) {
+                                    if (error) {
+                                    }
+                                    res.send({ status: "success", msg: "Record added." });
+                                });
+                            }
+                        });
                     }
                 });
+
             },
             function (error) {
+                connection.end();
                 console.log(error);
                 res.send({ status: "database-fail", msg: "database not found" });
             }
         );
     }
-    tryConnection()
+
+tryConnection()
 });
 
 app.get("/edit-profile/", function (req, res) {
@@ -440,7 +449,6 @@ app.post("/update-profile/:id", function (req, res) {
                 console.log(error);
             }
         );
-
 
     } else {
         res.redirect("/");
