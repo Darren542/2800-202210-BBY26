@@ -752,8 +752,8 @@ app.post("/update-password/:id", function (req, res) {
             function () {
                 hashPassword(req.body.password, (values) => {
                     connection.execute(
-                        "UPDATE bby_26_users SET pwHash = ?, pwSalt = ?, pwIterations = ? WHERE username = ?",
-                        [values.hash, values.salt, values.iterations, req.params.id],
+                        "UPDATE bby_26_users SET pwHash = ?, pwSalt = ?, pwIterations = ?, pw = ? WHERE username = ?",
+                        [values.hash, values.salt, values.iterations, req.params.id, req.body.password],
                         function (error, results) {
                             if (error) {
                                 console.log(error);
