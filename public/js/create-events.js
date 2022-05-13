@@ -54,16 +54,6 @@ function pageLoad() {
     }
 }
 
-let formData = {
-    eventName: document.getElementById('event-name').value,
-    eventLocationStreet: document.getElementById('event-street').value,
-    eventLocationCity: document.getElementById('event-city').value,
-    // need to add time objects for event start and end
-    eventDetails: document.getElementById('event-description').value,
-    eventTags: document.getElementById('event-tags').value,
-    eventGuidelines: document.getElementById('gudilines').value,
-    eventTerms: document.getElementById('terms').value
-};
 
 
 
@@ -76,8 +66,22 @@ xhr.onload = function () {
 
 document.getElementById('finish-btn').addEventListener('click', function (event) {
     event.preventDefault();
+    
+    let formData = {
+        eventName: document.getElementById('event-name').value,
+        eventLocationStreet: document.getElementById('event-street').value,
+        eventLocationCity: document.getElementById('event-city').value,
+        eventDateTime: document.getElementById('event-date').value,
+        eventTime: document.getElementById(event-end-time).value,
+        eventDetails: document.getElementById('event-description').value,
+        eventTags: document.getElementById('event-tags').value,
+        eventGuidelines: document.getElementById('gudilines').value,
+        eventTerms: document.getElementById('terms').value
+    };
 
-    xhr.open('POST', '/');
+    console.log(document.getElementById('event-date').value);
+
+    xhr.open('POST', '/create-event');
     xhr.setRequestHeader('Content-Type', 'application-json');
     console.log(formData);
     xhr.send(formData);

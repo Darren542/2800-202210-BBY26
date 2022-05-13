@@ -101,6 +101,25 @@ app.get("/home", function (req, res) {
     }
 });
 
+app.post('/create-event', function(req, res) {
+
+    if(req.session.loggedIn) {
+        const mysql = require('mysql2');
+        const connection = mysql.createConnection({
+            host: "localhost",
+            user: "root",
+            password: "",
+            database: "COMP2800"
+        });
+        connection.connect();
+        connection.execute(
+            "INSERT INTO BBY_26_address {event_street, event_city} VAULES {?, ?}", [formData.eventLocationStreet, formData.eventLocationCity]
+
+
+        )
+    }
+});
+
 app.get("/users", function (req, res) {
     if (req.session.loggedIn && req.session.isAdmin) {
         const mysql = require("mysql2");
