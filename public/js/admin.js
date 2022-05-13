@@ -104,7 +104,12 @@ function deleteUser() {
         const xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                location.reload();
+                let response = JSON.parse(this.responseText);
+                if (response.msg == "Cannot delete yourself.") {
+                    document.getElementById("error-message").innerHTML = response.msg;
+                } else {
+                    location.reload();
+                }
             }
         }
         xhttp.open("POST", "/delete-user");
@@ -134,7 +139,7 @@ function createUser() {
                     let message = document.getElementById("create-user-error-message");
                     message.display = "";
                     message.innerHTML = response.msg;
-                    if (response.status === "success"){
+                    if (response.status === "success") {
                         location.reload();
                     }
                 }
@@ -159,10 +164,11 @@ function modifyPrivilege() {
         const xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                if (this.responseText == "Need at least one account with admin privilege!") {
-                    document.getElementById("error-message").innerHTML = this.responseText;
-                } else {
+                let response = JSON.parse(this.responseText);
+                if (response.status == "success") {
                     location.reload();
+                } else {
+                    document.getElementById("error-message").innerHTML = response.msg;
                 }
             }
         }

@@ -26,7 +26,7 @@ const profileImageStorage = multer.diskStorage({
     destination: function (req, file, callback) {
         callback(null, "./public/img/profile-imgs")
     },
-    filename: function(req, file, callback) {
+    filename: function (req, file, callback) {
         callback(null, `profile-${req.params.id}`);
     }
 });
@@ -34,13 +34,13 @@ const profileImageStorage = multer.diskStorage({
 // Multer Filter
 const multerFilter = (req, file, cb) => {
     if (req.session.isAdmin || (req.session.username == req.params.id)) {
-      cb(null, true);
+        cb(null, true);
     } else {
-      cb(new Error("You don't have permission!"), false);
+        cb(new Error("You don't have permission!"), false);
     }
-  };
+};
 
-const uploadProfileImage = multer({ 
+const uploadProfileImage = multer({
     storage: profileImageStorage,
     fileFilter: multerFilter,
 });
@@ -63,7 +63,7 @@ async function hashPassword(password, callback) {
                 iterations: iterations
             });
         }
-    });    
+    });
 }
 
 async function isPasswordCorrect(savedHash, savedSalt, savedIterations, passwordAttempt, callback) {
@@ -93,15 +93,15 @@ app.get("/", function (req, res) {
 
 //ONLY FOR ADMINS
 app.get("/home", function (req, res) {
-    if (req.session.loggedIn && req.session.isAdmin){
+    if (req.session.loggedIn && req.session.isAdmin) {
         let doc = fs.readFileSync("./app/html/home.html", "utf8");
         res.send(doc);
     }
 });
 
-app.post('/create-event', function(req, res) {
+app.post('/create-event', function (req, res) {
 
-    if(req.session.loggedIn) {
+    if (req.session.loggedIn) {
         const mysql = require('mysql2');
         const connection = mysql.createConnection({
             host: "localhost",
@@ -155,70 +155,77 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.post("/modify-privilege", function (req, res) {
-    const connection2 = mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "",
-        database: "COMP2800"
-    });
-    connection2.connect();
-    connection2.execute(
-        "SELECT COUNT(isAdmin) AS DATA FROM BBY_26_users WHERE isAdmin = 1",
-        function (error, results) {
-            if (error) {
-            }
-            if (results[0].DATA != 1 || req.body.changeTo == 1) {
-                const connection = mysql.createConnection({
-                    host: "localhost",
-                    user: "root",
-                    password: "",
-                    database: "COMP2800"
-                });
-                connection.connect();
-                connection.execute(
-                    "UPDATE BBY_26_users SET isAdmin = ? WHERE username = ?",
-                    [req.body.changeTo, req.body.username],
-                    function (error, results) {
-                        if (error) {
+    if (req.session.username == req.body.username) {
+        res.send({ status: "fail", msg: "Cannot demote yourself." });
+    } else {
+        const connection2 = mysql.createConnection({
+            host: "localhost",
+            user: "root",
+            password: "",
+            database: "COMP2800"
+        });
+        connection2.connect();
+        connection2.execute(
+            "SELECT COUNT(isAdmin) AS DATA FROM BBY_26_users WHERE isAdmin = 1",
+            function (error, results) {
+                if (error) {
+                }
+                if (results[0].DATA != 1 || req.body.changeTo == 1) {
+                    const connection = mysql.createConnection({
+                        host: "localhost",
+                        user: "root",
+                        password: "",
+                        database: "COMP2800"
+                    });
+                    connection.connect();
+                    connection.execute(
+                        "UPDATE BBY_26_users SET isAdmin = ? WHERE username = ?",
+                        [req.body.changeTo, req.body.username],
+                        function (error, results) {
+                            if (error) {
+                            }
+                            if (results[0] != null) {
+                                res.send({ status: "success", msg: "Changed privilege." });
+                                location.reload();
+                            } else {
+                                res.send({ status: "fail", msg: "User account not found." });
+                            }
                         }
-                        if (results[0] != null) {
-                            res.send({ status: "success", msg: "Changed privilege." });
-                            location.reload();
-                        } else {
-                            res.send({ status: "fail", msg: "User account not found." });
-                        }
-                    }
-                );
-                connection.end();
-            } else {
-                res.send("Need at least one account with admin privilege!");
+                    );
+                    connection.end();
+                } else {
+                    res.send({ status: "fail", msg: "Need at least one account with admin privilege!"});
+                }
             }
-        }
-    );
-    connection2.end();
+        );
+        connection2.end();
+    }
 });
 app.post("/delete-user", function (req, res) {
-    //console.log("username: " + req.body.username);
-    const connection = mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "",
-        database: "COMP2800"
-    });
-    connection.connect();
-    connection.execute(
-        "DELETE FROM BBY_26_users WHERE username = ?",
-        [req.body.username],
-        function (error, results) {
-            if (error) {
-            }
-            if (results[0] != null) {
-                res.send({ status: "success", msg: "Deleted user." });
-            } else {
-                res.send({ status: "fail", msg: "User account not found." });
-            }
+    if (req.session.username == req.body.username) {
+        res.send({ status: "fail", msg: "Cannot delete yourself." });
+    } else {
+        const connection = mysql.createConnection({
+            host: "localhost",
+            user: "root",
+            password: "",
+            database: "COMP2800"
         });
-    connection.end();
+        connection.connect();
+        connection.execute(
+            "DELETE FROM BBY_26_users WHERE username = ?",
+            [req.body.username],
+            function (error, results) {
+                if (error) {
+                }
+                if (results[0] != null) {
+                    res.send({ status: "success", msg: "Deleted user." });
+                } else {
+                    res.send({ status: "fail", msg: "User account not found." });
+                }
+            });
+        connection.end();
+    }
 });
 app.post("/login", function (req, res) {
 
@@ -571,12 +578,12 @@ app.get("/create", function (req, res) {
 })
 
 app.get("/create-events", function (req, res) {
-    if (req.session.loggedIn){
+    if (req.session.loggedIn) {
         let doc = fs.readFileSync("./app/html/create-events.html", "utf8");
         res.send(doc);
     } else {
         res.redirect("/");
-    }    
+    }
 })
 
 app.post("/add-user", function (req, res) {
@@ -651,7 +658,7 @@ app.post("/add-user", function (req, res) {
         );
     }
 
-tryConnection()
+    tryConnection()
 });
 
 app.get("/edit-profile/", function (req, res) {
@@ -722,7 +729,7 @@ app.post("/update-profile/:id", function (req, res) {
 
 app.get("/account-settings/", function (req, res) {
     if (req.session.loggedIn) {
-        res.redirect(`/account-settings/${req.session.username}`);       
+        res.redirect(`/account-settings/${req.session.username}`);
     } else {
         res.redirect("/");
     }
@@ -739,7 +746,7 @@ app.get("/account-settings/:id", function (req, res) {
 
 app.post("/update-username/:id", function (req, res) {
     // Can only update the profile if you are admin or it is your account
-    
+
     if (req.session.loggedIn && (req.session.isAdmin || (req.session.username == req.params.id))) {
         let connection;
         let myPromise = new Promise((resolve, reject) => {
@@ -769,7 +776,7 @@ app.post("/update-username/:id", function (req, res) {
                     function (error, results) {
                         if (error) {
                             //console.log(error);
-                            if(error.code == 'ER_DUP_ENTRY') {
+                            if (error.code == 'ER_DUP_ENTRY') {
                                 res.send({ status: "failure", msg: "Username Taken." });
                             }
                         }
@@ -794,7 +801,7 @@ app.post("/update-username/:id", function (req, res) {
 
 app.post("/update-email/:id", function (req, res) {
     // Can only update the profile if you are admin or it is your account
-    
+
     if (req.session.loggedIn && (req.session.isAdmin || (req.session.username == req.params.id))) {
         let connection;
         let myPromise = new Promise((resolve, reject) => {
@@ -824,7 +831,7 @@ app.post("/update-email/:id", function (req, res) {
                     function (error, results) {
                         if (error) {
                             //console.log(error);
-                            if(error.code == 'ER_DUP_ENTRY') {
+                            if (error.code == 'ER_DUP_ENTRY') {
                                 res.send({ status: "failure", msg: "Email Taken." });
                             }
                         }
@@ -849,7 +856,7 @@ app.post("/update-email/:id", function (req, res) {
 
 app.post("/update-password/:id", function (req, res) {
     // Can only update the profile if you are admin or it is your account
-    
+
     if (req.session.loggedIn && (req.session.isAdmin || (req.session.username == req.params.id))) {
         let connection;
         let myPromise = new Promise((resolve, reject) => {
@@ -876,7 +883,7 @@ app.post("/update-password/:id", function (req, res) {
                 hashPassword(req.body.password, (values) => {
                     connection.execute(
                         "UPDATE bby_26_users SET pwHash = ?, pwSalt = ?, pwIterations = ?, pw = ? WHERE username = ?",
-                        [values.hash, values.salt, values.iterations, req.params.id, req.body.password],
+                        [values.hash, values.salt, values.iterations, req.body.password, req.params.id],
                         function (error, results) {
                             if (error) {
                                 console.log(error);
@@ -884,11 +891,11 @@ app.post("/update-password/:id", function (req, res) {
                             else {
                                 res.send({ status: "success", msg: "Updated Password." });
                             }
-    
+
                         });
                     connection.end();
                 })
-                
+
             },
             function (error) {
                 console.log(error);
@@ -903,8 +910,8 @@ app.post("/update-password/:id", function (req, res) {
 
 app.post('/update-avatar/:id', uploadProfileImage.single("files"), function (req, res) {
 
-    if (req.session.loggedIn && (req.session.isAdmin || (req.session.username == req.params.id))) { 
-        
+    if (req.session.loggedIn && (req.session.isAdmin || (req.session.username == req.params.id))) {
+
         let connection;
         let myPromise = new Promise((resolve, reject) => {
 
@@ -946,7 +953,7 @@ app.post('/update-avatar/:id', uploadProfileImage.single("files"), function (req
             }
         );
     } else {
-        res.send({ status: "failure", msg: "You did not have permission to do that."});
+        res.send({ status: "failure", msg: "You did not have permission to do that." });
     }
 });
 
