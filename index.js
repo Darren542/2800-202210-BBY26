@@ -553,6 +553,14 @@ app.get("/create", function (req, res) {
     }
 })
 
+app.get("/create-events", function (req, res) {
+    if (req.session.loggedIn){
+        let doc = fs.readFileSync("./app/html/create-events.html", "utf8");
+        res.send(doc);
+    } else {
+        res.redirect("/");
+    }    
+})
 
 app.post("/add-user", function (req, res) {
     res.setHeader('Content-Type', 'application/json');
