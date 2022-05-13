@@ -39,10 +39,14 @@ C:.
 |   index.js
 |   README.md
 |   readme.txt
+|   tree.txt
+|   tree2.txt
 |   
 +---app
 |   +---html
+|   |       account-settings.html
 |   |       admin.html
+|   |       create-events.html
 |   |       create.html
 |   |       event.html
 |   |       home.html
@@ -50,41 +54,56 @@ C:.
 |   |       search.html
 |   |       signup.html
 |   |       splash.html
-|   |       user_profile.html
+|   |       user-profile-editor.html
+|   |       user-profile.html
 |   |       
+|   +---img
+|   |   \---profile-imgs
 |   \---templates
 |           footer.html
 |           nav-logged-out.html
 |           nav.html
-|                     
+|           
 \---public
     +---css
+    |       account-settings.css
     |       admin.css
     |       client.css
+    |       create-events.css
     |       home.css
     |       login.css
     |       signup.css
     |       splash.css
-    |       user_profile.css
+    |       user-profile-editor.css
+    |       user-profile.css
     |       
     +---img
-    |       desktop-splash.jpg          // From Pixels.com user Julissa Helmuth
-    |       dog-signup.jpg              // From Pinterest.com
-    |       favicon.ico                 // Made with favicon.io
-    |       K_9_Meet-logos.jpeg         // Made using Adobe logomaker
-    |       logo-transparent.png        // Made using Adobe logomaker
-    |       profile.jpg                 // Made by Darren in paint
-    |       signup-page-desktop.jpg     // From Pinterest.com
-    |       splash-image.jpg            // Image taken by Darren
-    |       steveston-dog-park.jpg      // Image of steveston dog park from thedognetwork.ca
-    |       
+    |   |   desktop-splash.jpg          // From Pixels.com user Julissa Helmuth
+    |   |   dog-signup.jpg              // From Pinterest.com
+    |   |   dog.png
+    |   |   favicon.ico                 // Made with favicon.io
+    |   |   K_9_Meet-logos.jpeg         // Made using Adobe logomaker
+    |   |   logo-transparent.png        // Made using Adobe logomaker
+    |   |   profile.jpg                 // Made by Darren in paint
+    |   |   signup-page-desktop.jpg     // From Pinterest.com
+    |   |   splash-image.jpg            // Image taken by Darren
+    |   |   steveston-dog-park.jpg      // Image of steveston dog park from thedognetwork.ca
+    |   |   
+    |   \---profile-imgs
+    |           profile.jpg             // Made by Darren in paint
+    |           
     \---js
+            account-settings.js
             admin.js
+            create-events.js
             home.js
             login.js
             signup.js
+            skeleton-logged-in.js
             skeleton.js
             splash.js
-            user_profile.js
+            user-profile-editor.js
+            user-profile.js
             
+
 ```
