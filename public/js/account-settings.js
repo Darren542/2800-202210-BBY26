@@ -1,29 +1,35 @@
 "use strict";
 
-function getemail() {
+function getOtherEmail() {
     const getemail = new XMLHttpRequest();
     getemail.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("email").value = this.responseText;
+            let email = JSON.parse(this.responseText).email;
+            document.getElementById("email").value = email;
         }
     }
-    getemail.open("GET", "/email", true);
+    let path = window.location.pathname;
+    const requestId = path.substring(path.lastIndexOf('/'));
+    getemail.open("GET", `/email${requestId}`, true);
     getemail.send();
 }
 
-function getname() {
+function getOtherName() {
     const getname = new XMLHttpRequest();
     getname.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("username-name").value = this.responseText;
+            let username = JSON.parse(this.responseText).username;
+            document.getElementById("username-name").value = username;
         }
     }
-    getname.open("GET", "/username", true);
+    let path = window.location.pathname;
+    const requestId = path.substring(path.lastIndexOf('/'));
+    getname.open("GET", `/username${requestId}`, true);
     getname.send();
 }
 
-getname();
-getemail();
+getOtherName();
+getOtherEmail();
 
 async function updateUsername() {
     let newUsername = {

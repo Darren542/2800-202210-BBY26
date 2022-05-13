@@ -280,6 +280,104 @@ app.get("/email", function (req, res) {
     res.send(req.session.email);
 });
 
+app.get("/username/:id", function (req, res) {
+    if (req.session.loggedIn && (req.session.isAdmin || (req.session.username == req.params.id))) {
+        let connection;
+        let myPromise = new Promise((resolve, reject) => {
+
+            connection = mysql.createConnection({
+                host: "localhost",
+                user: "root",
+                password: "",
+                database: "COMP2800"
+            });
+
+            connection.connect(err => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(true);
+                }
+            });
+
+        });
+
+        myPromise.then(
+            function () {
+                connection.execute(
+                    "SELECT username FROM bby_26_users WHERE username = ?",
+                    [req.params.id],
+                    function (error, results) {
+                        if (error) {
+                            console.log(error);
+                        }
+                        else {
+                            res.send({ status: "success", msg: "Updated Username.", username: results[0].username });
+                        }
+
+                    });
+                connection.end();
+            },
+            function (error) {
+                console.log(error);
+            }
+        );
+
+
+    } else {
+        res.redirect("/");
+    }
+});
+
+app.get("/email/:id", function (req, res) {
+    if (req.session.loggedIn && (req.session.isAdmin || (req.session.username == req.params.id))) {
+        let connection;
+        let myPromise = new Promise((resolve, reject) => {
+
+            connection = mysql.createConnection({
+                host: "localhost",
+                user: "root",
+                password: "",
+                database: "COMP2800"
+            });
+
+            connection.connect(err => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(true);
+                }
+            });
+
+        });
+
+        myPromise.then(
+            function () {
+                connection.execute(
+                    "SELECT email FROM bby_26_users WHERE username = ?",
+                    [req.params.id],
+                    function (error, results) {
+                        if (error) {
+                            console.log(error);
+                        }
+                        else {
+                            res.send({ status: "success", msg: "Updated Username.", email: results[0].email });
+                        }
+
+                    });
+                connection.end();
+            },
+            function (error) {
+                console.log(error);
+            }
+        );
+
+
+    } else {
+        res.redirect("/");
+    }
+});
+
 app.get("/logout", function (req, res) {
     if (req.session) {
         req.session.destroy(function (error) {
