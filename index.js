@@ -10,6 +10,7 @@ const { JSDOM } = require('jsdom');
 const mysql = require('mysql2');
 const req = require("express/lib/request");
 const res = require("express/lib/response");
+const multer = require("multer");
 
 app.use("/js", express.static("./public/js"));
 app.use("/css", express.static("./public/css"));
@@ -22,6 +23,29 @@ app.use(session(
         saveUninitialized: true
     })
 );
+
+const profileImageStorage = multer.diskStorage({
+    destination: function (req, file, callback) {
+        callback(null, "./public/img/profile-imgs")
+    },
+    filename: function(req, file, callback) {
+        callback(null, `profile-${req.params.id}`);
+    }
+});
+
+// Multer Filter
+const multerFilter = (req, file, cb) => {
+    if (req.session.isAdmin || (req.session.username == req.params.id)) {
+      cb(null, true);
+    } else {
+      cb(new Error("You don't have permission!"), false);
+    }
+  };
+
+const uploadProfileImage = multer({ 
+    storage: profileImageStorage,
+    fileFilter: multerFilter,
+});
 
 app.get("/", function (req, res) {
     if (req.session.loggedIn) {
@@ -53,7 +77,7 @@ app.get("/users", function (req, res) {
             host: "localhost",
             user: "root",
             password: "",
-            database: "BBY_26"
+            database: "COMP2800"
         });
         connection.connect();
         connection.execute(
@@ -87,7 +111,7 @@ app.post("/modify-privilege", function (req, res) {
         host: "localhost",
         user: "root",
         password: "",
-        database: "BBY_26"
+        database: "COMP2800"
     });
     connection2.connect();
     connection2.execute(
@@ -100,7 +124,7 @@ app.post("/modify-privilege", function (req, res) {
                     host: "localhost",
                     user: "root",
                     password: "",
-                    database: "BBY_26"
+                    database: "COMP2800"
                 });
                 connection.connect();
                 connection.execute(
@@ -126,12 +150,12 @@ app.post("/modify-privilege", function (req, res) {
     connection2.end();
 });
 app.post("/delete-user", function (req, res) {
-    console.log("username: " + req.body.username);
+    //console.log("username: " + req.body.username);
     const connection = mysql.createConnection({
         host: "localhost",
         user: "root",
         password: "",
-        database: "BBY_26"
+        database: "COMP2800"
     });
     connection.connect();
     connection.execute(
@@ -163,7 +187,7 @@ app.post("/login", function (req, res) {
                 host: "localhost",
                 user: "root",
                 password: "",
-                database: "BBY_26"
+                database: "COMP2800"
             });
 
             connection.connect(err => {
@@ -288,7 +312,7 @@ app.get("/profile-info/:id", function (req, res) {
                 host: "localhost",
                 user: "root",
                 password: "",
-                database: "BBY_26"
+                database: "COMP2800"
             });
 
             connection.connect(err => {
@@ -405,7 +429,7 @@ app.post("/add-user", function (req, res) {
                 host: "localhost",
                 user: "root",
                 password: "",
-                database: "BBY_26"
+                database: "COMP2800"
             });
 
             connection.connect(err => {
@@ -456,7 +480,7 @@ app.post("/add-user", function (req, res) {
             },
             function (error) {
                 connection.end();
-                console.log(error);
+                //console.log(error);
                 res.send({ status: "database-fail", msg: "database not found" });
             }
         );
@@ -492,7 +516,7 @@ app.post("/update-profile/:id", function (req, res) {
                 host: "localhost",
                 user: "root",
                 password: "",
-                database: "BBY_26"
+                database: "COMP2800"
             });
 
             connection.connect(err => {
@@ -540,7 +564,7 @@ app.get("/account-settings/", function (req, res) {
 });
 
 app.get("/account-settings/:id", function (req, res) {
-    if (req.session.loggedIn) {
+    if (req.session.loggedIn && (req.session.isAdmin || (req.session.username == req.params.id))) {
         let doc = fs.readFileSync("./app/html/account-settings.html", "utf8");
         res.send(doc);
     } else {
@@ -559,7 +583,7 @@ app.post("/update-username/:id", function (req, res) {
                 host: "localhost",
                 user: "root",
                 password: "",
-                database: "BBY_26"
+                database: "COMP2800"
             });
 
             connection.connect(err => {
@@ -614,7 +638,7 @@ app.post("/update-email/:id", function (req, res) {
                 host: "localhost",
                 user: "root",
                 password: "",
-                database: "BBY_26"
+                database: "COMP2800"
             });
 
             connection.connect(err => {
@@ -669,7 +693,7 @@ app.post("/update-password/:id", function (req, res) {
                 host: "localhost",
                 user: "root",
                 password: "",
-                database: "BBY_26"
+                database: "COMP2800"
             });
 
             connection.connect(err => {
@@ -709,6 +733,105 @@ app.post("/update-password/:id", function (req, res) {
     }
 });
 
+app.post('/update-avatar/:id', uploadProfileImage.single("files"), function (req, res) {
+
+    if (req.session.loggedIn && (req.session.isAdmin || (req.session.username == req.params.id))) { 
+        
+        let connection;
+        let myPromise = new Promise((resolve, reject) => {
+
+            connection = mysql.createConnection({
+                host: "localhost",
+                user: "root",
+                password: "",
+                database: "COMP2800"
+            });
+
+            connection.connect(err => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(true);
+                }
+            });
+
+        });
+
+        myPromise.then(
+            function () {
+                connection.execute(
+                    "UPDATE bby_26_profiles SET profileImg = ? WHERE username = ?",
+                    [`profile-${req.params.id}`, req.params.id],
+                    function (error, results) {
+                        if (error) {
+                            console.log(error);
+                        }
+                        else {
+                            res.send({ status: "success", msg: "Updated Profile Image." });
+                        }
+
+                    });
+                connection.end();
+            },
+            function (error) {
+                console.log(error);
+            }
+        );
+    } else {
+        res.send({ status: "failure", msg: "You did not have permission to do that."});
+    }
+});
+
+app.get("/profile-url/:id", function (req, res) {
+
+    function testConnection() {
+        let connection;
+        let myPromise = new Promise((resolve, reject) => {
+
+            connection = mysql.createConnection({
+                host: "localhost",
+                user: "root",
+                password: "",
+                database: "COMP2800"
+            });
+
+            connection.connect(err => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(true);
+                }
+            });
+
+        });
+
+        myPromise.then(
+            function (value) {
+                connection.execute(
+                    "SELECT profileImg FROM BBY_26_profiles WHERE username = ?",
+                    [req.params.id],
+                    function (error, results) {
+                        if (error) {
+                            console.log(error);
+                        }
+                        else {
+                            if (results[0] != null) {
+                                res.send(results[0]);
+                            }
+                            else {
+                                res.send({ status: "fail", msg: "User account not found." });
+                            }
+                        }
+                    });
+                connection.end();
+            },
+            function (error) {
+                console.log(error);
+            }
+        );
+    }
+    testConnection();
+});
 
 app.use(function (req, res, next) {
     res.status(404).send("<html><head><title>Page not found!</title></head><body><p>Nothing here.</p></body></html>");

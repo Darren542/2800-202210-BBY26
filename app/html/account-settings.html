@@ -23,14 +23,14 @@
     <!-- Section to update the users profile image-->
     <div id="profile-image-div">
 
-      <img src="/img/profile.jpg" alt="Profile Image" id="profile-image" />
+      <img src="/img/profile.jpg" onerror="this.src='/img/profile.jpg';" alt="Profile Image" id="profile-image" />
     </div>
-    <form action="/update-account/avatar" method="post" id="avatar-update-form">
+    <form id="avatar-update-form">
       <div id="profile-image-edit-div">
         <h3 id="change-profile-image-header">Change Avatar</h3>
-        <div>Spot where editting profile picture content goes</div>
+        <input id="image-upload" type="file" value="Upload Image" accept="image/png, image/gif, image/jpeg, image/jpg"/>
         <div id="update-account-div">          
-          <input class="btn" type="button" id="update-account-avatar" value="Update Avatar">
+          <input class="btn" type="submit" id="update-account-avatar" value="Update Avatar">
           <div id="profile-filler" class="space-filler"><br/></div>
           <div id="update-success-avatar" class="no-show update-success error-message">Success</div>
           <div id="update-failure-avatar" class="no-show update-failure error-message">Failure</div>
