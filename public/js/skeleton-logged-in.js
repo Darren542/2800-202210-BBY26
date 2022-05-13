@@ -32,6 +32,7 @@ function getUsername() {
     getname.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("nav-username").innerHTML = this.responseText;
+            getProfileImgUrlNav(this.responseText)
         }
     }
     getname.open("GET", "/username", true);
@@ -40,19 +41,15 @@ function getUsername() {
 
 getUsername();
 
-async function getProfileImgUrlNav() {
-    let path = window.location.pathname;
-    const requestId = path.substring(path.lastIndexOf('/'));
-
+async function getProfileImgUrlNav(requestId) {
     const options = {
         method: 'GET',
     };
-    fetch(`/profile-url${requestId}`, options
+    fetch(`/profile-url/${requestId}`, options
         ).then(async function (res) {
             let imgUrl = await res.json();
             document.getElementById("nav-profile-image").src = `/img/profile-imgs/${imgUrl.profileImg}`;
         }).catch(function (err) { ("Error:", err) }
-        );
+    );
 }
 
-getProfileImgUrlNav()
