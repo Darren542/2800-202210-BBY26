@@ -560,7 +560,6 @@ app.get("/create", function (req, res) {
     } else {
         res.redirect("/");
     }
-<<<<<<< HEAD
 })
 
 app.get("/create-events", function (req, res) {
@@ -633,7 +632,6 @@ app.post("/add-user", function (req, res) {
                         });
 
                     }
-=======
 })
 
 app.get("/create-group1", (req, res) => {
@@ -665,7 +663,6 @@ app.post("/add-user", function (req, res) {
                     }
                     res.send({ status: "success", msg: "Record added." });
 
->>>>>>> Pahul_creategroup
                 });
 
             },
