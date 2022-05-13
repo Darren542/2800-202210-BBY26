@@ -180,6 +180,24 @@
     color: red;
 }
 
+.update-success {
+    color: green;
+}
+
+.update-failure {
+    color: red;
+}
+
+.btn {
+    font-size: 1em;
+    color: black;
+    width: 180px;
+    height: 34px;
+    background-color: rgb(130, 177, 221);
+    border-radius: 8px;
+    padding: 4px;
+}
+
 /* Styling to get abbr to work on mobile from:
 https://bitsofco.de/making-abbr-work-for-touchscreen-keyboard-mouse/ */
 .custom-abbr[titled] {
@@ -215,6 +233,11 @@ https://bitsofco.de/making-abbr-work-for-touchscreen-keyboard-mouse/ */
     #content {
         background-color: rgb(134, 141, 153);
     }
+
+    .btn {
+        width: 120px;
+        height: 28px;
+    }
 }
 
 @media (min-width: 751px) {
@@ -223,4 +246,8 @@ https://bitsofco.de/making-abbr-work-for-touchscreen-keyboard-mouse/ */
         background-color: darkcyan;
     }
 
+    .btn {
+        width: 140px;
+        height: 32px;
+    }
 }

@@ -160,7 +160,7 @@ function uploadImages(e) {
     hideErrors();
     const imageUpload = document.querySelector('#image-upload');
     const maxProfileImageSize = 150000;
-    if (imageUpload[0]) {
+    if (imageUpload.files[0]) {
         if (imageUpload.files[0].size < maxProfileImageSize) {
 
             const formData = new FormData();
