@@ -8,15 +8,12 @@ const fs = require("fs");
 const session = require("express-session");
 const { JSDOM } = require('jsdom');
 const mysql = require('mysql2');
-<<<<<<< HEAD
 const multer = require("multer");
 const crypto = require("crypto");
 const pbkdf2 = require("pbkdf2");
-=======
 const path = require("path");
 const mys = require("mysql2/promise");
 const { isInt32Array } = require("util/types");
->>>>>>> Pahul_creategroup
 
 app.use("/js", express.static("./public/js"));
 app.use("/css", express.static("./public/css"));
@@ -34,7 +31,7 @@ const profileImageStorage = multer.diskStorage({
     destination: function (req, file, callback) {
         callback(null, "./public/img/profile-imgs")
     },
-    filename: function(req, file, callback) {
+    filename: function (req, file, callback) {
         callback(null, `profile-${req.params.id}`);
     }
 });
@@ -42,13 +39,13 @@ const profileImageStorage = multer.diskStorage({
 // Multer Filter
 const multerFilter = (req, file, cb) => {
     if (req.session.isAdmin || (req.session.username == req.params.id)) {
-      cb(null, true);
+        cb(null, true);
     } else {
-      cb(new Error("You don't have permission!"), false);
+        cb(new Error("You don't have permission!"), false);
     }
-  };
+};
 
-const uploadProfileImage = multer({ 
+const uploadProfileImage = multer({
     storage: profileImageStorage,
     fileFilter: multerFilter,
 });
@@ -71,7 +68,7 @@ async function hashPassword(password, callback) {
                 iterations: iterations
             });
         }
-    });    
+    });
 }
 
 async function isPasswordCorrect(savedHash, savedSalt, savedIterations, passwordAttempt, callback) {
@@ -101,7 +98,7 @@ app.get("/", function (req, res) {
 
 //ONLY FOR ADMINS
 app.get("/home", function (req, res) {
-    if (req.session.loggedIn && req.session.isAdmin){
+    if (req.session.loggedIn && req.session.isAdmin) {
         let doc = fs.readFileSync("./app/html/home.html", "utf8");
         res.send(doc);
     }
@@ -211,7 +208,6 @@ app.post("/delete-user", function (req, res) {
 });
 app.post("/login", function (req, res) {
 
-<<<<<<< HEAD
     //-------------------------------------------------------------------------
     // Code to prevent nodejs server from crashing if database not found from
     // @author banguncool & Dharman
@@ -279,8 +275,6 @@ app.post("/login", function (req, res) {
     testConnection();
 });
 
-=======
->>>>>>> Pahul_creategroup
 app.get("/username", function (req, res) {
     res.send(req.session.username);
 });
@@ -563,12 +557,12 @@ app.get("/create", function (req, res) {
 })
 
 app.get("/create-events", function (req, res) {
-    if (req.session.loggedIn){
+    if (req.session.loggedIn) {
         let doc = fs.readFileSync("./app/html/create-events.html", "utf8");
         res.send(doc);
     } else {
         res.redirect("/");
-    }    
+    }
 })
 
 app.post("/add-user", function (req, res) {
@@ -632,7 +626,10 @@ app.post("/add-user", function (req, res) {
                         });
 
                     }
-})
+                })
+            })
+    }
+});
 
 app.get("/create-group1", (req, res) => {
     let doc = fs.readFileSync(path.join(__dirname, "./app/html/create-group/create-group1.html"), "utf-8");
@@ -665,17 +662,16 @@ app.post("/add-user", function (req, res) {
 
                 });
 
-            },
-            function (error) {
-                connection.end();
-                //console.log(error);
-                res.send({ status: "database-fail", msg: "database not found" });
-            }
-        );
-    }
+        }
+        function go(error) {
+            connection.end();
+            //console.log(error);
+            res.send({ status: "database-fail", msg: "database not found" });
+        }
+    });
+})
 
-tryConnection()
-});
+
 
 app.get("/edit-profile/", function (req, res) {
     if (req.session.loggedIn) {
@@ -745,7 +741,7 @@ app.post("/update-profile/:id", function (req, res) {
 
 app.get("/account-settings/", function (req, res) {
     if (req.session.loggedIn) {
-        res.redirect(`/account-settings/${req.session.username}`);       
+        res.redirect(`/account-settings/${req.session.username}`);
     } else {
         res.redirect("/");
     }
@@ -762,7 +758,7 @@ app.get("/account-settings/:id", function (req, res) {
 
 app.post("/update-username/:id", function (req, res) {
     // Can only update the profile if you are admin or it is your account
-    
+
     if (req.session.loggedIn && (req.session.isAdmin || (req.session.username == req.params.id))) {
         let connection;
         let myPromise = new Promise((resolve, reject) => {
@@ -792,7 +788,7 @@ app.post("/update-username/:id", function (req, res) {
                     function (error, results) {
                         if (error) {
                             //console.log(error);
-                            if(error.code == 'ER_DUP_ENTRY') {
+                            if (error.code == 'ER_DUP_ENTRY') {
                                 res.send({ status: "failure", msg: "Username Taken." });
                             }
                         }
@@ -817,7 +813,7 @@ app.post("/update-username/:id", function (req, res) {
 
 app.post("/update-email/:id", function (req, res) {
     // Can only update the profile if you are admin or it is your account
-    
+
     if (req.session.loggedIn && (req.session.isAdmin || (req.session.username == req.params.id))) {
         let connection;
         let myPromise = new Promise((resolve, reject) => {
@@ -847,7 +843,7 @@ app.post("/update-email/:id", function (req, res) {
                     function (error, results) {
                         if (error) {
                             //console.log(error);
-                            if(error.code == 'ER_DUP_ENTRY') {
+                            if (error.code == 'ER_DUP_ENTRY') {
                                 res.send({ status: "failure", msg: "Email Taken." });
                             }
                         }
@@ -872,7 +868,7 @@ app.post("/update-email/:id", function (req, res) {
 
 app.post("/update-password/:id", function (req, res) {
     // Can only update the profile if you are admin or it is your account
-    
+
     if (req.session.loggedIn && (req.session.isAdmin || (req.session.username == req.params.id))) {
         let connection;
         let myPromise = new Promise((resolve, reject) => {
@@ -907,11 +903,11 @@ app.post("/update-password/:id", function (req, res) {
                             else {
                                 res.send({ status: "success", msg: "Updated Password." });
                             }
-    
+
                         });
                     connection.end();
                 })
-                
+
             },
             function (error) {
                 console.log(error);
@@ -926,8 +922,8 @@ app.post("/update-password/:id", function (req, res) {
 
 app.post('/update-avatar/:id', uploadProfileImage.single("files"), function (req, res) {
 
-    if (req.session.loggedIn && (req.session.isAdmin || (req.session.username == req.params.id))) { 
-        
+    if (req.session.loggedIn && (req.session.isAdmin || (req.session.username == req.params.id))) {
+
         let connection;
         let myPromise = new Promise((resolve, reject) => {
 
@@ -969,7 +965,7 @@ app.post('/update-avatar/:id', uploadProfileImage.single("files"), function (req
             }
         );
     } else {
-        res.send({ status: "failure", msg: "You did not have permission to do that."});
+        res.send({ status: "failure", msg: "You did not have permission to do that." });
     }
 });
 
@@ -1064,7 +1060,7 @@ async function init2() {
         user: 'root',
         password: '',
         multipleStatements: true,
-        database:'groups_26'
+        database: 'groups_26'
     });
     await connection.query(`    
     CREATE table IF NOT EXISTS ${name}(
@@ -1080,7 +1076,7 @@ async function init2() {
     connection.end();
 }
 
-app.get("/getgroup", async (req,res) =>{
+app.get("/getgroup", async (req, res) => {
     const connection = await mys.createConnection({
         host: "localhost",
         user: "root",
@@ -1090,9 +1086,11 @@ app.get("/getgroup", async (req,res) =>{
     });
     connection.connect();
     const [rows, fields] = await connection.execute(`SELECT * FROM ${name}`);
-    let arr = {"tags": rows[0].tags, "country": rows[0].country, "name":rows[0].name, "province":rows[0].province,
-              "city":rows[0].city, "descrip":rows[0].descrip, "plan":rows[0].isFree  };
-    
+    let arr = {
+        "tags": rows[0].tags, "country": rows[0].country, "name": rows[0].name, "province": rows[0].province,
+        "city": rows[0].city, "descrip": rows[0].descrip, "plan": rows[0].isFree
+    };
+
     res.setHeader("Content-Type", "application/json");
     res.send(arr);
 })
@@ -1152,7 +1150,7 @@ app.get("/grouphome", async (req, res) => {
     res.header('Content-Type', 'text/html');
     let doc = fs.readFileSync(path.join(__dirname, "./app/html/group-home.html"), "utf-8");
     await connection.end();
-    
+
     res.send(doc);
 })
 
