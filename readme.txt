@@ -6,3 +6,5 @@ Pahul Sidhu, A01310077, Set 1A, May 6th 2022
 Germanpreet Singh, A01312851, Set 1A, May 6th 2022
 
 This assignment is 100% complete.
+
+The default password for all users in 123

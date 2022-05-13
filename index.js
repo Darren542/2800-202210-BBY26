@@ -8,9 +8,9 @@ const fs = require("fs");
 const session = require("express-session");
 const { JSDOM } = require('jsdom');
 const mysql = require('mysql2');
-const req = require("express/lib/request");
-const res = require("express/lib/response");
 const multer = require("multer");
+const crypto = require("crypto");
+const pbkdf2 = require("pbkdf2");
 
 app.use("/js", express.static("./public/js"));
 app.use("/css", express.static("./public/css"));
@@ -46,6 +46,37 @@ const uploadProfileImage = multer({
     storage: profileImageStorage,
     fileFilter: multerFilter,
 });
+
+//-----------------------------------------------------------------------------------------
+// Help on password hashing from:
+// @see https://stackoverflow.com/questions/17201450/salt-and-hash-password-in-nodejs-w-crypto
+// @author Matthew
+async function hashPassword(password, callback) {
+    let salt = crypto.randomBytes(64).toString('base64');
+    let iterations = 100;
+    let keylength = 64;
+    crypto.pbkdf2(password, salt, iterations, keylength, 'sha512', (err, derivedKey) => {
+        if (err) {
+            console.log(err);
+        } else {
+            callback({
+                salt: salt,
+                hash: derivedKey.toString('hex'),
+                iterations: iterations
+            });
+        }
+    });    
+}
+
+async function isPasswordCorrect(savedHash, savedSalt, savedIterations, passwordAttempt, callback) {
+    crypto.pbkdf2(passwordAttempt, savedSalt, savedIterations, 64, 'sha512', (err, derivedKey) => {
+        if (err) {
+            console.log(err);
+        } else {
+            callback(savedHash == derivedKey.toString('hex'));
+        }
+    });
+}
 
 app.get("/", function (req, res) {
     if (req.session.loggedIn) {
@@ -210,17 +241,23 @@ app.post("/login", function (req, res) {
                             console.log(error);
                         }
                         else {
-                            if (results[0] != null && req.body.password == results[0].pw) {
-                                req.session.loggedIn = true;
-                                req.session.userID = results[0].userID;
-                                req.session.username = results[0].username;
-                                req.session.email = results[0].email;
-                                req.session.isAdmin = results[0].isAdmin;
-                                req.session.save(function (err) {
+                            if (results[0] != null) {
+                                isPasswordCorrect(results[0].pwHash, results[0].pwSalt, results[0].pwIterations, req.body.password, (correct) => {
+                                    if (correct) {
+                                        req.session.loggedIn = true;
+                                        req.session.userID = results[0].userID;
+                                        req.session.username = results[0].username;
+                                        req.session.email = results[0].email;
+                                        req.session.isAdmin = results[0].isAdmin;
+                                        req.session.save(function (err) {
+                                        });
+                                        res.send({ status: "success", msg: "Logged in." });
+
+                                    } else {
+                                        res.send({ status: "fail", msg: "User account not found." });
+                                    }
                                 });
-                                res.send({ status: "success", msg: "Logged in." });
-                            }
-                            else {
+                            } else {
                                 res.send({ status: "fail", msg: "User account not found." });
                             }
                         }
@@ -443,7 +480,7 @@ app.post("/add-user", function (req, res) {
         });
 
         myPromise.then(
-            function (value) {
+            async function (value) {
                 connection.query('SELECT * FROM BBY_26_users WHERE email = ? OR username = ?', [req.body.email, req.body.username], function (error, results, fields) {
                     if (error) {
                     }
@@ -458,22 +495,27 @@ app.post("/add-user", function (req, res) {
                         connection.end();
                     }
                     else {
-                        connection.query('INSERT INTO BBY_26_users (email, username, pw) values (?, ?, ?)',
-                        [req.body.email, req.body.username, req.body.password],
-                        function (error, results, fields) {
-                            if (error) {
-                                connection.end();
-                            } else {
-                                connection.query('INSERT INTO BBY_26_profiles (username, displayName) values (?, ?)',
-                                [req.body.username, req.body.username],
+                        hashPassword(req.body.password, (values) => {
+                            //console.log('values', values)
+                            connection.query('INSERT INTO BBY_26_users (email, username, pw, pwHash, pwSalt, pwIterations) values (?, ?, ?, ?, ?, ?)',
+                                [req.body.email, req.body.username, req.body.password, values.hash, values.salt, values.iterations],
                                 function (error, results, fields) {
                                     if (error) {
+                                        console.log("error from db", error);
+                                        connection.end();
+                                    } else {
+                                        connection.query('INSERT INTO BBY_26_profiles (username, displayName) values (?, ?)',
+                                            [req.body.username, req.body.username],
+                                            function (error, results, fields) {
+                                                if (error) {
+                                                }
+                                                res.send({ status: "success", msg: "Record added." });
+                                                connection.end();
+                                            });
                                     }
-                                    res.send({ status: "success", msg: "Record added." });
-                                    connection.end();
                                 });
-                            }
                         });
+
                     }
                 });
 
@@ -708,19 +750,22 @@ app.post("/update-password/:id", function (req, res) {
 
         myPromise.then(
             function () {
-                connection.execute(
-                    "UPDATE bby_26_users SET pw = ? WHERE username = ?",
-                    [req.body.password, req.params.id],
-                    function (error, results) {
-                        if (error) {
-                            console.log(error);
-                        }
-                        else {
-                            res.send({ status: "success", msg: "Updated Password." });
-                        }
-
-                    });
-                connection.end();
+                hashPassword(req.body.password, (values) => {
+                    connection.execute(
+                        "UPDATE bby_26_users SET pwHash = ?, pwSalt = ?, pwIterations = ? WHERE username = ?",
+                        [values.hash, values.salt, values.iterations, req.params.id],
+                        function (error, results) {
+                            if (error) {
+                                console.log(error);
+                            }
+                            else {
+                                res.send({ status: "success", msg: "Updated Password." });
+                            }
+    
+                        });
+                    connection.end();
+                })
+                
             },
             function (error) {
                 console.log(error);
