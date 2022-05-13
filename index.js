@@ -8,9 +8,15 @@ const fs = require("fs");
 const session = require("express-session");
 const { JSDOM } = require('jsdom');
 const mysql = require('mysql2');
+<<<<<<< HEAD
 const multer = require("multer");
 const crypto = require("crypto");
 const pbkdf2 = require("pbkdf2");
+=======
+const path = require("path");
+const mys = require("mysql2/promise");
+const { isInt32Array } = require("util/types");
+>>>>>>> Pahul_creategroup
 
 app.use("/js", express.static("./public/js"));
 app.use("/css", express.static("./public/css"));
@@ -205,6 +211,7 @@ app.post("/delete-user", function (req, res) {
 });
 app.post("/login", function (req, res) {
 
+<<<<<<< HEAD
     //-------------------------------------------------------------------------
     // Code to prevent nodejs server from crashing if database not found from
     // @author banguncool & Dharman
@@ -272,6 +279,8 @@ app.post("/login", function (req, res) {
     testConnection();
 });
 
+=======
+>>>>>>> Pahul_creategroup
 app.get("/username", function (req, res) {
     res.send(req.session.username);
 });
@@ -551,6 +560,7 @@ app.get("/create", function (req, res) {
     } else {
         res.redirect("/");
     }
+<<<<<<< HEAD
 })
 
 app.get("/create-events", function (req, res) {
@@ -623,6 +633,39 @@ app.post("/add-user", function (req, res) {
                         });
 
                     }
+=======
+})
+
+app.get("/create-group1", (req, res) => {
+    let doc = fs.readFileSync(path.join(__dirname, "./app/html/create-group/create-group1.html"), "utf-8");
+    res.send(doc);
+})
+
+app.post("/add-user", function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    let connection = mysql.createConnection({
+        host: 'localhost',
+        user: 'root',
+        password: '',
+        database: 'BBY_26'
+    });
+    connection.connect();
+    connection.query('SELECT * FROM BBY_26_users WHERE email = ?', [req.body.email], function (error, results, fields) {
+        if (error) {
+        }
+        if (results.length != 0) {
+            res.send({ status: "failure", msg: "Email Taken" });
+            connection.end();
+        }
+        else {
+            connection.query('INSERT INTO BBY_26_users (email, username, pw) values (?, ?, ?)',
+                [req.body.email, req.body.username, req.body.password],
+                function (error, results, fields) {
+                    if (error) {
+                    }
+                    res.send({ status: "success", msg: "Record added." });
+
+>>>>>>> Pahul_creategroup
                 });
 
             },
@@ -983,6 +1026,140 @@ app.get("/profile-url/:id", function (req, res) {
     }
     testConnection();
 });
+
+let name;
+let tags;
+let country;
+let state;
+let city;
+let description;
+let isfree;
+
+app.post("/fill", async (req, res) => {
+    name = req.body.groupname;
+    tags = req.body.tags;
+    init();
+})
+async function init() {
+    let connection = await mys.createConnection({
+        host: 'localhost',
+        user: 'root',
+        password: '',
+        multipleStatements: true,
+    });
+    await connection.query(`    
+        CREATE database IF NOT EXISTS groups_26;
+        
+        `)
+    connection.end();
+}
+
+app.post("/fill2", async (req, res) => {
+    country = req.body.country;
+    state = req.body.state;
+    city = req.body.city;
+    init2();
+})
+
+async function init2() {
+    let connection = await mys.createConnection({
+        host: 'localhost',
+        user: 'root',
+        password: '',
+        multipleStatements: true,
+        database:'groups_26'
+    });
+    await connection.query(`    
+    CREATE table IF NOT EXISTS ${name}(
+        name varchar(100) PRIMARY KEY,
+        tags varchar(100), 
+        country varchar(50),
+        province varchar(50),
+        city varchar(50),
+        descrip varchar(1000),
+        isFree int NOT NULL
+    );
+        `)
+    connection.end();
+}
+
+app.get("/getgroup", async (req,res) =>{
+    const connection = await mys.createConnection({
+        host: "localhost",
+        user: "root",
+        password: "",
+        database: "groups_26",
+        multipleStatements: true
+    });
+    connection.connect();
+    const [rows, fields] = await connection.execute(`SELECT * FROM ${name}`);
+    let arr = {"tags": rows[0].tags, "country": rows[0].country, "name":rows[0].name, "province":rows[0].province,
+              "city":rows[0].city, "descrip":rows[0].descrip, "plan":rows[0].isFree  };
+    
+    res.setHeader("Content-Type", "application/json");
+    res.send(arr);
+})
+
+app.post("/fill3", async (req, res) => {
+    description = req.body.description;
+})
+
+app.post("/fill4", async (req, res) => {
+    isfree = req.body.free;
+})
+
+app.get("/next2", (req, res) => {
+    let doc = fs.readFileSync(path.join(__dirname, "./app/html/create-group/create-group2.html"), "utf-8");
+    res.send(doc);
+})
+
+app.get("/next3", (req, res) => {
+    let doc = fs.readFileSync(path.join(__dirname, "./app/html/create-group/create-group3.html"), "utf-8");
+    res.send(doc);
+})
+
+app.get("/next4", (req, res) => {
+    let doc = fs.readFileSync(path.join(__dirname, "./app/html/create-group/create-group4.html"), "utf-8");
+    res.send(doc);
+})
+
+app.get("/next5", (req, res) => {
+    let doc = fs.readFileSync(path.join(__dirname, "./app/html/create-group/create-group5.html"), "utf-8");
+    res.send(doc);
+})
+
+app.get("/exit", (req, res) => {
+    res.header('Content-Type', 'text/html');
+    let doc = fs.readFileSync(path.join(__dirname, "./app/html/create.html"), "utf-8");
+    res.send(doc);
+})
+
+app.get("/grouphome", async (req, res) => {
+    let connection = await mys.createConnection({
+        host: 'localhost',
+        user: 'root',
+        password: '',
+        multipleStatements: true,
+        database: 'groups_26'
+    });
+    connection.connect();
+    await connection.query(
+        `INSERT IGNORE INTO  ${name} (name,tags,country,province,city,descrip,isFree) values (?, ?, ?, ?, ?, ?, ?)`,
+        [name, tags, country, state, city, description, isfree],
+        function (error, results, fields) {
+            if (error) {
+            }
+            res.send({ status: "success", msg: "Record added." });
+
+        });
+    res.header('Content-Type', 'text/html');
+    let doc = fs.readFileSync(path.join(__dirname, "./app/html/group-home.html"), "utf-8");
+    await connection.end();
+    
+    res.send(doc);
+})
+
+
 
 app.use(function (req, res, next) {
     res.status(404).send("<html><head><title>Page not found!</title></head><body><p>Nothing here.</p></body></html>");
