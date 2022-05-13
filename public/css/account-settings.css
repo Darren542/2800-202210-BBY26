@@ -1,0 +1,200 @@
+#content {
+    display: grid;
+    min-height: 100%;
+    background-color: rgb(136, 160, 212);
+    font-size: 1.2rem;
+    grid-template-rows: 40px 150px 5px 45px 120px 45px 120px 45px 150px;
+    grid-template-columns: 150px 1fr
+}
+
+.divider {
+    width: 95%;
+    height: 1px;
+    background-color: rgb(0, 0, 0);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.no-show {
+    display: none;
+}
+
+.update-success {
+    color: green;
+}
+
+.update-failure {
+    color: red;
+}
+
+#account-settings-header {
+    grid-row: 1 / span 1;
+    grid-column: 1 / span 2;
+    text-decoration: underline;
+    text-align: center;
+}
+
+#profile-image-div {
+    grid-row: 2 / span 1;
+    grid-column: 1 / span 1;
+}
+
+#profile-image {
+    object-fit: fill;
+    width: calc(100% - 10px);
+    height: calc(100% - 10px);
+    margin: 5px;
+    border: 1px solid black;
+    border-radius: 8px;
+}
+
+#avatar-update-form {
+    grid-row: 2 / span 1;
+    grid-column: 2 / span 1;
+}
+
+#change-profile-divider {
+    grid-row: 3 / span 1;
+    grid-column: 1 / span 2;
+}
+
+#change-username-header {
+    grid-row: 4 / span 1;
+    grid-column: 1 / span 2;
+}
+
+#username-update-form {
+    grid-row: 5 / span 1;
+    grid-column: 1 / span 2;
+}
+
+#change-email-header {
+    grid-row: 6 / span 1;
+    grid-column: 1 / span 2;
+}
+
+#email-update-form {
+    grid-row: 7 / span 1;
+    grid-column: 1 / span 2;
+}
+
+#change-password-header {
+    grid-row: 8 / span 1;
+    grid-column: 1 / span 2;
+}
+
+#password-update-form {
+    grid-row: 9 / span 1;
+    grid-column: 1 / span 2;
+}
+
+.form-class {
+    padding-left: 30px;
+    padding-top: 5px;
+}
+
+#content h3 {
+    padding-left: 10px;
+}
+
+.button-holder {
+    padding-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Styling to get abbr to work on mobile from:
+https://bitsofco.de/making-abbr-work-for-touchscreen-keyboard-mouse/ */
+.custom-abbr[titled] {
+    position: relative;
+    
+    /* ensure consistent styling across browsers */
+    text-decoration: underline dotted;
+  }
+
+.custom-abbr[titled]:hover::after,
+.custom-abbr[titled]:focus::after {
+    content: attr(titled);
+
+    /* position tooltip like the native one */
+    position: absolute;
+    left: 10px;
+    bottom: -30px;
+    width: auto;
+    white-space: nowrap;
+
+    /* style tooltip */
+    background-color: #1e1e1e;
+    color: #fff;
+    border-radius: 3px;
+    box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.4);
+    font-size: 14px;
+    padding: 3px 5px;
+}
+
+.btn {
+    font-size: 1em;
+    color: black;
+    width: 180px;
+    height: 34px;
+    background-color: rgb(130, 177, 221);
+    border-radius: 8px;
+    padding: 4px;
+}
+
+.btn:hover {
+    cursor: pointer;
+    background-color: rgb(51, 72, 210);
+}
+
+#update-account-avatar {
+    margin-top: 10px;
+}
+
+.text-input {
+    width: 50%;
+}
+
+.text-input > input {
+    width: 100%;
+}
+
+@media (max-width: 475px) {
+    #content {
+        font-size: .8rem;
+        grid-template-rows: 40px 150px 5px 30px 90px 30px 90px 30px 120px;
+        grid-template-columns: 150px 1fr
+    }
+
+    .btn {
+        width: 120px;
+        height: 28px;
+    }
+
+    .text-input {
+        width: 80%;
+    }
+}
+
+@media (min-width: 476px) and (max-width: 751px) {
+
+    #content {
+        background-color: rgb(136, 160, 212);
+        grid-template-rows: 40px 150px 5px 35px 95px 35px 95px 35px 125px;
+        grid-template-columns: 150px 1fr
+    }
+
+    #content {
+        font-size: .8rem;
+    }
+
+    .btn {
+        width: 140px;
+        height: 32px;
+    }
+
+    .text-input {
+        width: 70%;
+    }
+}

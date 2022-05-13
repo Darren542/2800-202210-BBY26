@@ -20,7 +20,6 @@ $(document).ready(function () {
             mobileNav.classList.toggle('hidden');
             document.body.classList.toggle('no-scroll');
         });
-    }, 100);
+    }, 1000);
 
 });
-

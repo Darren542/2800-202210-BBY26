@@ -28,18 +28,22 @@
     <div id="sign-up">
     
       <div id="signup-info">
-        <div id="email-taken" class="no-show">Account Exists</div>
-        <form method="get"><br><br>
+        <div id="email-taken" class="no-show error-message">Email Taken</div>
+        <div id="username-taken" class="no-show error-message">Username Taken</div>
+        <div id="database-missing" class="no-show error-message">Database Missing</div>
+        <div id="top-filler" class="space-filler"><br></div>
+        <form method="get" id="signup-form">
           <label for="email">Email:</label><br>
-          <input type="text" id="email" name="email"><br>
+          <input type="text" class="signup-input" id="email" name="email"><br>
           <label for="username">Username:</label><br>
-          <input type="text" id="username" name="username"><br>
+          <input type="text" class="signup-input" id="username" name="username"><br>
           <label for="password">Password:</label><br>
-          <input type="password" id="password"><br>
+          <input type="password" class="signup-input" id="password"><br>
           <label for="password">Confirm Password:</label><br>
-          <input type="password" id="confirm-password">
+          <input type="password" class="signup-input" id="confirm-password">
           <div id="check-password"></div>
-          <div id="no-match" class="no-show">Passwords do not match</div><br>
+          <div id="bottom-filler" class="space-filler"><br></div>
+          <div id="no-match" class="no-show error-message">Passwords do not match</div><br>
           <div id="button">
             <button id="submit" class="btn" name="submit" type="button">Sign-Up</button>
           </div>

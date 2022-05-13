@@ -8,9 +8,9 @@
 K9-Meet is a web app to allow dog owners to find and advertise places for their dogs to have fun.
 This is a web app for made for Comp 2800 & Comp 2537.
 Members:
-* Darren Luck
+* Darren Luck 
 * Brian Cherng
-* Aryan Jand (A01169131)
+* Aryan Jand
 * Pahul Sidhu
 * Germanpreet Singh
 
@@ -20,6 +20,13 @@ Technologies used for this project:
 * JavaScript
 * Jquery
 * MySQL
+* Amazon Web Services
+Node packages that we Implemented.
+* Express
+* Session
+* mysql2
+* Multer
+* Crypto
 
 ## Content
 ```
@@ -30,47 +37,73 @@ C:.
 |   database.sql
 |   dev.txt
 |   index.js
-|   package-lock.json
-|   package.json
 |   README.md
+|   readme.txt
 |   tree.txt
 |   tree2.txt
 |   
 +---app
 |   +---html
+|   |       account-settings.html
 |   |       admin.html
+|   |       create-events.html
+|   |       create.html
+|   |       event.html
 |   |       home.html
 |   |       login.html
+|   |       search.html
 |   |       signup.html
 |   |       splash.html
+|   |       user-profile-editor.html
+|   |       user-profile.html
 |   |       
+|   +---img
+|   |   \---profile-imgs
 |   \---templates
 |           footer.html
 |           nav-logged-out.html
 |           nav.html
-|                      
+|           
 \---public
     +---css
+    |       account-settings.css
     |       admin.css
     |       client.css
+    |       create-events.css
     |       home.css
     |       login.css
     |       signup.css
     |       splash.css
+    |       user-profile-editor.css
+    |       user-profile.css
     |       
     +---img
-    |       dog-signup.jpg              // From Pinterest.com
-    |       K_9_Meet-logos.jpeg         // Made using Adobe logomaker
-    |       logo-transparent.png        // Made using Adobe logomaker
-    |       signup-page-desktop.jpg     // From Pinterest.com
-    |       splash-image.jpg            // Image taken by Darren
-    |       steveston-dog-park.jpg      // Image of steveston dog park from thedognetwork.ca
-    |       
+    |   |   desktop-splash.jpg          // From Pixels.com user Julissa Helmuth
+    |   |   dog-signup.jpg              // From Pinterest.com
+    |   |   dog.png                     // From Pinpng.com
+    |   |   favicon.ico                 // Made with favicon.io
+    |   |   K_9_Meet-logos.jpeg         // Made using Adobe logomaker
+    |   |   logo-transparent.png        // Made using Adobe logomaker
+    |   |   profile.jpg                 // Made by Darren in paint
+    |   |   signup-page-desktop.jpg     // From Pinterest.com
+    |   |   splash-image.jpg            // Image taken by Darren
+    |   |   steveston-dog-park.jpg      // Image of steveston dog park from thedognetwork.ca
+    |   |   
+    |   \---profile-imgs
+    |           profile.jpg             // Made by Darren in paint
+    |           
     \---js
+            account-settings.js
             admin.js
+            create-events.js
             home.js
             login.js
             signup.js
+            skeleton-logged-in.js
             skeleton.js
             splash.js
+            user-profile-editor.js
+            user-profile.js
+            
+
 ```
