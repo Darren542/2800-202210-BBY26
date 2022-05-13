@@ -24,3 +24,18 @@ $(document).ready(function () {
 
 });
 
+//------------------------------------------------
+// Gets users name to display on page.
+//------------------------------------------------
+function getUsername() {
+    const getname = new XMLHttpRequest();
+    getname.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("nav-username").innerHTML = this.responseText;
+        }
+    }
+    getname.open("GET", "/username", true);
+    getname.send();
+}
+
+getUsername();
