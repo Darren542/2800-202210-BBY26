@@ -1,0 +1,18 @@
+#create{
+    display: flex;
+    flex-direction: column;
+}
+
+.btn{
+    margin: 15px;
+}
+
+h1{
+    margin-left: 5px;
+    
+}
+
+#content{
+    text-align: center;
+}
+
