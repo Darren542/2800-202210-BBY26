@@ -80,7 +80,7 @@ C:.
     +---img
     |   |   desktop-splash.jpg          // From Pixels.com user Julissa Helmuth
     |   |   dog-signup.jpg              // From Pinterest.com
-    |   |   dog.png
+    |   |   dog.png                     // From Pinpng.com
     |   |   favicon.ico                 // Made with favicon.io
     |   |   K_9_Meet-logos.jpeg         // Made using Adobe logomaker
     |   |   logo-transparent.png        // Made using Adobe logomaker
