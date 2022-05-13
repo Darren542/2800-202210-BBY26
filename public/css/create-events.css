@@ -10,12 +10,123 @@ body {
     grid-template-rows: 1fr;
 }
 
+.no-show {
+    display: none;
+}
+
+@media (min-width: 752px) {
+
+    /* page 1  */
+
+    #header {
+        padding-top: 90px;
+        text-align: center;
+        grid-column: 1 / 3;
+        grid-row: 1 / 2;
+    }
+
+    #progress-bar {
+        padding-left: 1%;
+        grid-column: 1 / 3;
+        grid-row: 2 / 3;
+    }
+
+    #page1 #sub-header {
+        padding-left: 1%;
+    }
+
+    #sub-header2 {
+        margin-top: 25%;
+    }
+
+    #web-layout {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    #event-street {
+        margin-bottom: 10px;
+    }
+
+    #event-city {
+        margin-left: 16px;
+    }
+
+    #sub-header3 {
+        padding-left: 15%;
+    }
+
+    #event-end-time {
+        margin-top: 5px;
+        margin-left: 62px;
+    }
+
+    /* page 2 */
+
+    #page2-header {
+        text-align: center;
+        border-bottom: 1px solid black;
+    }
+
+    #event-type {
+        padding-left: 1%;
+        padding-right: 1%;
+        grid-column: 1 / span 1;
+        grid-row: 3 / 5;
+    }
+
+    .type-btn {
+        margin: 0%;
+        padding: 0%;
+    }
+
+    #select-type {
+        border: 1px solid black;
+    }
+
+    #type-btn {
+        display: flex;
+        justify-content: center;
+    }
+
+
+    #group-call {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* page 3 */
+
+    #web-layout {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    textarea {
+        width: 400px;
+        height: 150px;
+    }
+
+    /* page 4 */
+    #guidelines-terms {
+        margin-top: 10%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #button {
+        margin: 15%;
+        grid-column: 1 / span 1;
+        grid-row: 12 / 13;
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+}
 
 @media (max-width: 751px) {
-
-    .no-show {
-        display: none;
-    }
 
     #header {
         padding-top: 80px;

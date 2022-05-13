@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,20 +27,21 @@
         <form>
             <!-- 1st page begins here -->
             <div id="page1">
-                <div id="sub-header">
-                    <h2>Event Name</h2>
-                    <label for="event-name">Enter Name: </label>
-                    <input type="text" id="event-name" name="event-name">
+                <div id="web-layout">
+                    <div id="sub-header">
+                        <h2>Event Name</h2>
+                        <label for="event-name">Enter Name: </label>
+                        <input type="text" id="event-name" name="event-name">
 
-                    <div id="sub-header2">
-                        <h2>Event Location</h2>
-                        <label for="event-street">Enter Street: </label>
-                        <input type="text" id="event-street" name="event-street"><br>
+                        <div id="sub-header2">
+                            <h2>Event Location</h2>
+                            <label for="event-street">Enter Street: </label>
+                            <input type="text" id="event-street" name="event-street"><br>
 
-                        <label for="event-city">Enter City: </label>
-                        <input type="text" id="event-city" name="event-city">
+                            <label for="event-city">Enter City: </label>
+                            <input type="text" id="event-city" name="event-city">
+                        </div>
                     </div>
-
                     <div id="sub-header3">
                         <h2>Event Time</h2>
                         <label>Enter Date & Start Time: </label>
@@ -70,11 +72,13 @@
             <div id="page3">
                 <div id="event-details">
                     <h2>Event Details:</h2>
-                    <label>Enter Description:</label><br>
-                    <textarea name="event-description" id="event-description" cols="30" rows="10"></textarea><br>
+                    <div id="web-layout">
+                        <label>Enter Description:</label><br>
+                        <textarea name="event-description" id="event-description" cols="30" rows="10"></textarea><br>
 
-                    <label id="tag">Enter Tags:</label><br>
-                    <textarea name="event-tags" id="event-tags" cols="30" rows="10"></textarea>
+                        <label id="tag">Enter Tags:</label><br>
+                        <textarea name="event-tags" id="event-tags" cols="30" rows="10"></textarea>
+                    </div>
                 </div>
             </div>
             <!-- 4th page begins here -->
@@ -83,7 +87,7 @@
                     <div id="guidelines">
                         <input type="checkbox" id="gudilines" name="checkbox">
                         <label>I Agree to follow <a href="">community gudilines.</a></label>
-                    </div>
+                    </div><br>
                     <div id="terms">
                         <input type="checkbox" id="conditions" name="checkbox">
                         <label>I Agree to follow <a href="">terms & conditions.</a></label>
