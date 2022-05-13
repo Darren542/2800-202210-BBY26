@@ -148,6 +148,10 @@ https://bitsofco.de/making-abbr-work-for-touchscreen-keyboard-mouse/ */
     background-color: rgb(51, 72, 210);
 }
 
+#update-account-avatar {
+    margin-top: 10px;
+}
+
 .text-input {
     width: 50%;
 }
