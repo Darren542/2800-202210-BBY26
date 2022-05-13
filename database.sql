@@ -1,6 +1,6 @@
-CREATE database IF NOT EXISTS BBY_26;
+CREATE database IF NOT EXISTS COMP2800;
 
-USE BBY_26;
+USE COMP2800;
 
 CREATE table IF NOT EXISTS BBY_26_users(
 	userID int NOT NULL AUTO_INCREMENT PRIMARY KEY, 
@@ -22,6 +22,7 @@ CREATE table IF NOT EXISTS BBY_26_profiles(
 	city varchar(25) DEFAULT "Earth",
 	showEmail boolean DEFAULT TRUE NOT NULL,
 	showLoc boolean DEFAULT TRUE NOT NULL,
+	profileImg varchar(35) DEFAULT "profile.jpg",
 	FOREIGN KEY (username) REFERENCES BBY_26_users (username)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE
