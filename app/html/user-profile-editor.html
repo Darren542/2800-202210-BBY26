@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>K9-Meet User Profile Editor</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/client.css">
+  <link rel="stylesheet" href="/css/user-profile-editor.css">
+</head>
+
+<body>
+  <!-- nav bar -->
+  <div id="navbar-placeholder"></div>
+
+  <div id="content">
+
+    <div id="profile-image-div">
+
+      <img src="/img/profile.jpg" onerror="this.src='/img/profile.jpg';" alt="Profile Image" id="profile-image" />
+    </div>
+    <form id="avatar-update-form">
+      <div id="profile-image-edit-div">
+        <h3 id="change-profile-image-header">
+          <abbr class="custom-abbr" titled="Max Image Size is 150 kBs">🛈</abbr>
+          Change Avatar          
+        </h3>
+        <input id="image-upload" type="file" value="Upload Image" accept="image/png, image/gif, image/jpeg, image/jpg"/>
+        <div id="update-account-div">          
+          <input class="btn" type="submit" id="update-account-avatar" value="Update Avatar">
+          <div id="profile-filler" class="space-filler"><br/></div>
+          <div id="update-success-avatar" class="no-show update-success error-message">Success</div>
+          <div id="update-failure-avatar" class="no-show update-failure error-message">Failure</div>
+        </div>
+      </div>
+    </form>
+
+    <div class="divider" id="change-profile-divider"></div>
+
+    <!-- Form to update the users profile -->
+    <h2 id="change-profile-header">Change Profile</h2>
+    <form action="/update-profile" method="post" id="profile-update-form">
+
+      <div class="input-label" id="display-name-label"><span>Display Name:</span><abbr class="custom-abbr" titled="max-length is 20 characters">🛈</abbr>
+      </div>
+      <div class="profile-input">
+        <input type="text" id="display-name" name="display-name" maxlength="20"></input>
+      </div>
+
+      <div class="input-label" id="user-quote-label"><span>Quote: </span><abbr class="custom-abbr" titled="max-length is 60 characters">🛈</abbr></div>
+      <div class="profile-input">
+        <input type="text" id="user-quote" name="user-quote" maxlength="60"></input>
+      </div>
+
+      <div class="input-label" id="country-label"><span>Country: </span><abbr class="custom-abbr" titled="max-length is 25 characters">🛈</abbr></div>
+      <div class="profile-input">
+        <input type="text" id="country" name="country" maxlength="25"></input>
+      </div>
+
+      <div class="input-label" id="province-label"><span>Province:</span> <abbr class="custom-abbr" titled="max-length is 25 characters">🛈</abbr></div>
+      <div class="profile-input">
+        <input type="text" id="province" name="province" maxlength="25"></input>
+      </div>
+
+      <div class="input-label" id="city-label"><span>City:</span> <abbr class="custom-abbr" titled="max-length is 25 characters">🛈</abbr></div>
+      <div class="profile-input">
+        <input type="text" id="city" name="city" maxlength="25"></input>
+      </div>
+      <br />
+      <div class="input-label" id="description-label"><span>Description:</span><abbr class="custom-abbr" titled="max-length is 150 characters">🛈</abbr>
+      </div>
+      <div class="profile-input">
+        <textarea class="form-control" form="profile-update-form" id="description" maxlength="150" name="description"
+          placeholder="Description"></textarea>
+      </div>
+
+      <div class="yes-no-title" id="yes-title">Yes</div>
+      <div class="yes-no-title" id="no-title">No</div>
+
+      <div class="input-label" id="show-email-label">Show Email:</div>
+      <input class="radio-btn" type="radio" id="show-email-yes" name="show-email" value="true">
+      <input class="radio-btn" type="radio" id="show-email-no" name="show-email" value="false">
+
+      <div class="input-label" id="show-location-label">Show Location:</div>
+      <input class="radio-btn" type="radio" id="show-location-yes" name="show-location" value="true">
+      <input class="radio-btn" type="radio" id="show-location-no" name="show-location" value="false">
+
+      <div id="update-profile-div">
+        <div id="bottom-filler" class="space-filler"><br></div>
+        <div id="update-success" class="no-show error-message">Success</div>
+        <div id="update-failure" class="no-show error-message">Failure</div>
+        <input type="button" id="update-profile" value="Update Profile">
+      </div>
+
+
+    </form>
+
+
+  </div>
+  <!-- footer -->
+  <div id="footer-placeholder"></div>
+
+  <script src="/js/skeleton-logged-in.js"></script>
+  <script src="/js/user-profile-editor.js"></script>
+</body>
+
+</html>
