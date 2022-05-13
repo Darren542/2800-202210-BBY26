@@ -4,6 +4,7 @@
     background-color: rgb(136, 160, 212);
     grid-template-columns: 150px 1fr;
     grid-template-rows: 150px 5px 40px 1fr;
+    overflow-x: hidden;
 }
 
 .divider {
@@ -163,9 +164,13 @@
     width: 120px;
     height: 40px;
     background-color: rgb(130, 177, 221);
-
     border-radius: 15px;
     padding: 4px;
+}
+
+#update-profile:hover {
+    cursor: pointer;
+    background-color:rgb(33, 116, 194);
 }
 
 .no-show {
@@ -196,6 +201,11 @@
     background-color: rgb(130, 177, 221);
     border-radius: 8px;
     padding: 4px;
+}
+
+.btn:hover {
+    cursor: pointer;
+    background-color:rgb(33, 116, 194);
 }
 
 /* Styling to get abbr to work on mobile from:

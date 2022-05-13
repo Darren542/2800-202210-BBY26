@@ -143,6 +143,11 @@ https://bitsofco.de/making-abbr-work-for-touchscreen-keyboard-mouse/ */
     padding: 4px;
 }
 
+.btn:hover {
+    cursor: pointer;
+    background-color: rgb(51, 72, 210);
+}
+
 .text-input {
     width: 50%;
 }
