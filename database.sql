@@ -31,13 +31,14 @@ VALUES ("testuser", "notreal@gmail.com", 123);
 CREATE TABLE IF NOT EXISTS BBY_26_events(
 	eventID int NOT NULL AUTO_INCREMENT PRIMARY KEY, 
 	event_name varchar(20),
-    FOREIGN KEY 
-	event_time TIME NOT NULL,
-    event_date DATE NOT NULL,
+    address_ID int NOT NULL, 
+	event_date_time TIMESTAMP,
+    event_endTime END TIME,
     -- false is private & public is ture
 	event_type boolean DEFAULT FALSE,
     event_description varchar(500),
     event_tags varchar(500),
+	FOREIGN KEY (address_ID) REFERENCES BBY_26_address(addressID)
 );
 
 CREATE TABLE IF NOT EXISTS BBY_26_address(
