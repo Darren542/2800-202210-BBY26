@@ -68,6 +68,7 @@ C:.
     |       user_profile.css
     |       
     +---img
+    |       desktop-splash.jpg          // From Pixels.com user Julissa Helmuth
     |       dog-signup.jpg              // From Pinterest.com
     |       favicon.ico                 // Made with favicon.io
     |       K_9_Meet-logos.jpeg         // Made using Adobe logomaker

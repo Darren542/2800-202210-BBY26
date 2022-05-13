@@ -129,11 +129,13 @@
     width: 100%;
     /* background-color: rgb(171, 160, 201); */
     display:flex;
+    size: 1.2rem;
 }
 
 .profile-menu {
     width: 25%;
     background-color:rgb(130, 177, 221);
+    font-size: 1rem;
 }
 
 .profile-menu:hover {
@@ -164,10 +166,14 @@
 @media (min-width: 751px) {
 
     #content {
-        background-color: darkcyan;
+        background-color: rgb(136, 160, 212);
     }
 
     #user-info {
         font-size: medium;
+    }
+
+    .profile-menu {
+        font-size: 1.5rem;
     }
 }
