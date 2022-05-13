@@ -39,3 +39,20 @@ function getUsername() {
 }
 
 getUsername();
+
+async function getProfileImgUrlNav() {
+    let path = window.location.pathname;
+    const requestId = path.substring(path.lastIndexOf('/'));
+
+    const options = {
+        method: 'GET',
+    };
+    fetch(`/profile-url${requestId}`, options
+        ).then(async function (res) {
+            let imgUrl = await res.json();
+            document.getElementById("nav-profile-image").src = `/img/profile-imgs/${imgUrl.profileImg}`;
+        }).catch(function (err) { ("Error:", err) }
+        );
+}
+
+getProfileImgUrlNav()
