@@ -10,6 +10,21 @@ body {
     grid-template-rows: 1fr;
 }
 
+.btn {
+    /* font-size: 1.4em; */
+    color: black;
+    width: 100px;
+    height: 50px;
+    background-color: rgb(130, 177, 221);
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+.btn:hover {
+    cursor: pointer;
+    background-color:rgb(69, 69, 206);
+}
+
 .no-show {
     display: none;
 }
@@ -37,7 +52,7 @@ body {
 
     #sub-header2 {
         margin-top: 25%;
-    }
+     }
 
     #web-layout {
         display: flex;
