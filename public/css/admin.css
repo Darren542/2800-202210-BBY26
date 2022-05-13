@@ -365,7 +365,7 @@
         grid-row: 4 / span 1;
         margin-left: 40px;
         margin-top: -15px;
-        width: 100px;
+        width: 120px;
         height: 35px;
         display: grid;
         border: solid .20vw transparent;
@@ -375,7 +375,7 @@
         text-transform: uppercase;
         --full: linear-gradient(red 0 0);
         -webkit-mask: var(--full) text, var(--full) padding-box, var(--full);
-        -webkit-mask-composite: xor;
+        -webkit-mask-composite: xor !important;
         mask: var(--full) padding-box exclude, var(--full);
         -webkit-text-fill-color: transparent;
     }
