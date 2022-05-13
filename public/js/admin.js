@@ -54,6 +54,13 @@ function ready() {
                 if (col > 3) {
                     col = 1;
                 }
+
+                let editBtn = document.createElement("button");
+                editBtn.username = data[index].username;
+                editBtn.innerHTML = "Edit User";
+                editBtn.addEventListener("click", editUser);
+                editBtn.style = "margin-left: auto; margin-right: auto; grid-row: 4 / span 1; grid-column: 4 / span 1;"
+
                 username.innerHTML = "Username: " + data[index].username;
                 email.innerHTML = "Email: " + data[index].email;
                 if (data[index].isAdmin) {
@@ -69,6 +76,7 @@ function ready() {
                 card.append(isAdmin);
                 card.append(deleteBtn);
                 card.append(modifyBtn);
+                card.append(editBtn);
                 document.getElementById("card-loader").append(card);
             });
         }
@@ -106,6 +114,9 @@ function deleteUser() {
     }
 }
 
+function editUser() {
+    window.location.href = `/account-settings/${this.username}`;
+}
 
 
 function createUser() {

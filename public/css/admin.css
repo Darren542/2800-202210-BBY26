@@ -478,3 +478,11 @@
         margin-left: 50px;
     }
 }
+
+#content button {
+    cursor: pointer;
+}
+
+#content {
+    overflow-x: hidden;
+}
