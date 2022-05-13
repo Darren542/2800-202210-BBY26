@@ -109,7 +109,7 @@ app.post('/create-event', function(req, res) {
             host: "k9meet.c4oyeywl3pjr.us-west-2.rds.amazonaws.com",
             user: "admin",
             password: "NotShowingThis",
-            database: "k9meet"
+            database: "K9Meet"
         });
         connection.connect();
         connection.execute(
@@ -127,7 +127,7 @@ app.get("/users", function (req, res) {
             host: "k9meet.c4oyeywl3pjr.us-west-2.rds.amazonaws.com",
             user: "admin",
             password: "NotShowingThis",
-            database: "k9meet"
+            database: "K9Meet"
         });
         connection.connect();
         connection.execute(
@@ -161,7 +161,7 @@ app.post("/modify-privilege", function (req, res) {
         host: "k9meet.c4oyeywl3pjr.us-west-2.rds.amazonaws.com",
         user: "admin",
         password: "NotShowingThis",
-        database: "k9meet"
+        database: "K9Meet"
     });
     connection2.connect();
     connection2.execute(
@@ -205,7 +205,7 @@ app.post("/delete-user", function (req, res) {
         host: "k9meet.c4oyeywl3pjr.us-west-2.rds.amazonaws.com",
         user: "admin",
         password: "NotShowingThis",
-        database: "k9meet"
+        database: "K9Meet"
     });
     connection.connect();
     connection.execute(
@@ -237,7 +237,7 @@ app.post("/login", function (req, res) {
                 host: "k9meet.c4oyeywl3pjr.us-west-2.rds.amazonaws.com",
                 user: "admin",
                 password: "NotShowingThis",
-                database: "k9meet"
+                database: "K9Meet"
             });
 
             connection.connect(err => {
@@ -308,7 +308,7 @@ app.get("/username/:id", function (req, res) {
                 host: "k9meet.c4oyeywl3pjr.us-west-2.rds.amazonaws.com",
                 user: "admin",
                 password: "NotShowingThis",
-                database: "k9meet"
+                database: "K9Meet"
             });
 
             connection.connect(err => {
@@ -324,7 +324,7 @@ app.get("/username/:id", function (req, res) {
         myPromise.then(
             function () {
                 connection.execute(
-                    "SELECT username FROM bby_26_users WHERE username = ?",
+                    "SELECT username FROM BBY_26_users WHERE username = ?",
                     [req.params.id],
                     function (error, results) {
                         if (error) {
@@ -357,7 +357,7 @@ app.get("/email/:id", function (req, res) {
                 host: "k9meet.c4oyeywl3pjr.us-west-2.rds.amazonaws.com",
                 user: "admin",
                 password: "NotShowingThis",
-                database: "k9meet"
+                database: "K9Meet"
             });
 
             connection.connect(err => {
@@ -373,7 +373,7 @@ app.get("/email/:id", function (req, res) {
         myPromise.then(
             function () {
                 connection.execute(
-                    "SELECT email FROM bby_26_users WHERE username = ?",
+                    "SELECT email FROM BBY_26_users WHERE username = ?",
                     [req.params.id],
                     function (error, results) {
                         if (error) {
@@ -466,7 +466,7 @@ app.get("/profile-info/:id", function (req, res) {
                 host: "k9meet.c4oyeywl3pjr.us-west-2.rds.amazonaws.com",
                 user: "admin",
                 password: "NotShowingThis",
-                database: "k9meet"
+                database: "K9Meet"
             });
 
             connection.connect(err => {
@@ -591,7 +591,7 @@ app.post("/add-user", function (req, res) {
                 host: "k9meet.c4oyeywl3pjr.us-west-2.rds.amazonaws.com",
                 user: "admin",
                 password: "NotShowingThis",
-                database: "k9meet"
+                database: "K9Meet"
             });
 
             connection.connect(err => {
@@ -683,7 +683,7 @@ app.post("/update-profile/:id", function (req, res) {
                 host: "k9meet.c4oyeywl3pjr.us-west-2.rds.amazonaws.com",
                 user: "admin",
                 password: "NotShowingThis",
-                database: "k9meet"
+                database: "K9Meet"
             });
 
             connection.connect(err => {
@@ -699,7 +699,7 @@ app.post("/update-profile/:id", function (req, res) {
         myPromise.then(
             function () {
                 connection.execute(
-                    "UPDATE bby_26_profiles SET displayName = ?, quote = ?, country = ?, province = ?, city = ?, userDescription = ?, showEmail = ?, showLoc = ? WHERE username = ?",
+                    "UPDATE BBY_26_profiles SET displayName = ?, quote = ?, country = ?, province = ?, city = ?, userDescription = ?, showEmail = ?, showLoc = ? WHERE username = ?",
                     [req.body.displayName, req.body.quote, req.body.country, req.body.province, req.body.city, req.body.description, req.body.showEmail, req.body.showLocation, req.params.id],
                     function (error, results) {
                         if (error) {
@@ -750,7 +750,7 @@ app.post("/update-username/:id", function (req, res) {
                 host: "k9meet.c4oyeywl3pjr.us-west-2.rds.amazonaws.com",
                 user: "admin",
                 password: "NotShowingThis",
-                database: "k9meet"
+                database: "K9Meet"
             });
 
             connection.connect(err => {
@@ -766,7 +766,7 @@ app.post("/update-username/:id", function (req, res) {
         myPromise.then(
             function () {
                 connection.execute(
-                    "UPDATE bby_26_users SET username = ? WHERE username = ?",
+                    "UPDATE BBY_26_users SET username = ? WHERE username = ?",
                     [req.body.username, req.params.id],
                     function (error, results) {
                         if (error) {
@@ -805,7 +805,7 @@ app.post("/update-email/:id", function (req, res) {
                 host: "k9meet.c4oyeywl3pjr.us-west-2.rds.amazonaws.com",
                 user: "admin",
                 password: "NotShowingThis",
-                database: "k9meet"
+                database: "K9Meet"
             });
 
             connection.connect(err => {
@@ -821,7 +821,7 @@ app.post("/update-email/:id", function (req, res) {
         myPromise.then(
             function () {
                 connection.execute(
-                    "UPDATE bby_26_users SET email = ? WHERE username = ?",
+                    "UPDATE BBY_26_users SET email = ? WHERE username = ?",
                     [req.body.email, req.params.id],
                     function (error, results) {
                         if (error) {
@@ -860,7 +860,7 @@ app.post("/update-password/:id", function (req, res) {
                 host: "k9meet.c4oyeywl3pjr.us-west-2.rds.amazonaws.com",
                 user: "admin",
                 password: "NotShowingThis",
-                database: "k9meet"
+                database: "K9Meet"
             });
 
             connection.connect(err => {
@@ -877,16 +877,17 @@ app.post("/update-password/:id", function (req, res) {
             function () {
                 hashPassword(req.body.password, (values) => {
                     connection.execute(
-                        "UPDATE bby_26_users SET pwHash = ?, pwSalt = ?, pwIterations = ?, pw = ? WHERE username = ?",
-                        [values.hash, values.salt, values.iterations, req.params.id, req.body.password],
+                        "UPDATE BBY_26_users SET pwHash = ?, pwSalt = ?, pwIterations = ?, pw = ? WHERE username = ?",
+                        [values.hash, values.salt, values.iterations, req.body.password, req.params.id],
                         function (error, results) {
+                            console.log(results);
                             if (error) {
                                 console.log(error);
                             }
                             else {
                                 res.send({ status: "success", msg: "Updated Password." });
                             }
-    
+                            
                         });
                     connection.end();
                 })
@@ -914,7 +915,7 @@ app.post('/update-avatar/:id', uploadProfileImage.single("files"), function (req
                 host: "k9meet.c4oyeywl3pjr.us-west-2.rds.amazonaws.com",
                 user: "admin",
                 password: "NotShowingThis",
-                database: "k9meet"
+                database: "K9Meet"
             });
 
             connection.connect(err => {
@@ -930,7 +931,7 @@ app.post('/update-avatar/:id', uploadProfileImage.single("files"), function (req
         myPromise.then(
             function () {
                 connection.execute(
-                    "UPDATE bby_26_profiles SET profileImg = ? WHERE username = ?",
+                    "UPDATE BBY_26_profiles SET profileImg = ? WHERE username = ?",
                     [`profile-${req.params.id}`, req.params.id],
                     function (error, results) {
                         if (error) {
@@ -962,7 +963,7 @@ app.get("/profile-url/:id", function (req, res) {
                 host: "k9meet.c4oyeywl3pjr.us-west-2.rds.amazonaws.com",
                 user: "admin",
                 password: "NotShowingThis",
-                database: "k9meet"
+                database: "K9Meet"
             });
 
             connection.connect(err => {
