@@ -6,11 +6,9 @@ const app = express();
 app.use(express.json());
 const fs = require("fs");
 const session = require("express-session");
-const { JSDOM } = require('jsdom');
 const mysql = require('mysql2');
 const multer = require("multer");
 const crypto = require("crypto");
-const pbkdf2 = require("pbkdf2");
 
 app.use("/js", express.static("./public/js"));
 app.use("/css", express.static("./public/css"));

@@ -8,9 +8,9 @@
 K9-Meet is a web app to allow dog owners to find and advertise places for their dogs to have fun.
 This is a web app for made for Comp 2800 & Comp 2537.
 Members:
-* Darren Luck
+* Darren Luck 
 * Brian Cherng
-* Aryan Jand (A01169131)
+* Aryan Jand
 * Pahul Sidhu
 * Germanpreet Singh
 
@@ -20,6 +20,13 @@ Technologies used for this project:
 * JavaScript
 * Jquery
 * MySQL
+* Amazon Web Services
+Node packages that we Implemented.
+* Express
+* Session
+* mysql2
+* Multer
+* Crypto
 
 ## Content
 ```
