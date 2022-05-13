@@ -160,32 +160,39 @@ function uploadImages(e) {
     hideErrors();
     const imageUpload = document.querySelector('#image-upload');
     const maxProfileImageSize = 150000;
-    if (imageUpload.files[0].size < maxProfileImageSize) {
+    if (imageUpload[0]) {
+        if (imageUpload.files[0].size < maxProfileImageSize) {
 
-        const formData = new FormData();
-
-        // put the images from the input into the form data
-        formData.append("files", imageUpload.files[0]);
-
-        const options = {
-            method: 'POST',
-            body: formData,
-        };
-
-        let path = window.location.pathname;
-        const requestId = path.substring(path.lastIndexOf('/'));
-
-        // now use fetch
-        fetch(`/update-avatar${requestId}`, options
-        ).then(function (res) {
-            location.reload();
-        }).catch(function (err) { ("Error:", err) }
-        );
+            const formData = new FormData();
+    
+            // put the images from the input into the form data
+            formData.append("files", imageUpload.files[0]);
+    
+            const options = {
+                method: 'POST',
+                body: formData,
+            };
+    
+            let path = window.location.pathname;
+            const requestId = path.substring(path.lastIndexOf('/'));
+    
+            // now use fetch
+            fetch(`/update-avatar${requestId}`, options
+            ).then(function (res) {
+                location.reload();
+            }).catch(function (err) { ("Error:", err) }
+            );
+        } else {
+            document.getElementById("profile-filler").classList.add("no-show");
+            document.getElementById("update-failure-avatar").classList.remove("no-show");
+            document.getElementById("update-failure-avatar").innerHTML = "Image too large"
+        }
     } else {
         document.getElementById("profile-filler").classList.add("no-show");
-        document.getElementById("update-failure-avatar").classList.remove("no-show");
-        document.getElementById("update-failure-avatar").innerHTML = "Image too large"
+            document.getElementById("update-failure-avatar").classList.remove("no-show");
+            document.getElementById("update-failure-avatar").innerHTML = "No Image Choosen"
     }
+    
 
 }
 
