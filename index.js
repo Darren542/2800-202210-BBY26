@@ -289,6 +289,23 @@ async function init2() {
     connection.end();
 }
 
+app.get("/getgroup", async (req,res) =>{
+    const connection = await mys.createConnection({
+        host: "localhost",
+        user: "root",
+        password: "",
+        database: "groups_26",
+        multipleStatements: true
+    });
+    connection.connect();
+    const [rows, fields] = await connection.execute(`SELECT * FROM ${name}`);
+    let arr = {"tags": rows[0].tags, "country": rows[0].country, "name":rows[0].name, "province":rows[0].province,
+              "city":rows[0].city, "descrip":rows[0].descrip, "plan":rows[0].isFree  };
+    
+    res.setHeader("Content-Type", "application/json");
+    res.send(arr);
+})
+
 app.post("/fill3", async (req, res) => {
     description = req.body.description;
 })
@@ -342,7 +359,7 @@ app.get("/grouphome", async (req, res) => {
 
         });
     res.header('Content-Type', 'text/html');
-    let doc = fs.readFileSync(path.join(__dirname, "./app/html/group_home.html"), "utf-8");
+    let doc = fs.readFileSync(path.join(__dirname, "./app/html/group-home.html"), "utf-8");
     await connection.end();
     
     res.send(doc);
