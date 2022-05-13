@@ -10,6 +10,7 @@ const { JSDOM } = require('jsdom');
 const mysql = require('mysql2');
 const path = require("path");
 const mys = require("mysql2/promise");
+const { isInt32Array } = require("util/types");
 
 app.use("/js", express.static("./public/js"));
 app.use("/css", express.static("./public/css"));
@@ -253,7 +254,8 @@ async function init() {
         multipleStatements: true,
     });
     await connection.query(`    
-        CREATE database IF NOT EXISTS Pahul;
+        CREATE database IF NOT EXISTS groups_26;
+        
         `)
     connection.end();
 }
@@ -262,7 +264,30 @@ app.post("/fill2", async (req, res) => {
     country = req.body.country;
     state = req.body.state;
     city = req.body.city;
+    init2();
 })
+
+async function init2() {
+    let connection = await mys.createConnection({
+        host: 'localhost',
+        user: 'root',
+        password: '',
+        multipleStatements: true,
+        database:'groups_26'
+    });
+    await connection.query(`    
+    CREATE table IF NOT EXISTS ${name}(
+        name varchar(100) PRIMARY KEY,
+        tags varchar(100), 
+        country varchar(50),
+        province varchar(50),
+        city varchar(50),
+        descrip varchar(1000),
+        isFree int NOT NULL
+    );
+        `)
+    connection.end();
+}
 
 app.post("/fill3", async (req, res) => {
     description = req.body.description;
@@ -308,8 +333,8 @@ app.get("/grouphome", async (req, res) => {
     });
     connection.connect();
     await connection.query(
-        `INSERT INTO  ${name} (tags,country,province,city,descrip,isFree) values (?, ?, ?, ?, ?, ?)`,
-        [tags, country, state, city, description, isfree],
+        `INSERT IGNORE INTO  ${name} (name,tags,country,province,city,descrip,isFree) values (?, ?, ?, ?, ?, ?, ?)`,
+        [name, tags, country, state, city, description, isfree],
         function (error, results, fields) {
             if (error) {
             }

@@ -1,7 +1,7 @@
 document.getElementById("next3").addEventListener("click", ()=>{
-   if(document.getElementById("free").style.backgroundColor = "black"){
+   if(document.getElementById("free").style.backgroundColor === "black"){
        post("1");
-   } else{
+   } else if(document.getElementById("premium").style.backgroundColor === "black"){
        post("0");
    }
    setTimeout(go(), 2000);
