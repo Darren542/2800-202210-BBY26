@@ -184,9 +184,8 @@ app.post("/modify-privilege", function (req, res) {
                         function (error, results) {
                             if (error) {
                             }
-                            if (results[0] != null) {
+                            if (results.affectedRows != 0) {
                                 res.send({ status: "success", msg: "Changed privilege." });
-                                location.reload();
                             } else {
                                 res.send({ status: "fail", msg: "User account not found." });
                             }

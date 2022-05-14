@@ -166,7 +166,7 @@ function modifyPrivilege() {
             if (this.readyState == 4 && this.status == 200) {
                 let response = JSON.parse(this.responseText);
                 if (response.status == "success") {
-                    location.reload();
+                    window.location.reload();
                 } else {
                     document.getElementById("error-message").innerHTML = response.msg;
                 }
