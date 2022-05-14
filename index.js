@@ -780,7 +780,9 @@ app.post("/update-username/:id", function (req, res) {
                             }
                         }
                         else {
-                            req.session.username = req.body.username;
+                            if (req.session.username == req.params.id) {
+                                req.session.username = req.body.username;
+                            }                           
                             res.send({ status: "success", msg: "Updated Username." });
                         }
 
