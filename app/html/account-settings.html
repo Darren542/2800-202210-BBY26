@@ -45,7 +45,7 @@
 
     <!-- Form to update the users username -->
     <h3 id="change-username-header">Change User Name</h3>
-    <form class="form-class" action="/update-account/username" method="post" id="username-update-form">
+    <div class="form-class" id="username-update-form">
 
       <div class="input-label" id="display-name-label">
         <abbr class="custom-abbr" titled="max-length is 20 characters">🛈</abbr>
@@ -62,11 +62,11 @@
         <div id="update-failure-username" class="no-show update-failure error-message">Failure</div>
       </div>
 
-    </form>
+    </div>
 
     <!-- Form to update the users email -->
     <h3 id="change-email-header">Change Email</h3>
-    <form class="form-class" action="/update-account/email" method="post" id="email-update-form">
+    <div class="form-class" id="email-update-form">
 
       <div class="input-label" id="email-label">
         <span>Email:</span>
@@ -82,11 +82,11 @@
         <div id="update-failure-email" class="no-show update-failure error-message">Failure</div>        
       </div>
 
-    </form>
+    </div>
 
     <!-- Form to update the users password -->
     <h3 id="change-password-header">Change Password</h3>
-    <form class="form-class" action="/update-account/password" method="post" id="password-update-form">
+    <div class="form-class" action="/update-account/password" method="post" id="password-update-form">
 
       <div class="input-label" id="new-password-label">
         <span>New Password:</span>
@@ -109,7 +109,7 @@
         <div id="update-failure-password" class="no-show update-failure error-message">Failure</div>
       </div>
 
-    </form>
+    </div>
 
   </div>
   <!-- footer -->
