@@ -1,3 +1,9 @@
-function take(){
-    window.location.href = "/create-group1";
-}
+"use strict";
+
+document.querySelector("#event-btn").addEventListener("click", () => {
+    window.location = "./create-events"
+});
+
+document.querySelector("#group-btn").addEventListener("click", () => {
+    window.location = "./create-group"
+});
