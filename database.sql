@@ -39,7 +39,6 @@ CREATE TABLE IF NOT EXISTS BBY_26_events(
 	event_duration int NOT NULL,
 	event_type boolean DEFAULT FALSE, 
     event_description varchar(500),
-    event_tags varchar(500)
 ); --event-type false is private & public is true
 
 
