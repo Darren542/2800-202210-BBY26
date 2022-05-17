@@ -1154,7 +1154,15 @@ app.get("/grouphome", async (req, res) => {
     res.send(doc);
 })
 
+app.get("/community-guidelines", function (req, res) {
+    let doc = fs.readFileSync("./app/html/community-guidelines.html", "utf8");
+    res.send(doc)
+});
 
+app.get("/terms-and-conditions", function (req, res) {
+    let doc = fs.readFileSync("./app/html/terms-and-conditions.html", "utf8");
+    res.send(doc)
+});
 
 app.use(function (req, res, next) {
     res.status(404).send("<html><head><title>Page not found!</title></head><body><p>Nothing here.</p></body></html>");

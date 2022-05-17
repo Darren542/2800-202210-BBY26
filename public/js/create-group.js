@@ -73,3 +73,30 @@ document.querySelectorAll(".premade-tag").forEach( (tag) => {
         document.querySelector("#tag-input").value += tag.innerHTML;
     })
 });
+
+
+// Code for Group Plan Page 4
+var planType = "free";
+document.querySelector("#free-plan").addEventListener('click', ()=> {
+    document.querySelector('#free-plan-details').classList.add("plan-details");
+    document.querySelector('#free-plan-details').classList.remove("no-show");
+    document.querySelector('#premium-plan-details').classList.add("no-show");
+    document.querySelector('#premium-plan-details').classList.remove("plan-details");
+    document.querySelector('#free-plan').classList.add("filled");
+    document.querySelector('#free-plan').classList.remove("unfilled");
+    document.querySelector('#premium-plan').classList.add("unfilled");
+    document.querySelector('#premium-plan').classList.remove("filled");
+    planType = "free";
+});
+
+document.querySelector("#premium-plan").addEventListener('click', ()=> {
+    document.querySelector('#free-plan-details').classList.remove("plan-details");
+    document.querySelector('#free-plan-details').classList.add("no-show");
+    document.querySelector('#premium-plan-details').classList.remove("no-show");
+    document.querySelector('#premium-plan-details').classList.add("plan-details");
+    document.querySelector('#free-plan').classList.remove("filled");
+    document.querySelector('#free-plan').classList.add("unfilled");
+    document.querySelector('#premium-plan').classList.remove("unfilled");
+    document.querySelector('#premium-plan').classList.add("filled");
+    planType = "premium";
+});

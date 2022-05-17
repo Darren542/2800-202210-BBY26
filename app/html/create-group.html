@@ -40,7 +40,7 @@
     <!-- Groups Location Page 1 -->
     <div class="page" id="page-1">
       <h2>Group's Location</h2>
-      
+
       <div id="country-box" class="input-box">
         <div class="input-label" id="country-label">
           <span>Country:</span>
@@ -49,7 +49,7 @@
           <input type="text" id="country-input" name="country-input" placeholder="Country" />
         </div>
       </div>
-      
+
       <div id="province-box" class="input-box">
         <div class="input-label" id="province-label">
           <span>State/Province:</span>
@@ -58,7 +58,7 @@
           <input type="text" id="province-input" name="province-input" placeholder="State/Province" />
         </div>
       </div>
-      
+
       <div id="city-box" class="input-box">
         <div class="input-label" id="city-label">
           <span>City:</span>
@@ -67,13 +67,13 @@
           <input type="text" id="city-input" name="city-input" placeholder="City" />
         </div>
       </div>
-      
+
     </div>
 
     <!-- Group's Name Page 2 -->
     <div class="no-show" id="page-2">
       <h2>Group's Name</h2>
-      
+
       <div id="name-box" class="input-box">
         <div class="input-label" id="name-label">
           <span>Enter Group's Name:</span>
@@ -82,7 +82,7 @@
           <input type="text" id="name-input" name="name-input" placeholder="Name" />
         </div>
       </div>
-      
+
       <div id="tag-box" class="input-box">
         <div class="input-label" id="tag-label">
           <span>Tags:</span>
@@ -91,7 +91,7 @@
           <input type="text" id="tag-input" name="tag-input" placeholder="Enter Tags with #tag" />
         </div>
       </div>
-      
+
       <div id="suggested-tags-box" class="input-box">
         <div id="suggested-tags">
           <div id="suggested-tags-title">Some Suggested Tags (click to add)</div>
@@ -109,75 +109,74 @@
       <div id="tag-explain">
         Tags are there to help others find your group and to let them know what it is about.
       </div>
-      
+
     </div>
 
     <!-- Group's Description Page 3 -->
     <div class="no-show" id="page-3">
       <h2>Group's Description</h2>
-      
+
       <div id="description-box" class="input-box">
         <div class="input-label" id="description-label">
           <span>Description:</span>
         </div>
         <div class="texta-input">
-          <textarea type="text" id="description-input" name="description-input" placeholder="Country" maxlength="500"></textarea>
+          <textarea type="text" id="description-input" name="description-input"
+            placeholder="Enter your groups description in under 500 characters" maxlength="500"></textarea>
         </div>
       </div>
-      
+
     </div>
 
     <!-- Group's Plan Page 4 -->
     <div class="no-show" id="page-4">
       <h2>Group's Plan</h2>
-      
+
       <div id="plan-box" class="input-box">
         <div id="plan-options">
           <div id="free-plan" class="plan-option filled">Free</div>
           <div id="premium-plan" class="plan-option unfilled">Premium</div>
         </div>
-        <div id="plan-details-container" >
-          <div id="free-plan-details" class="plan-details">Info about the free plan here</div>
-          <div id="premium-plan-details" class="no-show">Info about the premium plan here</div>
+
+        <div id="plan-details-container">
+          <div id="free-plan-details" class="plan-details">
+            <div><b>Free Plan</b></div>
+            <ul>
+              <li>Unlimited members can join group</li>
+              <li>Unlimited number of events</li>
+              <li>Publicly visable and searchable</li>
+              <li>Public comment section</li>
+              <li>Public image gallery</li>
+            </ul>
+          </div>
+          <div id="premium-plan-details" class="no-show">
+            <div><b>Premium Plan</b></div>
+            <ul>
+              <li>Plan not available at this time</li>
+            </ul>
+          </div>
         </div>
-        
       </div>
-      
-     
-      
+
     </div>
 
     <!-- Group Creation Finalization Page 5 -->
     <div class="no-show" id="page-5">
       <h2>Finalize Group Creation</h2>
-      
+
       <div id="country-box" class="input-box">
-        <div class="input-label" id="country-label">
-          <span>Country:</span>
-        </div>
-        <div class="text-input">
-          <input type="text" id="country-input" name="country-input" placeholder="Country" />
-        </div>
+        <div id="guidelines-terms">
+          <div id="guidelines">
+              <input type="checkbox" id="gudilines" name="checkbox">
+              <label>I Agree to follow the <a href="/community-guidelines" target="_blank" >Community guidelines.</a></label>
+          </div><br>
+          <div id="terms">
+              <input type="checkbox" id="conditions" name="checkbox">
+              <label>I Agree to the <a href="/terms-and-conditions" target="_blank">Terms & Conditions.</a></label>
+          </div>
       </div>
-      
-      <div id="province-box" class="input-box">
-        <div class="input-label" id="province-label">
-          <span>State/Province:</span>
-        </div>
-        <div class="text-input">
-          <input type="text" id="province-input" name="province-input" placeholder="State/Province" />
-        </div>
       </div>
-      
-      <div id="city-box" class="input-box">
-        <div class="input-label" id="city-label">
-          <span>City:</span>
-        </div>
-        <div class="text-input">
-          <input type="text" id="city-input" name="city-input" placeholder="City" />
-        </div>
-      </div>
-      
+
     </div>
 
     <!-- Save and Quit for use latter -->
@@ -188,11 +187,11 @@
     <!-- Move back and forward across steps-->
     <div id="back-next-btns">
       <button id="back-btn" class="no-show" name="back" type="button">🡰 Back</button>
-      <div id="button-space-filler" class="show" ><br></div>
+      <div id="button-space-filler" class="show"><br></div>
       <button id="next-btn" class="btn" name="back" type="button">Next 🡲</button>
       <button id="finish-btn" class="no-show" name="finish" type="button">Finish 🡲</button>
 
-  </div>
+    </div>
 
   </div>
 

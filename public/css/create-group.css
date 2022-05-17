@@ -146,6 +146,13 @@
 /* Page 4 CSS */
 #plan-box {
     width: 80%;
+    border: 1px black solid;
+    border-top: 0px;
+    min-height: 200px;
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+    padding-right:2px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.45);
 }
 
 #plan-options {
@@ -159,6 +166,12 @@
     gap:1px;
 }
 
+#plan-details-container {
+    background-color: white;
+    padding-left: 4px;
+    padding-top: 8px;
+}
+
 .plan-option {
     font-size: 1.1rem;
     width: 100%;
@@ -167,6 +180,13 @@
     padding-top: 10px;
 }
 
+.plan-option:hover {
+    cursor: pointer;
+}
+
+#plan-options > .unfilled:hover {
+    background-color: rgb(116, 170, 221);
+}
 #free-plan {
     border-top-left-radius: 18px;
     border-bottom-left-radius: 18px;
