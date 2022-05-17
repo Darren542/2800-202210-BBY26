@@ -1,7 +1,12 @@
+"use strict"
 // Page user starts on by default
 var pageNumber = 1;
-// For if they loaded in a saved group creation
-var saveNum = 0;
+
+//Get the params from the url to check for save
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+const saveNum = urlParams.get("saveID");
+loadSavedGroup(saveNum);
 
 document.querySelector("#next-btn").addEventListener("click", () => {
     if (pageNumber < 5) {
@@ -227,7 +232,6 @@ document.querySelector("#save-quit").addEventListener('click', async function() 
 
     // receiving inputs from page 5
     let guidelines = document.getElementById("guidelines-checkbox").checked;
-    console.log(guidelines);
     let terms = document.getElementById("terms-checkbox").checked;
 
     // Combine all data into a JSON object
@@ -256,7 +260,7 @@ document.querySelector("#save-quit").addEventListener('click', async function() 
         });
 
         let parsedJSON = await responseObject.json();
-
+        console.log(parsedJSON);
         //On group creation should send you to your new groups homepage
         if (parsedJSON.status == "success") {
             document.getElementById("error-messages").innerHTML = "Progress Saved";
@@ -269,3 +273,45 @@ document.querySelector("#save-quit").addEventListener('click', async function() 
     }
 
 });
+
+// Used to get data from saved group
+async function loadSavedGroup(saveNum) {
+    if (saveNum) {
+        try {
+            let response = await fetch(`/saved-groups/${saveNum}`, {
+                method: 'GET'
+            });
+            if (response.status === 200) {
+                let data = await response.json();
+                if (data[0]) {
+                    displaySavedGroup(data[0]);
+                }              
+            } else {
+                console.log(response.status);
+            }
+        } catch(error) {
+            console.log(error);
+        }
+    }
+}
+
+// Used to insert data from saved group
+function displaySavedGroup(data) {
+    // inputs data for page 1
+    document.querySelector("#country-input").value = data.country;
+    document.querySelector("#province-input").value = data.province;
+    document.querySelector("#city-input").value = data.city;
+
+    // inputs data for page 2
+    document.querySelector("#name-input").value = data.group_name;
+    document.querySelector("#tag-input").value = data.tagString;
+
+    // inputs data for page 3
+    document.querySelector("#description-input").value = data.group_description;
+
+    // inputs data for page 4
+
+    // inputs data for page 5
+    document.getElementById("guidelines-checkbox").checked = data.guidelines;
+    document.getElementById("terms-checkbox").checked = data.terms;
+}

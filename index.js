@@ -589,11 +589,17 @@ app.get("/create-events", function (req, res) {
 });
 
 // Page for starting the creation of a group.
+// Loads in partially created group if parameter in URL
 // Linked from create page.
 app.get("/create-group", (req, res) => {
     if (req.session.loggedIn) {
-        let doc = fs.readFileSync("./app/html/create-group.html", "utf-8");
-        res.send(doc);
+        if (req.query.saveID != null) {
+            let doc = fs.readFileSync("./app/html/create-group.html", "utf-8");
+            res.send(doc);
+        } else {
+            let doc = fs.readFileSync("./app/html/create-group.html", "utf-8");
+            res.send(doc);
+        }       
     } else {
         res.redirect("/");
     }
@@ -713,7 +719,7 @@ app.post("/save-group", function (req, res) {
                                         if (error) {
                                             console.log(error)
                                         }
-                                        if (results[0] != null) {
+                                        if (results.affectedRows != null) {
                                             res.send({ status: "success", msg: "Group Saved." });
                                         } else {
                                             res.send({ status: "fail", msg: "User account not found." });
@@ -737,6 +743,148 @@ app.post("/save-group", function (req, res) {
     } else {
         res.redirect("/");
     }
+});
+
+// To get the data on all partially complete groups users have saved
+// Used by create page
+app.get("/saved-groups", function (req, res) {
+        let connection;
+        let myPromise = new Promise((resolve, reject) => {
+
+            connection = mysql.createConnection({
+                host: "localhost",
+                user: "root",
+                password: "",
+                database: "COMP2800"
+            });
+
+            connection.connect(err => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(true);
+                }
+            });
+
+        });
+
+        myPromise.then(
+            function (value) {
+                connection.execute(
+                    "SELECT * FROM BBY_26_saved_group WHERE ownerID = ?",
+                    [req.session.userID],
+                    function (error, results) {
+                        if (error) {
+                            console.log(error);
+                        }
+                        else {
+                            if (results[0] != null) {
+                                res.send(results);
+                            }
+                            else {
+                                res.send({ status: "fail", msg: "No saved groups found." });
+                            }
+                        }
+                    });
+                connection.end();
+            },
+            function (error) {
+                console.log(error);
+            }
+        );
+});
+
+// To get the data on a single partially complete group the user has saved
+// Used by create-group page
+app.get("/saved-groups/:id", function (req, res) {
+    let connection;
+    let myPromise = new Promise((resolve, reject) => {
+
+        connection = mysql.createConnection({
+            host: "localhost",
+            user: "root",
+            password: "",
+            database: "COMP2800"
+        });
+
+        connection.connect(err => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(true);
+            }
+        });
+
+    });
+
+    myPromise.then(
+        function (value) {
+            connection.execute(
+                "SELECT * FROM BBY_26_saved_group WHERE ownerID = ? AND savedID = ?",
+                [req.session.userID, req.params.id],
+                function (error, results) {
+                    if (error) {
+                        console.log(error);
+                    }
+                    else {
+                        if (results[0] != null) {
+                            res.send(results);
+                        }
+                        else {
+                            res.send({ status: "fail", msg: "No saved group found." });
+                        }
+                    }
+                });
+            connection.end();
+        },
+        function (error) {
+            console.log(error);
+        }
+    );
+});
+
+// Used to delete a partially completed group from its table
+// Used by the create page
+app.post("/delete-saved-group/:id", function (req, res) {
+        let connection;
+        let myPromise = new Promise((resolve, reject) => {
+
+            connection = mysql.createConnection({
+                host: "localhost",
+                user: "root",
+                password: "",
+                database: "COMP2800"
+            });
+
+            connection.connect(err => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(true);
+                }
+            });
+
+        });
+
+        myPromise.then(
+            function (value) {
+                connection.execute(
+                    "DELETE FROM BBY_26_saved_group WHERE savedID = ? AND ownerID = ?",
+                    [req.params.id, req.session.userID],
+                    function (error, results) {
+                        if (error) {
+                            console.log(error);                           
+                        } else {
+                            res.send({ status: "success", msg: "Group save deleted." });
+                        }
+                        connection.end();
+                    });
+                
+            },
+            function (error) {
+                console.log(error);
+            }
+        );
 });
 
 app.post("/add-user", function (req, res) {

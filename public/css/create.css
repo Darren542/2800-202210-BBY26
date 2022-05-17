@@ -51,4 +51,43 @@ h1{
     text-align: left;
 }
 
+/* CSS for the loading saved events/groups banner */
+#saved-box {
+    width: calc(100% - 6px);
+}
 
+.card {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color:#d1ecf1;
+    border: 1px black solid;
+    width: 100%;
+    padding:3px;
+    color: #0c5460;
+}
+
+.banner-btn {
+    color: black;
+    width: 50px;
+    height: 30px;
+    background-color: rgb(130, 177, 221);
+    border: 1px solid black;
+    padding: 0px;
+    margin: 0px;
+}
+
+.banner-btn:hover {
+    cursor: pointer;
+    background-color:rgb(69, 69, 206);
+}
+
+.banner-button-box {
+    display: flex;
+    gap: 2px;
+    padding-right: 4px;
+}
+
+.no-show {
+    display: none;
+}
