@@ -73,6 +73,7 @@ function showHidePages (goto) {
 document.querySelectorAll(".premade-tag").forEach( (tag) => {
     tag.addEventListener("click", () => {
         document.querySelector("#tag-input").value += tag.innerHTML;
+        tag.innerHTML = "";
     })
 });
 
@@ -177,7 +178,7 @@ document.querySelector("#finish-btn").addEventListener('click', async function()
             tags: tags,
             description: description,
             planType: planType,
-            guildelines: guidelines,
+            guidelines: guidelines,
             terms: terms,
             saveNum: saveNum
         }
@@ -203,6 +204,68 @@ document.querySelector("#finish-btn").addEventListener('click', async function()
         } catch(error) {
             console.log(error);
         }
+    }
+
+});
+
+// Code to save partially created group into database for later use
+document.querySelector("#save-quit").addEventListener('click', async function() {
+
+    // receiving inputs from page 1
+    let country = document.querySelector("#country-input").value;
+    let province = document.querySelector("#province-input").value;
+    let city = document.querySelector("#city-input").value;
+
+    // receiving inputs from page 2
+    let name = document.querySelector("#name-input").value;
+    let tagString = document.querySelector("#tag-input").value;
+
+    // receiving inputs from page 3
+    let description = document.querySelector("#description-input").value;
+
+    // receiving inputs from page 4
+
+    // receiving inputs from page 5
+    let guidelines = document.getElementById("guidelines-checkbox").checked;
+    console.log(guidelines);
+    let terms = document.getElementById("terms-checkbox").checked;
+
+    // Combine all data into a JSON object
+    let groupData = {
+        country: country,
+        province: province,
+        city: city,
+        name: name,
+        tags: tagString,
+        description: description,
+        planType: planType,
+        guidelines: guidelines,
+        terms: terms,
+        saveNum: saveNum
+    }
+
+    // Send data to Server as POST request to save-group
+    try {
+        let responseObject = await fetch(`/save-group`, {
+            method: 'POST',
+            headers: {
+                "Accept": 'application/json',
+                "Content-Type": 'application/json'
+            },
+            body: JSON.stringify(groupData)
+        });
+
+        let parsedJSON = await responseObject.json();
+
+        //On group creation should send you to your new groups homepage
+        if (parsedJSON.status == "success") {
+            document.getElementById("error-messages").innerHTML = "Progress Saved";
+            window.location.href = "/create";
+        } else {
+            document.getElementById("error-messages").innerHTML = "Failed to save Progress";
+        }
+    } catch (error) {
+        console.log(error);
     }
 
 });

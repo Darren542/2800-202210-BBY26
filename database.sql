@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS BBY_26_events(
 CREATE TABLE IF NOT EXISTS BBY_26_groups(
 	groupID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	ownerID int NOT NULL,
-	group_name varchar(20),
+	group_name varchar(30),
     country varchar(56),
 	province varchar(50),
 	city varchar(50),
@@ -72,7 +72,22 @@ CREATE TABLE IF NOT EXISTS BBY_26_group_tags(
 		ON UPDATE CASCADE
 );
 
-
+CREATE TABLE IF NOT EXISTS BBY_26_saved_group(
+	savedID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	ownerID int NOT NULL,
+	group_name varchar(30),
+    country varchar(56),
+	province varchar(50),
+	city varchar(50),
+	group_description varchar(500),
+	group_type varchar(10),
+	tagString varchar(500),
+	creationTime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	guidelines boolean DEFAULT FALSE,
+	terms boolean DEFAULT FALSE,	
+	FOREIGN KEY (ownerID) REFERENCES BBY_26_users (userID)
+		ON UPDATE CASCADE
+);
     	
 INSERT INTO BBY_26_users (username, email, pw, isAdmin, pwHash, pwSalt, pwIterations) 
 VALUES ("bcherng", "briancherngsch@gmail.com", 123, 1, "47fc8a8159e64b8d790ea80c810737889d32a5e1e1cb7f824a792863817a5bda11a312f1c8739aea78b7f0166e20447f2db8c55c7a8b571c0514194707e51e55", "MabXaGmGVnWsYoAG63n8PA+hGCT01dKIO7YlJjdsFXQr+gOLvrq2olWjyadUdPT7Su0BHcA4f5L/caU8YtU9AA==", 100); --password is 123

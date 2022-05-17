@@ -588,6 +588,8 @@ app.get("/create-events", function (req, res) {
     }
 });
 
+// Page for starting the creation of a group.
+// Linked from create page.
 app.get("/create-group", (req, res) => {
     if (req.session.loggedIn) {
         let doc = fs.readFileSync("./app/html/create-group.html", "utf-8");
@@ -597,6 +599,8 @@ app.get("/create-group", (req, res) => {
     }
 });
 
+// Creates a new group in the database. Group info in groups table, Group's tags in group_tags table.
+// Used by the create-group page.
 app.post("/create-group", function (req, res) {
     // Can only update the profile if you are admin or it is your account
     if (req.session.loggedIn) {
@@ -648,6 +652,75 @@ app.post("/create-group", function (req, res) {
                                 }
                             } else {
                                 res.send({ status: "success", msg: "Group Created." });
+                                connection.end();
+                            }
+                            
+                        }
+                    });
+            },
+            function (error) {
+                console.log(error);
+            }
+
+
+        );
+
+    } else {
+        res.redirect("/");
+    }
+});
+
+// Saves a partially created group into a the saved_group table
+// Used by the create-group page.
+app.post("/save-group", function (req, res) {
+    // Can only update the profile if you are admin or it is your account
+    if (req.session.loggedIn) {
+        let connection;
+        let myPromise = new Promise((resolve, reject) => {
+
+            connection = mysql.createConnection({
+                host: "localhost",
+                user: "root",
+                password: "",
+                database: "COMP2800",
+                multipleStatements: true
+            });
+
+            connection.connect(err => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(true);
+                }
+            });
+
+        });
+
+        myPromise.then(
+            function () {
+                connection.query('INSERT INTO BBY_26_saved_group (ownerID, group_name, country, province, city, group_description, group_type, tagString, guidelines, terms) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                    [req.session.userID, req.body.name, req.body.country, req.body.province, req.body.city, req.body.description, req.body.planType, req.body.tags, req.body.guidelines, req.body.terms],
+                    function (error, results, fields) {
+                        if (error) {
+                            console.log("error from db", error);
+                            connection.end();
+                        } else {
+                            if (req.body.saveNum != 0) {
+                                connection.execute(
+                                    "DELETE FROM BBY_26_saved_group WHERE savedID = ?",
+                                    [req.body.saveNum],
+                                    function (error, results) {
+                                        if (error) {
+                                            console.log(error)
+                                        }
+                                        if (results[0] != null) {
+                                            res.send({ status: "success", msg: "Group Saved." });
+                                        } else {
+                                            res.send({ status: "fail", msg: "User account not found." });
+                                        }
+                                    });
+                            } else {
+                                res.send({ status: "success", msg: "Group Saved." });
                                 connection.end();
                             }
                             
