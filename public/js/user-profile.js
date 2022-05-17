@@ -171,6 +171,9 @@ getProfileInfo(window.location.pathname);
 // Displays the info on the profile page
 //--------------------------------------------------
 function displayProfileInfo(data) {
+    if (data.quote == undefined) {
+        location.href = "/user-profile";
+    }
     document.getElementById("user-quote").innerHTML = data.quote;
     document.getElementById("user-description").innerHTML = data.userDescription;
     if (data.showLoc) {
