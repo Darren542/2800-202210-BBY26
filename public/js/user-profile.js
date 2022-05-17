@@ -87,11 +87,47 @@ function getEvents() {
     const theEvents = new XMLHttpRequest();
     theEvents.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("menu-display").innerHTML = this.responseText;
+            console.log(this.responseText);
+            let data = JSON.parse(this.responseText);
+            let index = 0;
+            data.forEach(function () {
+                loadEvent(data[index]);
+                index++;
+            });
         }
     }
-    theEvents.open("GET", "/my-events", true);
+    theEvents.open("GET", "/get-events", true);
     theEvents.send();
+    updateProfileMenu("events-option");
+}
+
+
+function loadEvent(eventID) {
+    const eventDetail = new XMLHttpRequest();
+    const theAddress = new XMLHttpRequest();
+    eventDetail.open("POST", "/load-event");
+    eventDetail.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    eventDetail.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    eventDetail.send("eventID=" + eventID);
+    theAddress.open("post", "/get-event-address");
+    theAddress.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    theAddress.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    theAddress.send("eventID=" + eventID);
+
+    function load() {
+        if (theAddress.readyState == 4 && theAddress.status == 200 && eventDetail.readyState == 4 && eventDetail.status == 200) {
+            let temp = document.querySelector('#post-template');
+            let card = temp.content.cloneNode(true);
+            card.id = "post";
+            let eventData = JSON.parse(eventDetail.responseText);
+            let eventAddress = JSON.parse(theAddress.responseText);
+            card.getElementById("event-name-placeholder").innerHTML = eventData[0].event_name;
+            card.getElementById("event-address-placeholder").innerHTML = eventAddress[0].city;
+            document.getElementById("menu-display").appendChild(card);
+        }
+    }
+    theAddress.onreadystatechange = load;
+    eventDetail.onreadystatechange = load;
     updateProfileMenu("events-option");
 }
 
@@ -115,7 +151,7 @@ async function getProfileInfo(path) {
         } else {
             console.log(response.status);
         }
-    } catch(error) {
+    } catch (error) {
         console.log(error);
     }
 }
@@ -139,7 +175,7 @@ function displayProfileInfo(data) {
     } else {
         document.getElementById("user-email").innerHTML = "Email hidden";
     }
-    
+
     document.getElementById("user-quote").innerHTML = data.quote;
     document.getElementById("user-quote").innerHTML = data.quote;
 }

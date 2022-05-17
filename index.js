@@ -196,7 +196,7 @@ app.post("/modify-privilege", function (req, res) {
                     );
                     connection.end();
                 } else {
-                    res.send({ status: "fail", msg: "Need at least one account with admin privilege!"});
+                    res.send({ status: "fail", msg: "Need at least one account with admin privilege!" });
                 }
             }
         );
@@ -528,8 +528,148 @@ app.get("/photos", function (req, res) {
     res.send("photos section is still under construction");
 });
 
-app.get("/my-events", function (req, res) {
-    res.send("events section is still under construction");
+app.get("/get-events", function (req, res) {
+    let events = [];
+    let connection;
+    let index = 0;
+    let myPromise = new Promise((resolve, reject) => {
+
+        connection = mysql.createConnection({
+            host: "localhost",
+            user: "root",
+            password: "",
+            database: "COMP2800"
+        });
+
+        connection.connect(err => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(true);
+            }
+        });
+
+    });
+    myPromise.then(
+        function (value) {
+            connection.execute(
+                "SELECT * FROM BBY_26_RSVP WHERE userID = ?",
+                [req.session.userID],
+                function (error, results) {
+                    if (error) {
+                        console.log(error);
+                    }
+                    else {
+                        if (results[0] != null) {
+                            results.forEach(function () {
+                                events.push(results[index].eventID);
+                                index++;
+                            });
+                            res.send(events);
+                        }
+                        else {
+                            res.send({ status: "fail", msg: "User account not found." });
+                        }
+                    }
+                });
+            connection.end();
+        },
+        function (error) {
+            console.log(error);
+        }
+    );
+});
+
+app.post("/get-event-address", function (req, res) {
+    let connection;
+    let myPromise = new Promise((resolve, reject) => {
+
+        connection = mysql.createConnection({
+            host: "localhost",
+            user: "root",
+            password: "",
+            database: "COMP2800"
+        });
+
+        connection.connect(err => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(true);
+            }
+        });
+
+    });
+    myPromise.then(
+        function (value) {
+            connection.execute(
+                "SELECT * FROM BBY_26_addresses WHERE eventID = ?",
+                [req.body.eventID],
+                function (error, results) {
+                    if (error) {
+                        console.log(error);
+                    }
+                    else {
+                        if (results[0] != null) {
+                            res.send(results);
+                        }
+                        else {
+                            res.send({ status: "fail", msg: "User account not found." });
+                        }
+                    }
+                });
+            connection.end();
+        },
+        function (error) {
+            console.log(error);
+        }
+    );
+})
+
+app.post("/load-event", function (req, res) {
+    let connection;
+    let myPromise = new Promise((resolve, reject) => {
+
+        connection = mysql.createConnection({
+            host: "localhost",
+            user: "root",
+            password: "",
+            database: "COMP2800"
+        });
+
+        connection.connect(err => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(true);
+            }
+        });
+
+    });
+    myPromise.then(
+        function (value) {
+            connection.execute(
+                "SELECT * FROM BBY_26_events WHERE eventID = ?",
+                [req.body.eventID],
+                function (error, results) {
+                    if (error) {
+                        console.log(error);
+                    }
+                    else {
+                        if (results[0] != null) {
+                            res.send(results);
+                        }
+                        else {
+                            res.send({ status: "fail", msg: "User account not found." });
+                        }
+                    }
+                });
+            connection.end();
+        },
+        function (error) {
+            console.log(error);
+        }
+    );
 });
 
 app.get("/my-groups", function (req, res) {
@@ -790,7 +930,7 @@ app.post("/update-username/:id", function (req, res) {
                         else {
                             if (req.session.username == req.params.id) {
                                 req.session.username = req.body.username;
-                            }                           
+                            }
                             res.send({ status: "success", msg: "Updated Username." });
                         }
 
@@ -1057,7 +1197,7 @@ async function init2() {
         user: 'root',
         password: '',
         multipleStatements: true,
-        database:'groups_26'
+        database: 'groups_26'
     });
     await connection.query(`    
     CREATE table IF NOT EXISTS ${name}(
@@ -1073,7 +1213,7 @@ async function init2() {
     connection.end();
 }
 
-app.get("/getgroup", async (req,res) =>{
+app.get("/getgroup", async (req, res) => {
     const connection = await mys.createConnection({
         host: "localhost",
         user: "root",
@@ -1083,9 +1223,11 @@ app.get("/getgroup", async (req,res) =>{
     });
     connection.connect();
     const [rows, fields] = await connection.execute(`SELECT * FROM ${name}`);
-    let arr = {"tags": rows[0].tags, "country": rows[0].country, "name":rows[0].name, "province":rows[0].province,
-              "city":rows[0].city, "descrip":rows[0].descrip, "plan":rows[0].isFree  };
-    
+    let arr = {
+        "tags": rows[0].tags, "country": rows[0].country, "name": rows[0].name, "province": rows[0].province,
+        "city": rows[0].city, "descrip": rows[0].descrip, "plan": rows[0].isFree
+    };
+
     res.setHeader("Content-Type", "application/json");
     res.send(arr);
 })
@@ -1145,7 +1287,7 @@ app.get("/grouphome", async (req, res) => {
     res.header('Content-Type', 'text/html');
     let doc = fs.readFileSync(path.join(__dirname, "./app/html/group-home.html"), "utf-8");
     await connection.end();
-    
+
     res.send(doc);
 })
 
