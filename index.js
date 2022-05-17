@@ -116,6 +116,12 @@ app.post('/create-event', function (req, res) {
         connection.connect();
         connection.execute(
             "INSERT INTO BBY_26_address {street, city} VAULES {?, ?}", [formData.eventLocationStreet, formData.eventLocationCity],
+            "INSERT INTO BBY_26_events {event_name, event_date_time, event_end_time, event_duration, event_type, event_description, event_tags} VAULES {?, ?, ?, ?, ?, ?, ?}", [formData.eventName, 
+                formData.eventDateTime,
+                formData.eventEndTime,
+                formData.eventDuration,
+                formData.eventDetails,
+                formDate.eventTags]
         )
     }
 });
