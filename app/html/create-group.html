@@ -163,25 +163,24 @@
     <!-- Group Creation Finalization Page 5 -->
     <div class="no-show" id="page-5">
       <h2>Finalize Group Creation</h2>
-
-      <div id="country-box" class="input-box">
-        <div id="guidelines-terms">
-          <div id="guidelines">
-              <input type="checkbox" id="gudilines" name="checkbox">
-              <label>I Agree to follow the <a href="/community-guidelines" target="_blank" >Community guidelines.</a></label>
-          </div><br>
-          <div id="terms">
-              <input type="checkbox" id="conditions" name="checkbox">
-              <label>I Agree to the <a href="/terms-and-conditions" target="_blank">Terms & Conditions.</a></label>
-          </div>
+    
+      <div id="agreements-box" class="checkbox-box">
+        <div id="guidelines-box">
+          <input type="checkbox" id="guidelines-checkbox" name="guidelines-checkbox">
+          <label>I Agree to follow the <a href="/community-guidelines" target="_blank">Community guidelines.</a></label>
+        </div>
+        <div id="terms-box">
+          <input type="checkbox" id="terms-checkbox" name="terms-checkbox">
+          <label>I Agree to the <a href="/terms-and-conditions" target="_blank">Terms & Conditions.</a></label>
+        </div>
       </div>
-      </div>
-
+    
     </div>
 
     <!-- Save and Quit for use latter -->
     <div id="quit-box">
       <button id="save-quit" class="btn" name="save-quit" type="button">Save & Quit</button>
+      <div id="error-messages" class="show"></div>
     </div>
 
     <!-- Move back and forward across steps-->

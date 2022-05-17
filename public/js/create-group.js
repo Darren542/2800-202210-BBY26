@@ -1,5 +1,7 @@
 // Page user starts on by default
 var pageNumber = 1;
+// For if they loaded in a saved group creation
+var saveNum = 0;
 
 document.querySelector("#next-btn").addEventListener("click", () => {
     if (pageNumber < 5) {
@@ -99,4 +101,108 @@ document.querySelector("#premium-plan").addEventListener('click', ()=> {
     document.querySelector('#premium-plan').classList.remove("unfilled");
     document.querySelector('#premium-plan').classList.add("filled");
     planType = "premium";
+});
+
+
+// Code for finishing group creation
+// Have to check all fields are filled and have valid entries
+document.querySelector("#finish-btn").addEventListener('click', async function() {
+    let valid = true;
+    let errorMsg = "";
+
+    // checking and receiving inputs from page 1
+    let country = document.querySelector("#country-input").value;
+    let province = document.querySelector("#province-input").value;
+    let city = document.querySelector("#city-input").value;
+    if (country.length < 1) {
+        valid = false;
+        errorMsg = "Must fill out country."
+    }
+    if (province.length < 1) {
+        valid = false;
+        errorMsg = "Must fill out state/province."
+    }
+    if (city.length < 1) {
+        valid = false;
+        errorMsg = "Must fill out city."
+    }
+
+    // checking and receiving inputs from page 2
+    let name = document.querySelector("#name-input").value;
+    if (name.length < 1) {
+        valid = false;
+        errorMsg = "Must fill out group's name."
+    }
+    let tagString = document.querySelector("#tag-input").value;
+    let tags = tagString.split("#");
+
+    // checking and receiving inputs from page 3
+    let description = document.querySelector("#description-input").value;
+    if (description.length < 1) {
+        valid = false;
+        errorMsg = "Must fill out group's description."
+    }
+
+    // checking and receiving inputs from page 4
+    if (planType != "free") {
+        valid = false;
+        errorMsg = "Only free plans available currently."
+    }
+
+    // checking and receiving inputs from page 5
+    let guidelines = document.getElementById("guidelines-checkbox").checked;
+    if (guidelines != true) {
+        valid = false;
+        errorMsg = "Must agree to Community Guidelines."
+    }
+    let terms = document.getElementById("terms-checkbox").checked;
+    if (terms != true) {
+        valid = false;
+        errorMsg = "Must agree to Terms & Conditions."
+    }
+
+    // If all inputs are not valid send error msg to user
+    // Else send request to server to make new group
+    if (valid == false) {
+        document.getElementById("error-messages").innerHTML = errorMsg;
+    } else {
+        document.getElementById("error-messages").innerHTML = "";
+
+        // Combine all data into a JSON object
+        let groupData = {
+            country: country,
+            province: province,
+            city: city,
+            name: name,
+            tags: tags,
+            description: description,
+            planType: planType,
+            guildelines: guidelines,
+            terms: terms,
+            saveNum: saveNum
+        }
+
+        // Send data to Server as POST request to create-group
+        try {
+            let responseObject = await fetch(`/create-group`, {
+                method: 'POST',
+                headers: { "Accept": 'application/json',
+                           "Content-Type": 'application/json'
+                },
+                body: JSON.stringify(groupData)
+            });
+            
+            let parsedJSON = await responseObject.json();
+            
+            //On group creation should send you to your new groups homepage
+            if (parsedJSON.status == "success") {
+                document.getElementById("error-messages").innerHTML = "Created new Group";
+            } else {
+                document.getElementById("error-messages").innerHTML = "Failed to create new Group";
+            }
+        } catch(error) {
+            console.log(error);
+        }
+    }
+
 });

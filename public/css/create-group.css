@@ -122,6 +122,17 @@
     background-color:rgb(69, 69, 206);
 }
 
+#quit-box {
+    display: flex;
+    text-align: left;
+    justify-content: space-between;
+}
+
+#error-messages {
+    color: red;
+    font-weight: bold;
+}
+
 /* Page 2 CSS */
 .premade-tag:hover {
     cursor: pointer;
@@ -135,6 +146,11 @@
 #suggested-tags-box {
     border: 1px solid black;
     background-color: white;
+}
+
+#suggested-tags-title {
+    font-size: 0.7rem;
+    font-weight: bold;
 }
 
 /* Page 3 CSS */
@@ -195,4 +211,21 @@
 #premium-plan {
     border-top-right-radius: 18px;
     border-bottom-right-radius: 18px;
+}
+
+/* Page 5 CSS */
+#page-5 input[type="checkbox"] {
+    width: 1.4rem;
+    height: 1.4rem;
+}
+
+.checkbox-box {
+    width: 80%;
+}
+
+.checkbox-box > div {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 15px;
 }

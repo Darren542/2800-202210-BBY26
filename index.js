@@ -577,7 +577,7 @@ app.get("/create", function (req, res) {
     } else {
         res.redirect("/");
     }
-})
+});
 
 app.get("/create-events", function (req, res) {
     if (req.session.loggedIn) {
@@ -589,13 +589,81 @@ app.get("/create-events", function (req, res) {
 });
 
 app.get("/create-group", (req, res) => {
-    let doc = fs.readFileSync("./app/html/create-group.html", "utf-8");
-    res.send(doc);
+    if (req.session.loggedIn) {
+        let doc = fs.readFileSync("./app/html/create-group.html", "utf-8");
+        res.send(doc);
+    } else {
+        res.redirect("/");
+    }
 });
 
-app.get("/create-group1", (req, res) => {
-    let doc = fs.readFileSync(path.join(__dirname, "./app/html/create-group/create-group1.html"), "utf-8");
-    res.send(doc);
+app.post("/create-group", function (req, res) {
+    // Can only update the profile if you are admin or it is your account
+    if (req.session.loggedIn) {
+        let connection;
+        let myPromise = new Promise((resolve, reject) => {
+
+            connection = mysql.createConnection({
+                host: "localhost",
+                user: "root",
+                password: "",
+                database: "COMP2800",
+                multipleStatements: true
+            });
+
+            connection.connect(err => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(true);
+                }
+            });
+
+        });
+
+        myPromise.then(
+            function () {
+                connection.query('INSERT INTO BBY_26_groups (ownerID, group_name, country, province, city, group_description, group_type) values (?, ?, ?, ?, ?, ?, ?)',
+                    [req.session.userID, req.body.name, req.body.country, req.body.province, req.body.city, req.body.description, req.body.planType],
+                    function (error, results, fields) {
+                        if (error) {
+                            console.log("error from db", error);
+                            connection.end();
+                        } else {
+                            let newGroupID = results.insertId;                            
+                            if (req.body.tags.length > 1) {
+                                for (let tags = 1; tags < req.body.tags.length; tags++) {
+                                    connection.query('INSERT INTO BBY_26_group_tags (groupID, tag_name) values (?, ?)',
+                                        [newGroupID, req.body.tags[tags]],
+                                        function (error, results, fields) {
+                                            if (error) {
+                                                console.log("error from db", error);
+                                                connection.end();
+                                            }
+                                            if (tags == (req.body.tags.length - 1)) {
+                                                res.send({ status: "success", msg: "Group Created." });
+                                                connection.end();
+                                            }
+                                        });
+                                }
+                            } else {
+                                res.send({ status: "success", msg: "Group Created." });
+                                connection.end();
+                            }
+                            
+                        }
+                    });
+            },
+            function (error) {
+                console.log(error);
+            }
+
+
+        );
+
+    } else {
+        res.redirect("/");
+    }
 });
 
 app.post("/add-user", function (req, res) {
@@ -1022,61 +1090,7 @@ app.get("/profile-url/:id", function (req, res) {
     testConnection();
 });
 
-let name;
-let tags;
-let country;
-let state;
-let city;
-let description;
-let isfree;
 
-app.post("/fill", async (req, res) => {
-    name = req.body.groupname;
-    tags = req.body.tags;
-    init();
-})
-async function init() {
-    let connection = await mys.createConnection({
-        host: 'localhost',
-        user: 'root',
-        password: '',
-        multipleStatements: true,
-    });
-    await connection.query(`    
-        CREATE database IF NOT EXISTS groups_26;
-        
-        `)
-    connection.end();
-}
-
-app.post("/fill2", async (req, res) => {
-    country = req.body.country;
-    state = req.body.state;
-    city = req.body.city;
-    init2();
-})
-
-async function init2() {
-    let connection = await mys.createConnection({
-        host: 'localhost',
-        user: 'root',
-        password: '',
-        multipleStatements: true,
-        database:'groups_26'
-    });
-    await connection.query(`    
-    CREATE table IF NOT EXISTS ${name}(
-        name varchar(100) PRIMARY KEY,
-        tags varchar(100), 
-        country varchar(50),
-        province varchar(50),
-        city varchar(50),
-        descrip varchar(1000),
-        isFree int NOT NULL
-    );
-        `)
-    connection.end();
-}
 
 app.get("/getgroup", async (req,res) =>{
     const connection = await mys.createConnection({
@@ -1093,40 +1107,6 @@ app.get("/getgroup", async (req,res) =>{
     
     res.setHeader("Content-Type", "application/json");
     res.send(arr);
-})
-
-app.post("/fill3", async (req, res) => {
-    description = req.body.description;
-})
-
-app.post("/fill4", async (req, res) => {
-    isfree = req.body.free;
-})
-
-app.get("/next2", (req, res) => {
-    let doc = fs.readFileSync(path.join(__dirname, "./app/html/create-group/create-group2.html"), "utf-8");
-    res.send(doc);
-})
-
-app.get("/next3", (req, res) => {
-    let doc = fs.readFileSync(path.join(__dirname, "./app/html/create-group/create-group3.html"), "utf-8");
-    res.send(doc);
-})
-
-app.get("/next4", (req, res) => {
-    let doc = fs.readFileSync(path.join(__dirname, "./app/html/create-group/create-group4.html"), "utf-8");
-    res.send(doc);
-})
-
-app.get("/next5", (req, res) => {
-    let doc = fs.readFileSync(path.join(__dirname, "./app/html/create-group/create-group5.html"), "utf-8");
-    res.send(doc);
-})
-
-app.get("/exit", (req, res) => {
-    res.header('Content-Type', 'text/html');
-    let doc = fs.readFileSync(path.join(__dirname, "./app/html/create.html"), "utf-8");
-    res.send(doc);
 })
 
 app.get("/grouphome", async (req, res) => {
