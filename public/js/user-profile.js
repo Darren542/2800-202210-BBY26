@@ -1,19 +1,5 @@
 "use strict";
 
-// function getname() {
-//     const getname = new XMLHttpRequest();
-//     getname.onreadystatechange = function () {
-//         if (this.readyState == 4 && this.status == 200) {
-//             document.getElementById("username").innerHTML = this.responseText;
-//         }
-//     }
-    
-//     const requestId = path.substring(path.lastIndexOf('/'));
-//     getname.open("GET", `/username${requestId}`, true);
-//     getname.send();
-// }
-// getname();
-
 
 function getemail() {
     const getemail = new XMLHttpRequest();

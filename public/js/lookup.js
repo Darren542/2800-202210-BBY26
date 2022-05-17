@@ -19,8 +19,6 @@ function ready() {
     }
     getname.open("GET", "/username", true);
     getname.send();
-
-    document.getElementById("card-loader").style = "display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 2px;";
     const xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {

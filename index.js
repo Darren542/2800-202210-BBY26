@@ -156,7 +156,7 @@ app.get("/users", function (req, res) {
             });
             connection.connect();
             connection.execute(
-                "SELECT * FROM BBY_26_users WHERE isAdmin = 0",
+                "SELECT username FROM BBY_26_users WHERE isAdmin = 0",
                 function (error, results) {
                     //console.log("results:", results);
                     if (error) {
@@ -479,7 +479,6 @@ app.get("/user-profile/:id", function (req, res) {
 });
 
 app.get("/profile-info/:id", function (req, res) {
-    console.log("Request received for: " + req.params.id);
     //-------------------------------------------------------------------------
     // Code to prevent nodejs server from crashing if database not found from
     // @author banguncool & Dharman
