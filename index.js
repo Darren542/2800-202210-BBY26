@@ -123,25 +123,25 @@ app.post('/create-event', function (req, res) {
     }
     console.log(formData);
 
-    // if (req.session.loggedIn) {
-    //     const mysql = require('mysql2');
-    //     const connection = mysql.createConnection({
-    //         host: "localhost",
-    //         user: "root",
-    //         password: "",
-    //         database: "COMP2800"
-    //     });
-    //     connection.connect();
-    //     connection.execute(
-    //         "INSERT INTO BBY_26_address [street, city} VAULES {?, ?]", [formData.eventLocationStreet, formData.eventLocationCity],
-    //         "INSERT INTO BBY_26_events [event_name, event_date_time, event_end_time, event_duration, event_type, event_description, event_tags] VAULES {?, ?, ?, ?, ?, ?, ?}", [formData.eventName, 
-    //             formData.eventDateTime,
-    //             formData.eventEndTime,
-    //             formData.eventDuration,
-    //             formData.eventDetails,
-    //             formDate.eventTags]
-    //     )
-    // }
+    if (req.session.loggedIn) {
+        const mysql = require('mysql2');
+        const connection = mysql.createConnection({
+            host: "localhost",
+            user: "root",
+            password: "",
+            database: "COMP2800"
+        });
+        connection.connect();
+        connection.execute(
+            "INSERT INTO BBY_26_address (street, city) VALUES ('?', '?')", [formData.eventLocationStreet, formData.eventLocationCity],
+        )
+
+        connection.execute(
+            "INSERT INTO BBY_26_events (event_name, event_date_time, event_end_time, event_duration, event_description) VALUES ('?', '?', '?', '?', '?')", [formData.eventName, formData.eventDateTime, formData.eventEndTime, formData.eventDuration, formData.eventDetails],
+        )
+
+        connection.end();
+    }
 });
 
 app.get("/users", function (req, res) {
@@ -219,7 +219,7 @@ app.post("/modify-privilege", function (req, res) {
                     );
                     connection.end();
                 } else {
-                    res.send({ status: "fail", msg: "Need at least one account with admin privilege!"});
+                    res.send({ status: "fail", msg: "Need at least one account with admin privilege!" });
                 }
             }
         );
@@ -813,7 +813,7 @@ app.post("/update-username/:id", function (req, res) {
                         else {
                             if (req.session.username == req.params.id) {
                                 req.session.username = req.body.username;
-                            }                           
+                            }
                             res.send({ status: "success", msg: "Updated Username." });
                         }
 
@@ -1080,7 +1080,7 @@ async function init2() {
         user: 'root',
         password: '',
         multipleStatements: true,
-        database:'groups_26'
+        database: 'groups_26'
     });
     await connection.query(`    
     CREATE table IF NOT EXISTS ${name}(
@@ -1096,7 +1096,7 @@ async function init2() {
     connection.end();
 }
 
-app.get("/getgroup", async (req,res) =>{
+app.get("/getgroup", async (req, res) => {
     const connection = await mys.createConnection({
         host: "localhost",
         user: "root",
@@ -1106,9 +1106,11 @@ app.get("/getgroup", async (req,res) =>{
     });
     connection.connect();
     const [rows, fields] = await connection.execute(`SELECT * FROM ${name}`);
-    let arr = {"tags": rows[0].tags, "country": rows[0].country, "name":rows[0].name, "province":rows[0].province,
-              "city":rows[0].city, "descrip":rows[0].descrip, "plan":rows[0].isFree  };
-    
+    let arr = {
+        "tags": rows[0].tags, "country": rows[0].country, "name": rows[0].name, "province": rows[0].province,
+        "city": rows[0].city, "descrip": rows[0].descrip, "plan": rows[0].isFree
+    };
+
     res.setHeader("Content-Type", "application/json");
     res.send(arr);
 })
@@ -1168,7 +1170,7 @@ app.get("/grouphome", async (req, res) => {
     res.header('Content-Type', 'text/html');
     let doc = fs.readFileSync(path.join(__dirname, "./app/html/group-home.html"), "utf-8");
     await connection.end();
-    
+
     res.send(doc);
 })
 

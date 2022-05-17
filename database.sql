@@ -50,13 +50,11 @@ CREATE TABLE IF NOT EXISTS BBY_26_tag(
  CREATE TABLE IF NOT EXISTS BBY_26_events(
     eventID int NOT NULL AUTO_INCREMENT PRIMARY KEY, 
     event_name varchar(20),
-    addressID int NOT NULL,
     event_date_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     event_end_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     event_duration int NOT NULL,
     event_photo varchar(50) DEFAULT "event.jpg",
     event_description varchar(50),
-    FOREIGN KEY (addressID) REFERENCES BBY_26_address (addressID)
 ); 
 	-- event_type boolean, 
 -- event-type false is private & public is true
