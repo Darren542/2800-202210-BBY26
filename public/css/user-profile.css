@@ -197,7 +197,7 @@
 
     #user-quote {
         grid-column: 2 / span 1;
-        grid-row: 2 / span 1;
+        grid-row: 1 / span 2;
         margin-top: auto;
         margin-bottom: auto;
         font-family: 'Indie Flower', cursive;
