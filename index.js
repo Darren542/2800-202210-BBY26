@@ -14,6 +14,9 @@ const mys = require("mysql2/promise");
 const { isInt32Array } = require("util/types");
 // const { createQuery } = require("mysql2/typings/mysql/lib/Connection");
 
+// Creating Events
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use("/js", express.static("./public/js"));
 app.use("/css", express.static("./public/css"));
 app.use("/img", express.static("./public/img"));
@@ -103,37 +106,42 @@ app.get("/home", function (req, res) {
     }
 });
 
-// Creating Events
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-// app.use(multer.array());
-app.use(express.static('public'));
+
 
 app.post('/create-event', function (req, res) {
-
-    let formData = req.body.form;
-    // console.log("This something: " + req.body);
-
-
-    if (req.session.loggedIn) {
-        const mysql = require('mysql2');
-        const connection = mysql.createConnection({
-            host: "localhost",
-            user: "root",
-            password: "",
-            database: "COMP2800"
-        });
-        connection.connect();
-        connection.execute(
-            "INSERT INTO BBY_26_address [street, city} VAULES {?, ?]", [formData.eventLocationStreet, formData.eventLocationCity],
-            "INSERT INTO BBY_26_events [event_name, event_date_time, event_end_time, event_duration, event_type, event_description, event_tags] VAULES {?, ?, ?, ?, ?, ?, ?}", [formData.eventName, 
-                formData.eventDateTime,
-                formData.eventEndTime,
-                formData.eventDuration,
-                formData.eventDetails,
-                formDate.eventTags]
-        )
+    let formData = {
+        eventName: req.body.eventName,
+        eventLocationStreet: req.body.eventLocationStreet,
+        eventLocationCity: req.body.eventLocationCity,
+        eventDateTime: req.body.eventDateTime,
+        eventEndTime: req.body.eventEndTime,
+        eventDuration: req.body.eventDuration,
+        // eventImage: document.getElementById('image-upload').;
+        eventDetails: req.body.eventDetails,
+        // this probleley needs to changed
+        eventTags: req.body.eventTags
     }
+    console.log(formData);
+
+    // if (req.session.loggedIn) {
+    //     const mysql = require('mysql2');
+    //     const connection = mysql.createConnection({
+    //         host: "localhost",
+    //         user: "root",
+    //         password: "",
+    //         database: "COMP2800"
+    //     });
+    //     connection.connect();
+    //     connection.execute(
+    //         "INSERT INTO BBY_26_address [street, city} VAULES {?, ?]", [formData.eventLocationStreet, formData.eventLocationCity],
+    //         "INSERT INTO BBY_26_events [event_name, event_date_time, event_end_time, event_duration, event_type, event_description, event_tags] VAULES {?, ?, ?, ?, ?, ?, ?}", [formData.eventName, 
+    //             formData.eventDateTime,
+    //             formData.eventEndTime,
+    //             formData.eventDuration,
+    //             formData.eventDetails,
+    //             formDate.eventTags]
+    //     )
+    // }
 });
 
 app.get("/users", function (req, res) {
