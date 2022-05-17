@@ -120,9 +120,14 @@ app.post('/create-event', function (req, res) {
         )
     }
 });
+app.get("/lookup", function (req, res) {
+    let doc = fs.readFileSync("./app/html/lookup.html", "utf8");
+    res.send(doc);
+})
 
 app.get("/users", function (req, res) {
-    if (req.session.loggedIn && req.session.isAdmin) {
+    if (req.session.loggedIn) {
+        if (req.session.isAdmin) {
         const mysql = require("mysql2");
         const connection = mysql.createConnection({
             host: "localhost",
@@ -141,7 +146,27 @@ app.get("/users", function (req, res) {
                 res.send(results);
             });
         connection.end();
-    }
+        } else {
+            const mysql = require("mysql2");
+            const connection = mysql.createConnection({
+                host: "localhost",
+                user: "root",
+                password: "",
+                database: "COMP2800"
+            });
+            connection.connect();
+            connection.execute(
+                "SELECT * FROM BBY_26_users WHERE isAdmin = 0",
+                function (error, results) {
+                    //console.log("results:", results);
+                    if (error) {
+                        console.log(error);
+                    }
+                    res.send(results);
+                });
+            connection.end();
+        }
+    } 
 })
 
 app.get("/login", function (req, res) {
