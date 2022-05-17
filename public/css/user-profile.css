@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Indie+Flower&family=Oleo+Script+Swash+Caps&display=swap');
 
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 751px) {
     .post {
         background: white;
         border: 1px solid black;
@@ -164,7 +164,7 @@
     }
 }
 
-@media only screen and (min-width: 601px) {
+@media only screen and (min-width: 751px) {
     .post {
         background: white;
         border: 1px solid black;
@@ -174,8 +174,8 @@
         display: grid;
         min-height: 100%;
         background-color: rgb(136, 160, 212);
-        grid-template-columns: 12% 21% 67%;
-        grid-template-rows: 5% 30% 5% 20% auto;
+        grid-template-columns: 150px 200px 1fr;
+        grid-template-rows: 40px 110px 40px 40px 1fr;
     }
 
     #profile-image-div {
@@ -187,9 +187,10 @@
     }
 
     #profile-image {
-        margin: auto;
-        width: 80%;
-        height: 50%;
+        object-fit: fill;
+        width: calc(100% - 10px);
+        height: calc(100% - 10px);
+        margin: 5px;
         border: 1px solid black;
         border-radius: 8px;
     }
@@ -239,14 +240,14 @@
     }
 
     #optional-button {
-        grid-row: 3 / span 1;
-        grid-column: 3 / span 1;
+        grid-row: 3 / span 2;
+        grid-column: 2 / span 1;
         height: 100%;
-        width: 100%;
+        width: 98%;
         /* background-color: rgb(132, 34, 141); */
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: right;
     }
 
     #edit-button {
@@ -345,5 +346,9 @@
 
     .profile-menu {
         font-size: 1.5rem;
+    }
+
+    #user-quote {
+        font-size: 1.2rem;
     }
 }

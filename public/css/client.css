@@ -134,7 +134,9 @@ body {
 }
 
 .no-scroll {
-    overflow: hidden;
+    overflow:auto;
+    /* change this back to hidden if you want to remove page scroll while hamburger menu open */
+    /* overflow: hidden; */
   }
 
 .hidden {
