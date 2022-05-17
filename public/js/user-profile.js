@@ -1,25 +1,31 @@
 "use strict";
-function getname() {
-    const getname = new XMLHttpRequest();
-    getname.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("username").innerHTML = this.responseText;
-        }
-    }
-    getname.open("GET", "/username", true);
-    getname.send();
-}
-getname();
+
+// function getname() {
+//     const getname = new XMLHttpRequest();
+//     getname.onreadystatechange = function () {
+//         if (this.readyState == 4 && this.status == 200) {
+//             document.getElementById("username").innerHTML = this.responseText;
+//         }
+//     }
+    
+//     const requestId = path.substring(path.lastIndexOf('/'));
+//     getname.open("GET", `/username${requestId}`, true);
+//     getname.send();
+// }
+// getname();
 
 
 function getemail() {
     const getemail = new XMLHttpRequest();
+    let path = window.location.pathname;
+    const requestId = path.substring(path.lastIndexOf('/'));
     getemail.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("user-email").innerHTML = this.responseText;
+            let reply = JSON.parse(getemail.response);
+            document.getElementById("user-email").innerHTML = reply.email;
         }
     }
-    getemail.open("GET", "/email", true);
+    getemail.open("GET", `/email${requestId}`, true);
     getemail.send();
 }
 
@@ -141,12 +147,14 @@ getDogs();
 //----------------------------------------------------------------------
 async function getProfileInfo(path) {
     const requestId = path.substring(path.lastIndexOf('/'));
+    console.log(requestId);
     try {
         let response = await fetch(`/profile-info${requestId}`, {
             method: 'GET'
         });
         if (response.status === 200) {
             let data = await response.json();
+            console.log(data);
             displayProfileInfo(data);
         } else {
             console.log(response.status);
@@ -176,6 +184,7 @@ function displayProfileInfo(data) {
         document.getElementById("user-email").innerHTML = "Email hidden";
     }
 
+    document.getElementById("username").innerHTML = data.username;
     document.getElementById("user-quote").innerHTML = data.quote;
     document.getElementById("user-quote").innerHTML = data.quote;
 }

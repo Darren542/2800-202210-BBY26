@@ -128,24 +128,24 @@ app.get("/lookup", function (req, res) {
 app.get("/users", function (req, res) {
     if (req.session.loggedIn) {
         if (req.session.isAdmin) {
-        const mysql = require("mysql2");
-        const connection = mysql.createConnection({
-            host: "localhost",
-            user: "root",
-            password: "",
-            database: "COMP2800"
-        });
-        connection.connect();
-        connection.execute(
-            "SELECT * FROM BBY_26_users",
-            function (error, results) {
-                //console.log("results:", results);
-                if (error) {
-                    console.log(error);
-                }
-                res.send(results);
+            const mysql = require("mysql2");
+            const connection = mysql.createConnection({
+                host: "localhost",
+                user: "root",
+                password: "",
+                database: "COMP2800"
             });
-        connection.end();
+            connection.connect();
+            connection.execute(
+                "SELECT * FROM BBY_26_users",
+                function (error, results) {
+                    //console.log("results:", results);
+                    if (error) {
+                        console.log(error);
+                    }
+                    res.send(results);
+                });
+            connection.end();
         } else {
             const mysql = require("mysql2");
             const connection = mysql.createConnection({
@@ -166,7 +166,7 @@ app.get("/users", function (req, res) {
                 });
             connection.end();
         }
-    } 
+    }
 })
 
 app.get("/login", function (req, res) {
@@ -454,18 +454,12 @@ app.get("/signup", function (req, res) {
 
 // /profile sends them to the correct profile url
 app.get("/profile", function (req, res) {
-    if (req.session.loggedIn) {
-        res.redirect(`/user-profile/${req.session.username}`);
-    } else {
-        res.redirect("/");
-    }
+    res.redirect(`/user-profile/${req.query.username}`);
 });
 
 // sends the user to their own profile page
 app.get("/user-profile/", function (req, res) {
     if (req.session.loggedIn) {
-        // let doc = fs.readFileSync("./app/html/user-profile.html", "utf8");
-        //res.send(doc);
         res.redirect(`/user-profile/${req.session.username}`);
     } else {
         res.redirect("/");
@@ -485,6 +479,7 @@ app.get("/user-profile/:id", function (req, res) {
 });
 
 app.get("/profile-info/:id", function (req, res) {
+    console.log("Request received for: " + req.params.id);
     //-------------------------------------------------------------------------
     // Code to prevent nodejs server from crashing if database not found from
     // @author banguncool & Dharman
@@ -522,12 +517,13 @@ app.get("/profile-info/:id", function (req, res) {
                         }
                         else {
                             if (results[0] != null) {
-                                if (!results[0].showLoc && results[0].username != req.session.username) {
+                                if (!results[0].showLoc) {
                                     results[0].country = 'hidden';
                                     results[0].province = 'hidden';
                                     results[0].city = 'hidden';
                                     results[0].test = 'testadd';
                                 }
+                                results[0].username = req.params.id;
                                 res.send(results[0]);
                             }
                             else {
