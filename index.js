@@ -588,10 +588,15 @@ app.get("/create-events", function (req, res) {
     }
 });
 
+app.get("/create-group", (req, res) => {
+    let doc = fs.readFileSync("./app/html/create-group.html", "utf-8");
+    res.send(doc);
+});
+
 app.get("/create-group1", (req, res) => {
     let doc = fs.readFileSync(path.join(__dirname, "./app/html/create-group/create-group1.html"), "utf-8");
     res.send(doc);
-})
+});
 
 app.post("/add-user", function (req, res) {
     res.setHeader('Content-Type', 'application/json');

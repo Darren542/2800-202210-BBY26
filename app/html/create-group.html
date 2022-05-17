@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>K9-Meet Event</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
+  <link rel="stylesheet" href="css/client.css">
+  <link rel="stylesheet" href="css/create-group.css">
+</head>
+
+<body>
+  <div id="navbar-placeholder"></div>
+
+
+  <div id="content">
+    <h1>Creating A New Group</h1>
+
+    <!-- The steps on top of the progress bar -->
+    <div id="progress-bar-titles">
+      <div id="title-1" class="progress-title"><span id="span-1" class="progress-span show">Step 1</span></div>
+      <div id="title-2" class="progress-title"><span id="span-2" class="progress-span no-show">Step 2</span></div>
+      <div id="title-3" class="progress-title"><span id="span-3" class="progress-span no-show">Step 3</span></div>
+      <div id="title-4" class="progress-title"><span id="span-4" class="progress-span no-show">Step 4</span></div>
+      <div id="title-5" class="progress-title"><span id="span-5" class="progress-span no-show">Step 5</span></div>
+    </div>
+
+    <!-- The progress bar -->
+    <div id="progress-bar-holder">
+      <div id="part-1" class="progress-bar filled"></div>
+      <div id="part-2" class="progress-bar unfilled"></div>
+      <div id="part-3" class="progress-bar unfilled"></div>
+      <div id="part-4" class="progress-bar unfilled"></div>
+      <div id="part-5" class="progress-bar unfilled"></div>
+    </div>
+
+    <!-- Groups Location Page 1 -->
+    <div class="page" id="page-1">
+      <h2>Group's Location</h2>
+      
+      <div id="country-box" class="input-box">
+        <div class="input-label" id="country-label">
+          <span>Country:</span>
+        </div>
+        <div class="text-input">
+          <input type="text" id="country-input" name="country-input" placeholder="Country" />
+        </div>
+      </div>
+      
+      <div id="province-box" class="input-box">
+        <div class="input-label" id="province-label">
+          <span>State/Province:</span>
+        </div>
+        <div class="text-input">
+          <input type="text" id="province-input" name="province-input" placeholder="State/Province" />
+        </div>
+      </div>
+      
+      <div id="city-box" class="input-box">
+        <div class="input-label" id="city-label">
+          <span>City:</span>
+        </div>
+        <div class="text-input">
+          <input type="text" id="city-input" name="city-input" placeholder="City" />
+        </div>
+      </div>
+      
+    </div>
+
+    <!-- Group's Name Page 2 -->
+    <div class="no-show" id="page-2">
+      <h2>Group's Name</h2>
+      
+      <div id="name-box" class="input-box">
+        <div class="input-label" id="name-label">
+          <span>Enter Group's Name:</span>
+        </div>
+        <div class="text-input">
+          <input type="text" id="name-input" name="name-input" placeholder="Name" />
+        </div>
+      </div>
+      
+      <div id="tag-box" class="input-box">
+        <div class="input-label" id="tag-label">
+          <span>Tags:</span>
+        </div>
+        <div class="text-input">
+          <input type="text" id="tag-input" name="tag-input" placeholder="Enter Tags with #tag" />
+        </div>
+      </div>
+      
+      <div id="suggested-tags-box" class="input-box">
+        <div id="suggested-tags">
+          <div id="suggested-tags-title">Some Suggested Tags (click to add)</div>
+          <span class="premade-tag">#smallDogs</span>
+          <span class="premade-tag">#bigDogs</span>
+          <span class="premade-tag">#allDogs</span>
+          <span class="premade-tag">#puppies</span>
+          <span class="premade-tag">#oldDogs</span>
+          <span class="premade-tag">#outside</span>
+          <span class="premade-tag">#youngPeople</span>
+          <span class="premade-tag">#oldPeople</span>
+        </div>
+      </div>
+
+      <div id="tag-explain">
+        Tags are there to help others find your group and to let them know what it is about.
+      </div>
+      
+    </div>
+
+    <!-- Group's Description Page 3 -->
+    <div class="no-show" id="page-3">
+      <h2>Group's Description</h2>
+      
+      <div id="description-box" class="input-box">
+        <div class="input-label" id="description-label">
+          <span>Description:</span>
+        </div>
+        <div class="texta-input">
+          <textarea type="text" id="description-input" name="description-input" placeholder="Country" maxlength="500"></textarea>
+        </div>
+      </div>
+      
+    </div>
+
+    <!-- Group's Plan Page 4 -->
+    <div class="no-show" id="page-4">
+      <h2>Group's Plan</h2>
+      
+      <div id="plan-box" class="input-box">
+        <div id="plan-options">
+          <div id="free-plan" class="plan-option filled">Free</div>
+          <div id="premium-plan" class="plan-option unfilled">Premium</div>
+        </div>
+        <div id="plan-details-container" >
+          <div id="free-plan-details" class="plan-details">Info about the free plan here</div>
+          <div id="premium-plan-details" class="no-show">Info about the premium plan here</div>
+        </div>
+        
+      </div>
+      
+     
+      
+    </div>
+
+    <!-- Group Creation Finalization Page 5 -->
+    <div class="no-show" id="page-5">
+      <h2>Finalize Group Creation</h2>
+      
+      <div id="country-box" class="input-box">
+        <div class="input-label" id="country-label">
+          <span>Country:</span>
+        </div>
+        <div class="text-input">
+          <input type="text" id="country-input" name="country-input" placeholder="Country" />
+        </div>
+      </div>
+      
+      <div id="province-box" class="input-box">
+        <div class="input-label" id="province-label">
+          <span>State/Province:</span>
+        </div>
+        <div class="text-input">
+          <input type="text" id="province-input" name="province-input" placeholder="State/Province" />
+        </div>
+      </div>
+      
+      <div id="city-box" class="input-box">
+        <div class="input-label" id="city-label">
+          <span>City:</span>
+        </div>
+        <div class="text-input">
+          <input type="text" id="city-input" name="city-input" placeholder="City" />
+        </div>
+      </div>
+      
+    </div>
+
+    <!-- Save and Quit for use latter -->
+    <div id="quit-box">
+      <button id="save-quit" class="btn" name="save-quit" type="button">Save & Quit</button>
+    </div>
+
+    <!-- Move back and forward across steps-->
+    <div id="back-next-btns">
+      <button id="back-btn" class="no-show" name="back" type="button">🡰 Back</button>
+      <div id="button-space-filler" class="show" ><br></div>
+      <button id="next-btn" class="btn" name="back" type="button">Next 🡲</button>
+      <button id="finish-btn" class="no-show" name="finish" type="button">Finish 🡲</button>
+
+  </div>
+
+  </div>
+
+  <div id="footer-placeholder"></div>
+  <script src="js/skeleton-logged-in.js"></script>
+  <script src="js/create-group.js"></script>
+</body>
+
+</html>
