@@ -102,6 +102,7 @@ app.get("/home", function (req, res) {
     }
 });
 
+// Creating Events
 app.post('/create-event', function (req, res) {
 
     if (req.session.loggedIn) {
@@ -114,9 +115,7 @@ app.post('/create-event', function (req, res) {
         });
         connection.connect();
         connection.execute(
-            "INSERT INTO BBY_26_address {event_street, event_city} VAULES {?, ?}", [formData.eventLocationStreet, formData.eventLocationCity]
-
-
+            "INSERT INTO BBY_26_address {street, city} VAULES {?, ?}", [formData.eventLocationStreet, formData.eventLocationCity],
         )
     }
 });
