@@ -58,7 +58,6 @@ function pageLoad() {
 
 
 const xhr = new XMLHttpRequest();
-// this gets loaded when 
 xhr.onload = function () {
     if (this.readyState == XMLHttpRequest.DONE && xhr.status === 200) {
     }

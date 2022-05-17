@@ -12,6 +12,7 @@ const crypto = require("crypto");
 const path = require("path");
 const mys = require("mysql2/promise");
 const { isInt32Array } = require("util/types");
+// const { createQuery } = require("mysql2/typings/mysql/lib/Connection");
 
 app.use("/js", express.static("./public/js"));
 app.use("/css", express.static("./public/css"));
@@ -103,7 +104,16 @@ app.get("/home", function (req, res) {
 });
 
 // Creating Events
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+// app.use(multer.array());
+app.use(express.static('public'));
+
 app.post('/create-event', function (req, res) {
+
+    let formData = req.body.form;
+    // console.log("This something: " + req.body);
+
 
     if (req.session.loggedIn) {
         const mysql = require('mysql2');
@@ -115,8 +125,8 @@ app.post('/create-event', function (req, res) {
         });
         connection.connect();
         connection.execute(
-            "INSERT INTO BBY_26_address {street, city} VAULES {?, ?}", [formData.eventLocationStreet, formData.eventLocationCity],
-            "INSERT INTO BBY_26_events {event_name, event_date_time, event_end_time, event_duration, event_type, event_description, event_tags} VAULES {?, ?, ?, ?, ?, ?, ?}", [formData.eventName, 
+            "INSERT INTO BBY_26_address [street, city} VAULES {?, ?]", [formData.eventLocationStreet, formData.eventLocationCity],
+            "INSERT INTO BBY_26_events [event_name, event_date_time, event_end_time, event_duration, event_type, event_description, event_tags] VAULES {?, ?, ?, ?, ?, ?, ?}", [formData.eventName, 
                 formData.eventDateTime,
                 formData.eventEndTime,
                 formData.eventDuration,
@@ -159,8 +169,8 @@ app.get("/login", function (req, res) {
 });
 
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
 
 app.post("/modify-privilege", function (req, res) {
     if (req.session.username == req.body.username) {
