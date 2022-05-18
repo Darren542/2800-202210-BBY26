@@ -2,6 +2,22 @@
 
 
 @media only screen and (max-width: 751px) {
+    .post > img {
+        width: 100%;
+        height: auto;
+    }
+    .post > p {
+        margin-left: 30px;
+        margin-right: 30px;
+    }
+    #event-description-placeholder {
+        border: 1px solid black;
+        padding: 3px;
+        width: auto;
+        margin-left: 30px;
+        margin-right: 30px;
+        display: inline-block;
+    }
     .post {
         background: white;
         border: 1px solid black;
@@ -165,6 +181,23 @@
 }
 
 @media only screen and (min-width: 751px) {
+
+    .post > img {
+        width: 100%;
+        height: auto;
+    }
+    .post > p {
+        margin-left: 30px;
+        margin-right: 30px;
+    }
+    #event-description-placeholder {
+        border: 1px solid black;
+        padding: 3px;
+        width: auto;
+        margin-left: 30px;
+        margin-right: 30px;
+        display: inline-block;
+    }
     .post {
         background: white;
         border: 1px solid black;
@@ -271,7 +304,7 @@
         grid-row: 5 / span 1;
         grid-column: 1 / span 2;
         width: calc(100% - 48px);
-        height: 80%;
+        height: 250px;
         background-color: rgb(220, 225, 233);
         margin-right: 20px;
         margin-left: 20px;
@@ -325,7 +358,8 @@
         padding-right: 5px;
         padding-left: 5px;
         background-color: rgb(167, 109, 109);
-    }
+        overflow-y: auto;
+        }
 }
 
 @media (max-width: 475px) {

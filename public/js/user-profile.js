@@ -1,6 +1,6 @@
 "use strict";
 
-
+let userID;
 function getemail() {
     const getemail = new XMLHttpRequest();
     let path = window.location.pathname;
@@ -79,17 +79,22 @@ function getEvents() {
     const theEvents = new XMLHttpRequest();
     theEvents.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            console.log(this.responseText);
             let data = JSON.parse(this.responseText);
             let index = 0;
+            console.log(data[index]);
             data.forEach(function () {
                 loadEvent(data[index]);
                 index++;
             });
         }
     }
-    theEvents.open("GET", "/get-events", true);
-    theEvents.send();
+    let path = window.location.pathname;
+    const requestID = path.substring(path.lastIndexOf('/'));
+
+    theEvents.open("POST", "/get-events", true);
+    theEvents.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    theEvents.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    theEvents.send("username=" + requestID.substring(1));
     updateProfileMenu("events-option");
 }
 
@@ -113,8 +118,16 @@ function loadEvent(eventID) {
             card.id = "post";
             let eventData = JSON.parse(eventDetail.responseText);
             let eventAddress = JSON.parse(theAddress.responseText);
+            if (eventData[0].event_photo){
+                card.getElementById("event-img").src = "/img/event-imgs/" + eventData[0].event_photo;
+            }
             card.getElementById("event-name-placeholder").innerHTML = eventData[0].event_name;
             card.getElementById("event-address-placeholder").innerHTML = eventAddress[0].city;
+            card.getElementById("event-street-placeholder").innerHTML = eventAddress[0].street;
+            card.getElementById("event-date-placeholder").innerHTML = eventData[0].event_date_time;
+            card.getElementById("event-duration-placeholder").innerHTML = eventData[0].event_duration + " minutes";
+            card.getElementById("event-description-placeholder").innerHTML = eventData[0].event_description;
+            card.getElementById
             document.getElementById("menu-display").appendChild(card);
         }
     }

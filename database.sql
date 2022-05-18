@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS BBY_26_address(
     event_duration int NOT NULL,
 	event_type boolean DEFAULT FALSE,
     event_photo varchar(50) DEFAULT "events.jpg",
-    event_description varchar(50),
+    event_description varchar(500),
 	FOREIGN KEY (ownerID) REFERENCES BBY_26_users (userID)
 		ON UPDATE CASCADE
 ); 
@@ -156,6 +156,12 @@ VALUES ("Test Event 1", 3, 120, "My first event woo hoo!", true);
 INSERT INTO BBY_26_events (event_name, ownerID, event_duration, event_description, event_type) 
 VALUES ("Test Event 2", 3,  240, "My second event.", true);
 
+INSERT INTO BBY_26_events (event_name, ownerID, event_duration, event_description, event_type) 
+VALUES ("Team BBY26", 3, 120, "Weekly meetup for K9Meet members at Confederation Park, free food included as per usual.", true);
+
+INSERT INTO BBY_26_events (event_name, ownerID, event_duration, event_description, event_type) 
+VALUES ("K9Meet", 3,  240, "It's time for K9Meet's monthly meetup at Taylor Park! Bring your dogs and enjoy free food, fun activities, and one on ones with our specialty trainers. Session is offically 2 hours but feel free to stay after and make some new friends!", true);
+
 
 CREATE TABLE IF NOT EXISTS BBY_26_RSVP(
 	eventID int NOT NULL,
@@ -171,9 +177,53 @@ VALUES (1, 1);
 INSERT INTO BBY_26_RSVP (eventID, userID) 
 VALUES (2, 1);
 
+INSERT INTO BBY_26_RSVP (eventID, userID) 
+VALUES (3, 1);
 
-INSERT INTO BBY_26_addresses (addressID, street, city, eventID) 
-VALUES (1, "123 Street", "Burnaby", 1);
+INSERT INTO BBY_26_RSVP (eventID, userID) 
+VALUES (3, 2);
 
-INSERT INTO BBY_26_addresses (addressID, street, city, eventID) 
-VALUES (2, "234 Street", "Burnaby", 2);
+INSERT INTO BBY_26_RSVP (eventID, userID) 
+VALUES (3, 3);
+
+INSERT INTO BBY_26_RSVP (eventID, userID) 
+VALUES (3, 4);
+
+INSERT INTO BBY_26_RSVP (eventID, userID) 
+VALUES (3, 5);
+
+INSERT INTO BBY_26_RSVP (eventID, userID) 
+VALUES (4, 1);
+
+INSERT INTO BBY_26_RSVP (eventID, userID) 
+VALUES (4, 2);
+
+INSERT INTO BBY_26_RSVP (eventID, userID) 
+VALUES (4, 3);
+
+INSERT INTO BBY_26_RSVP (eventID, userID) 
+VALUES (4, 4);
+
+INSERT INTO BBY_26_RSVP (eventID, userID) 
+VALUES (4, 5);
+
+INSERT INTO BBY_26_RSVP (eventID, userID) 
+VALUES (4, 6);
+
+INSERT INTO BBY_26_addresses (street, city, eventID) 
+VALUES ("123 Street", "Burnaby", 1);
+
+INSERT INTO BBY_26_addresses (street, city, eventID) 
+VALUES ("234 Street", "Burnaby", 2);
+
+INSERT INTO BBY_26_addresses (street, city, eventID) 
+VALUES ("4598 Penzance Dr", "Burnaby", 3);
+
+
+INSERT INTO BBY_26_addresses (street, city, eventID) 
+VALUES ("7599 Mission Ave", "Burnaby", 4);
+
+
+SELECT * FROM BBY_26_addresses;
+SELECT * FROM BBY_26_events;
+SELECT * FROM BBY_26_RSVP;

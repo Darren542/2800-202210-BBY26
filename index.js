@@ -599,7 +599,7 @@ app.get("/photos", function (req, res) {
     res.send("photos section is still under construction");
 });
 
-app.get("/get-events", function (req, res) {
+app.post("/get-events", function (req, res) {
     let events = [];
     let connection;
     let index = 0;
@@ -624,8 +624,8 @@ app.get("/get-events", function (req, res) {
     myPromise.then(
         function (value) {
             connection.execute(
-                "SELECT * FROM BBY_26_RSVP WHERE userID = ?",
-                [req.session.userID],
+                "SELECT * FROM BBY_26_RSVP WHERE userID = (SELECT userID FROM BBY_26_users WHERE username = ?)",
+                [req.body.username],
                 function (error, results) {
                     if (error) {
                         console.log(error);
