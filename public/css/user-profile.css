@@ -2,14 +2,50 @@
 
 
 @media only screen and (max-width: 751px) {
-    .post > img {
+    #modify-button {
+        display: none;
+        position: absolute;
+        right: 70px;
+        height: 50px;
+        width: 50px;
+        border-radius: 50px;
+        color: rgb(205, 129, 129);
+        font-size: 35px;
+        background: none;
+        padding: 0;
+    }
+
+    #menu-description {
+        font-size: calc(3vw + 10px);
+        color: white;
+        margin-left: 3px;
+    }
+
+    #wrap {
+        position: relative;
+    }
+
+    #delete-button {
+        position: absolute;
+        right: 0px;
+        height: 50px;
+        width: 50px;
+        border-radius: 22px;
+        background: white;
+        color: rgb(205, 129, 129);
+        font-size: 35px;
+    }
+
+    #event-img {
         width: 100%;
         height: auto;
     }
-    .post > p {
+
+    .post>p {
         margin-left: 30px;
         margin-right: 30px;
     }
+
     #event-description-placeholder {
         border: 1px solid black;
         padding: 3px;
@@ -18,10 +54,12 @@
         margin-right: 30px;
         display: inline-block;
     }
+
     .post {
         background: white;
         border: 1px solid black;
     }
+
     #content {
         /* background-color: aqua; */
         display: grid;
@@ -181,15 +219,53 @@
 }
 
 @media only screen and (min-width: 751px) {
+    #modify-button {
+        display: none;
+        position: absolute;
+        right: 70px;
+        height: 50px;
+        width: 50px;
+        border-radius: 50px;
+        color: rgb(205, 129, 129);
+        font-size: 35px;
+        background: none;
+        padding: 0;
+    }
+    #modify-button > img {
+        width: 50px;
+        height: 50px;
+    }
+    #menu-description {
+        font-size: 3vw;
+        color: white;
+        margin-left: 3px;
+    }
 
-    .post > img {
+    #wrap {
+        position: relative;
+    }
+
+    #delete-button {
+        position: absolute;
+        right: 0px;
+        height: 50px;
+        width: 50px;
+        border-radius: 22px;
+        background: white;
+        color: rgb(205, 129, 129);
+        font-size: 35px;
+    }
+
+    #event-img {
         width: 100%;
         height: auto;
     }
-    .post > p {
+
+    .post>p {
         margin-left: 30px;
         margin-right: 30px;
     }
+
     #event-description-placeholder {
         border: 1px solid black;
         padding: 3px;
@@ -198,10 +274,12 @@
         margin-right: 30px;
         display: inline-block;
     }
+
     .post {
         background: white;
         border: 1px solid black;
     }
+
     #content {
         /* background-color: aqua; */
         display: grid;
@@ -359,7 +437,7 @@
         padding-left: 5px;
         background-color: rgb(167, 109, 109);
         overflow-y: auto;
-        }
+    }
 }
 
 @media (max-width: 475px) {

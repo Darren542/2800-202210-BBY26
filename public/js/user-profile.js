@@ -1,5 +1,4 @@
 "use strict";
-
 let userID;
 function getemail() {
     const getemail = new XMLHttpRequest();
@@ -81,7 +80,6 @@ function getEvents() {
         if (this.readyState == 4 && this.status == 200) {
             let data = JSON.parse(this.responseText);
             let index = 0;
-            console.log(data[index]);
             data.forEach(function () {
                 loadEvent(data[index]);
                 index++;
@@ -98,8 +96,19 @@ function getEvents() {
     updateProfileMenu("events-option");
 }
 
+function getUserID() {
+    const xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            userID = this.responseText;
+        }
+    }
+    xhttp.open("GET", "/userID", true);
+    xhttp.send();
+}
 
 function loadEvent(eventID) {
+    document.getElementById("menu-description").innerHTML = "This User's RSVPs: ";
     const eventDetail = new XMLHttpRequest();
     const theAddress = new XMLHttpRequest();
     eventDetail.open("POST", "/load-event");
@@ -110,7 +119,7 @@ function loadEvent(eventID) {
     theAddress.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     theAddress.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     theAddress.send("eventID=" + eventID);
-
+    getUserID();
     function load() {
         if (theAddress.readyState == 4 && theAddress.status == 200 && eventDetail.readyState == 4 && eventDetail.status == 200) {
             let temp = document.querySelector('#post-template');
@@ -118,16 +127,19 @@ function loadEvent(eventID) {
             card.id = "post";
             let eventData = JSON.parse(eventDetail.responseText);
             let eventAddress = JSON.parse(theAddress.responseText);
-            if (eventData[0].event_photo){
-                card.getElementById("event-img").src = "/img/event-imgs/" + eventData[0].event_photo;
-            }
+
+            card.getElementById("event-img").src = "/img/event-imgs/" + eventData[0].event_photo;
             card.getElementById("event-name-placeholder").innerHTML = eventData[0].event_name;
             card.getElementById("event-address-placeholder").innerHTML = eventAddress[0].city;
             card.getElementById("event-street-placeholder").innerHTML = eventAddress[0].street;
             card.getElementById("event-date-placeholder").innerHTML = eventData[0].event_date_time;
             card.getElementById("event-duration-placeholder").innerHTML = eventData[0].event_duration + " minutes";
             card.getElementById("event-description-placeholder").innerHTML = eventData[0].event_description;
-            card.getElementById
+
+            if (userID == eventData[0].ownerID) {
+                console.log("test");
+                card.getElementById("modify-button").style = "display: inline";
+            }
             document.getElementById("menu-display").appendChild(card);
         }
     }

@@ -40,11 +40,15 @@
             <button class="profile-menu" id="events-option" type="button">Events</button>
         </div>
         <div id="menu-display">
-
+            <p id="menu-description"></p>
         </div>
         <template id="post-template">
             <div class="post">
-                <img id="event-img" alt="event image">
+                <div id="wrap">
+                    <img id="event-img" alt="event image">
+                    <button id="modify-button"><img src="/img/icons/edit.png"></button>
+                    <button id="delete-button">X</button>
+                </div>
                 <p>Event Name: <span id="event-name-placeholder"></span></p>
                 <p>Event Location: <span id="event-street-placeholder"></span>, <span id="event-address-placeholder"></span></p>
                 <p>Event Date: <span id="event-date-placeholder"></span></p>
