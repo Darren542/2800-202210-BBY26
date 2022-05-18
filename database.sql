@@ -160,7 +160,7 @@ INSERT INTO BBY_26_events (event_name, ownerID, event_duration, event_descriptio
 VALUES ("Team BBY26", 3, 120, "Weekly meetup for K9Meet members at Confederation Park, free food included as per usual.", true);
 
 INSERT INTO BBY_26_events (event_name, ownerID, event_duration, event_description, event_type) 
-VALUES ("K9Meet", 3,  240, "It's time for K9Meet's monthly meetup at Taylor Park! Bring your dogs and enjoy free food, fun activities, and one on ones with our specialty trainers. Session is offically 2 hours but feel free to stay after and make some new friends!", true);
+VALUES ("K9Meet", 3,  240, "It's time for K9Meet's monthly meetup at Taylor Park! Bring your dogs and enjoy free food, fun activities, and one on ones with our specialty trainers. Session is offically 4 hours but feel free to stay after and make some new friends!", true);
 
 
 CREATE TABLE IF NOT EXISTS BBY_26_RSVP(
