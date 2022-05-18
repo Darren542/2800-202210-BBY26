@@ -98,6 +98,7 @@
 #quit-box {
     width: 80%;
     margin:auto;
+    text-align: right;
 }
 
 #back-next-btns {

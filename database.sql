@@ -31,12 +31,19 @@ CREATE table IF NOT EXISTS BBY_26_profiles(
 		ON UPDATE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS BBY_26_address(
+CREATE TABLE IF NOT EXISTS BBY_26_event_address(
     addressID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
     street varchar(75),
     city varchar(50),
 	province varchar(50),
-	country varchar(56)
+	country varchar(56),
+	eventID int NOT NULL,
+	ownerID int NOT NULL,
+	FOREIGN KEY (ownerID) REFERENCES BBY_26_users (userID)
+		ON UPDATE CASCADE,
+		FOREIGN KEY (eventID) REFERENCES BBY_26_events (eventID)
+	ON DELETE CASCADE
+	ON UPDATE CASCADE
 );
 
  CREATE TABLE IF NOT EXISTS BBY_26_events(

@@ -94,7 +94,7 @@ document.querySelector("#public-event").addEventListener('click', ()=> {
     document.querySelector('#public-event').classList.remove("unfilled");
     document.querySelector('#private-event').classList.add("unfilled");
     document.querySelector('#private-event').classList.remove("filled");
-    eventType = "public";
+    eventType = true;
 });
 
 document.querySelector("#private-event").addEventListener('click', ()=> {
@@ -106,7 +106,7 @@ document.querySelector("#private-event").addEventListener('click', ()=> {
     document.querySelector('#public-event').classList.add("unfilled");
     document.querySelector('#private-event').classList.remove("unfilled");
     document.querySelector('#private-event').classList.add("filled");
-    eventType = "private";
+    eventType = false;
 });
 
 // Code for Event group on Page 4
@@ -138,7 +138,7 @@ document.querySelector("#group-event").addEventListener('click', ()=> {
 });
 
 
-// Code for finishing group creation
+// Code for finishing event creation
 // Have to check all fields are filled and have valid entries
 document.querySelector("#finish-btn").addEventListener('click', async function() {
     let valid = true;
@@ -148,6 +148,18 @@ document.querySelector("#finish-btn").addEventListener('click', async function()
     let country = document.querySelector("#country-input").value;
     let province = document.querySelector("#province-input").value;
     let city = document.querySelector("#city-input").value;
+    let street = document.querySelector("#street-input").value;
+    let startTime = document.querySelector("#event-date").value;
+    let endTime = document.querySelector("#event-end-time").value;
+
+    const Timestamp = (time) => {
+        const dt = new Date(time).getTime();
+        return dt / 1000;
+    }
+    let startTimestamp = Timestamp(startTime);
+    let endTimestamp = Timestamp(endTime);
+    let eventDuration = endTimestamp - startTimestamp;
+
     if (country.length < 1) {
         valid = false;
         errorMsg = "Must fill out country."
@@ -160,27 +172,49 @@ document.querySelector("#finish-btn").addEventListener('click', async function()
         valid = false;
         errorMsg = "Must fill out city."
     }
+    if (street.length < 1) {
+        valid = false;
+        errorMsg = "Must fill out street address."
+    }
+    if (startTime == null) {
+        valid = false;
+        errorMsg = "Must fill out start time."
+    }
+    if (endTime == null) {
+        valid = false;
+        errorMsg = "Must fill out end time."
+    }
+    if (endTime < startTime) {
+        valid = false;
+        errorMsg = "Event ends before it starts."
+    }
 
     // checking and receiving inputs from page 2
     let name = document.querySelector("#name-input").value;
     if (name.length < 1) {
         valid = false;
-        errorMsg = "Must fill out group's name."
+        errorMsg = "Must fill out event's name."
     }
     let tagString = document.querySelector("#tag-input").value;
     let tags = tagString.split("#");
+
+    // Need to add code for the images here
 
     // checking and receiving inputs from page 3
     let description = document.querySelector("#description-input").value;
     if (description.length < 1) {
         valid = false;
-        errorMsg = "Must fill out group's description."
+        errorMsg = "Must fill out event's description."
     }
 
     // checking and receiving inputs from page 4
-    if (planType != "free") {
+    if (!(eventType == true || eventType == false)) {
         valid = false;
-        errorMsg = "Only free plans available currently."
+        errorMsg = "Must be public or private event."
+    }
+    if (eventGroup != 0) {
+        valid = false;
+        errorMsg = "Group events not implemented"
     }
 
     // checking and receiving inputs from page 5
@@ -203,14 +237,20 @@ document.querySelector("#finish-btn").addEventListener('click', async function()
         document.getElementById("error-messages").innerHTML = "";
 
         // Combine all data into a JSON object
-        let groupData = {
+        let eventData = {
             country: country,
             province: province,
             city: city,
+            street: street,
+            startTimestamp: startTimestamp,
+            endTimestamp: endTimestamp,
+            startTime: startTime,
+            endTime: endTime,
+            eventDuration: eventDuration,
             name: name,
             tags: tags,
             description: description,
-            planType: planType,
+            eventType: eventType,
             guidelines: guidelines,
             terms: terms,
             saveNum: saveNum
@@ -218,12 +258,12 @@ document.querySelector("#finish-btn").addEventListener('click', async function()
 
         // Send data to Server as POST request to create-group
         try {
-            let responseObject = await fetch(`/create-group`, {
+            let responseObject = await fetch(`/create-event`, {
                 method: 'POST',
                 headers: { "Accept": 'application/json',
                            "Content-Type": 'application/json'
                 },
-                body: JSON.stringify(groupData)
+                body: JSON.stringify(eventData)
             });
             
             let parsedJSON = await responseObject.json();
