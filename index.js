@@ -760,7 +760,7 @@ app.get("/create-events", function (req, res) {
 });
 
 // For saving a new event into the database.
-// Creates a new row in the events and addresses table and deletes it's own saved event if it was one.
+// Creates a new row in the events and event_address table and deletes it's own saved event if it was one.
 // Creates an entry into to tag table for each tag inputed.
 // Used by the create-events page.
 // Author Darren, Aryan
@@ -1093,8 +1093,9 @@ app.get("/saved-groups/:id", function (req, res) {
     );
 });
 
-// Used to delete a partially completed group from its table
-// Used by the create page
+// Used to delete a partially completed group save from its table.
+// Used by the create page and create-group page.
+// Author Darren
 app.post("/delete-saved-group/:id", function (req, res) {
         let connection;
         let myPromise = new Promise((resolve, reject) => {
