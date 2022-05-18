@@ -1,50 +1,83 @@
-function get(url, callback){
+function gettables(url, callback) {
     const xhr = new XMLHttpRequest();
-    xhr.onload = function () {
-        if(this.readyState == XMLHttpRequest.DONE && this.status == 200){
-            callback(this.responseText);
-        } else{
-            console.log(this.status);
-        }
 
-        xhr.open("GET", url);
-        xhr.send();
+    xhr.onload = () => {
+        if (this.readyState == XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                callback(JSON.parse(this.responseText));
+            } else {
+                console.log(this.status);
+            }
+        } else {
+            console.log("error");
+        }
     }
+    xhr.open("GET", url);
+    xhr.send();
+
 }
 
-get("/getgroup?format=json", function(data){
-    let dt = JSON.parse(data);
-    let container = document.createElement("div");
-    container.setAttribute("class", "container");
-    let h3 = document.createElement("h3");
-    h3.innerHTML = dt.name;
-    let loc = document.createElement("div");
-    loc.setAttribute("class", "loc");
-    loc.innerHTML ="Location: " +  dt.city + ", " + dt.province + ", " + dt.country; 
-    let tags = document.createElement("div");
-    tags.setAttribute("class", "tags");
-    tags.innerHTML = "tags: " + dt.tags;
-    let type = document.createElement("div");
-    type.setAttribute("class","type");
-    if(dt.plan === "1"){
-        type.innerHTML = "Plan: " + "Free";
-    } else{
-        type.innerHTML = "Plan: " + "Premium";
-    }
-    let desc = document.createElement("div");
-    desc.setAttribute("class","desc");
-    desc.innerHTML ="description: " +  dt.descrip;
-    let btn = document.createElement("button");
-    btn.innerHTML = "Join";
+document.addEventListener("DOMContentLoaded", () => {
 
-    container.append(h3);
-    container.append(loc);
-    container.append(tags);
-    container.append(type);
-    container.append(desc);
-    container.append(btn);
+    gettables("/get-tables", function(data){
+        if(data.status == "success"){
+            let dt = data;
+            for (let i = 0; i < dt.length; i++) {
+                let container = document.createElement("div");
+                container.setAttribute("class", "container");
 
-    document.body.append(container);
-    
+                let name = document.createElement("h3");
+                name.setAttribute("class", "name");
+                name.innerHTML = dt[i].name;
 
+                let tags = document.createElement("div");
+                tags.setAttribute("class", "tags");
+                tags.innerHTML = dt[i].tags;
+
+                let type = document.createElement("div");
+                type.setAttribute("class", "type");
+                if (dt[i].plan == "1") {
+                    type.innerHTML = "Free";
+                } else if (dt[i].plan == "0") {
+                    type.innerHTML = "Premium";
+                }
+
+
+                let desc = document.createElement("div");
+                desc.setAttribute("class", "desc");
+                desc.innerHTML = dt[i].description
+
+                let location = document.createElement("div");
+                tags.setAttribute("class", "location");
+                location.innerHTML = dt[i].country + ", " + dt[i].province + ", " + dt[i].city;
+
+                let members = document.createElement("div");
+                members.setAttribute("class", "members");
+                members.innerHTML = "members :";
+
+                let owner = document.createElement("div");
+                owner.setAttribute("class", "owner");
+                owner.innerHTML = "owner :";
+
+                let btn = document.createElement("button");
+                btn.setAttribute("class", "btn");
+                btn.innerHTML = "join";
+
+                let hr = document.createElement("hr");
+
+                container.append(name);
+                container.append(location);
+                container.append(owner);
+                container.append(tags);
+                container.append(type);
+                container.append(members);
+                container.append(desc);
+                container.append(btn);
+                container.append(hr);
+                document.getElementById("content").append(container);
+        }
+        } else{
+            console.log("failed");
+        }
+    })
 })

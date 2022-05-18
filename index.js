@@ -1519,27 +1519,36 @@ app.get("/profile-url/:id", function (req, res) {
 });
 
 
+var grouparray = [];
 
-app.get("/getgroup", async (req, res) => {
-    const connection = await mys.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "",
-        database: "groups_26",
-        multipleStatements: true
+app.post("/fill", async (req, res) => {
+    name = req.body.groupname;
+    tags = req.body.tags;
+    grouparray.push(name);
+    init();
+})
+async function init() {
+    let connection = await mys.createConnection({
+        host: 'localhost',
+        user: 'root',
+        password: '',
+        multipleStatements: true,
     });
-    connection.connect();
-    const [rows, fields] = await connection.execute(`SELECT * FROM ${name}`);
-    let arr = {
-        "tags": rows[0].tags, "country": rows[0].country, "name": rows[0].name, "province": rows[0].province,
-        "city": rows[0].city, "descrip": rows[0].descrip, "plan": rows[0].isFree
-    };
+    await connection.query(`    
+        CREATE database IF NOT EXISTS groups_26;
+        
+        `)
+    connection.end();
+}
 
-    res.setHeader("Content-Type", "application/json");
-    res.send(arr);
+app.post("/fill2", async (req, res) => {
+    country = req.body.country;
+    state = req.body.state;
+    city = req.body.city;
+    init2();
 })
 
-app.get("/grouphome", async (req, res) => {
+async function init2() {
     let connection = await mys.createConnection({
         host: 'localhost',
         user: 'root',
@@ -1547,21 +1556,52 @@ app.get("/grouphome", async (req, res) => {
         multipleStatements: true,
         database: 'groups_26'
     });
-    connection.connect();
-    await connection.query(
-        `INSERT IGNORE INTO  ${name} (name,tags,country,province,city,descrip,isFree) values (?, ?, ?, ?, ?, ?, ?)`,
-        [name, tags, country, state, city, description, isfree],
-        function (error, results, fields) {
-            if (error) {
-            }
-            res.send({ status: "success", msg: "Record added." });
+    await connection.query(`    
+    CREATE table IF NOT EXISTS ${name}(
+        name varchar(100) PRIMARY KEY,
+        tags varchar(100), 
+        country varchar(50),
+        province varchar(50),
+        city varchar(50),
+        descrip varchar(1000),
+        isFree int NOT NULL
+    );
+        `)
+    connection.end();
+}
 
+app.get("/get-tables", async (req, res) => {
+    let sendgroup = [];
+    for (let i = 0; i < grouparray.length; i++) {
+        const mysql = require('mysql2/promise');
+        const connection = await mysql.createConnection({
+            host: "localhost",
+            user: "root",
+            password: "",
+            database: "groups_26",
+            multipleStatements: true
         });
-    res.header('Content-Type', 'text/html');
-    let doc = fs.readFileSync(path.join(__dirname, "./app/html/group-home.html"), "utf-8");
-    await connection.end();
+        connection.connect();
+        const [rows, fields] =
+            await connection.execute(`SELECT * FROM  ${grouparray[i]}`);
+        let arr = {"name":rows[0].name, "tags":rows[0].tags, "country":rows[0].country, "province":rows[0].province, "city":rows[0].city,
+                   "description":rows[0].descrip, "plan":rows[0].isFree};
+        sendgroup.push(arr);
+    }
+    res.setHeader("Content-Type", "application/json");
+    res.send(sendgroup);
+})
 
-    res.send(doc);
+app.get("/grouphome", async (req, res) => {
+    if (req.session.loggedIn) {
+        let doc = fs.readFileSync(path.join(__dirname, "./app/html/group-home.html"), "utf-8");
+        res.header('Content-Type', 'text/html');
+        res.send(doc);
+    } else {
+        res.redirect("/");
+    }
+    
+    
 })
 
 app.get("/community-guidelines", function (req, res) {
