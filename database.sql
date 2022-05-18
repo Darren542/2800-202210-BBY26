@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS BBY_26_address(
     addressID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
     street varchar(75),
     city varchar(50),
-	province varchar(50) ,
+	province varchar(50),
 	country varchar(56)
 );
 
@@ -150,11 +150,11 @@ INSERT INTO BBY_26_profiles (username, displayName, quote, userDescription, coun
 
 INSERT INTO BBY_26_profiles (username, displayName, userDescription) VALUES ("testuser", "TEST USER", "I am a test user, use this account to test out the different site functions when not an admin");
 
-INSERT INTO BBY_26_events (event_name,event_duration, event_description, event_type) 
-VALUES ("Test Event 1", 120, "My first event woo hoo!", true);
+INSERT INTO BBY_26_events (event_name, ownerID, event_duration, event_description, event_type) 
+VALUES ("Test Event 1", 3, 120, "My first event woo hoo!", true);
 
-INSERT INTO BBY_26_events (event_name, event_duration, event_description, event_type) 
-VALUES ("Test Event 2", 240, "My second event.", true);
+INSERT INTO BBY_26_events (event_name, ownerID, event_duration, event_description, event_type) 
+VALUES ("Test Event 2", 3,  240, "My second event.", true);
 
 
 CREATE TABLE IF NOT EXISTS BBY_26_RSVP(
