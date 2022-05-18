@@ -196,7 +196,7 @@ app.post("/modify-privilege", function (req, res) {
                     );
                     connection.end();
                 } else {
-                    res.send({ status: "fail", msg: "Need at least one account with admin privilege!"});
+                    res.send({ status: "fail", msg: "Need at least one account with admin privilege!" });
                 }
             }
         );
@@ -790,7 +790,7 @@ app.post("/update-username/:id", function (req, res) {
                         else {
                             if (req.session.username == req.params.id) {
                                 req.session.username = req.body.username;
-                            }                           
+                            }
                             res.send({ status: "success", msg: "Updated Username." });
                         }
 
@@ -1025,9 +1025,12 @@ let city;
 let description;
 let isfree;
 
+var grouparray = [];
+
 app.post("/fill", async (req, res) => {
     name = req.body.groupname;
     tags = req.body.tags;
+    grouparray.push(name);
     init();
 })
 async function init() {
@@ -1057,7 +1060,7 @@ async function init2() {
         user: 'root',
         password: '',
         multipleStatements: true,
-        database:'groups_26'
+        database: 'groups_26'
     });
     await connection.query(`    
     CREATE table IF NOT EXISTS ${name}(
@@ -1073,21 +1076,26 @@ async function init2() {
     connection.end();
 }
 
-app.get("/getgroup", async (req,res) =>{
-    const connection = await mys.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "",
-        database: "groups_26",
-        multipleStatements: true
-    });
-    connection.connect();
-    const [rows, fields] = await connection.execute(`SELECT * FROM ${name}`);
-    let arr = {"tags": rows[0].tags, "country": rows[0].country, "name":rows[0].name, "province":rows[0].province,
-              "city":rows[0].city, "descrip":rows[0].descrip, "plan":rows[0].isFree  };
-    
+app.get("/get-tables", async (req, res) => {
+    let sendgroup = [];
+    for (let i = 0; i < grouparray.length; i++) {
+        const mysql = require('mysql2/promise');
+        const connection = await mysql.createConnection({
+            host: "localhost",
+            user: "root",
+            password: "",
+            database: "groups_26",
+            multipleStatements: true
+        });
+        connection.connect();
+        const [rows, fields] =
+            await connection.execute(`SELECT * FROM  ${grouparray[i]}`);
+        let arr = {"name":rows[0].name, "tags":rows[0].tags, "country":rows[0].country, "province":rows[0].province, "city":rows[0].city,
+                   "description":rows[0].descrip, "plan":rows[0].isFree};
+        sendgroup.push(arr);
+    }
     res.setHeader("Content-Type", "application/json");
-    res.send(arr);
+    res.send(sendgroup);
 })
 
 app.post("/fill3", async (req, res) => {
@@ -1145,7 +1153,7 @@ app.get("/grouphome", async (req, res) => {
     res.header('Content-Type', 'text/html');
     let doc = fs.readFileSync(path.join(__dirname, "./app/html/group-home.html"), "utf-8");
     await connection.end();
-    
+
     res.send(doc);
 })
 

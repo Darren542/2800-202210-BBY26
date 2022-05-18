@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300&family=Saira:ital,wght@1,500&family=Sansita+Swashed:wght@500&family=Square+Peg&family=Work+Sans:wght@300&display=swap');
+
+body {
+    background-color: rgb(96 164 164);
+    ;
+}
+
+.name{
+    margin-left: 5px;
+}
+
+.container {
+    margin: 10px;
+}
+
+.location {
+    margin: 10px;
+}
+
+.owner {
+    margin: 10px;
+}
+
+.tags {
+    margin: 10px;
+}
+
+.type {
+    margin: 10px;
+}
+
+.members {
+    margin: 10px;
+}
+
+.desc {
+    margin: 10px;
+}
+
+.btn {
+    margin: 10px;
+}
