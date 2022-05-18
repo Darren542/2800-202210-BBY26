@@ -203,7 +203,7 @@ document.querySelector("#finish-btn").addEventListener('click', async function()
             //On group creation should send you to your new groups homepage
             if (parsedJSON.status == "success") {
                 document.getElementById("error-messages").innerHTML = "Created new Group";
-                // delete the saved partial event if it exists
+                // delete the saved partial group if it exists
                 if (saveNum) {
                     await deleteSavedGroup(saveNum);
                 } else {

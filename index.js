@@ -934,7 +934,7 @@ app.get("/saved-events", function (req, res) {
     myPromise.then(
         function (value) {
             connection.execute(
-                "SELECT * FROM BBY_26_saved_events WHERE ownerID = ?",
+                "SELECT * FROM BBY_26_saved_event WHERE ownerID = ?",
                 [req.session.userID],
                 function (error, results) {
                     if (error) {
@@ -960,7 +960,7 @@ app.get("/saved-events", function (req, res) {
 // To get the data on a single partially complete event the user has saved
 // Used by create-group page
 // Author Darren
-app.get("/saved-groups/:id", function (req, res) {
+app.get("/saved-events/:id", function (req, res) {
     let connection;
     let myPromise = new Promise((resolve, reject) => {
 

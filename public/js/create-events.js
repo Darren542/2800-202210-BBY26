@@ -84,8 +84,12 @@ document.querySelectorAll(".premade-tag").forEach( (tag) => {
 
 
 // Code for Event type on Page 4
-var eventType = "public";
+var eventType = true;
 document.querySelector("#public-event").addEventListener('click', ()=> {
+    showPublic();
+});
+
+function showPublic() {
     document.querySelector('#public-event-details').classList.add("type-details");
     document.querySelector('#public-event-details').classList.remove("no-show");
     document.querySelector('#private-event-details').classList.add("no-show");
@@ -95,9 +99,13 @@ document.querySelector("#public-event").addEventListener('click', ()=> {
     document.querySelector('#private-event').classList.add("unfilled");
     document.querySelector('#private-event').classList.remove("filled");
     eventType = true;
-});
+}
 
 document.querySelector("#private-event").addEventListener('click', ()=> {
+    showPrivate();
+});
+
+function showPrivate() {
     document.querySelector('#public-event-details').classList.remove("type-details");
     document.querySelector('#public-event-details').classList.add("no-show");
     document.querySelector('#private-event-details').classList.remove("no-show");
@@ -107,7 +115,7 @@ document.querySelector("#private-event").addEventListener('click', ()=> {
     document.querySelector('#private-event').classList.remove("unfilled");
     document.querySelector('#private-event').classList.add("filled");
     eventType = false;
-});
+}
 
 // Code for Event group on Page 4
 // When attaching groups to events is implemented will be updated,
@@ -271,6 +279,12 @@ document.querySelector("#finish-btn").addEventListener('click', async function()
             //On group creation should send you to your new groups homepage
             if (parsedJSON.status == "success") {
                 document.getElementById("error-messages").innerHTML = "Created new Group";
+                // delete the saved partial event if it exists
+                if (saveNum) {
+                    await deleteSavedEvent(saveNum);
+                } else {
+                    
+                }
             } else {
                 document.getElementById("error-messages").innerHTML = "Failed to create new Group";
             }
@@ -372,9 +386,21 @@ async function loadSavedEvent(saveNum) {
 // Used to insert data from saved group
 function displaySavedEvent(data) {
     // inputs data for page 1
+    console.log(data);
     document.querySelector("#country-input").value = data.country;
     document.querySelector("#province-input").value = data.province;
     document.querySelector("#city-input").value = data.city;
+    document.querySelector("#street-input").value = data.street;
+    if (data.event_date_time) {
+        let startTime = data.event_date_time;
+        startTime = startTime.slice(0, 19);
+        document.querySelector("#event-date").value = startTime;
+    }
+    if (data.event_end_time) {
+        let endTime = data.event_end_time;
+        endTime = endTime.slice(0, 19);
+        document.querySelector("#event-end-time").value = endTime;
+    }
 
     // inputs data for page 2
     document.querySelector("#name-input").value = data.event_name;
@@ -384,8 +410,41 @@ function displaySavedEvent(data) {
     document.querySelector("#description-input").value = data.event_description;
 
     // inputs data for page 4
+    if (data.event_type == false) {
+        showPrivate();
+    } else {
+        showPublic();
+    }
 
     // inputs data for page 5
     document.getElementById("guidelines-checkbox").checked = data.guidelines;
     document.getElementById("terms-checkbox").checked = data.terms;
+}
+
+// If the user no longer wants that save let them delete it
+async function deleteSavedEvent(eventID) {
+    // Send data to Server as POST request to create-group
+    let groupData = {
+        nothing: "nothing"
+    };
+    try {
+        let responseObject = await fetch(`/delete-saved-event/${eventID}`, {
+            method: 'POST',
+            headers: { "Accept": 'application/json',
+                       "Content-Type": 'application/json'
+            },
+            body: JSON.stringify(groupData)
+        });
+        
+        let parsedJSON = await responseObject.json();
+        
+        //On group creation should send you to your new groups homepage
+        if (parsedJSON.status == "success") {
+            //the save was deleted
+        } else {
+            console.log("failed to delete event")
+        }
+    } catch(error) {
+        console.log(error);
+    }
 }
