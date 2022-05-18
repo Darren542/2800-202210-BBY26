@@ -35,19 +35,23 @@ CREATE TABLE IF NOT EXISTS BBY_26_address(
     addressID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
     street varchar(75),
     city varchar(50),
-	provice varchar(50) ,
-	contry varchar(50)
+	province varchar(50) ,
+	country varchar(56)
 );
 
  CREATE TABLE IF NOT EXISTS BBY_26_events(
-    eventID int NOT NULL AUTO_INCREMENT PRIMARY KEY, 
+    eventID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	ownerID int NOT NULL,
     event_name varchar(20),
     event_date_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     event_end_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	creationTime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     event_duration int NOT NULL,
 	event_type boolean DEFAULT FALSE,
     event_photo varchar(50) DEFAULT "events.jpg",
-    event_description varchar(50)
+    event_description varchar(50),
+	FOREIGN KEY (ownerID) REFERENCES BBY_26_users (userID)
+		ON UPDATE CASCADE
 ); 
 
 CREATE TABLE IF NOT EXISTS BBY_26_tag(
