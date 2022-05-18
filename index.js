@@ -12,7 +12,11 @@ const crypto = require("crypto");
 const path = require("path");
 const mys = require("mysql2/promise");
 const { isInt32Array } = require("util/types");
+// const { createQuery } = require("mysql2/typings/mysql/lib/Connection");
 
+// Creating Events
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use("/js", express.static("./public/js"));
 app.use("/css", express.static("./public/css"));
 app.use("/img", express.static("./public/img"));
@@ -102,7 +106,50 @@ app.get("/home", function (req, res) {
     }
 });
 
+
+app.get("/event", function (req, res) {
+    let doc = fs.readFileSync("./app/html/event.html", "utf8");
+    res.send(doc);
+})
+
+app.get('/event', function(req, res) {
+    if (req.session.loggedIn && req.session.isAdmin) {
+        const mysql = require("mysql2");
+        const connection = mysql.createConnection({
+            host: "localhost",
+            user: "root",
+            password: "",
+            database: "COMP2800"
+        });
+        connection.connect();
+        connection.execute(
+            "SELECT * FROM BBY_26_events",
+            function (error, results) {
+                console.log("results:", results);
+                if (error) {
+                    console.log(error);
+                }
+                res.send(results);
+            });
+        connection.end();
+    }
+});
+
 app.post('/create-event', function (req, res) {
+    let formData = {
+        eventName: req.body.eventName,
+        eventLocationStreet: req.body.eventLocationStreet,
+        eventLocationCity: req.body.eventLocationCity,
+        eventDateTime: req.body.eventDateTime,
+        eventEndTime: req.body.eventEndTime,
+        eventDuration: req.body.eventDuration,
+        eventType: req.body.eventType,
+        // eventImage: document.getElementById('image-upload').;
+        eventDetails: req.body.eventDetails,
+        // this probleley needs to changed
+        eventTags: req.body.eventTags
+    }
+    console.log(formData);
 
     if (req.session.loggedIn) {
         const mysql = require('mysql2');
@@ -114,10 +161,14 @@ app.post('/create-event', function (req, res) {
         });
         connection.connect();
         connection.execute(
-            "INSERT INTO BBY_26_address {event_street, event_city} VAULES {?, ?}", [formData.eventLocationStreet, formData.eventLocationCity]
-
-
+            "INSERT INTO BBY_26_address (street, city) VALUES (?, ?)", [formData.eventLocationStreet, formData.eventLocationCity],
+            // have to write error functions
         )
+        connection.execute(
+            "INSERT INTO BBY_26_events (event_name, event_date_time, event_end_time, event_duration, event_type, event_description) VALUES (?, ?, ?, ?, ?, ?)", [formData.eventName, formData.eventDateTime, formData.eventEndTime, formData.eventDuration, formData.eventType, formData.eventDetails],
+            // have to write error functions
+        )
+        connection.end();
     }
 });
 app.get("/lookup", function (req, res) {
@@ -179,8 +230,8 @@ app.get("/login", function (req, res) {
 });
 
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
 
 app.post("/modify-privilege", function (req, res) {
     if (req.session.username == req.body.username) {
@@ -720,10 +771,6 @@ app.get("/splash", function (req, res) {
     res.send(doc);
 })
 
-app.get("/event", function (req, res) {
-    let doc = fs.readFileSync("./app/html/event.html", "utf8");
-    res.send(doc);
-})
 
 app.get("/search", function (req, res) {
     let doc = fs.readFileSync("./app/html/search.html", "utf8");

@@ -31,15 +31,38 @@ CREATE table IF NOT EXISTS BBY_26_profiles(
 		ON UPDATE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS BBY_26_events(
-	eventID int NOT NULL AUTO_INCREMENT PRIMARY KEY, 
-	event_name varchar(20),
-	event_date_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    event_endTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	event_duration int NOT NULL,
-	event_type boolean DEFAULT FALSE, 
-    event_description varchar(500),
-); --event-type false is private & public is true
+CREATE TABLE IF NOT EXISTS BBY_26_address(
+    addressID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    street varchar(75),
+    city varchar(50),
+	provice varchar(50) ,
+	contry varchar(50)
+);
+
+ CREATE TABLE IF NOT EXISTS BBY_26_events(
+    eventID int NOT NULL AUTO_INCREMENT PRIMARY KEY, 
+    event_name varchar(20),
+    event_date_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    event_end_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    event_duration int NOT NULL,
+	event_type boolean DEFAULT FALSE,
+    event_photo varchar(50) DEFAULT "events.jpg",
+    event_description varchar(50)
+); 
+
+CREATE TABLE IF NOT EXISTS BBY_26_tag(
+	tagID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	tags varchar(50),
+	eventID int NOT NULL,
+	FOREIGN KEY (eventID) REFERENCES BBY_26_events (eventID)
+	ON DELETE CASCADE
+	ON UPDATE CASCADE
+);
+
+	-- event_type boolean, 
+-- event-type false is private & public is true
+-- need add a filed for user taking in photos
+-- need to add a feild that is boolen and takes in ture flase vaules of gudielines
 
 
 CREATE TABLE IF NOT EXISTS BBY_26_addresses(

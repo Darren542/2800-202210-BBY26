@@ -1,5 +1,6 @@
 "use strict";
 let page_num = 1;
+let eventType = true;
 
 document.getElementById('page2').classList.add('no-show');
 document.getElementById('page3').classList.add('no-show');
@@ -19,6 +20,21 @@ document.getElementById('back-btn').addEventListener('click', function (event) {
     event.preventDefault();
     page_num--;
     pageLoad();
+});
+
+// Event type
+document.getElementById('public-btn').addEventListener('click', function (event) {
+    event.preventDefault();
+    document.getElementById('public-call').classList.remove('no-show');
+    document.getElementById('private-call').classList.add('no-show');
+    eventType = true;
+});
+
+document.getElementById('private-btn').addEventListener('click', function (event) {
+    event.preventDefault();
+    document.getElementById('public-call').classList.add('no-show');
+    document.getElementById('private-call').classList.remove('no-show');
+    eventType = false;
 });
 
 
@@ -57,32 +73,40 @@ function pageLoad() {
 
 
 
-const xhr = new XMLHttpRequest();
-// this gets loaded when 
-xhr.onload = function () {
-    if (this.readyState == XMLHttpRequest.DONE && xhr.status === 200) {
-    }
-}
 
 document.getElementById('finish-btn').addEventListener('click', function (event) {
     event.preventDefault();
-    
+    console.log("pressed");
+
+    let gudilines = document.getElementById('gudilines').checked;
+    let conditions = document.getElementById('conditions').checked;
     let formData = {
         eventName: document.getElementById('event-name').value,
         eventLocationStreet: document.getElementById('event-street').value,
         eventLocationCity: document.getElementById('event-city').value,
         eventDateTime: document.getElementById('event-date').value,
-        eventTime: document.getElementById(event-end-time).value,
+        eventEndTime: document.getElementById('event-end-time').value,
+        eventDuration: document.getElementById('event-duration').value,
+        eventType: eventType,
+        // eventImage: document.getElementById('image-upload').;
         eventDetails: document.getElementById('event-description').value,
+        // this probleley needs to changed
         eventTags: document.getElementById('event-tags').value,
-        eventGuidelines: document.getElementById('gudilines').value,
-        eventTerms: document.getElementById('terms').value
-    };
+    }
 
-    console.log(document.getElementById('event-date').value);
-
-    xhr.open('POST', '/create-event');
-    xhr.setRequestHeader('Content-Type', 'application-json');
     console.log(formData);
-    xhr.send(formData);
+    if (gudilines && conditions) {
+        const xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                
+            }
+        }
+
+
+        xhr.open('POST', '/create-event');
+        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify(formData));
+    }
 });
