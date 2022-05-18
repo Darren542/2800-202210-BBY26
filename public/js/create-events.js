@@ -1,5 +1,6 @@
 "use strict";
 let page_num = 1;
+let eventType = true;
 
 document.getElementById('page2').classList.add('no-show');
 document.getElementById('page3').classList.add('no-show');
@@ -19,6 +20,21 @@ document.getElementById('back-btn').addEventListener('click', function (event) {
     event.preventDefault();
     page_num--;
     pageLoad();
+});
+
+// Event type
+document.getElementById('public-btn').addEventListener('click', function (event) {
+    event.preventDefault();
+    document.getElementById('public-call').classList.remove('no-show');
+    document.getElementById('private-call').classList.add('no-show');
+    eventType = true;
+});
+
+document.getElementById('private-btn').addEventListener('click', function (event) {
+    event.preventDefault();
+    document.getElementById('public-call').classList.add('no-show');
+    document.getElementById('private-call').classList.remove('no-show');
+    eventType = false;
 });
 
 
@@ -71,11 +87,14 @@ document.getElementById('finish-btn').addEventListener('click', function (event)
         eventDateTime: document.getElementById('event-date').value,
         eventEndTime: document.getElementById('event-end-time').value,
         eventDuration: document.getElementById('event-duration').value,
+        eventType: eventType,
         // eventImage: document.getElementById('image-upload').;
         eventDetails: document.getElementById('event-description').value,
         // this probleley needs to changed
         eventTags: document.getElementById('event-tags').value,
     }
+
+    console.log(formData);
     if (gudilines && conditions) {
         const xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function () {

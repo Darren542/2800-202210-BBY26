@@ -20,6 +20,17 @@ body {
     border-radius: 10px;
 }
 
+#type-btn {
+    display: flex;
+    justify-content: center;
+}
+
+.type-btn {
+    width: 100px;
+    background-color:rgb(130, 177, 221);
+    font-size: 1rem;
+}
+
 .btn:hover {
     cursor: pointer;
     background-color:rgb(69, 69, 206);
@@ -92,19 +103,13 @@ body {
 
     /* have to fix this erorr */
     .type-btn {
-        margin: 0%;
+        margin: 5px;
         padding: 0%;
     }
 
     #select-type {
         border: 1px solid black;
     }
-
-    #type-btn-div {
-        display: flex;
-        justify-content: center;
-    }
-
 
     #group-call {
         display: flex;
