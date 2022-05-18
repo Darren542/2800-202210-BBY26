@@ -29,6 +29,7 @@ function ready() {
             data.forEach(function () {
                 let temp = document.querySelector('#card-template');
                 let card = temp.content.cloneNode(true);
+                card.querySelector("div").id += ("card" + index);
                 card.getElementById("username").innerHTML = "Username: " + data[index].username;
                 let btn = card.querySelector('.view-profile-Btn');
                 btn.id = data[index].username;
@@ -72,9 +73,9 @@ function searchUser() {
     for (i = 0; i < userList.length; i++) {
         txtValue = userList[i].username;
         if (txtValue.toUpperCase().indexOf(input) > -1) {
-            document.getElementById("" + userList[i].username).style.display = "grid";
+            document.getElementById("card" + i).style.display = "grid";
         } else {
-            document.getElementById("" + userList[i].username).style.display = "none";
+            document.getElementById("card" + i).style.display = "none";
         }
     }
     shuffle();

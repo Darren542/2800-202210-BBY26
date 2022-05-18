@@ -171,6 +171,7 @@
 
 #content button {
     cursor: pointer;
+    width: 100px;
 }
 
 #content {
