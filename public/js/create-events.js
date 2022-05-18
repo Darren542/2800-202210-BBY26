@@ -288,6 +288,9 @@ document.querySelector("#save-quit").addEventListener('click', async function() 
     let country = document.querySelector("#country-input").value;
     let province = document.querySelector("#province-input").value;
     let city = document.querySelector("#city-input").value;
+    let street = document.querySelector("#street-input").value;
+    let startTime = document.querySelector("#event-date").value;
+    let endTime = document.querySelector("#event-end-time").value;
 
     // receiving inputs from page 2
     let name = document.querySelector("#name-input").value;
@@ -305,15 +308,18 @@ document.querySelector("#save-quit").addEventListener('click', async function() 
     // Combine all data into a JSON object
     let groupData = {
         country: country,
-        province: province,
-        city: city,
-        name: name,
-        tags: tagString,
-        description: description,
-        planType: planType,
-        guidelines: guidelines,
-        terms: terms,
-        saveNum: saveNum
+            province: province,
+            city: city,
+            street: street,
+            startTime: startTime,
+            endTime: endTime,
+            name: name,
+            tags: tagString,
+            description: description,
+            eventType: eventType,
+            guidelines: guidelines,
+            terms: terms,
+            saveNum: saveNum
     }
 
     // Send data to Server as POST request to save-group
