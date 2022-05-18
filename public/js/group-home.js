@@ -1,83 +1,83 @@
 function gettables(url, callback) {
-    const xhr = new XMLHttpRequest();
 
-    xhr.onload = () => {
-        if (this.readyState == XMLHttpRequest.DONE) {
-            if (xhr.status === 200) {
-                callback(JSON.parse(this.responseText));
-            } else {
-                console.log(this.status);
-            }
+    const xhr = new XMLHttpRequest();
+    xhr.onload = function () {
+        if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
+            callback(this.responseText);
+
         } else {
-            console.log("error");
+            console.log(this.status);
         }
     }
     xhr.open("GET", url);
     xhr.send();
-
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-
-    gettables("/get-tables", function(data){
-        if(data.status == "success"){
-            let dt = data;
-            for (let i = 0; i < dt.length; i++) {
-                let container = document.createElement("div");
-                container.setAttribute("class", "container");
-
-                let name = document.createElement("h3");
-                name.setAttribute("class", "name");
-                name.innerHTML = dt[i].name;
-
-                let tags = document.createElement("div");
-                tags.setAttribute("class", "tags");
-                tags.innerHTML = dt[i].tags;
-
-                let type = document.createElement("div");
-                type.setAttribute("class", "type");
-                if (dt[i].plan == "1") {
-                    type.innerHTML = "Free";
-                } else if (dt[i].plan == "0") {
-                    type.innerHTML = "Premium";
-                }
 
 
-                let desc = document.createElement("div");
-                desc.setAttribute("class", "desc");
-                desc.innerHTML = dt[i].description
+gettables("/get-tables", function (data) {
 
-                let location = document.createElement("div");
-                tags.setAttribute("class", "location");
-                location.innerHTML = dt[i].country + ", " + dt[i].province + ", " + dt[i].city;
+    let dt = JSON.parse(data);
+    for (let i = 0; i < dt.length; i++) {
+        let container = document.createElement("div");
+        container.setAttribute("class", "container");
 
-                let members = document.createElement("div");
-                members.setAttribute("class", "members");
-                members.innerHTML = "members :";
+        let name = document.createElement("h3");
+        name.setAttribute("class", "name");
+        name.innerHTML = "Groupname: " + dt[i].name;
 
-                let owner = document.createElement("div");
-                owner.setAttribute("class", "owner");
-                owner.innerHTML = "owner :";
+        let tags = document.createElement("div");
+        tags.setAttribute("class", "tags");
 
-                let btn = document.createElement("button");
-                btn.setAttribute("class", "btn");
-                btn.innerHTML = "join";
 
-                let hr = document.createElement("hr");
-
-                container.append(name);
-                container.append(location);
-                container.append(owner);
-                container.append(tags);
-                container.append(type);
-                container.append(members);
-                container.append(desc);
-                container.append(btn);
-                container.append(hr);
-                document.getElementById("content").append(container);
+        let type = document.createElement("div");
+        type.setAttribute("class", "type");
+        if (dt[i].type == "free") {
+            type.innerHTML = "Plan: " + "Free";
+        } else {
+            type.innerHTML = "Plan: " + "Premium";
         }
-        } else{
-            console.log("failed");
-        }
-    })
+
+
+        let desc = document.createElement("div");
+        desc.setAttribute("class", "desc");
+        desc.innerHTML = "description: " +  dt[i].desc
+
+        let location = document.createElement("div");
+        location.setAttribute("class", "location");
+        location.innerHTML = "Location: " + dt[i].city + ", " + dt[i].province + ", " + dt[i].country;
+
+        let groupID = document.createElement("div");
+        groupID.setAttribute("class", "groupID");
+        groupID.innerHTML = "groupID: " + dt[i].groupID;
+
+
+        let owner = document.createElement("div");
+        owner.setAttribute("class", "owner");
+        owner.innerHTML = "owner: " + dt[i].user;
+
+
+        let btn = document.createElement("button");
+        btn.setAttribute("class", "btn");
+        btn.innerHTML = "join";
+
+        let members = document.createElement("div");
+        members.setAttribute("class", "members");
+        members.innerHTML = "members: " + "under construction";
+
+        let hr = document.createElement("hr");
+
+        container.append(name);
+        container.append(location);
+        container.append(groupID);
+        container.append(type);
+        container.append(owner);
+        container.append(members);
+        container.append(desc);
+        container.append(btn);
+        container.append(hr);
+        document.getElementById("content").append(container);
+    }
+
 })
+

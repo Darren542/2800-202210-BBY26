@@ -2,7 +2,7 @@
 
 body {
     background-color: rgb(96 164 164);
-    ;
+    color: white;
 }
 
 .name{
@@ -21,6 +21,10 @@ body {
     margin: 10px;
 }
 
+.members {
+    margin: 10px;
+}
+
 .tags {
     margin: 10px;
 }
@@ -29,7 +33,7 @@ body {
     margin: 10px;
 }
 
-.members {
+.groupID {
     margin: 10px;
 }
 
