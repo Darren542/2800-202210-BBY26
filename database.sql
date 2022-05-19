@@ -31,13 +31,6 @@ CREATE table IF NOT EXISTS BBY_26_profiles(
 		ON UPDATE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS BBY_26_address(
-    addressID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    street varchar(75),
-    city varchar(50),
-	province varchar(50),
-	country varchar(56)
-);
 
  CREATE TABLE IF NOT EXISTS BBY_26_events(
     eventID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -75,8 +68,8 @@ CREATE TABLE IF NOT EXISTS BBY_26_addresses(
     city varchar(50),
 	eventID int,
 	userID int,
-	FOREIGN KEY (eventID) REFERENCES BBY_26_events(eventID),
-	FOREIGN KEY (userID) REFERENCES BBY_26_users(userID)
+	FOREIGN KEY (eventID) REFERENCES BBY_26_events(eventID) ON DELETE CASCADE,
+	FOREIGN KEY (userID) REFERENCES BBY_26_users(userID) ON DELETE CASCADE
 );
 
 
@@ -166,8 +159,8 @@ VALUES ("K9Meet", 3,  240, "It's time for K9Meet's monthly meetup at Taylor Park
 CREATE TABLE IF NOT EXISTS BBY_26_RSVP(
 	eventID int NOT NULL,
 	userID int NOT NULL,
-	FOREIGN KEY (eventID) REFERENCES BBY_26_events(eventID),
-	FOREIGN KEY (userID) REFERENCES BBY_26_users(userID),
+	FOREIGN KEY (eventID) REFERENCES BBY_26_events(eventID) ON DELETE CASCADE,
+	FOREIGN KEY (userID) REFERENCES BBY_26_users(userID) ON DELETE CASCADE,
 	PRIMARY KEY (eventID, userID)
 );
     	

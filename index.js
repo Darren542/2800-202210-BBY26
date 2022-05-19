@@ -305,6 +305,144 @@ app.post("/delete-user", function (req, res) {
         connection.end();
     }
 });
+
+app.delete("/unreserve-event", function (req, res) {
+    let connection;
+    let myPromise = new Promise((resolve, reject) => {
+
+        connection = mysql.createConnection({
+            host: "localhost",
+            user: "root",
+            password: "",
+            database: "COMP2800"
+        });
+
+        connection.connect(err => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(true);
+            }
+        });
+
+    });
+
+    myPromise.then(
+        function (value) {
+            connection.execute(
+                "DELETE FROM BBY_26_RSVP WHERE userID = ? AND eventID = ?;",
+                [req.body.userID, req.body.eventID],
+                function (error, results) {
+                    if (error) {
+                        console.log(error);
+                    }
+                    else {
+                    }
+                });
+            connection.end();
+        });
+});
+
+app.delete("/delete-event", function (req, res) {
+    let connection;
+    let myPromise = new Promise((resolve, reject) => {
+
+        connection = mysql.createConnection({
+            host: "localhost",
+            user: "root",
+            password: "",
+            database: "COMP2800"
+        });
+
+        connection.connect(err => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(true);
+            }
+        });
+
+    });
+
+    myPromise.then(
+        function (value) {
+            connection.execute(
+                "DELETE FROM BBY_26_events WHERE eventID = ?;",
+                [req.body.eventID],
+                function (error, results) {
+                    if (error) {
+                        console.log(error);
+                    }
+                    else {
+                    }
+                });
+            connection.end();
+        });
+});
+
+app.put("/update-event", function (req, res) {
+    // console.log("EventID: " + req.body.eventID);
+    // console.log("Event Name: " + req.body.eventName);
+    // console.log("Event City: " + req.body.eventLocationCity);
+    // console.log("Event Street: " + req.body.eventLocationStreet);
+    // console.log("Event Date:" + req.body.eventDateTime);
+    // console.log("Event Duration:" + req.body.eventDuration);
+    // console.log("Event Description:" + req.body.eventDescription);
+    let connection;
+    let myPromise = new Promise((resolve, reject) => {
+
+        connection = mysql.createConnection({
+            host: "localhost",
+            user: "root",
+            password: "",
+            database: "COMP2800"
+        });
+
+        connection.connect(err => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(true);
+            }
+        });
+
+    });
+
+    myPromise.then(
+        function (value) {
+            connection.execute(
+                "UPDATE BBY_26_events SET event_name = ?, event_date_time = ?, event_duration = ?, event_description = ? WHERE eventID = ?;",
+                [req.body.eventName, req.body.eventDateTime, req.body.eventDuration, req.body.eventDescription, req.body.eventID],
+                function (error, results) {
+                    if (error) {
+                        console.log(error);
+                    }
+                    else {
+                        if (results[0] != null) {
+                            isPasswordCorrect(results[0].pwHash, results[0].pwSalt, results[0].pwIterations, req.body.password, (correct) => {
+                                if (correct) {
+                                    req.session.loggedIn = true;
+                                    req.session.userID = results[0].userID;
+                                    req.session.username = results[0].username;
+                                    req.session.email = results[0].email;
+                                    req.session.isAdmin = results[0].isAdmin;
+                                    req.session.save(function (err) {
+                                    });
+                                    res.send({ status: "success", msg: "Logged in." });
+
+                                } else {
+                                    res.send({ status: "fail", msg: "User account not found." });
+                                }
+                            });
+                        } else {
+                            res.send({ status: "fail", msg: "User account not found." });
+                        }
+                    }
+                });
+            connection.end();
+        });
+});
+
 app.post("/login", function (req, res) {
 
     //-------------------------------------------------------------------------
