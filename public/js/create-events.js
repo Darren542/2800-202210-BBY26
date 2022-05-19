@@ -192,7 +192,7 @@ document.querySelector("#finish-btn").addEventListener('click', async function()
         valid = false;
         errorMsg = "Must fill out end time."
     }
-    if (endTime < startTime) {
+    if (endTimestamp < startTimestamp) {
         valid = false;
         errorMsg = "Event ends before it starts."
     }
@@ -386,7 +386,6 @@ async function loadSavedEvent(saveNum) {
 // Used to insert data from saved group
 function displaySavedEvent(data) {
     // inputs data for page 1
-    console.log(data);
     document.querySelector("#country-input").value = data.country;
     document.querySelector("#province-input").value = data.province;
     document.querySelector("#city-input").value = data.city;
