@@ -2013,7 +2013,6 @@ app.get("/get-tables", async (req, res) => {
             database: "COMP2800",
             multipleStatements: true
         });
-<<<<<<< HEAD
         newcon.connect();
         const [r, f] = await connection.execute(`SELECT * FROM bby_26_users WHERE userID = ${rows[i].ownerID} `);
         let arr = {
@@ -2028,16 +2027,6 @@ app.get("/get-tables", async (req, res) => {
         };
         newcon.end();
         grouplist.push(arr);
-=======
-        connection.connect();
-        const [rows, fields] =
-            await connection.execute(`SELECT * FROM  ${grouparray[i]}`);
-        let arr = {
-            "name": rows[0].name, "tags": rows[0].tags, "country": rows[0].country, "province": rows[0].province, "city": rows[0].city,
-            "description": rows[0].descrip, "plan": rows[0].isFree
-        };
-        sendgroup.push(arr);
->>>>>>> aryan_create_event_page
     }
 
     await connection.end();
