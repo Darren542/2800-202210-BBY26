@@ -135,42 +135,6 @@ app.get('/event', function(req, res) {
     }
 });
 
-app.post('/create-event', function (req, res) {
-    let formData = {
-        eventName: req.body.eventName,
-        eventLocationStreet: req.body.eventLocationStreet,
-        eventLocationCity: req.body.eventLocationCity,
-        eventDateTime: req.body.eventDateTime,
-        eventEndTime: req.body.eventEndTime,
-        eventDuration: req.body.eventDuration,
-        eventType: req.body.eventType,
-        // eventImage: document.getElementById('image-upload').;
-        eventDetails: req.body.eventDetails,
-        // this probleley needs to changed
-        eventTags: req.body.eventTags
-    }
-    console.log(formData);
-
-    if (req.session.loggedIn) {
-        const mysql = require('mysql2');
-        const connection = mysql.createConnection({
-            host: "localhost",
-            user: "root",
-            password: "",
-            database: "COMP2800"
-        });
-        connection.connect();
-        connection.execute(
-            "INSERT INTO BBY_26_address (street, city) VALUES (?, ?)", [formData.eventLocationStreet, formData.eventLocationCity],
-            // have to write error functions
-        )
-        connection.execute(
-            "INSERT INTO BBY_26_events (event_name, event_date_time, event_end_time, event_duration, event_type, event_description) VALUES (?, ?, ?, ?, ?, ?)", [formData.eventName, formData.eventDateTime, formData.eventEndTime, formData.eventDuration, formData.eventType, formData.eventDetails],
-            // have to write error functions
-        )
-        connection.end();
-    }
-});
 app.get("/lookup", function (req, res) {
     let doc = fs.readFileSync("./app/html/lookup.html", "utf8");
     res.send(doc);
@@ -795,6 +759,299 @@ app.get("/create-events", function (req, res) {
     }
 });
 
+// For saving a new event into the database.
+// Creates a new row in the events and event_address table and deletes it's own saved event if it was one.
+// Creates an entry into to tag table for each tag inputed.
+// Used by the create-events page.
+// Author Darren, Aryan
+app.post('/create-event', function (req, res) {
+    if (req.session.loggedIn) {
+        let connection;
+        let myPromise = new Promise((resolve, reject) => {
+
+            connection = mysql.createConnection({
+                host: "localhost",
+                user: "root",
+                password: "",
+                database: "COMP2800",
+                multipleStatements: true
+            });
+
+            connection.connect(err => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(true);
+                }
+            });
+
+        });
+
+        myPromise.then(
+            function () {
+                connection.query('INSERT INTO BBY_26_events (ownerID, event_name, event_date_time, event_end_time, event_duration, event_type, event_description) values (?, ?, ?, ?, ?, ?, ?)',
+                    [req.session.userID, req.body.name, req.body.startTime, req.body.endTime, req.body.eventDuration, req.body.eventType, req.body.description],
+                    function (error, results, fields) {
+                        if (error) {
+                            console.log("error from db", error);
+                            connection.end();
+                        } else {
+                            // use the new events id to make database entires for its address and tags
+                            let newEventID = results.insertId;
+                            connection.query('INSERT INTO BBY_26_event_address (street, city, province, country, eventID, ownerID) values (?, ?, ?, ?, ?, ?)',
+                                [req.body.street, req.body.city, req.body.province, req.body.country, newEventID, req.session.userID],
+                                function (error, results, fields) {
+                                    if (error) {
+                                        console.log("error from db", error);
+                                        connection.end();
+                                    }
+                                    if (req.body.tags.length > 1) {
+                                        for (let tags = 1; tags < req.body.tags.length; tags++) {
+                                            connection.query('INSERT INTO BBY_26_tag (eventID, tags) values (?, ?)',
+                                                [newEventID, req.body.tags[tags]],
+                                                function (error, results, fields) {
+                                                    if (error) {
+                                                        console.log("error from db", error);
+                                                        connection.end();
+                                                    }
+                                                    if (tags == (req.body.tags.length - 1)) {
+                                                        res.send({ status: "success", msg: "Event Created." });
+                                                        connection.end();
+                                                    }
+                                                });
+                                        }
+                                    } else {
+                                        res.send({ status: "success", msg: "Group Created." });
+                                        connection.end();
+                                    }
+                                });                              
+                        }
+                    });
+            },
+            function (error) {
+                console.log(error);
+            }
+        );
+
+    } else {
+        res.redirect("/");
+    }
+});
+
+// Saves a partially created event into a the saved_event table
+// Used by the create-event page.
+// Author Darren
+app.post("/save-event", function (req, res) {
+    // Can only update the profile if you are admin or it is your account
+    if (req.session.loggedIn) {
+        let connection;
+        let myPromise = new Promise((resolve, reject) => {
+
+            connection = mysql.createConnection({
+                host: "localhost",
+                user: "root",
+                password: "",
+                database: "COMP2800",
+                multipleStatements: true
+            });
+
+            connection.connect(err => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(true);
+                }
+            });
+
+        });
+
+        myPromise.then(
+            function () {
+                connection.query('INSERT INTO BBY_26_saved_event (ownerID, event_name, country, province, city, street, event_description, event_type, tagString, guidelines, terms, event_date_time, event_end_time) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                    [req.session.userID, req.body.name, req.body.country, req.body.province, req.body.city, req.body.street, req.body.description, req.body.eventType, req.body.tags, req.body.guidelines, req.body.terms, req.body.startTime, req.body.endTime],
+                    function (error, results, fields) {
+                        if (error) {
+                            console.log("error from db", error);
+                            connection.end();
+                        } else {
+                            if (req.body.saveNum != 0) {
+                                connection.execute(
+                                    "DELETE FROM BBY_26_saved_event WHERE savedID = ?",
+                                    [req.body.saveNum],
+                                    function (error, results) {
+                                        if (error) {
+                                            console.log(error)
+                                        }
+                                        if (results.affectedRows != null) {
+                                            res.send({ status: "success", msg: "Event Saved." });
+                                        } else {
+                                            res.send({ status: "fail", msg: "Saved event not found." });
+                                        }
+                                    });
+                            } else {
+                                res.send({ status: "success", msg: "Event Saved." });
+                                connection.end();
+                            }
+                            
+                        }
+                    });
+            },
+            function (error) {
+                console.log(error);
+            }
+
+        );
+
+    } else {
+        res.redirect("/");
+    }
+});
+
+// To get the data on all partially complete events the logged in user has.
+// Used by create page
+// Author Darren
+app.get("/saved-events", function (req, res) {
+    let connection;
+    let myPromise = new Promise((resolve, reject) => {
+
+        connection = mysql.createConnection({
+            host: "localhost",
+            user: "root",
+            password: "",
+            database: "COMP2800"
+        });
+
+        connection.connect(err => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(true);
+            }
+        });
+
+    });
+
+    myPromise.then(
+        function (value) {
+            connection.execute(
+                "SELECT * FROM BBY_26_saved_event WHERE ownerID = ?",
+                [req.session.userID],
+                function (error, results) {
+                    if (error) {
+                        console.log(error);
+                    }
+                    else {
+                        if (results[0] != null) {
+                            res.send(results);
+                        }
+                        else {
+                            res.send({ status: "fail", msg: "No saved events found." });
+                        }
+                    }
+                });
+            connection.end();
+        },
+        function (error) {
+            console.log(error);
+        }
+    );
+});
+
+// To get the data on a single partially complete event the user has saved
+// Used by create-group page
+// Author Darren
+app.get("/saved-events/:id", function (req, res) {
+    let connection;
+    let myPromise = new Promise((resolve, reject) => {
+
+        connection = mysql.createConnection({
+            host: "localhost",
+            user: "root",
+            password: "",
+            database: "COMP2800"
+        });
+
+        connection.connect(err => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(true);
+            }
+        });
+
+    });
+
+    myPromise.then(
+        function (value) {
+            connection.execute(
+                "SELECT * FROM BBY_26_saved_event WHERE ownerID = ? AND savedID = ?",
+                [req.session.userID, req.params.id],
+                function (error, results) {
+                    if (error) {
+                        console.log(error);
+                    }
+                    else {
+                        if (results[0] != null) {
+                            res.send(results);
+                        }
+                        else {
+                            res.send({ status: "fail", msg: "No saved event found." });
+                        }
+                    }
+                });
+            connection.end();
+        },
+        function (error) {
+            console.log(error);
+        }
+    );
+});
+
+// Used to delete a partially completed event save from its table.
+// Used by the create page and create-event page.
+// Author Darren
+app.post("/delete-saved-event/:id", function (req, res) {
+    let connection;
+    let myPromise = new Promise((resolve, reject) => {
+
+        connection = mysql.createConnection({
+            host: "localhost",
+            user: "root",
+            password: "",
+            database: "COMP2800"
+        });
+
+        connection.connect(err => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(true);
+            }
+        });
+
+    });
+
+    myPromise.then(
+        function (value) {
+            connection.execute(
+                "DELETE FROM BBY_26_saved_event WHERE savedID = ? AND ownerID = ?",
+                [req.params.id, req.session.userID],
+                function (error, results) {
+                    if (error) {
+                        console.log(error);                           
+                    } else {
+                        res.send({ status: "success", msg: "Event save deleted." });
+                    }
+                    connection.end();
+                });
+            
+        },
+        function (error) {
+            console.log(error);
+        }
+    );
+});
+
 // Page for starting the creation of a group.
 // Loads in partially created group if parameter in URL
 // Linked from create page.
@@ -815,7 +1072,7 @@ app.get("/create-group", (req, res) => {
 // Creates a new group in the database. Group info in groups table, Group's tags in group_tags table.
 // Used by the create-group page.
 app.post("/create-group", function (req, res) {
-    // Can only update the profile if you are admin or it is your account
+
     if (req.session.loggedIn) {
         let connection;
         let myPromise = new Promise((resolve, reject) => {
@@ -1050,8 +1307,9 @@ app.get("/saved-groups/:id", function (req, res) {
     );
 });
 
-// Used to delete a partially completed group from its table
-// Used by the create page
+// Used to delete a partially completed group save from its table.
+// Used by the create page and create-group page.
+// Author Darren
 app.post("/delete-saved-group/:id", function (req, res) {
         let connection;
         let myPromise = new Promise((resolve, reject) => {

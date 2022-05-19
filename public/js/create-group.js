@@ -203,6 +203,12 @@ document.querySelector("#finish-btn").addEventListener('click', async function()
             //On group creation should send you to your new groups homepage
             if (parsedJSON.status == "success") {
                 document.getElementById("error-messages").innerHTML = "Created new Group";
+                // delete the saved partial group if it exists
+                if (saveNum) {
+                    await deleteSavedGroup(saveNum);
+                } else {
+                    
+                }
             } else {
                 document.getElementById("error-messages").innerHTML = "Failed to create new Group";
             }
@@ -314,4 +320,32 @@ function displaySavedGroup(data) {
     // inputs data for page 5
     document.getElementById("guidelines-checkbox").checked = data.guidelines;
     document.getElementById("terms-checkbox").checked = data.terms;
+}
+
+// If the user no longer wants that save let them delete it
+async function deleteSavedGroup(groupID) {
+    // Send data to Server as POST request to create-group
+    let groupData = {
+        nothing: "nothing"
+    };
+    try {
+        let responseObject = await fetch(`/delete-saved-group/${groupID}`, {
+            method: 'POST',
+            headers: { "Accept": 'application/json',
+                       "Content-Type": 'application/json'
+            },
+            body: JSON.stringify(groupData)
+        });
+        
+        let parsedJSON = await responseObject.json();
+        
+        //On group creation should send you to your new groups homepage
+        if (parsedJSON.status == "success") {
+            //the save was deleted
+        } else {
+            console.log("failed to delete group")
+        }
+    } catch(error) {
+        console.log(error);
+    }
 }
