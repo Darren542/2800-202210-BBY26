@@ -194,7 +194,7 @@ document.querySelector("#finish-btn").addEventListener('click', async function()
         document.getElementById("error-messages").innerHTML = errorMsg;
     } else {
         document.getElementById("error-messages").innerHTML = "";
-        window.location.href = "/grouphome";
+        
         // Combine all data into a JSON object
         let groupData = {
             country: country,

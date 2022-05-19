@@ -68,39 +68,6 @@ function returnbone(x, y) {
 
 // For the mobile view to move bone
 function touchingFunction(event) {
-    // let bone = document.querySelector("#bone");
-    // // (1) prepare to moving: make absolute and on top by z-index
-    // bone.style.position = 'absolute';
-    // bone.style.zIndex = 1000;
-
-    // // move it out of any current parents directly into body
-    // // to make it positioned relative to the body
-    // document.body.append(bone);
-
-    // // centers the bone at (pageX, pageY) coordinates
-    // function moveAt(pageX, pageY) {
-    //     bone.style.left = pageX - bone.offsetWidth / 2 + 'px';
-    //     bone.style.top = pageY - bone.offsetHeight / 2 + 'px';
-    // }
-
-    // // move our absolutely positioned bone under the pointer
-    // moveAt(event.pageX, event.pageY);
-
-    // function onMouseMove(event) {
-    //     xCoord = event.touches[0].clientX;
-    //     yCoord = event.touches[0].clientY;
-    //     moveAt(event.touches[0].clientX, event.touches[0].clientY);
-    // }
-
-    // // (2) move the bone on mousemove
-    // document.addEventListener('touchmove', onMouseMove);
-
-    // // // (3) drop the bone, remove unneeded handlers
-    // bone.addEventListener("touchend", (e) => {
-    //     bone.removeEventListener('touchmove', onMouseMove);
-    //     bone.touchend = null;
-    //     returnbone(xCoord, yCoord);
-    // });
 
     let bone = document.querySelector("#bone");
     let shiftX = event.touches[0].clientX - bone.getBoundingClientRect().left;

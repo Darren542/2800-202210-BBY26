@@ -379,6 +379,9 @@ app.get("/email", function (req, res) {
     res.send(req.session.email);
 });
 
+// Used to get the username from an account ID
+// Used by group page
+// Author Darren
 app.get("/username/:id", function (req, res) {
     if (req.session.loggedIn && (req.session.isAdmin || (req.session.username == req.params.id))) {
         let connection;
@@ -404,7 +407,7 @@ app.get("/username/:id", function (req, res) {
         myPromise.then(
             function () {
                 connection.execute(
-                    "SELECT username FROM bby_26_users WHERE username = ?",
+                    "SELECT username FROM bby_26_users WHERE userID = ?",
                     [req.params.id],
                     function (error, results) {
                         if (error) {
@@ -971,7 +974,7 @@ app.post('/upload-event-image/:id', uploadEventImage.single("files"), function (
             function () {
                 connection.execute(
                     "UPDATE BBY_26_events SET event_photo = ? WHERE eventID = ?",
-                    [`event-${req.params.id}`, req.params.id],
+                    [req.file.filename, req.params.id],
                     function (error, results) {
                         if (error) {
                             console.log(error);
@@ -1298,7 +1301,6 @@ app.post("/save-group", function (req, res) {
 // Used by create-groups
 // Author Darren
 app.post('/upload-group-image/:id', uploadGroupImage.single("files"), function (req, res) {
-
     if (req.session.loggedIn) {
 
         let connection;
@@ -1320,12 +1322,13 @@ app.post('/upload-group-image/:id', uploadGroupImage.single("files"), function (
             });
 
         });
-
+        // let ext = req.files.originalname.substring(req.files.originalname.lastIndexOf('.'), req.files.originalname.length);
+        
         myPromise.then(
             function () {
                 connection.execute(
                     "UPDATE BBY_26_groups SET group_photo = ? WHERE groupID = ?",
-                    [`group-${req.params.id}`, req.params.id],
+                    [req.file.filename, req.params.id],
                     function (error, results) {
                         if (error) {
                             console.log(error);
@@ -1980,6 +1983,56 @@ app.get("/group/:id", async (req, res) => {
     } else {
         res.redirect("/");
     }    
+});
+
+// Gets the info on a single group and returns it.
+// Used by group page.
+// Author Darren.
+app.get("/group-info/:id", function (req, res) {
+        let connection;
+        let myPromise = new Promise((resolve, reject) => {
+
+            connection = mysql.createConnection({
+                host: "localhost",
+                user: "root",
+                password: "",
+                database: "COMP2800"
+            });
+
+            connection.connect(err => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(true);
+                }
+            });
+
+        });
+
+        myPromise.then(
+            function (value) {
+                connection.execute(
+                    "SELECT * FROM BBY_26_groups WHERE groupID = ?",
+                    [req.params.id],
+                    function (error, results) {
+                        if (error) {
+                            console.log(error);
+                        }
+                        else {
+                            if (results[0] != null) {
+                                res.send(results[0]);
+                            }
+                            else {
+                                res.send({ status: "fail", msg: "Group not found." });
+                            }
+                        }
+                    });
+                connection.end();
+            },
+            function (error) {
+                console.log(error);
+            }
+        );
 });
 
 app.get("/community-guidelines", function (req, res) {
