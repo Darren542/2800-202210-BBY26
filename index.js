@@ -347,6 +347,10 @@ app.get("/lookup", function (req, res) {
     res.send(doc);
 })
 
+app.get("/userID", function (req, res) {
+    res.status(200).send((req.session.userID).toString());
+});
+
 app.get("/users", function (req, res) {
     if (req.session.loggedIn) {
         if (req.session.isAdmin) {
@@ -769,8 +773,7 @@ app.get("/dogs", function (req, res) {
 app.get("/photos", function (req, res) {
     res.send("photos section is still under construction");
 });
-
-app.get("/get-events", function (req, res) {
+app.post("/get-events", function (req, res) {
     let events = [];
     let connection;
     let index = 0;
@@ -795,8 +798,8 @@ app.get("/get-events", function (req, res) {
     myPromise.then(
         function (value) {
             connection.execute(
-                "SELECT * FROM BBY_26_RSVP WHERE userID = ?",
-                [req.session.userID],
+                "SELECT * FROM BBY_26_RSVP WHERE userID = (SELECT userID FROM BBY_26_users WHERE username = ?)",
+                [req.body.username],
                 function (error, results) {
                     if (error) {
                         console.log(error);
@@ -1876,6 +1879,69 @@ app.post("/update-username/:id", function (req, res) {
     } else {
         res.redirect("/");
     }
+});
+
+app.put("/update-event", function (req, res) {
+    // console.log("EventID: " + req.body.eventID);
+    // console.log("Event Name: " + req.body.eventName);
+    // console.log("Event City: " + req.body.eventLocationCity);
+    // console.log("Event Street: " + req.body.eventLocationStreet);
+    // console.log("Event Date:" + req.body.eventDateTime);
+    // console.log("Event Duration:" + req.body.eventDuration);
+    // console.log("Event Description:" + req.body.eventDescription);
+    let connection;
+    let myPromise = new Promise((resolve, reject) => {
+
+        connection = mysql.createConnection({
+            host: "localhost",
+            user: "root",
+            password: "",
+            database: "COMP2800"
+        });
+
+        connection.connect(err => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(true);
+            }
+        });
+
+    });
+
+    myPromise.then(
+        function (value) {
+            connection.execute(
+                "UPDATE BBY_26_events SET event_name = ?, event_date_time = ?, event_duration = ?, event_description = ? WHERE eventID = ?;",
+                [req.body.eventName, req.body.eventDateTime, req.body.eventDuration, req.body.eventDescription, req.body.eventID],
+                function (error, results) {
+                    if (error) {
+                        console.log(error);
+                    }
+                    else {
+                        if (results[0] != null) {
+                            isPasswordCorrect(results[0].pwHash, results[0].pwSalt, results[0].pwIterations, req.body.password, (correct) => {
+                                if (correct) {
+                                    req.session.loggedIn = true;
+                                    req.session.userID = results[0].userID;
+                                    req.session.username = results[0].username;
+                                    req.session.email = results[0].email;
+                                    req.session.isAdmin = results[0].isAdmin;
+                                    req.session.save(function (err) {
+                                    });
+                                    res.send({ status: "success", msg: "Logged in." });
+
+                                } else {
+                                    res.send({ status: "fail", msg: "User account not found." });
+                                }
+                            });
+                        } else {
+                            res.send({ status: "fail", msg: "User account not found." });
+                        }
+                    }
+                });
+            connection.end();
+        });
 });
 
 app.post("/update-email/:id", function (req, res) {

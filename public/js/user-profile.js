@@ -169,7 +169,9 @@ function deleteEvent() {
 }
 
 function loadEvent(eventID) {
-    document.getElementById("menu-description").innerHTML = "This User's RSVPs: ";
+    if (document.getElementById("menu-description")){
+        document.getElementById("menu-description").innerHTML = "This User's RSVPs: ";
+    }
     const eventDetail = new XMLHttpRequest();
     const theAddress = new XMLHttpRequest();
     eventDetail.open("POST", "/load-event");
