@@ -25,12 +25,13 @@ async function getGroupInfo(path) {
 // Displays the info on the group page
 //--------------------------------------------------
 function displayGroupInfo(data) {
-    console.log(data);
+    document.getElementById("group-name").innerHTML = data.group_name;
     document.getElementById("group-image").src = `/img/group-imgs/${data.group_photo}`;
     document.getElementById("location").innerHTML += `${data.city}, ${data.province}`;
     fetch(`/username/${data.ownerID}`).then( response => response.json()).then(name => {
         document.getElementById("group-owner").innerHTML += name.username;
-    })
+    });
+    document.getElementById("temp-display").innerHTML = data.group_description;
         
 
 }

@@ -1322,7 +1322,6 @@ app.post('/upload-group-image/:id', uploadGroupImage.single("files"), function (
             });
 
         });
-        // let ext = req.files.originalname.substring(req.files.originalname.lastIndexOf('.'), req.files.originalname.length);
         
         myPromise.then(
             function () {

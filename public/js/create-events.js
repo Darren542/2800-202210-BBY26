@@ -297,15 +297,17 @@ document.querySelector("#finish-btn").addEventListener('click', async function()
             //On group creation should send you to your new groups homepage
             if (parsedJSON.status == "success") {
                 document.getElementById("error-messages").innerHTML = "Created new Group";
-                // save the image if it exists
-                if (formData) {
-                    saveImage(formData, parsedJSON.newID);
-                }
+
                 // delete the saved partial event if it exists
                 if (saveNum) {
                     await deleteSavedEvent(saveNum);
                 } else {
-                    
+                       
+                }
+                // save the image if it exists
+                if (formData) {
+                    await saveImage(formData, parsedJSON.newID);
+                    window.location.href = `/event/${parsedJSON.newID}`;
                 }
             } else {
                 document.getElementById("error-messages").innerHTML = "Failed to create new Group";
@@ -470,7 +472,7 @@ async function deleteSavedEvent(eventID) {
     }
 }
 
-function saveImage(imageFile, eventID) {
+async function saveImage(imageFile, eventID) {
       
             const options = {
                 method: 'POST',
@@ -479,6 +481,7 @@ function saveImage(imageFile, eventID) {
             fetch(`/upload-event-image/${eventID}`, options
             ).then(function (res) {
                 // what do to on return from image upload
+                return
             }).catch(function (err) { ("Error:", err) }
             );
 }
