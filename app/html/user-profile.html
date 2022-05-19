@@ -17,6 +17,24 @@
     <div id="navbar-placeholder"></div>
 
     <div id="content">
+        <div id="background">
+            <div id="modify-event-popup">
+                <p id="modify-event-error-message"></p>
+                <img id="event-img" alt="event image">
+                <p>Event Name: <input type="text" id="event-name-placeholder"></input></p>
+                <p>Event Location: <input type="text" id="event-street-placeholder"></input>, <input
+                        id="event-address-placeholder"></input></p>
+                <p>Event Date: <input type="text" id="event-date-placeholder"></input></p>
+                <p>Event Duration: <input type="text" id="event-duration-placeholder"> <span>minutes</span></input></p>
+                <p>Event Tags: not yet implemented.</p>
+                <p>Event Description: </p>
+                <span><textarea type="text" id="event-description"></textarea></span>
+                <div id="buttons-div">
+                    <button id="confirm-button">Confirm</button>
+                    <button id="cancel-button">Cancel</button>
+                </div>
+            </div>
+        </div>
         <div id="profile-image-div">
             <img src="/img/profile.jpg" alt="Profile Image" id="profile-image" />
         </div>
@@ -40,17 +58,23 @@
             <button class="profile-menu" id="events-option" type="button">Events</button>
         </div>
         <div id="menu-display">
-
+            <p id="menu-description"></p>
         </div>
         <template id="post-template">
             <div class="post">
-                <img id="event-img" alt="event image">
+                <div id="wrap">
+                    <img id="event-img" alt="event image">
+                    <button id="modify-button"><img src="/img/icons/edit.png"></button>
+                    <button id="delete-button">X</button>
+                </div>
                 <p>Event Name: <span id="event-name-placeholder"></span></p>
-                <p>Event Location: <span id="event-address-placeholder"></span></p>
+                <p>Event Location: <span id="event-street-placeholder"></span>, <span
+                        id="event-address-placeholder"></span></p>
                 <p>Event Date: <span id="event-date-placeholder"></span></p>
                 <p>Event Duration: <span id="event-duration-placeholder"></span></p>
                 <p>Event Tags: not yet implemented.</p>
-                <p>Event Description: <span id="event-description-placeholder"></span></p>
+                <p>Event Description: </p>
+                <p id="event-description-placeholder"></p>
             </div>
         </template>
     </div>
