@@ -10,28 +10,51 @@
     ></script>
     <style>
       .button {
-          display: inline-block;
-          padding: 2px;
+        display: inline-block;
+        padding: 4px;
+        size: 1.5;
+        margin: auto;
 
       }
-      .button:hover{
-          transform: scale(1.3);
-          cursor: pointer;
+      .button:hover {
+        transform: scale(1.3);
+        cursor: pointer;
       }
     </style>
     <title>Share Event</title>
   </head>
   <body>
     <div class="button-container">
-      <div class="button whats-app"><i class="fa-brands fa-whatsapp"></i></div>
-      <div class="button facebook"><i class="fa-brands fa-facebook"></i></div>
+      <div class="button whatsapp"><i class="fa-brands fa-whatsapp"></i></div>
       <div class="button twitter"><i class="fa-brands fa-twitter"></i></div>
-      <div class="button email"><i class="fa-solid fa-envelope"></i></div>
+      <div class="button telegram"><i class="fa-brands fa-telegram"></i></div>
     </div>
     <script
       src="https://kit.fontawesome.com/fbd331a905.js"
       crossorigin="anonymous"
     ></script>
-    <script src="js/shareEvent.js"></script>
+    <script>
+      const whatsapp = document.querySelector(".whatsapp");
+      const telegram = document.querySelector(".telegram");
+      const twitter = document.querySelector(".twitter");
+      const pageurl = location.href;
+
+      const message =
+        " This app contains awesome events to socialize and its a lot of fun. Take time to explore them.";
+
+      const whatsappApi = `https://wa.me/?text=${pageurl} .${message}`;
+      const telegramApi = `https://t.me/share/url?url=${pageurl}&text=${message}`;
+      const twitterApi = `https://twitter.com/intent/tweet?text=${pageurl}. ${message}`;
+
+      whatsapp.addEventListener("click", () => {
+        window.open((url = whatsappApi), (target = "_blank"));
+      });
+      telegram.addEventListener("click", () => {
+        window.open((url = telegramApi), (target = "_blank"));
+      });
+      twitter.addEventListener("click", () => {
+        window.open((url = twitterApi), (targer = "_blank"));
+      });
+    </script>
   </body>
 </html>
