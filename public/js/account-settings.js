@@ -14,18 +14,10 @@ function getOtherEmail() {
     getemail.send();
 }
 
-function getOtherName() {
-    const getname = new XMLHttpRequest();
-    getname.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            let username = JSON.parse(this.responseText).username;
-            document.getElementById("username-name").value = username;
-        }
-    }
+function getOtherName() {           
     let path = window.location.pathname;
-    const requestId = path.substring(path.lastIndexOf('/'));
-    getname.open("GET", `/username${requestId}`, true);
-    getname.send();
+    const requestId = path.substring(path.lastIndexOf('/') + 1);
+    document.getElementById("username-name").value = requestId;
 }
 
 getOtherName();
