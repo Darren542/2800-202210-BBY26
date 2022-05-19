@@ -30,7 +30,7 @@ setTimeout(() => {
     ball.addEventListener('mousedown', mousingFunction);  
     
 
-}, 500);
+}, 50);
 let xCoord = 0;
 let yCoord = 0;
 
