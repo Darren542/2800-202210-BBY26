@@ -78,7 +78,7 @@ function getDogs() {
     const theDogs = new XMLHttpRequest();
     theDogs.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("menu-display").innerHTML = this.responseText;
+            document.getElementById("menu-description").innerHTML = this.responseText;
         }
     }
     theDogs.open("GET", "/dogs", true);
@@ -90,7 +90,7 @@ function getPhotos() {
     const thePhotos = new XMLHttpRequest();
     thePhotos.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("menu-display").innerHTML = this.responseText;
+            document.getElementById("menu-description").innerHTML = this.responseText;
         }
     }
     thePhotos.open("GET", "/photos", true);
@@ -102,7 +102,7 @@ function getGroups() {
     const theGroups = new XMLHttpRequest();
     theGroups.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("menu-display").innerHTML = this.responseText;
+            document.getElementById("menu-description").innerHTML = this.responseText;
         }
     }
     theGroups.open("GET", "/my-groups", true);
@@ -111,6 +111,7 @@ function getGroups() {
 }
 
 function getEvents() {
+    document.getElementById("menu-description").innerHTML = "This User's RSVPs:";
     const theEvents = new XMLHttpRequest();
     theEvents.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -169,9 +170,6 @@ function deleteEvent() {
 }
 
 function loadEvent(eventID) {
-    if (document.getElementById("menu-description")){
-        document.getElementById("menu-description").innerHTML = "This User's RSVPs: ";
-    }
     const eventDetail = new XMLHttpRequest();
     const theAddress = new XMLHttpRequest();
     eventDetail.open("POST", "/load-event");
