@@ -22,7 +22,7 @@ $(document).ready(function () {
             
         });
         getUsername();
-    }, 1000);
+    }, 100);
 
 });
 

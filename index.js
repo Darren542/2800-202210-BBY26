@@ -306,42 +306,6 @@ app.delete("/delete-event", function (req, res) {
         });
 });
 
-app.post('/create-event', function (req, res) {
-    let formData = {
-        eventName: req.body.eventName,
-        eventLocationStreet: req.body.eventLocationStreet,
-        eventLocationCity: req.body.eventLocationCity,
-        eventDateTime: req.body.eventDateTime,
-        eventEndTime: req.body.eventEndTime,
-        eventDuration: req.body.eventDuration,
-        eventType: req.body.eventType,
-        // eventImage: document.getElementById('image-upload').;
-        eventDetails: req.body.eventDetails,
-        // this probleley needs to changed
-        eventTags: req.body.eventTags
-    }
-    // console.log(formData);
-
-    if (req.session.loggedIn) {
-        const mysql = require('mysql2');
-        const connection = mysql.createConnection({
-            host: "localhost",
-            user: "root",
-            password: "",
-            database: "COMP2800"
-        });
-        connection.connect();
-        connection.execute(
-            "INSERT INTO BBY_26_address (street, city) VALUES (?, ?)", [formData.eventLocationStreet, formData.eventLocationCity],
-            // have to write error functions
-        )
-        connection.execute(
-            "INSERT INTO BBY_26_events (event_name, event_date_time, event_end_time, event_duration, event_type, event_description) VALUES (?, ?, ?, ?, ?, ?)", [formData.eventName, formData.eventDateTime, formData.eventEndTime, formData.eventDuration, formData.eventType, formData.eventDetails],
-            // have to write error functions
-        )
-        connection.end();
-    }
-});
 app.get("/lookup", function (req, res) {
     let doc = fs.readFileSync("./app/html/lookup.html", "utf8");
     res.send(doc);
@@ -2082,8 +2046,8 @@ app.post('/update-avatar/:id', uploadProfileImage.single("files"), function (req
         myPromise.then(
             function () {
                 connection.execute(
-                    "UPDATE bby_26_profiles SET profileImg = ? WHERE username = ?",
-                    [`profile-${req.params.id}`, req.params.id],
+                    "UPDATE BBY_26_profiles SET profileImg = ? WHERE username = ?",
+                    [req.file.filename, req.params.id],
                     function (error, results) {
                         if (error) {
                             console.log(error);
