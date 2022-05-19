@@ -186,6 +186,7 @@ document.querySelector("#finish-btn").addEventListener('click', async function()
         valid = false;
         errorMsg = "Must agree to Terms & Conditions."
     }
+    
 
     // If all inputs are not valid send error msg to user
     // Else send request to server to make new group
@@ -193,7 +194,7 @@ document.querySelector("#finish-btn").addEventListener('click', async function()
         document.getElementById("error-messages").innerHTML = errorMsg;
     } else {
         document.getElementById("error-messages").innerHTML = "";
-
+        window.location.href = "/grouphome";
         // Combine all data into a JSON object
         let groupData = {
             country: country,
