@@ -69,7 +69,6 @@ function modifyEvent() {
     xhttp.open("PUT", "/update-event", true);
     xhttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    console.log(params);
     xhttp.send(params);
 }
 
@@ -202,7 +201,6 @@ function loadEvent(eventID) {
                 card.getElementById("delete-button").addEventListener("click", deleteEvent);
                 card.getElementById("modify-button").style = "display: inline";
                 card.getElementById("modify-button").addEventListener("click", function () {
-                    console.log("show popup");
                     document.getElementById("confirm-button").eventID = eventID;
 
                     document.getElementById("background").style = "z-index: 2; opacity: 1;"
@@ -237,14 +235,12 @@ getDogs();
 //----------------------------------------------------------------------
 async function getProfileInfo(path) {
     const requestId = path.substring(path.lastIndexOf('/'));
-    console.log(requestId);
     try {
         let response = await fetch(`/profile-info${requestId}`, {
             method: 'GET'
         });
         if (response.status === 200) {
             let data = await response.json();
-            console.log(data);
             displayProfileInfo(data);
         } else {
             console.log(response.status);
