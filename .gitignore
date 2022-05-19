@@ -7,3 +7,4 @@ package.json
 tree.txt
 public/img/profile-imgs/profile-*
 public/img/event-imgs/event-*
+public/img/group-imgs/group-*

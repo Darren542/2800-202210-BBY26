@@ -142,6 +142,26 @@ document.querySelector("#finish-btn").addEventListener('click', async function()
     let tagString = document.querySelector("#tag-input").value;
     let tags = tagString.split("#");
 
+    // Need to add code for the images here
+    let formData;
+    const imageUpload = document.querySelector('#image-upload');
+    const maxEventImageSize = 150000;
+    if (imageUpload.files[0]) {
+        if (imageUpload.files[0].size < maxEventImageSize) {
+            formData = new FormData();
+            
+    
+            // put the images from the input into the form data
+            formData.append("files", imageUpload.files[0]);
+    
+        } else {
+            valid = false;
+            errorMsg = "Image too large."
+        }
+    } else {
+        // they don't need to submit image
+    }
+
     // checking and receiving inputs from page 3
     let description = document.querySelector("#description-input").value;
     if (description.length < 1) {
@@ -208,6 +228,10 @@ document.querySelector("#finish-btn").addEventListener('click', async function()
                     await deleteSavedGroup(saveNum);
                 } else {
                     
+                }
+
+                if (formData) {
+                    saveImage(formData, parsedJSON.newID);
                 }
             } else {
                 document.getElementById("error-messages").innerHTML = "Failed to create new Group";
@@ -348,4 +372,17 @@ async function deleteSavedGroup(groupID) {
     } catch(error) {
         console.log(error);
     }
+}
+
+function saveImage(imageFile, eventID) {
+      
+    const options = {
+        method: 'POST',
+        body: imageFile,
+    };
+    fetch(`/upload-group-image/${eventID}`, options
+    ).then(function (res) {
+        // what do to on return from image upload
+    }).catch(function (err) { ("Error:", err) }
+    );
 }

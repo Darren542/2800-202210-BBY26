@@ -115,7 +115,8 @@ CREATE TABLE IF NOT EXISTS BBY_26_groups(
 	province varchar(50),
 	city varchar(50),
 	group_description varchar(500),
-	group_type varchar(10), 
+	group_type varchar(10),
+	group_photo varchar(50) DEFAULT "groups.png",
 	creationTime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	FOREIGN KEY (ownerID) REFERENCES BBY_26_users (userID)
 		ON UPDATE CASCADE
