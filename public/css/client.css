@@ -151,6 +151,10 @@ body {
     display:grid;
 }
 
+.no-show {
+    display:none;
+}
+
 /* Profile Image */
 
 #nav-profile-image-div {
