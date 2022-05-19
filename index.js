@@ -1972,6 +1972,16 @@ app.get("/grouphome", async (req, res) => {
     
 })
 
+app.get("/group/:id", async (req, res) => {
+    if (req.session.loggedIn) {
+        let doc = fs.readFileSync("./app/html/group.html", "utf-8");
+        res.header('Content-Type', 'text/html');
+        res.send(doc);
+    } else {
+        res.redirect("/");
+    }    
+});
+
 app.get("/community-guidelines", function (req, res) {
     let doc = fs.readFileSync("./app/html/community-guidelines.html", "utf8");
     res.send(doc)
