@@ -38,6 +38,7 @@ function returnBall(x, y) {
     let chaser = document.querySelector("#chaser");
     let ball = document.querySelector("#ball");
     ball.removeEventListener("touchstart", touchingFunction);
+    ball.removeEventListener("mousedown", mousingFunction);
     chaser.style.transition = "all 2s";
     chaser.style.transform = `translateX(${x - 104}px) translateY(${y - 43}px)`;
     setTimeout(() => {
