@@ -31,13 +31,14 @@ CREATE table IF NOT EXISTS BBY_26_profiles(
 		ON UPDATE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS BBY_26_address(
-    addressID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    street varchar(75),
-    city varchar(50),
-	province varchar(50),
-	country varchar(56)
-);
+-- This table might be droped
+-- CREATE TABLE IF NOT EXISTS BBY_26_address(
+--     addressID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+--     street varchar(75),
+--     city varchar(50),
+-- 	province varchar(50),
+-- 	country varchar(56)
+-- );
 
  CREATE TABLE IF NOT EXISTS BBY_26_events(
     eventID int NOT NULL AUTO_INCREMENT PRIMARY KEY,

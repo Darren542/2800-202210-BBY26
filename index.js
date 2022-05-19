@@ -112,28 +112,62 @@ app.get("/event", function (req, res) {
     res.send(doc);
 })
 
-app.get('/event', function(req, res) {
-    if (req.session.loggedIn && req.session.isAdmin) {
-        const mysql = require("mysql2");
-        const connection = mysql.createConnection({
-            host: "localhost",
-            user: "root",
-            password: "",
-            database: "COMP2800"
-        });
-        connection.connect();
-        connection.execute(
-            "SELECT * FROM BBY_26_events",
-            function (error, results) {
-                console.log("results:", results);
-                if (error) {
-                    console.log(error);
-                }
-                res.send(results);
+// requesting data from the sever
+app.get("/event-info/:id", function (req, res) {
+
+    function testConnection() {
+        let connection;
+        let myPromise = new Promise((resolve, reject) => {
+
+            connection = mysql.createConnection({
+                host: "localhost",
+                user: "root",
+                password: "",
+                database: "COMP2800"
             });
-        connection.end();
+
+            connection.connect(err => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(true);
+                }
+            });
+
+        });
+        let ownerIDVal;
+        myPromise.then(
+            function (value) {
+                connection.execute(
+                    "SELECT BBY_26_events.event_name, BBY_26_events.event_description, BYY_26_addresses.street, BYY_26_addresses.city, BYY_26_users.username FROM BBY_26_events INNER JOIN BYY_26_events.ownerID=BBY_26_users.userID",
+                    // "SELECT * FROM BBY_26_addresses WHERE eventID = 1",
+                    // "SELECT * FROM BBY_26_users WHERE userID = 3",
+                    // [req.params.id],
+                    function (error, results) {
+                        if (error) {
+                            console.log(error);
+                        }
+                        else {
+                            if (results[0] != null) {
+                                console.log(results[0]);
+                                res.send(results[0]);
+                            }
+                            else {
+                                res.send({ status: "fail", msg: "Event info not found." });
+                            }
+                        }
+                    });
+                connection.end();
+            },
+            function (error) {
+                console.log(error);
+            }
+        );
+
     }
+    testConnection();
 });
+
 
 app.post('/create-event', function (req, res) {
     let formData = {
@@ -149,7 +183,7 @@ app.post('/create-event', function (req, res) {
         // this probleley needs to changed
         eventTags: req.body.eventTags
     }
-    console.log(formData);
+    // console.log(formData);
 
     if (req.session.loggedIn) {
         const mysql = require('mysql2');
@@ -806,7 +840,7 @@ app.get("/create-group", (req, res) => {
         } else {
             let doc = fs.readFileSync("./app/html/create-group.html", "utf-8");
             res.send(doc);
-        }       
+        }
     } else {
         res.redirect("/");
     }
@@ -847,7 +881,7 @@ app.post("/create-group", function (req, res) {
                             console.log("error from db", error);
                             connection.end();
                         } else {
-                            let newGroupID = results.insertId;                            
+                            let newGroupID = results.insertId;
                             if (req.body.tags.length > 1) {
                                 for (let tags = 1; tags < req.body.tags.length; tags++) {
                                     connection.query('INSERT INTO BBY_26_group_tags (groupID, tag_name) values (?, ?)',
@@ -867,7 +901,7 @@ app.post("/create-group", function (req, res) {
                                 res.send({ status: "success", msg: "Group Created." });
                                 connection.end();
                             }
-                            
+
                         }
                     });
             },
@@ -936,7 +970,7 @@ app.post("/save-group", function (req, res) {
                                 res.send({ status: "success", msg: "Group Saved." });
                                 connection.end();
                             }
-                            
+
                         }
                     });
             },
@@ -955,50 +989,50 @@ app.post("/save-group", function (req, res) {
 // To get the data on all partially complete groups users have saved
 // Used by create page
 app.get("/saved-groups", function (req, res) {
-        let connection;
-        let myPromise = new Promise((resolve, reject) => {
+    let connection;
+    let myPromise = new Promise((resolve, reject) => {
 
-            connection = mysql.createConnection({
-                host: "localhost",
-                user: "root",
-                password: "",
-                database: "COMP2800"
-            });
-
-            connection.connect(err => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(true);
-                }
-            });
-
+        connection = mysql.createConnection({
+            host: "localhost",
+            user: "root",
+            password: "",
+            database: "COMP2800"
         });
 
-        myPromise.then(
-            function (value) {
-                connection.execute(
-                    "SELECT * FROM BBY_26_saved_group WHERE ownerID = ?",
-                    [req.session.userID],
-                    function (error, results) {
-                        if (error) {
-                            console.log(error);
+        connection.connect(err => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(true);
+            }
+        });
+
+    });
+
+    myPromise.then(
+        function (value) {
+            connection.execute(
+                "SELECT * FROM BBY_26_saved_group WHERE ownerID = ?",
+                [req.session.userID],
+                function (error, results) {
+                    if (error) {
+                        console.log(error);
+                    }
+                    else {
+                        if (results[0] != null) {
+                            res.send(results);
                         }
                         else {
-                            if (results[0] != null) {
-                                res.send(results);
-                            }
-                            else {
-                                res.send({ status: "fail", msg: "No saved groups found." });
-                            }
+                            res.send({ status: "fail", msg: "No saved groups found." });
                         }
-                    });
-                connection.end();
-            },
-            function (error) {
-                console.log(error);
-            }
-        );
+                    }
+                });
+            connection.end();
+        },
+        function (error) {
+            console.log(error);
+        }
+    );
 });
 
 // To get the data on a single partially complete group the user has saved
@@ -1053,45 +1087,45 @@ app.get("/saved-groups/:id", function (req, res) {
 // Used to delete a partially completed group from its table
 // Used by the create page
 app.post("/delete-saved-group/:id", function (req, res) {
-        let connection;
-        let myPromise = new Promise((resolve, reject) => {
+    let connection;
+    let myPromise = new Promise((resolve, reject) => {
 
-            connection = mysql.createConnection({
-                host: "localhost",
-                user: "root",
-                password: "",
-                database: "COMP2800"
-            });
-
-            connection.connect(err => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(true);
-                }
-            });
-
+        connection = mysql.createConnection({
+            host: "localhost",
+            user: "root",
+            password: "",
+            database: "COMP2800"
         });
 
-        myPromise.then(
-            function (value) {
-                connection.execute(
-                    "DELETE FROM BBY_26_saved_group WHERE savedID = ? AND ownerID = ?",
-                    [req.params.id, req.session.userID],
-                    function (error, results) {
-                        if (error) {
-                            console.log(error);                           
-                        } else {
-                            res.send({ status: "success", msg: "Group save deleted." });
-                        }
-                        connection.end();
-                    });
-                
-            },
-            function (error) {
-                console.log(error);
+        connection.connect(err => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(true);
             }
-        );
+        });
+
+    });
+
+    myPromise.then(
+        function (value) {
+            connection.execute(
+                "DELETE FROM BBY_26_saved_group WHERE savedID = ? AND ownerID = ?",
+                [req.params.id, req.session.userID],
+                function (error, results) {
+                    if (error) {
+                        console.log(error);
+                    } else {
+                        res.send({ status: "success", msg: "Group save deleted." });
+                    }
+                    connection.end();
+                });
+
+        },
+        function (error) {
+            console.log(error);
+        }
+    );
 });
 
 app.post("/add-user", function (req, res) {
@@ -1584,8 +1618,10 @@ app.get("/get-tables", async (req, res) => {
         connection.connect();
         const [rows, fields] =
             await connection.execute(`SELECT * FROM  ${grouparray[i]}`);
-        let arr = {"name":rows[0].name, "tags":rows[0].tags, "country":rows[0].country, "province":rows[0].province, "city":rows[0].city,
-                   "description":rows[0].descrip, "plan":rows[0].isFree};
+        let arr = {
+            "name": rows[0].name, "tags": rows[0].tags, "country": rows[0].country, "province": rows[0].province, "city": rows[0].city,
+            "description": rows[0].descrip, "plan": rows[0].isFree
+        };
         sendgroup.push(arr);
     }
     res.setHeader("Content-Type", "application/json");
@@ -1600,8 +1636,8 @@ app.get("/grouphome", async (req, res) => {
     } else {
         res.redirect("/");
     }
-    
-    
+
+
 })
 
 app.get("/community-guidelines", function (req, res) {
