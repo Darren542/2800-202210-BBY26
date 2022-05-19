@@ -205,8 +205,26 @@ document.querySelector("#finish-btn").addEventListener('click', async function()
     }
     let tagString = document.querySelector("#tag-input").value;
     let tags = tagString.split("#");
-
+    let formData;
     // Need to add code for the images here
+    const imageUpload = document.querySelector('#image-upload');
+    const maxEventImageSize = 150000;
+    if (imageUpload.files[0]) {
+        if (imageUpload.files[0].size < maxEventImageSize) {
+            formData = new FormData();
+            
+    
+            // put the images from the input into the form data
+            formData.append("files", imageUpload.files[0]);
+    
+        } else {
+            valid = false;
+            errorMsg = "Image too large."
+        }
+    } else {
+        // they don't need to submit image
+    }
+    
 
     // checking and receiving inputs from page 3
     let description = document.querySelector("#description-input").value;
@@ -245,6 +263,23 @@ document.querySelector("#finish-btn").addEventListener('click', async function()
         document.getElementById("error-messages").innerHTML = "";
 
         // Combine all data into a JSON object
+        // formData.append("country", country);
+        // formData.append("province", province);
+        // formData.append("city", city);
+        // formData.append("street", street);
+        // formData.append("startTimestamp", startTimestamp);
+        // formData.append("endTimestamp", endTimestamp);
+        // formData.append("startTime", startTime);
+        // formData.append("endTime", endTime);
+        // formData.append("eventDuration", eventDuration);
+        // formData.append("name", name);
+        // formData.append("tags", tags);
+        // formData.append("description", description);
+        // formData.append("eventType", eventType);
+        // formData.append("guidelines", guidelines);
+        // formData.append("terms", terms);
+        // formData.append("saveNum", saveNum);
+        // console.log(formData.getAll("name"));
         let eventData = {
             country: country,
             province: province,
@@ -278,7 +313,12 @@ document.querySelector("#finish-btn").addEventListener('click', async function()
             
             //On group creation should send you to your new groups homepage
             if (parsedJSON.status == "success") {
+                console.log(parsedJSON);
                 document.getElementById("error-messages").innerHTML = "Created new Group";
+                // save the image if it exists
+                if (formData) {
+                    saveImage(formData, parsedJSON.newID)
+                }
                 // delete the saved partial event if it exists
                 if (saveNum) {
                     await deleteSavedEvent(saveNum);
@@ -446,4 +486,17 @@ async function deleteSavedEvent(eventID) {
     } catch(error) {
         console.log(error);
     }
+}
+
+function saveImage(imageFile, eventID) {
+      
+            const options = {
+                method: 'POST',
+                body: imageFile,
+            };
+            fetch(`/upload-event-image/${eventID}`, options
+            ).then(function (res) {
+                console.log(res);
+            }).catch(function (err) { ("Error:", err) }
+            );
 }

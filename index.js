@@ -34,7 +34,19 @@ const profileImageStorage = multer.diskStorage({
         callback(null, "./public/img/profile-imgs")
     },
     filename: function (req, file, callback) {
-        callback(null, `profile-${req.params.id}`);
+        let ext = file.originalname.substring(file.originalname.lastIndexOf('.'), file.originalname.length);
+        callback(null, `profile-${req.params.id}${ext}`);
+    }
+});
+
+// For storing event images on event creation
+const eventImageStorage = multer.diskStorage({
+    destination: function (req, file, callback) {
+        callback(null, "./public/img/event-imgs")
+    },
+    filename: function (req, file, callback) {
+        let ext = file.originalname.substring(file.originalname.lastIndexOf('.'), file.originalname.length);
+        callback(null, `event-${req.params.id}${ext}`);
     }
 });
 
@@ -46,6 +58,11 @@ const multerFilter = (req, file, cb) => {
         cb(new Error("You don't have permission!"), false);
     }
 };
+
+// For storing event images on event creation
+const uploadEventImage = multer({
+    storage: eventImageStorage
+});
 
 const uploadProfileImage = multer({
     storage: profileImageStorage,
@@ -786,7 +803,7 @@ app.post('/create-event', function (req, res) {
             });
 
         });
-
+        console.log(req.body);
         myPromise.then(
             function () {
                 connection.query('INSERT INTO BBY_26_events (ownerID, event_name, event_date_time, event_end_time, event_duration, event_type, event_description) values (?, ?, ?, ?, ?, ?, ?)',
@@ -815,13 +832,13 @@ app.post('/create-event', function (req, res) {
                                                         connection.end();
                                                     }
                                                     if (tags == (req.body.tags.length - 1)) {
-                                                        res.send({ status: "success", msg: "Event Created." });
+                                                        res.send({ status: "success", msg: "Event Created.", newID: newEventID });
                                                         connection.end();
                                                     }
                                                 });
                                         }
                                     } else {
-                                        res.send({ status: "success", msg: "Group Created." });
+                                        res.send({ status: "success", msg: "Event Created.", newID: newEventID });
                                         connection.end();
                                     }
                                 });                              
@@ -904,6 +921,56 @@ app.post("/save-event", function (req, res) {
 
     } else {
         res.redirect("/");
+    }
+});
+
+// For uploading images for newly created events
+app.post('/upload-event-image/:id', uploadEventImage.single("files"), function (req, res) {
+
+    if (req.session.loggedIn) {
+
+        let connection;
+        let myPromise = new Promise((resolve, reject) => {
+
+            connection = mysql.createConnection({
+                host: "localhost",
+                user: "root",
+                password: "",
+                database: "COMP2800"
+            });
+
+            connection.connect(err => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(true);
+                }
+            });
+
+        });
+
+        myPromise.then(
+            function () {
+                connection.execute(
+                    "UPDATE BBY_26_events SET event_photo = ? WHERE eventID = ?",
+                    [`event-${req.params.id}`, req.params.id],
+                    function (error, results) {
+                        if (error) {
+                            console.log(error);
+                        }
+                        else {
+                            res.send({ status: "success", msg: "Updated Event Image." });
+                        }
+
+                    });
+                connection.end();
+            },
+            function (error) {
+                console.log(error);
+            }
+        );
+    } else {
+        res.send({ status: "failure", msg: "You did not have permission to do that." });
     }
 });
 
