@@ -139,9 +139,13 @@ app.get("/event-info/:id", function (req, res) {
         myPromise.then(
             function (value) {
                 connection.execute(
-                    "SELECT BBY_26_events.event_name, BBY_26_events.event_description, BYY_26_addresses.street, BYY_26_addresses.city, BYY_26_users.username FROM BBY_26_events INNER JOIN BYY_26_events.ownerID=BBY_26_users.userID",
-                    // "SELECT * FROM BBY_26_addresses WHERE eventID = 1",
-                    // "SELECT * FROM BBY_26_users WHERE userID = 3",
+                    "SELECT BBY_26_events.event_name, BBY_26_events.event_description, " +
+                    "BBY_26_addresses.street, BBY_26_addresses.city, " +
+                    "BBY_26_users.username " +
+                    "FROM BBY_26_addresses INNER JOIN BBY_26_events " +
+                    "ON BBY_26_addresses.eventID = BBY_26_events.eventID " +
+                    "INNER JOIN BBY_26_users " + 
+                    "ON BBY_26_events.ownerID = BBY_26_users.userID",
                     // [req.params.id],
                     function (error, results) {
                         if (error) {
