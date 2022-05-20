@@ -191,6 +191,26 @@ VALUES ("Team BBY26", 3, 120, "Weekly meetup for K9Meet members at Confederation
 INSERT INTO BBY_26_events (event_name, ownerID, event_duration, event_description, event_type) 
 VALUES ("K9Meet", 3,  240, "It's time for K9Meet's monthly meetup at Taylor Park! Bring your dogs and enjoy free food, fun activities, and one on ones with our specialty trainers. Session is offically 4 hours but feel free to stay after and make some new friends!", true);
 
+/*
+CREATE TABLE IF NOT EXISTS BBY_26_events(
+    eventID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	ownerID int NOT NULL,
+    event_name varchar(20),
+    event_date_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    event_end_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	creationTime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    event_duration int NOT NULL,
+	event_type boolean DEFAULT FALSE,
+    event_photo varchar(50) DEFAULT "events.jpg",
+    event_description varchar(500),
+	FOREIGN KEY (ownerID) REFERENCES BBY_26_users (userID)
+		ON UPDATE CASCADE
+); 
+*/
+
+INSERT INTO BBY_26_events (event_name, ownerID, event_date_time, event_end_time, event_description, event_type) 
+VALUES ("Future Event", 1, "2033-05-19 16:19:19", "9999-12-31 23:59:59", "Event for any time travellers", true);
+
 
 CREATE TABLE IF NOT EXISTS BBY_26_RSVP(
 	eventID int NOT NULL,

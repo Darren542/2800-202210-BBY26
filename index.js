@@ -186,7 +186,6 @@ app.get("/event-info/:id", function (req, res) {
                         }
                         else {
                             if (results[0] != null) {
-                                console.log(results[0]);
                                 res.send(results[0]);
                             }
                             else {
@@ -740,6 +739,57 @@ app.get("/dogs", function (req, res) {
 app.get("/photos", function (req, res) {
     res.send("photos section is still under construction");
 });
+
+app.get("/get-events", function (req, res) {
+    let events = [];
+    let connection;
+    let index = 0;
+    let myPromise = new Promise((resolve, reject) => {
+
+        connection = mysql.createConnection({
+            host: "localhost",
+            user: "root",
+            password: "",
+            database: "COMP2800"
+        });
+
+        connection.connect(err => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(true);
+            }
+        });
+
+    });
+    myPromise.then(
+        function (value) {
+            connection.execute(
+                "SELECT * FROM BBY_26_events WHERE event_date_time > CURRENT_TIMESTAMP;",
+                function (error, results) {
+                    if (error) {
+                        console.log(error);
+                    }
+                    else {
+                        if (results[0] != null) {
+                            results.forEach(function () {
+                                events.push(results[index]);
+                                index++;
+                            });
+                            res.send(events);
+                        }
+                        else {
+                            res.send({ status: "fail", msg: "No events found." });
+                        }
+                    }
+                });
+            connection.end();
+        },
+        function (error) {
+            console.log(error);
+        }
+    );
+})
 app.post("/get-events", function (req, res) {
     let events = [];
     let connection;
@@ -792,6 +842,51 @@ app.post("/get-events", function (req, res) {
     );
 });
 
+app.get("/get-event-address", function (req, res) {
+    let connection;
+    let myPromise = new Promise((resolve, reject) => {
+
+        connection = mysql.createConnection({
+            host: "localhost",
+            user: "root",
+            password: "",
+            database: "COMP2800"
+        });
+
+        connection.connect(err => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(true);
+            }
+        });
+
+    });
+    myPromise.then(
+        function (value) {
+            connection.execute(
+                "SELECT * FROM BBY_26_addresses WHERE eventID = ?",
+                [req.body.eventID],
+                function (error, results) {
+                    if (error) {
+                        console.log(error);
+                    }
+                    else {
+                        if (results[0] != null) {
+                            res.send(results);
+                        }
+                        else {
+                            res.send({ status: "fail", msg: "User account not found." });
+                        }
+                    }
+                });
+            connection.end();
+        },
+        function (error) {
+            console.log(error);
+        }
+    );
+})
 app.post("/get-event-address", function (req, res) {
     let connection;
     let myPromise = new Promise((resolve, reject) => {
