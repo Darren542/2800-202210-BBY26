@@ -65,6 +65,10 @@
         font-size: 35px;
     }
 
+    #delete-button:hover {
+        cursor: pointer;
+    }
+
     #event-img {
         width: 100%;
         height: auto;
@@ -247,6 +251,8 @@
     }
 }
 
+
+
 @media only screen and (min-width: 751px) {
     #background {
         width: 100%;
@@ -342,6 +348,10 @@
         background: white;
         color: rgb(205, 129, 129);
         font-size: 35px;
+    }
+
+    #delete-button:hover {
+        cursor: pointer;
     }
 
     #event-img {
