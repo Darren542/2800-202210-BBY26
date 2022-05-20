@@ -32,6 +32,7 @@ Node packages that we Implemented.
 ```
 Content of the project folder:
 
+
 C:.
 |   .gitignore
 |   database.sql
@@ -40,25 +41,28 @@ C:.
 |   README.md
 |   readme.txt
 |   tree.txt
-|   tree2.txt
 |   
 +---app
 |   +---html
 |   |       account-settings.html
 |   |       admin.html
+|   |       community-guidelines.html
 |   |       create-events.html
+|   |       create-group.html
 |   |       create.html
 |   |       event.html
+|   |       group-home.html
+|   |       group.html
 |   |       home.html
 |   |       login.html
+|   |       lookup.html
 |   |       search.html
 |   |       signup.html
 |   |       splash.html
+|   |       terms-and-conditions.html
 |   |       user-profile-editor.html
 |   |       user-profile.html
 |   |       
-|   +---img
-|   |   \---profile-imgs
 |   \---templates
 |           footer.html
 |           nav-logged-out.html
@@ -70,40 +74,67 @@ C:.
     |       admin.css
     |       client.css
     |       create-events.css
+    |       create-group.css
+    |       create.css
+    |       event.css
+    |       group-home.css
+    |       group.css
     |       home.css
     |       login.css
+    |       lookup.css
     |       signup.css
     |       splash.css
     |       user-profile-editor.css
     |       user-profile.css
     |       
     +---img
-    |   |   desktop-splash.jpg          // From Pixels.com user Julissa Helmuth
-    |   |   dog-signup.jpg              // From Pinterest.com
-    |   |   dog.png                     // From Pinpng.com
-    |   |   favicon.ico                 // Made with favicon.io
-    |   |   K_9_Meet-logos.jpeg         // Made using Adobe logomaker
-    |   |   logo-transparent.png        // Made using Adobe logomaker
-    |   |   profile.jpg                 // Made by Darren in paint
-    |   |   signup-page-desktop.jpg     // From Pinterest.com
-    |   |   splash-image.jpg            // Image taken by Darren
-    |   |   steveston-dog-park.jpg      // Image of steveston dog park from thedognetwork.ca
+    |   |   blue-dog-background.png         // the dog from logo editted by Darren
+    |   |   bone.svg                        // from https://www.onlinewebfonts.com/icon/556393 , darren editted colour
+    |   |   chaser.png                      // the dog from logo editted by darren
+    |   |   desktop-splash.jpg              // From Pixels.com user Julissa Helmuth
+    |   |   dog-signup.jpg                  // From Pinterest.com
+    |   |   dog.png                         // From Pinpng.com
+    |   |   favicon.ico                     // Made with favicon.io
+    |   |   K_9_Meet-logos.jpeg             // Made using Adobe logomaker
+    |   |   logo-transparent-nodog.png      // Made using Adobe logomaker
+    |   |   logo-transparent.png            // Made using Adobe logomaker
+    |   |   profile.jpg                     // Made by Darren in paint
+    |   |   signup-page-desktop.jpg         // From Pinterest.com
+    |   |   splash-image.jpg                // Photo taken by Darren
+    |   |   steveston-dog-park.jpg          // Image of steveston dog park from thedognetwork.ca
     |   |   
+    |   +---event-imgs
+    |   |       events.jpg
+    |   |       
+    |   +---group-imgs
+    |   |       groups.png
+    |   |       
+    |   +---icons
+    |   |       edit.png
+    |   |       
     |   \---profile-imgs
-    |           profile.jpg             // Made by Darren in paint
+    |           profile.jpg
     |           
     \---js
             account-settings.js
             admin.js
+            create-events copy.js
             create-events.js
+            create-group.js
+            create.js
+            event copy.js
+            event.js
+            group-home.js
+            group.js
             home.js
             login.js
+            lookup.js
             signup.js
             skeleton-logged-in.js
             skeleton.js
             splash.js
             user-profile-editor.js
             user-profile.js
-            
+             
 
 ```
