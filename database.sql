@@ -269,8 +269,8 @@ INSERT INTO BBY_26_event_address (street, city, eventID, ownerID)
 VALUES ("4598 Penzance Dr", "Burnaby", 3, 2);
 
 
-INSERT INTO BBY_26_addresses (street, city, eventID) 
-VALUES ("7599 Mission Ave", "Burnaby", 4);
+INSERT INTO BBY_26_event_address (street, city, eventID, ownerID) 
+VALUES ("7599 Mission Ave", "Burnaby", 4, 2);
 
 
 SELECT * FROM BBY_26_addresses;

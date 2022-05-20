@@ -73,18 +73,6 @@ document.getElementById("submit").addEventListener("click", function (e) {
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             xhr.send("username=" + formData.username + "&email=" + formData.email + "&password=" + formData.password);
         }
-<<<<<<< HEAD
-        document.getElementById("password").value = "";
-        document.getElementById("confirm-password").value = "";
-        xhr.open("POST", "/add-user");
-        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        console.log('xhr', xhr);
-        console.log('username', formData.username);
-        console.log('email', formData.email);
-        xhr.send("username=" + formData.username + "&email=" + formData.email + "&password=" + formData.password);
-=======
->>>>>>> dev
     }
 });
 
