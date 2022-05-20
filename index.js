@@ -106,6 +106,7 @@ async function hashPassword(password, callback) {
     });
 }
 
+//author: Darren
 async function isPasswordCorrect(savedHash, savedSalt, savedIterations, passwordAttempt, callback) {
     crypto.pbkdf2(passwordAttempt, savedSalt, savedIterations, 64, 'sha512', (err, derivedKey) => {
         if (err) {
@@ -115,6 +116,7 @@ async function isPasswordCorrect(savedHash, savedSalt, savedIterations, password
         }
     });
 }
+
 
 app.get("/", function (req, res) {
     if (req.session.loggedIn) {
@@ -132,6 +134,8 @@ app.get("/", function (req, res) {
 });
 
 //ONLY FOR ADMINS
+//
+//author: Brian
 app.get("/home", function (req, res) {
     if (req.session.loggedIn && req.session.isAdmin) {
         let doc = fs.readFileSync("./app/html/home.html", "utf8");
@@ -140,11 +144,14 @@ app.get("/home", function (req, res) {
 });
 
 
+//author: Darren & Aryan
 app.get("/event", function (req, res) {
     let doc = fs.readFileSync("./app/html/event.html", "utf8");
     res.send(doc);
 })
 
+
+//author: Darren & Aryan
 app.get("/event/:id", function (req, res) {
     if (req.session.loggedIn) {
         let doc = fs.readFileSync("./app/html/event.html", "utf8");
@@ -155,7 +162,8 @@ app.get("/event/:id", function (req, res) {
     
 })
 
-// requesting data from the sever
+// requesting data from the server
+//author: Darren
 app.get("/event-info/:id", function (req, res) {
 
     function testConnection() {
@@ -215,6 +223,8 @@ app.get("/event-info/:id", function (req, res) {
     testConnection();
 });
 
+
+//author: Brian
 app.post("/delete-user", function (req, res) {
     if (req.session.username == req.body.username) {
         res.send({ status: "fail", msg: "Cannot delete yourself." });
@@ -242,6 +252,8 @@ app.post("/delete-user", function (req, res) {
     }
 });
 
+
+//author: Brian
 app.delete("/unreserve-event", function (req, res) {
     let connection;
     let myPromise = new Promise((resolve, reject) => {
@@ -281,6 +293,7 @@ app.delete("/unreserve-event", function (req, res) {
 
 // For saving event RSVP's into the RSVP database
 // Used by the event page
+// Used by the home page (Brian)
 // Author Darren
 app.post("/event-rsvp/:id", function (req, res) {
     let connection;
@@ -377,6 +390,7 @@ app.get("/check-RSVP/:id", function (req, res) {
     );
 });
 
+//author: Brian
 app.delete("/delete-event", function (req, res) {
     let connection;
     let myPromise = new Promise((resolve, reject) => {
@@ -414,15 +428,18 @@ app.delete("/delete-event", function (req, res) {
         });
 });
 
+
 app.get("/lookup", function (req, res) {
     let doc = fs.readFileSync("./app/html/lookup.html", "utf8");
     res.send(doc);
 })
 
+//author: Brian
 app.get("/userID", function (req, res) {
     res.status(200).send((req.session.userID).toString());
 });
 
+//author: Brian
 app.get("/users", function (req, res) {
     if (req.session.loggedIn) {
         if (req.session.isAdmin) {
@@ -477,9 +494,7 @@ app.get("/login", function (req, res) {
 });
 
 
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
-
+//author: Brian
 app.post("/modify-privilege", function (req, res) {
     if (req.session.username == req.body.username) {
         res.send({ status: "fail", msg: "Cannot demote yourself." });
@@ -526,6 +541,8 @@ app.post("/modify-privilege", function (req, res) {
         connection2.end();
     }
 });
+
+//author: Brian
 app.post("/delete-user", function (req, res) {
     if (req.session.username == req.body.username) {
         res.send({ status: "fail", msg: "Cannot delete yourself." });
@@ -552,6 +569,8 @@ app.post("/delete-user", function (req, res) {
         connection.end();
     }
 });
+
+//author: Darren
 app.post("/login", function (req, res) {
 
     //-------------------------------------------------------------------------
@@ -681,6 +700,7 @@ app.get("/username/:id", function (req, res) {
     }
 });
 
+//author: Darren
 app.get("/email/:id", function (req, res) {
     if (req.session.loggedIn && (req.session.isAdmin || (req.session.username == req.params.id))) {
         let connection;
@@ -730,6 +750,7 @@ app.get("/email/:id", function (req, res) {
     }
 });
 
+//author: Darren
 app.get("/logout", function (req, res) {
     if (req.session) {
         req.session.destroy(function (error) {
@@ -849,6 +870,8 @@ app.get("/photos", function (req, res) {
     res.send("photos section is still under construction");
 });
 
+//LOADING unreserved, future events ONTO HOME PAGE
+//author: Brian
 app.get("/get-events", function (req, res) {
     let events = [];
     let connection;
@@ -874,7 +897,8 @@ app.get("/get-events", function (req, res) {
     myPromise.then(
         function (value) {
             connection.execute(
-                "SELECT * FROM BBY_26_events WHERE event_date_time > CURRENT_TIMESTAMP;",
+                "select * from bby_26_events WHERE eventID not in (select eventID from bby_26_rsvp WHERE userID = ?) AND event_date_time > CURRENT_TIMESTAMP;", 
+                [req.session.userID],
                 function (error, results) {
                     if (error) {
                         console.log(error);
@@ -899,6 +923,9 @@ app.get("/get-events", function (req, res) {
         }
     );
 })
+
+//LOADING reserved events ONTO PROFILE TIMELINE
+//author: Brian
 app.post("/get-events", function (req, res) {
     let events = [];
     let connection;
@@ -951,51 +978,7 @@ app.post("/get-events", function (req, res) {
     );
 });
 
-app.get("/get-event-address", function (req, res) {
-    let connection;
-    let myPromise = new Promise((resolve, reject) => {
-
-        connection = mysql.createConnection({
-            host: "localhost",
-            user: "root",
-            password: "",
-            database: "COMP2800"
-        });
-
-        connection.connect(err => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(true);
-            }
-        });
-
-    });
-    myPromise.then(
-        function (value) {
-            connection.execute(
-                "SELECT * FROM BBY_26_addresses WHERE eventID = ?",
-                [req.body.eventID],
-                function (error, results) {
-                    if (error) {
-                        console.log(error);
-                    }
-                    else {
-                        if (results[0] != null) {
-                            res.send(results);
-                        }
-                        else {
-                            res.send({ status: "fail", msg: "User account not found." });
-                        }
-                    }
-                });
-            connection.end();
-        },
-        function (error) {
-            console.log(error);
-        }
-    );
-})
+//author: Brian
 app.post("/get-event-address", function (req, res) {
     let connection;
     let myPromise = new Promise((resolve, reject) => {
@@ -1042,6 +1025,7 @@ app.post("/get-event-address", function (req, res) {
     );
 })
 
+//author: Brian
 app.post("/load-event", function (req, res) {
     let connection;
     let myPromise = new Promise((resolve, reject) => {
@@ -1504,6 +1488,7 @@ app.get("/create-group", (req, res) => {
 
 // Creates a new group in the database. Group info in groups table, Group's tags in group_tags table.
 // Used by the create-group page.
+//author: Darren
 app.post("/create-group", function (req, res) {
 
     if (req.session.loggedIn) {
@@ -1575,6 +1560,7 @@ app.post("/create-group", function (req, res) {
 
 // Saves a partially created group into a the saved_group table
 // Used by the create-group page.
+//author: Darren
 app.post("/save-group", function (req, res) {
     // Can only update the profile if you are admin or it is your account
     if (req.session.loggedIn) {
@@ -1695,6 +1681,7 @@ app.post('/upload-group-image/:id', uploadGroupImage.single("files"), function (
 
 // To get the data on all partially complete groups users have saved
 // Used by create page
+//author: Darren
 app.get("/saved-groups", function (req, res) {
     let connection;
     let myPromise = new Promise((resolve, reject) => {
@@ -1744,6 +1731,7 @@ app.get("/saved-groups", function (req, res) {
 
 // To get the data on a single partially complete group the user has saved
 // Used by create-group page
+//author: Darren
 app.get("/saved-groups/:id", function (req, res) {
     let connection;
     let myPromise = new Promise((resolve, reject) => {
@@ -1836,6 +1824,7 @@ app.post("/delete-saved-group/:id", function (req, res) {
     );
 });
 
+//author: Brian
 app.post("/add-user", function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     function tryConnection() {
@@ -1928,6 +1917,7 @@ app.get("/edit-profile/:id", function (req, res) {
     }
 });
 
+//author: Darren
 app.post("/update-profile/:id", function (req, res) {
     // Can only update the profile if you are admin or it is your account
     if (req.session.loggedIn && (req.session.isAdmin || (req.session.username == req.params.id))) {
@@ -1994,6 +1984,8 @@ app.get("/account-settings/:id", function (req, res) {
     }
 });
 
+
+//author: Darren
 app.post("/update-username/:id", function (req, res) {
     // Can only update the profile if you are admin or it is your account
 
@@ -2051,14 +2043,9 @@ app.post("/update-username/:id", function (req, res) {
     }
 });
 
+
+//author: Brian
 app.put("/update-event", function (req, res) {
-    // console.log("EventID: " + req.body.eventID);
-    // console.log("Event Name: " + req.body.eventName);
-    // console.log("Event City: " + req.body.eventLocationCity);
-    // console.log("Event Street: " + req.body.eventLocationStreet);
-    // console.log("Event Date:" + req.body.eventDateTime);
-    // console.log("Event Duration:" + req.body.eventDuration);
-    // console.log("Event Description:" + req.body.eventDescription);
     let connection;
     let myPromise = new Promise((resolve, reject) => {
 
@@ -2099,14 +2086,14 @@ app.put("/update-event", function (req, res) {
                                     req.session.isAdmin = results[0].isAdmin;
                                     req.session.save(function (err) {
                                     });
-                                    res.send({ status: "success", msg: "Logged in." });
+                                    res.send({ status: "success", msg: "Modified succesfully." });
 
                                 } else {
-                                    res.send({ status: "fail", msg: "User account not found." });
+                                    res.send({ status: "fail", msg: "Error communicating with DB." });
                                 }
                             });
                         } else {
-                            res.send({ status: "fail", msg: "User account not found." });
+                            res.send({ status: "fail", msg: "Event not found." });
                         }
                     }
                 });
@@ -2114,6 +2101,9 @@ app.put("/update-event", function (req, res) {
         });
 });
 
+
+
+//author: Darren
 app.post("/update-email/:id", function (req, res) {
     // Can only update the profile if you are admin or it is your account
 
@@ -2169,6 +2159,8 @@ app.post("/update-email/:id", function (req, res) {
     }
 });
 
+
+//author: Darren
 app.post("/update-password/:id", function (req, res) {
     // Can only update the profile if you are admin or it is your account
 
@@ -2223,6 +2215,8 @@ app.post("/update-password/:id", function (req, res) {
     }
 });
 
+
+//author: Darren
 app.post('/update-avatar/:id', uploadProfileImage.single("files"), function (req, res) {
 
     if (req.session.loggedIn && (req.session.isAdmin || (req.session.username == req.params.id))) {
@@ -2272,6 +2266,8 @@ app.post('/update-avatar/:id', uploadProfileImage.single("files"), function (req
     }
 });
 
+
+//author: Darren
 app.get("/profile-url/:id", function (req, res) {
 
     function testConnection() {
