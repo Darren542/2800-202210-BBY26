@@ -183,10 +183,10 @@ app.get("/event-info/:id", function (req, res) {
             function (value) {
                 connection.execute(
                     "SELECT BBY_26_events.event_name, BBY_26_events.eventID, BBY_26_events.event_photo, BBY_26_events.event_date_time, BBY_26_events.event_duration, BBY_26_events.event_description, " +
-                    "BBY_26_addresses.street, BBY_26_addresses.city, " +
+                    "BBY_26_event_address.street, BBY_26_event_address.city, " +
                     "BBY_26_users.username " +
-                    "FROM BBY_26_addresses INNER JOIN BBY_26_events " +
-                    "ON BBY_26_addresses.eventID = BBY_26_events.eventID " +
+                    "FROM BBY_26_event_address INNER JOIN BBY_26_events " +
+                    "ON BBY_26_event_address.eventID = BBY_26_events.eventID " +
                     "INNER JOIN BBY_26_users " + 
                     "ON BBY_26_events.ownerID = BBY_26_users.userID " +
                     "WHERE BBY_26_events.eventID = ?",
@@ -1170,6 +1170,7 @@ app.post('/create-event', function (req, res) {
 
         myPromise.then(
             function () {
+                console.log(req.body);
                 connection.query('INSERT INTO BBY_26_events (ownerID, event_name, event_date_time, event_end_time, event_duration, event_type, event_description) values (?, ?, ?, ?, ?, ?, ?)',
                     [req.session.userID, req.body.name, req.body.startTime, req.body.endTime, req.body.eventDuration, req.body.eventType, req.body.description],
                     function (error, results, fields) {
@@ -1224,6 +1225,7 @@ app.post('/create-event', function (req, res) {
 // Author Darren
 app.post("/save-event", function (req, res) {
     // Can only update the profile if you are admin or it is your account
+    console.log(req.body);
     if (req.session.loggedIn) {
         let connection;
         let myPromise = new Promise((resolve, reject) => {
@@ -1245,11 +1247,21 @@ app.post("/save-event", function (req, res) {
             });
 
         });
-
+        
         myPromise.then(
             function () {
+                let startTime = req.body.startTime
+                if (startTime == "") {
+                    
+                    startTime = '2022-05-19T09:48';
+                }
+                let endTime = req.body.endTime
+                if (endTime == "") {
+                    endTime = '2022-05-19T09:48';
+                }
+                console.log("this start time2", startTime);
                 connection.query('INSERT INTO BBY_26_saved_event (ownerID, event_name, country, province, city, street, event_description, event_type, tagString, guidelines, terms, event_date_time, event_end_time) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-                    [req.session.userID, req.body.name, req.body.country, req.body.province, req.body.city, req.body.street, req.body.description, req.body.eventType, req.body.tags, req.body.guidelines, req.body.terms, req.body.startTime, req.body.endTime],
+                    [req.session.userID, req.body.name, req.body.country, req.body.province, req.body.city, req.body.street, req.body.description, req.body.eventType, req.body.tags, req.body.guidelines, req.body.terms, startTime, endTime],
                     function (error, results, fields) {
                         if (error) {
                             console.log("error from db", error);

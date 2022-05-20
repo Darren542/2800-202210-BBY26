@@ -259,14 +259,14 @@ VALUES (4, 5);
 INSERT INTO BBY_26_RSVP (eventID, userID) 
 VALUES (4, 6);
 
-INSERT INTO BBY_26_addresses (street, city, eventID) 
-VALUES ("123 Street", "Burnaby", 1);
+INSERT INTO BBY_26_event_address (street, city, eventID, ownerID) 
+VALUES ("123 Street", "Burnaby", 1, 2);
 
-INSERT INTO BBY_26_addresses (street, city, eventID) 
-VALUES ("234 Street", "Burnaby", 2);
+INSERT INTO BBY_26_event_address (street, city, eventID, ownerID) 
+VALUES ("234 Street", "Burnaby", 2, 2);
 
-INSERT INTO BBY_26_addresses (street, city, eventID) 
-VALUES ("4598 Penzance Dr", "Burnaby", 3);
+INSERT INTO BBY_26_event_address (street, city, eventID, ownerID) 
+VALUES ("4598 Penzance Dr", "Burnaby", 3, 2);
 
 
 INSERT INTO BBY_26_addresses (street, city, eventID) 

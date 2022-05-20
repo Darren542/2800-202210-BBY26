@@ -232,7 +232,9 @@ document.querySelector("#finish-btn").addEventListener('click', async function()
                 }
 
                 if (formData) {
-                    saveImage(formData, parsedJSON.newID);
+                    await saveImage(formData, parsedJSON.newID);
+                    window.location.href = `/group/${parsedJSON.newID}`;
+                } else {
                     window.location.href = `/group/${parsedJSON.newID}`;
                 }
             } else {
