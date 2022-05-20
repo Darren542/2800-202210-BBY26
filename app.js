@@ -163,10 +163,10 @@ app.get("/event-info/:id", function (req, res) {
         let myPromise = new Promise((resolve, reject) => {
 
             connection = mysql.createConnection({
-                host: "localhost",
-                user: "root",
-                password: "",
-                database: "COMP2800"
+                host: "k9meet.c4oyeywl3pjr.us-west-2.rds.amazonaws.com",
+                user: "admin",
+                password: "NotShowingThis",
+                database: "K9Meet"
             });
 
             connection.connect(err => {
@@ -428,10 +428,10 @@ app.get("/users", function (req, res) {
         if (req.session.isAdmin) {
             const mysql = require("mysql2");
             const connection = mysql.createConnection({
-                host: "localhost",
-                user: "root",
-                password: "",
-                database: "COMP2800"
+                host: "k9meet.c4oyeywl3pjr.us-west-2.rds.amazonaws.com",
+                user: "admin",
+                password: "NotShowingThis",
+                database: "K9Meet"
             });
             connection.connect();
             connection.execute(
@@ -657,7 +657,7 @@ app.get("/username/:id", function (req, res) {
         myPromise.then(
             function () {
                 connection.execute(
-                    "SELECT username FROM bby_26_users WHERE userID = ?",
+                    "SELECT username FROM BBY_26_users WHERE userID = ?",
                     [req.params.id],
                     function (error, results) {
                         if (error) {
@@ -1151,10 +1151,10 @@ app.post('/create-event', function (req, res) {
         let myPromise = new Promise((resolve, reject) => {
 
             connection = mysql.createConnection({
-                host: "localhost",
-                user: "root",
-                password: "",
-                database: "COMP2800",
+                host: "k9meet.c4oyeywl3pjr.us-west-2.rds.amazonaws.com",
+                user: "admin",
+                password: "NotShowingThis",
+                database: "K9Meet",
                 multipleStatements: true
             });
 
@@ -1229,10 +1229,10 @@ app.post("/save-event", function (req, res) {
         let myPromise = new Promise((resolve, reject) => {
 
             connection = mysql.createConnection({
-                host: "localhost",
-                user: "root",
-                password: "",
-                database: "COMP2800",
+                host: "k9meet.c4oyeywl3pjr.us-west-2.rds.amazonaws.com",
+                user: "admin",
+                password: "NotShowingThis",
+                database: "K9Meet",
                 multipleStatements: true
             });
 
@@ -1299,10 +1299,10 @@ app.post('/upload-event-image/:id', uploadEventImage.single("files"), function (
         let myPromise = new Promise((resolve, reject) => {
 
             connection = mysql.createConnection({
-                host: "localhost",
-                user: "root",
-                password: "",
-                database: "COMP2800"
+                host: "k9meet.c4oyeywl3pjr.us-west-2.rds.amazonaws.com",
+                user: "admin",
+                password: "NotShowingThis",
+                database: "K9Meet"
             });
 
             connection.connect(err => {
@@ -1511,10 +1511,10 @@ app.post("/create-group", function (req, res) {
         let myPromise = new Promise((resolve, reject) => {
 
             connection = mysql.createConnection({
-                host: "localhost",
-                user: "root",
-                password: "",
-                database: "COMP2800",
+                host: "k9meet.c4oyeywl3pjr.us-west-2.rds.amazonaws.com",
+                user: "admin",
+                password: "NotShowingThis",
+                database: "K9Meet",
                 multipleStatements: true
             });
 
@@ -1582,10 +1582,10 @@ app.post("/save-group", function (req, res) {
         let myPromise = new Promise((resolve, reject) => {
 
             connection = mysql.createConnection({
-                host: "localhost",
-                user: "root",
-                password: "",
-                database: "COMP2800",
+                host: "k9meet.c4oyeywl3pjr.us-west-2.rds.amazonaws.com",
+                user: "admin",
+                password: "NotShowingThis",
+                database: "K9Meet",
                 multipleStatements: true
             });
 
@@ -1652,10 +1652,10 @@ app.post('/upload-group-image/:id', uploadGroupImage.single("files"), function (
         let myPromise = new Promise((resolve, reject) => {
 
             connection = mysql.createConnection({
-                host: "localhost",
-                user: "root",
-                password: "",
-                database: "COMP2800"
+                host: "k9meet.c4oyeywl3pjr.us-west-2.rds.amazonaws.com",
+                user: "admin",
+                password: "NotShowingThis",
+                database: "K9Meet"
             });
 
             connection.connect(err => {
@@ -2333,14 +2333,14 @@ app.get("/get-tables", async (req, res) => {
     let grouplist = [];
     const mysql = require("mysql2/promise");
     const connection = await mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "",
-        database: "COMP2800",
+        host: "k9meet.c4oyeywl3pjr.us-west-2.rds.amazonaws.com",
+        user: "admin",
+        password: "NotShowingThis",
+        database: "K9Meet",
         multipleStatements: true
     });
     connection.connect();
-    const [rows, fields] = await connection.execute("SELECT * FROM bby_26_groups");
+    const [rows, fields] = await connection.execute("SELECT * FROM BBY_26_groups");
     for(let i = 0; i < rows.length; i++){
         const newcon = await mysql.createConnection({
             host: "k9meet.c4oyeywl3pjr.us-west-2.rds.amazonaws.com",
@@ -2350,7 +2350,7 @@ app.get("/get-tables", async (req, res) => {
             multipleStatements: true
         });
         newcon.connect();
-        const [r, f] = await connection.execute(`SELECT * FROM bby_26_users WHERE userID = ${rows[i].ownerID} `);
+        const [r, f] = await connection.execute(`SELECT * FROM BBY_26_users WHERE userID = ${rows[i].ownerID} `);
         let arr = {
             name:rows[i].group_name,
             country:rows[i].country,
@@ -2400,10 +2400,10 @@ app.get("/group-info/:id", function (req, res) {
         let myPromise = new Promise((resolve, reject) => {
 
             connection = mysql.createConnection({
-                host: "localhost",
-                user: "root",
-                password: "",
-                database: "COMP2800"
+                host: "k9meet.c4oyeywl3pjr.us-west-2.rds.amazonaws.com",
+                user: "admin",
+                password: "NotShowingThis",
+                database: "K9Meet"
             });
 
             connection.connect(err => {
