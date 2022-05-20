@@ -1,0 +1,214 @@
+#content {
+    background-color: aliceblue;
+    display: grid;
+    grid-template-rows: auto 40px 90px 50px 1fr;
+    grid-template-columns: 250px 1fr;
+}
+
+
+/* Main Image CSS */
+#group-image-div {
+    width: 100%;
+    grid-row: 1 / span 1;
+    grid-column: 1 / span 2;
+    max-width: 500px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#group-image {
+    object-fit: fill;
+    width: calc(100% - 14px);
+    height: calc(100% - 10px);
+    margin: 5px;
+    border: 1px solid black;
+    border-radius: 8px;
+}
+
+/* CSS for group info */
+#group-name-div {
+    grid-row: 2 / span 1;
+    grid-column: 1 / span 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+#group-name {
+    font-size: 1.5rem;
+    font-weight: 900;
+}
+
+#group-info {
+    grid-row: 3 / span 1;
+    grid-column: 1 / span 1;
+    padding-left: 8px;
+    font-size: .9rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#location {
+    padding-left: 5px;
+}
+
+#join-button-div {
+    grid-row: 3 / span 1;
+    grid-column: 2 / span 1;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+}
+
+#join-button {
+    font-size: 1em;
+    color: black;
+    width: 110px;
+    height: 32px;
+    background-color: rgb(130, 177, 221);
+    border-radius: 8px;
+    padding: 4px;
+    margin-top: 10px;
+}
+
+#join-button:hover {
+    cursor: pointer;
+    background-color: rgb(69, 69, 206);
+}
+
+/* Menu Options CSS */
+#group-menu {
+    grid-row: 4 / span 1;
+    grid-column: 1 / span 2;
+    width: 100%;
+    display: flex;
+}
+
+.group-menu {
+    width: 20%;
+    background-color: rgb(130, 177, 221);
+    font-size: .7rem;
+}
+
+.group-menu:hover {
+    cursor: pointer;
+    background-color: rgb(69, 69, 206);
+}
+
+#menu-display {
+    grid-row: 5 / span 1;
+    grid-column: 1 / span 2;
+    background-color: white;
+    width: 100%;
+}
+
+/* For Desktop View */
+@media (min-width: 601px) {
+    #content {
+        background-color: aliceblue;
+        display: grid;
+        grid-template-rows: 70px 80px 40px auto 60px 1fr;
+        grid-template-columns: 60% 1fr;
+        gap: 20px;
+    }
+
+    #group-image-div {
+        width: 100%;
+        grid-row: 1 / span 4;
+        grid-column: 1 / span 1;
+        max-width: 500px;
+        margin-right: 0px;
+    }
+    
+    #group-image {
+        object-fit: fill;
+        width: calc(100% - 14px);
+        height: calc(100% - 10px);
+        margin: 5px;
+        border: 1px solid black;
+        border-radius: 8px;
+    }
+    
+    /* CSS for group info */
+    #group-name-div {
+        grid-row: 1 / span 1;
+        grid-column: 2 / span 1;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        width: 100%;
+    }
+    
+    #group-name {
+        font-size: 1.5rem;
+        font-weight: 900;
+    }
+    
+    #group-info {
+        grid-row: 2 / span 1;
+        grid-column: 2 / span 1;
+        padding-left: 8px;
+        font-size: .9rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    
+    #location {
+        padding-left: 5px;
+    }
+    
+    #join-button-div {
+        grid-row: 3 / span 1;
+        grid-column: 2 / span 1;
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: center;
+        align-items: flex-start;
+    }
+    
+    #join-button {
+        font-size: 1em;
+        color: black;
+        width: 110px;
+        height: 32px;
+        background-color: rgb(130, 177, 221);
+        border-radius: 8px;
+        padding: 4px;
+        margin-top: 10px;
+    }
+    
+    #join-button:hover {
+        cursor: pointer;
+        background-color: rgb(69, 69, 206);
+    }
+    
+    /* Menu Options CSS */
+    #group-menu {
+        grid-row: 5 / span 1;
+        grid-column: 1 / span 2;
+        width: 100%;
+        display: flex;
+    }
+    
+    .group-menu {
+        width: 20%;
+        background-color: rgb(130, 177, 221);
+        font-size: .7rem;
+    }
+    
+    .group-menu:hover {
+        cursor: pointer;
+        background-color: rgb(69, 69, 206);
+    }
+    
+    #menu-display {
+        grid-row: 6 / span 1;
+        grid-column: 1 / span 2;
+        background-color: white;
+        width: 100%;
+    }
+}

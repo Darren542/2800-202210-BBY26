@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300&family=Saira:ital,wght@1,500&family=Sansita+Swashed:wght@500&family=Square+Peg&family=Work+Sans:wght@300&display=swap');
+
+body {
+    background-color: rgb(96 164 164);
+}
+
+.container {
+    margin: 10px;
+    color: white;
+    display: grid;
+    grid-template-columns: 28% 30% 42%;
+    height: 35vh;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+
+.groupname {
+    text-align: center;
+    margin: 5px;
+    margin-top: 10px;
+}
+
+.owjoin {
+    display: grid;
+    grid-template-columns: 75% 25%;
+    margin: 5px;
+    margin-top: 20px;
+}
+
+.location {
+    margin: 5px;
+    margin-top: 20px;
+}
+
+.members {
+    margin: 5px;
+    margin-top: 20px;
+}
+
+.btn{
+    min-width: 7vw;
+    background-color: #46465f;
+}
+
+.btns button{
+    min-width: 8vw;
+    background-color: #46465f;
+}
+
+
+.section{
+    text-align: center;
+    border: 1px solid black;
+    height: 27vh;
+    margin: 5px;
+    border-radius: 10px;
+}
+
+@media screen and (max-width : 901px){
+    .container {
+        margin: 10px;
+        color: white;
+        display: grid;
+        grid-template-rows: 28% 30% 40%;
+        grid-template-columns: 60%;
+        min-height: 80vh;
+        justify-content: center;
+        
+    }
+    .owjoin {
+        display: grid;
+        grid-template-columns: 75% 25%;
+        margin: 5px;
+        min-width: 10vw;
+    }
+    
+}

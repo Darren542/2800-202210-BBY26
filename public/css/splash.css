@@ -157,12 +157,25 @@ h2 {
     background-color: rgb(69, 69, 206);
 }
 
+.desktop-view {
+    display: none;
+}
+
 /* Layout for desktop screens */
 @media (min-width: 736px){
     
-    #main-image {
-        height: 400px;
-        width: 600px;
+    .mobile-view {
+        display: none;
+    }
+
+    #main-image-desktop {
+    display: block;
+    height: 95%;
+    width: 95%;
+    max-width: calc(100% - 5px);
+    object-fit: cover;
+    padding-top: 5px;
+    border-radius: 20px;
     }
 
     .btn {

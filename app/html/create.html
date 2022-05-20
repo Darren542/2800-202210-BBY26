@@ -9,6 +9,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
   <link rel="stylesheet" href="css/client.css">
+  <link rel="stylesheet" href="css/create.css">
 </head>
 
 <body>
@@ -16,12 +17,66 @@
 
 
   <div id="content">
-    Under Construction.
+
+    <!-- Banners that let users know they have saved incomplete groups or events go here-->
+    <div id="saved-box">
+
+    </div>
+
+    <h1>Create</h1>
+    <div id="create">
+      <button id="event-btn" class="btn">Create Event</button>
+      <button id="group-btn" class="btn">Create Group</button>
+    </div>
+    <div id="explain-box">
+      <div class="explain-text">
+        If you are looking to create a single one off event choose create event.
+      </div>
+      <div class="explain-text">
+        If you are looking to create a community for many events choose create group.
+      </div>
+    </div>
   </div>
+
+  <template id="saved-group-template">
+    <div id="saved-box">
+      <div class="card">
+        <div class="card-descriptiom">
+          You have an incomplete group
+        </div>
+        <div class="card-time">From:</div>
+        <div class="banner-button-box">
+          <div class="load-save-div">
+            <button type="button" class="load-btn banner-btn">Load</button>
+          </div>
+          <div class="delete-save-div">
+            <button type="button" class="delete-btn banner-btn">Delete</button>
+          </div>
+        </div>        
+      </div>
+  </template>
+
+  <template id="saved-event-template">
+    <div id="saved-box">
+      <div class="card">
+        <div class="card-descriptiom">
+          You have an incomplete event
+        </div>
+        <div class="card-time">From:</div>
+        <div class="banner-button-box">
+          <div class="load-save-div">
+            <button type="button" class="load-btn banner-btn">Load</button>
+          </div>
+          <div class="delete-save-div">
+            <button type="button" class="delete-btn banner-btn">Delete</button>
+          </div>
+        </div>        
+      </div>
+  </template>
 
   <div id="footer-placeholder"></div>
   <script src="js/skeleton-logged-in.js"></script>
-
+  <script src="js/create.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>K9-Meet Group Page</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/client.css">
+  <link rel="stylesheet" href="/css/group.css">
+</head>
+
+<body>
+  <div id="navbar-placeholder"></div>
+
+  <div id="content">
+    <div id="group-image-div">
+      <img src="/img/group-imgs/groups.png" alt="Group Image" id="group-image" />
+    </div>
+
+    <div id="group-name-div">
+      <div id="group-name">Groups Name Here</div>
+    </div>
+
+    <div id="group-info">
+      <div id="location">📍 </div>
+      <div id="member-count">👥 Number of Group Members</div>
+      <div id="group-owner">👤 Owned by: </div>
+    </div>
+
+    <div id="join-button-div">
+      <button class="btn" id="join-button">Join Group</button>
+    </div>
+
+    <div id="group-menu">
+      <button class="group-menu selected" id="description-option">Description</button>
+      <button class="group-menu" id="members-option" type="button">Members</button>
+      <button class="group-menu" id="events-option" type="button">Events</button>
+      <button class="group-menu" id="photos-option" type="button">Photos</button>
+      <button class="group-menu" id="comments-option" type="button">Comments</button>
+    </div>
+    <div id="menu-display">
+      <div id="temp-display">Info from the menu options will go here</div>
+    </div>
+
+  </div>
+
+  <div id="footer-placeholder"></div>
+  <script src="/js/skeleton-logged-in.js"></script>
+  <script src="/js/group.js"></script>
+</body>
+
+</html>

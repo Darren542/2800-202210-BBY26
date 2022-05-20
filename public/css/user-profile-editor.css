@@ -1,7 +1,7 @@
 #content {
     display: grid;
     min-height: 100%;
-    background-color: rgb(136, 160, 212);
+    background-color: rgb(134, 141, 153);
     grid-template-columns: 150px 1fr;
     grid-template-rows: 150px 5px 40px 1fr;
     overflow-x: hidden;
@@ -196,11 +196,12 @@
 .btn {
     font-size: 1em;
     color: black;
-    width: 180px;
-    height: 34px;
+    width: 140px;
+    height: 32px;
     background-color: rgb(130, 177, 221);
     border-radius: 8px;
     padding: 4px;
+    margin-top: 10px;
 }
 
 .btn:hover {
@@ -253,11 +254,11 @@ https://bitsofco.de/making-abbr-work-for-touchscreen-keyboard-mouse/ */
 @media (min-width: 751px) {
 
     #content {
-        background-color: darkcyan;
+        background-color: rgb(134, 141, 153);
     }
 
     .btn {
-        width: 140px;
-        height: 32px;
+        width: 180px;
+        height: 34px;
     }
 }

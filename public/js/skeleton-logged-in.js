@@ -19,7 +19,9 @@ $(document).ready(function () {
 
             mobileNav.classList.toggle('hidden');
             document.body.classList.toggle('no-scroll');
+            
         });
+        getUsername();
     }, 100);
 
 });
@@ -39,7 +41,7 @@ function getUsername() {
     getname.send();
 }
 
-getUsername();
+
 
 async function getProfileImgUrlNav(requestId) {
     const options = {

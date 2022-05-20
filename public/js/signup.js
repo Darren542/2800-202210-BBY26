@@ -8,55 +8,72 @@ document.getElementById("submit").addEventListener("click", function (e) {
     document.getElementById("no-match").classList.add("no-show");
     document.getElementById("top-filler").classList.remove("no-show");
     document.getElementById("bottom-filler").classList.remove("no-show");
-    
+    document.getElementById("empty-field").classList.add("no-show");
+
     let formData = {
         username: document.getElementById("username").value,
         email: document.getElementById("email").value,
         password: document.getElementById("password").value,
         confirmPassword: document.getElementById("confirm-password").value
     };
-    if (formData.password != formData.confirmPassword) {
-        document.getElementById("password").value = "";
-        document.getElementById("confirm-password").value = "";
-        document.getElementById("bottom-filler").classList.add("no-show");
-        document.getElementById("no-match").classList.remove("no-show");
-    } 
-    else {
-        const xhr = new XMLHttpRequest();
-        xhr.onload = function () {
-            if (this.readyState == XMLHttpRequest.DONE) {
-                if (xhr.status === 200) {
-                    let reply = JSON.parse(xhr.response);
-                    if (reply.status == "efailure") {
-                        document.getElementById("top-filler").classList.add("no-show");
-                        document.getElementById("email-taken").classList.remove("no-show");
-                    } else if (reply.status == "ufailure"){
-                        document.getElementById("top-filler").classList.add("no-show");
-                        document.getElementById("username-taken").classList.remove("no-show");
-                    } else if (reply.status == "database-fail"){
-                        document.getElementById("top-filler").classList.add("no-show");
-                        document.getElementById("database-missing").classList.remove("no-show");
-                    } else {
-                        let queryString = "username=" + formData.username + "&password=" + formData.password;
-                        ajaxPOST("/login", function (data) {
-                            if (data) {
-                                let dataParsed = JSON.parse(data);
-                                if (dataParsed.status == "fail") {
-                                } else {
-                                    window.location.href = "/";
-                                }
-                            }
-                        }, queryString);
-                    }
-                } else {
-                // not a 200, could be anything (404, 500, etc.)
-                //console.log(this.status);
-            }
-        } 
-            else {
-                //console.log("ERROR", this.status);
-            }
+
+    if (document.getElementById("email").value == ""
+        || document.getElementById("username").value == ""
+        || document.getElementById("password").value == ""
+        || document.getElementById("confirm-password").value == "") {
+        document.getElementById("top-filler").classList.add("no-show");
+        document.getElementById("empty-field").classList.remove("no-show");
+    } else {
+        if (formData.password != formData.confirmPassword) {
+            document.getElementById("password").value = "";
+            document.getElementById("confirm-password").value = "";
+            document.getElementById("bottom-filler").classList.add("no-show");
+            document.getElementById("no-match").classList.remove("no-show");
         }
+        else {
+            const xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                if (this.readyState == XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        let reply = JSON.parse(xhr.response);
+                        if (reply.status == "efailure") {
+                            document.getElementById("top-filler").classList.add("no-show");
+                            document.getElementById("email-taken").classList.remove("no-show");
+                        } else if (reply.status == "ufailure") {
+                            document.getElementById("top-filler").classList.add("no-show");
+                            document.getElementById("username-taken").classList.remove("no-show");
+                        } else if (reply.status == "database-fail") {
+                            document.getElementById("top-filler").classList.add("no-show");
+                            document.getElementById("database-missing").classList.remove("no-show");
+                        } else {
+                            let queryString = "username=" + formData.username + "&password=" + formData.password;
+                            ajaxPOST("/login", function (data) {
+                                if (data) {
+                                    let dataParsed = JSON.parse(data);
+                                    if (dataParsed.status == "fail") {
+                                    } else {
+                                        window.location.href = "/";
+                                    }
+                                }
+                            }, queryString);
+                        }
+                    } else {
+                        // not a 200, could be anything (404, 500, etc.)
+                        //console.log(this.status);
+                    }
+                }
+                else {
+                    //console.log("ERROR", this.status);
+                }
+            }
+            document.getElementById("password").value = "";
+            document.getElementById("confirm-password").value = "";
+            xhr.open("POST", "/add-user");
+            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.send("username=" + formData.username + "&email=" + formData.email + "&password=" + formData.password);
+        }
+<<<<<<< HEAD
         document.getElementById("password").value = "";
         document.getElementById("confirm-password").value = "";
         xhr.open("POST", "/add-user");
@@ -66,6 +83,8 @@ document.getElementById("submit").addEventListener("click", function (e) {
         console.log('username', formData.username);
         console.log('email', formData.email);
         xhr.send("username=" + formData.username + "&email=" + formData.email + "&password=" + formData.password);
+=======
+>>>>>>> dev
     }
 });
 
