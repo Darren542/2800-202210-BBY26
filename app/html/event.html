@@ -5,61 +5,51 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>K9-Meet Event</title>
+  <title>K9-Meet Event Page</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
-  <link rel="stylesheet" href="css/client.css">
-  <link rel="stylesheet" href="css/event.css">
+  <link rel="stylesheet" href="/css/client.css">
+  <link rel="stylesheet" href="/css/event.css">
 </head>
 
 <body>
   <div id="navbar-placeholder"></div>
 
   <div id="content">
-    <div id="container">
+    <div id="event-image-div">
+      <img src="/img/event-imgs/events.jpg" alt="Event Image" id="event-image" />
+    </div>
 
-      <!-- <img src="" alt=""> -->
-      <div id="img">The Image Placeholder.</div>
+    <div id="event-name-div">
+      <div id="event-name">Events Name Here</div>
+    </div>
 
-      <h3 id="event-name"></h3>
+    <div id="event-info">
+      <div id="event-location">📍 </div>
+      <div id="member-count">👥 Number of Event Members</div>
+      <div id="event-owner">👤 Owned by: </div>
+      <div id="event-time">⏰ </div>
+    </div>
 
-      <div id="event-info">
-        <div>
-          <div class="values">
-            <p class="sub-heading">Event Location:</p><span id="event-location">Location Placeholder</span>
-          </div>
-        </div>
+    <div id="join-button-div">
+      <button class="btn" id="join-button">Join Event</button>
+    </div>
 
-        <div>
-          <div class="values">
-            <p class="sub-heading">Event Start Time:</p><span id="event-time">Time & Duration Placeholder</span>
-          </div>
-        </div>
-        <!-- <div>
-          <div class="values">
-            <p class="sub-heading">Event Duration:</p>
-            <spam id="event-time">Duration Placeholder</spam>
-          </div>
-        </div> -->
-        <div>
-          <div class="values">
-            <p class="sub-heading">Number of Participants:</p><span id="event-members">Members Placeholder</span>
-          </div>
-        </div>
-        <div>
-          <div class="values">
-            <p class="sub-heading">Owner of Event:</p><span id="event-owner">Owner Placeholder</span>
-          </div>
-        </div>
-      </div>
-
-      <div id="event-description">Description Placeholder</div>
+    <div id="event-menu">
+      <button class="event-menu selected" id="description-option">Description</button>
+      <button class="event-menu" id="members-option" type="button">Members</button>
+      <button class="event-menu" id="photos-option" type="button">Photos</button>
+      <button class="event-menu" id="comments-option" type="button">Comments</button>
+    </div>
+    <div id="menu-display">
+      <div id="event-description">Info from the menu options will go here</div>
     </div>
 
   </div>
+
   <div id="footer-placeholder"></div>
-  <script src="js/skeleton-logged-in.js"></script>
-  <script src="js/event.js"></script>
+  <script src="/js/skeleton-logged-in.js"></script>
+  <script src="/js/event.js"></script>
 </body>
 
 </html>

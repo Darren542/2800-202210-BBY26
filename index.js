@@ -145,6 +145,16 @@ app.get("/event", function (req, res) {
     res.send(doc);
 })
 
+app.get("/event/:id", function (req, res) {
+    if (req.session.loggedIn) {
+        let doc = fs.readFileSync("./app/html/event.html", "utf8");
+        res.send(doc);
+    } else {
+        res.redirect("/");
+    }
+    
+})
+
 // requesting data from the sever
 app.get("/event-info/:id", function (req, res) {
 
@@ -172,7 +182,7 @@ app.get("/event-info/:id", function (req, res) {
         myPromise.then(
             function (value) {
                 connection.execute(
-                    "SELECT BBY_26_events.event_name, BBY_26_events.event_photo, BBY_26_events.event_date_time, BBY_26_events.event_duration, BBY_26_events.event_description, " +
+                    "SELECT BBY_26_events.event_name, BBY_26_events.eventID, BBY_26_events.event_photo, BBY_26_events.event_date_time, BBY_26_events.event_duration, BBY_26_events.event_description, " +
                     "BBY_26_addresses.street, BBY_26_addresses.city, " +
                     "BBY_26_users.username " +
                     "FROM BBY_26_addresses INNER JOIN BBY_26_events " +
@@ -267,6 +277,104 @@ app.delete("/unreserve-event", function (req, res) {
                 });
             connection.end();
         });
+});
+
+// For saving event RSVP's into the RSVP database
+// Used by the event page
+// Author Darren
+app.post("/event-rsvp/:id", function (req, res) {
+    let connection;
+    let myPromise = new Promise((resolve, reject) => {
+
+        connection = mysql.createConnection({
+            host: "localhost",
+            user: "root",
+            password: "",
+            database: "COMP2800"
+        });
+
+        connection.connect(err => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(true);
+            }
+        });
+    });
+
+    myPromise.then(
+        function (value) {
+            connection.execute(
+                "INSERT INTO BBY_26_RSVP (eventID, userID) values (?, ?)",
+                [req.params.id, req.session.userID],
+                function (error, results) {
+                    if (error) {
+                        if (error.code == 'ER_DUP_ENTRY') {
+                            res.send({ status: "failure", msg: "RSVP not made." });
+                        } else {
+                            console.log(error);
+                        }    
+                    }
+                    else {
+                        res.send({ status: "success", msg: "Event RSVP made." });
+                    }
+                });
+            connection.end();
+        },
+        function (error) {
+            console.log(error);
+        }
+    );
+})
+
+// Used to check if user is RSVPed for a specific event
+// Used by event page
+// Author Darren
+app.get("/check-RSVP/:id", function (req, res) {
+    let connection;
+    let myPromise = new Promise((resolve, reject) => {
+
+        connection = mysql.createConnection({
+            host: "localhost",
+            user: "root",
+            password: "",
+            database: "COMP2800"
+        });
+
+        connection.connect(err => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(true);
+            }
+        });
+
+    });
+
+    myPromise.then(
+        function () {
+            connection.execute(
+                "SELECT * FROM BBY_26_RSVP WHERE userID = ? AND eventID = ?",
+                [req.session.userID, req.params.id],
+                function (error, results) {
+                    if (error) {
+                        console.log(error);                     
+                    }
+                    else {
+                        if (results[0]) {
+                            res.send({ status: "yes", msg: "Already RSVPed."});
+                        } else {
+                            res.send({ status: "no", msg: "Not RSVPed"});
+                        }                       
+                    }
+
+                });
+            connection.end();
+        },
+        function (error) {
+            console.log(error);
+        }
+    );
 });
 
 app.delete("/delete-event", function (req, res) {

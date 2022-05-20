@@ -1,15 +1,61 @@
 'use strict';
 
-let data = '/event-info/:1';
-fetch(data).then(x => x.json()).then(y => {
-    console.log(y);
+// Get the id being requested in the URL.
+// Then fetch the data for that event.
+let path = window.location.pathname;
+const requestID = path.substring(path.lastIndexOf('/') + 1);
+let data = `/event-info/${requestID}`;
+fetch(data).then(x => x.json()).then(async function(y) {
+    //console.log(y);
     document.getElementById('event-name').innerHTML = y.event_name
-    document.getElementById('event-location').innerHTML = y.street + " " + y.city
-    document.getElementById('event-owner').innerHTML = y.username
+    document.getElementById('event-location').innerHTML += y.street + ", " + y.city
+    document.getElementById('event-owner').innerHTML += y.username
     document.getElementById('event-description').innerHTML = y.event_description;
+    let newDate = new Date(y.event_date_time);
+    document.getElementById('event-time').innerHTML += newDate.toLocaleString();
+    document.getElementById("event-image").src = `/img/event-imgs/${y.event_photo}`;
+    checkForRSVP(y.eventID);      
 });
 
-// fetch(data).then(x => x.json()).then(y => document.getElementById('location').innerHTML = y.event_name);
-// fetch(data).then(x => x.json()).then(y => let eventTime = y.event_date_time);
-// fetch(data).then(x => x.json()).then(y => document.getElementById('ev').innerHTML = y.event_name);
+// Creates an RSVP for the currently logged in user for the currently view event
+async function joinEvent(eventID) {
+    let eventData = {
+        data: "nothing"
+    }
+    try {
+        let responseObject = await fetch(`/event-rsvp/${eventID}`, {
+            method: 'POST',
+            headers: { "Accept": 'application/json',
+                       "Content-Type": 'application/json'
+            },
+            body: JSON.stringify(eventData)
+        });
+        
+        let parsedJSON = await responseObject.json();
+        //console.log(parsedJSON);
+        if (parsedJSON.status == "success") {
+            document.getElementById("join-button").innerHTML = "Joined"
+            document.getElementById("join-button").style.backgroundColor = "green";
+        } else {
+            document.getElementById("join-button").innerHTML = "Failed"
+            document.getElementById("join-button").style.backgroundColor = "red";
+        }
+    } catch(error) {
+        console.log(error);
+    }
+}
+
+// Checks if the logged in user is already RSVPed for the viewed event
+async function checkForRSVP(eventID) {
+    fetch(`/check-RSVP/${eventID}`).then(response => response.json()).then(data => {
+        //console.log(data);
+        if (data.status == "yes") {
+            document.getElementById("join-button").innerHTML = "Joined"
+            document.getElementById("join-button").style.backgroundColor = "green";
+        } else {
+            document.getElementById("join-button").addEventListener("click", () => {
+                joinEvent(eventID)});
+        }
+    })
+}
 
