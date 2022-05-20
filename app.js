@@ -447,10 +447,10 @@ app.get("/users", function (req, res) {
         } else {
             const mysql = require("mysql2");
             const connection = mysql.createConnection({
-                host: "localhost",
-                user: "root",
-                password: "",
-                database: "COMP2800"
+                host: "k9meet.c4oyeywl3pjr.us-west-2.rds.amazonaws.com",
+                user: "admin",
+                password: "NotShowingThis",
+                database: "K9Meet"
             });
             connection.connect();
             connection.execute(
@@ -498,10 +498,10 @@ app.post("/modify-privilege", function (req, res) {
                 }
                 if (results[0].DATA != 1 || req.body.changeTo == 1) {
                     const connection = mysql.createConnection({
-                        host: "localhost",
-                        user: "root",
-                        password: "",
-                        database: "COMP2800"
+                        host: "k9meet.c4oyeywl3pjr.us-west-2.rds.amazonaws.com",
+                        user: "admin",
+                        password: "NotShowingThis",
+                        database: "K9Meet"
                     });
                     connection.connect();
                     connection.execute(
