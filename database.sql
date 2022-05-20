@@ -208,8 +208,8 @@ CREATE TABLE IF NOT EXISTS BBY_26_events(
 ); 
 */
 
-INSERT INTO BBY_26_events (event_name, ownerID, event_date_time, event_end_time, event_description, event_type) 
-VALUES ("Future Event", 1, "2033-05-19 16:19:19", "9999-12-31 23:59:59", "Event for any time travellers", true);
+INSERT INTO BBY_26_events (event_name, ownerID, event_duration, event_date_time, event_end_time, event_description, event_type) 
+VALUES ("Future Event", 1, "2033-05-19 16:19:19", "9999999", "9999-12-31 23:59:59", "Event for any time travellers", true);
 
 
 CREATE TABLE IF NOT EXISTS BBY_26_RSVP(
@@ -259,18 +259,18 @@ VALUES (4, 5);
 INSERT INTO BBY_26_RSVP (eventID, userID) 
 VALUES (4, 6);
 
-INSERT INTO BBY_26_addresses (street, city, eventID) 
-VALUES ("123 Street", "Burnaby", 1);
+INSERT INTO BBY_26_event_address (street, city, eventID, ownerID) 
+VALUES ("123 Street", "Burnaby", 1, 2);
 
-INSERT INTO BBY_26_addresses (street, city, eventID) 
-VALUES ("234 Street", "Burnaby", 2);
+INSERT INTO BBY_26_event_address (street, city, eventID, ownerID) 
+VALUES ("234 Street", "Burnaby", 2, 2);
 
-INSERT INTO BBY_26_addresses (street, city, eventID) 
-VALUES ("4598 Penzance Dr", "Burnaby", 3);
+INSERT INTO BBY_26_event_address (street, city, eventID, ownerID) 
+VALUES ("4598 Penzance Dr", "Burnaby", 3, 2);
 
 
-INSERT INTO BBY_26_addresses (street, city, eventID) 
-VALUES ("7599 Mission Ave", "Burnaby", 4);
+INSERT INTO BBY_26_event_address (street, city, eventID, ownerID) 
+VALUES ("7599 Mission Ave", "Burnaby", 4, 2);
 
 
 SELECT * FROM BBY_26_addresses;

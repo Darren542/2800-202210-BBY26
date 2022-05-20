@@ -183,10 +183,10 @@ app.get("/event-info/:id", function (req, res) {
             function (value) {
                 connection.execute(
                     "SELECT BBY_26_events.event_name, BBY_26_events.eventID, BBY_26_events.event_photo, BBY_26_events.event_date_time, BBY_26_events.event_duration, BBY_26_events.event_description, " +
-                    "BBY_26_addresses.street, BBY_26_addresses.city, " +
+                    "BBY_26_event_address.street, BBY_26_event_address.city, " +
                     "BBY_26_users.username " +
-                    "FROM BBY_26_addresses INNER JOIN BBY_26_events " +
-                    "ON BBY_26_addresses.eventID = BBY_26_events.eventID " +
+                    "FROM BBY_26_event_address INNER JOIN BBY_26_events " +
+                    "ON BBY_26_event_address.eventID = BBY_26_events.eventID " +
                     "INNER JOIN BBY_26_users " + 
                     "ON BBY_26_events.ownerID = BBY_26_users.userID " +
                     "WHERE BBY_26_events.eventID = ?",

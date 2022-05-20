@@ -257,7 +257,7 @@ document.querySelector("#finish-btn").addEventListener('click', async function()
     }
 
     // If all inputs are not valid send error msg to user
-    // Else send request to server to make new group
+    // Else send request to server to make new event
     if (valid == false) {
         document.getElementById("error-messages").innerHTML = errorMsg;
     } else {
@@ -282,7 +282,7 @@ document.querySelector("#finish-btn").addEventListener('click', async function()
             saveNum: saveNum
         }
 
-        // Send data to Server as POST request to create-group
+        // Send data to Server as POST request to create-event
         try {
             let responseObject = await fetch(`/create-event`, {
                 method: 'POST',
@@ -294,9 +294,9 @@ document.querySelector("#finish-btn").addEventListener('click', async function()
             
             let parsedJSON = await responseObject.json();
             
-            //On group creation should send you to your new groups homepage
+            //On event creation should send you to your new events homepage
             if (parsedJSON.status == "success") {
-                document.getElementById("error-messages").innerHTML = "Created new Group";
+                document.getElementById("error-messages").innerHTML = "Created new event";
 
                 // delete the saved partial event if it exists
                 if (saveNum) {
@@ -308,9 +308,11 @@ document.querySelector("#finish-btn").addEventListener('click', async function()
                 if (formData) {
                     await saveImage(formData, parsedJSON.newID);
                     window.location.href = `/event/${parsedJSON.newID}`;
+                } else {
+                    window.location.href = `/event/${parsedJSON.newID}`;
                 }
             } else {
-                document.getElementById("error-messages").innerHTML = "Failed to create new Group";
+                document.getElementById("error-messages").innerHTML = "Failed to create new event";
             }
         } catch(error) {
             console.log(error);
@@ -344,7 +346,7 @@ document.querySelector("#save-quit").addEventListener('click', async function() 
     let terms = document.getElementById("terms-checkbox").checked;
 
     // Combine all data into a JSON object
-    let groupData = {
+    let eventData = {
         country: country,
             province: province,
             city: city,
@@ -360,7 +362,7 @@ document.querySelector("#save-quit").addEventListener('click', async function() 
             saveNum: saveNum
     }
 
-    // Send data to Server as POST request to save-group
+    // Send data to Server as POST request to save-event
     try {
         let responseObject = await fetch(`/save-event`, {
             method: 'POST',
@@ -368,12 +370,12 @@ document.querySelector("#save-quit").addEventListener('click', async function() 
                 "Accept": 'application/json',
                 "Content-Type": 'application/json'
             },
-            body: JSON.stringify(groupData)
+            body: JSON.stringify(eventData)
         });
 
         let parsedJSON = await responseObject.json();
         console.log(parsedJSON);
-        //On group creation should send you to your new groups homepage
+        //On event creation should send you to your new events homepage
         if (parsedJSON.status == "success") {
             document.getElementById("error-messages").innerHTML = "Progress Saved";
             window.location.href = "/create";
@@ -386,7 +388,7 @@ document.querySelector("#save-quit").addEventListener('click', async function() 
 
 });
 
-// Used to get data from saved group
+// Used to get data from saved event
 async function loadSavedEvent(saveNum) {
     if (saveNum) {
         try {
@@ -407,7 +409,7 @@ async function loadSavedEvent(saveNum) {
     }
 }
 
-// Used to insert data from saved group
+// Used to insert data from saved event
 function displaySavedEvent(data) {
     // inputs data for page 1
     document.querySelector("#country-input").value = data.country;
@@ -446,8 +448,8 @@ function displaySavedEvent(data) {
 
 // If the user no longer wants that save let them delete it
 async function deleteSavedEvent(eventID) {
-    // Send data to Server as POST request to create-group
-    let groupData = {
+    // Send data to Server as POST request to create-event
+    let eventData = {
         nothing: "nothing"
     };
     try {
@@ -456,12 +458,12 @@ async function deleteSavedEvent(eventID) {
             headers: { "Accept": 'application/json',
                        "Content-Type": 'application/json'
             },
-            body: JSON.stringify(groupData)
+            body: JSON.stringify(eventData)
         });
         
         let parsedJSON = await responseObject.json();
         
-        //On group creation should send you to your new groups homepage
+        //On event creation should send you to your new events homepage
         if (parsedJSON.status == "success") {
             //the save was deleted
         } else {
