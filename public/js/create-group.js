@@ -6,7 +6,7 @@ var pageNumber = 1;
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const saveNum = urlParams.get("saveID");
-loadSavedEvent(saveNum);
+loadSavedGroup(saveNum);
 
 document.querySelector("#next-btn").addEventListener("click", () => {
     if (pageNumber < 5) {
@@ -83,70 +83,34 @@ document.querySelectorAll(".premade-tag").forEach( (tag) => {
 });
 
 
-// Code for Event type on Page 4
-var eventType = true;
-document.querySelector("#public-event").addEventListener('click', ()=> {
-    showPublic();
+// Code for Group Plan Page 4
+var planType = "free";
+document.querySelector("#free-plan").addEventListener('click', ()=> {
+    document.querySelector('#free-plan-details').classList.add("plan-details");
+    document.querySelector('#free-plan-details').classList.remove("no-show");
+    document.querySelector('#premium-plan-details').classList.add("no-show");
+    document.querySelector('#premium-plan-details').classList.remove("plan-details");
+    document.querySelector('#free-plan').classList.add("filled");
+    document.querySelector('#free-plan').classList.remove("unfilled");
+    document.querySelector('#premium-plan').classList.add("unfilled");
+    document.querySelector('#premium-plan').classList.remove("filled");
+    planType = "free";
 });
 
-function showPublic() {
-    document.querySelector('#public-event-details').classList.add("type-details");
-    document.querySelector('#public-event-details').classList.remove("no-show");
-    document.querySelector('#private-event-details').classList.add("no-show");
-    document.querySelector('#private-event-details').classList.remove("type-details");
-    document.querySelector('#public-event').classList.add("filled");
-    document.querySelector('#public-event').classList.remove("unfilled");
-    document.querySelector('#private-event').classList.add("unfilled");
-    document.querySelector('#private-event').classList.remove("filled");
-    eventType = true;
-}
-
-document.querySelector("#private-event").addEventListener('click', ()=> {
-    showPrivate();
-});
-
-function showPrivate() {
-    document.querySelector('#public-event-details').classList.remove("type-details");
-    document.querySelector('#public-event-details').classList.add("no-show");
-    document.querySelector('#private-event-details').classList.remove("no-show");
-    document.querySelector('#private-event-details').classList.add("type-details");
-    document.querySelector('#public-event').classList.remove("filled");
-    document.querySelector('#public-event').classList.add("unfilled");
-    document.querySelector('#private-event').classList.remove("unfilled");
-    document.querySelector('#private-event').classList.add("filled");
-    eventType = false;
-}
-
-// Code for Event group on Page 4
-// When attaching groups to events is implemented will be updated,
-// to get the groups id that it being attached too
-var eventGroup = 0;
-document.querySelector("#non-group-event").addEventListener('click', ()=> {
-    document.querySelector('#non-group-details').classList.add("group-details");
-    document.querySelector('#non-group-details').classList.remove("no-show");
-    document.querySelector('#group-details').classList.add("no-show");
-    document.querySelector('#group-details').classList.remove("group-details");
-    document.querySelector('#non-group-event').classList.add("filled");
-    document.querySelector('#non-group-event').classList.remove("unfilled");
-    document.querySelector('#group-event').classList.add("unfilled");
-    document.querySelector('#group-event').classList.remove("filled");
-    eventGroup = 0;
-});
-
-document.querySelector("#group-event").addEventListener('click', ()=> {
-    document.querySelector('#non-group-details').classList.remove("group-details");
-    document.querySelector('#non-group-details').classList.add("no-show");
-    document.querySelector('#group-details').classList.remove("no-show");
-    document.querySelector('#group-details').classList.add("group-details");
-    document.querySelector('#non-group-event').classList.remove("filled");
-    document.querySelector('#non-group-event').classList.add("unfilled");
-    document.querySelector('#group-event').classList.remove("unfilled");
-    document.querySelector('#group-event').classList.add("filled");
-    eventGroup = 0;
+document.querySelector("#premium-plan").addEventListener('click', ()=> {
+    document.querySelector('#free-plan-details').classList.remove("plan-details");
+    document.querySelector('#free-plan-details').classList.add("no-show");
+    document.querySelector('#premium-plan-details').classList.remove("no-show");
+    document.querySelector('#premium-plan-details').classList.add("plan-details");
+    document.querySelector('#free-plan').classList.remove("filled");
+    document.querySelector('#free-plan').classList.add("unfilled");
+    document.querySelector('#premium-plan').classList.remove("unfilled");
+    document.querySelector('#premium-plan').classList.add("filled");
+    planType = "premium";
 });
 
 
-// Code for finishing event creation
+// Code for finishing group creation
 // Have to check all fields are filled and have valid entries
 document.querySelector("#finish-btn").addEventListener('click', async function() {
     let valid = true;
@@ -156,18 +120,6 @@ document.querySelector("#finish-btn").addEventListener('click', async function()
     let country = document.querySelector("#country-input").value;
     let province = document.querySelector("#province-input").value;
     let city = document.querySelector("#city-input").value;
-    let street = document.querySelector("#street-input").value;
-    let startTime = document.querySelector("#event-date").value;
-    let endTime = document.querySelector("#event-end-time").value;
-
-    const Timestamp = (time) => {
-        const dt = new Date(time).getTime();
-        return dt / 1000;
-    }
-    let startTimestamp = Timestamp(startTime);
-    let endTimestamp = Timestamp(endTime);
-    let eventDuration = endTimestamp - startTimestamp;
-
     if (country.length < 1) {
         valid = false;
         errorMsg = "Must fill out country."
@@ -180,32 +132,16 @@ document.querySelector("#finish-btn").addEventListener('click', async function()
         valid = false;
         errorMsg = "Must fill out city."
     }
-    if (street.length < 1) {
-        valid = false;
-        errorMsg = "Must fill out street address."
-    }
-    if (startTime == null) {
-        valid = false;
-        errorMsg = "Must fill out start time."
-    }
-    if (endTime == null) {
-        valid = false;
-        errorMsg = "Must fill out end time."
-    }
-    if (endTimestamp < startTimestamp) {
-        valid = false;
-        errorMsg = "Event ends before it starts."
-    }
 
     // checking and receiving inputs from page 2
     let name = document.querySelector("#name-input").value;
     if (name.length < 1) {
         valid = false;
-        errorMsg = "Must fill out event's name."
+        errorMsg = "Must fill out group's name."
     }
     let tagString = document.querySelector("#tag-input").value;
     let tags = tagString.split("#");
-    
+
     // Need to add code for the images here
     let formData;
     const imageUpload = document.querySelector('#image-upload');
@@ -225,23 +161,18 @@ document.querySelector("#finish-btn").addEventListener('click', async function()
     } else {
         // they don't need to submit image
     }
-    
 
     // checking and receiving inputs from page 3
     let description = document.querySelector("#description-input").value;
     if (description.length < 1) {
         valid = false;
-        errorMsg = "Must fill out event's description."
+        errorMsg = "Must fill out group's description."
     }
 
     // checking and receiving inputs from page 4
-    if (!(eventType == true || eventType == false)) {
+    if (planType != "free") {
         valid = false;
-        errorMsg = "Must be public or private event."
-    }
-    if (eventGroup != 0) {
-        valid = false;
-        errorMsg = "Group events not implemented"
+        errorMsg = "Only free plans available currently."
     }
 
     // checking and receiving inputs from page 5
@@ -255,64 +186,59 @@ document.querySelector("#finish-btn").addEventListener('click', async function()
         valid = false;
         errorMsg = "Must agree to Terms & Conditions."
     }
+    
 
     // If all inputs are not valid send error msg to user
-    // Else send request to server to make new event
+    // Else send request to server to make new group
     if (valid == false) {
         document.getElementById("error-messages").innerHTML = errorMsg;
     } else {
         document.getElementById("error-messages").innerHTML = "";
-
-        let eventData = {
+        
+        // Combine all data into a JSON object
+        let groupData = {
             country: country,
             province: province,
             city: city,
-            street: street,
-            startTimestamp: startTimestamp,
-            endTimestamp: endTimestamp,
-            startTime: startTime,
-            endTime: endTime,
-            eventDuration: eventDuration,
             name: name,
             tags: tags,
             description: description,
-            eventType: eventType,
+            planType: planType,
             guidelines: guidelines,
             terms: terms,
             saveNum: saveNum
         }
 
-        // Send data to Server as POST request to create-event
+        // Send data to Server as POST request to create-group
         try {
-            let responseObject = await fetch(`/create-event`, {
+            let responseObject = await fetch(`/create-group`, {
                 method: 'POST',
                 headers: { "Accept": 'application/json',
                            "Content-Type": 'application/json'
                 },
-                body: JSON.stringify(eventData)
+                body: JSON.stringify(groupData)
             });
             
             let parsedJSON = await responseObject.json();
             
-            //On event creation should send you to your new events homepage
+            //On group creation should send you to your new groups homepage
             if (parsedJSON.status == "success") {
-                document.getElementById("error-messages").innerHTML = "Created new event";
-
-                // delete the saved partial event if it exists
+                document.getElementById("error-messages").innerHTML = "Created new Group";
+                // delete the saved partial group if it exists
                 if (saveNum) {
-                    await deleteSavedEvent(saveNum);
+                    await deleteSavedGroup(saveNum);
                 } else {
-                       
+                    
                 }
-                // save the image if it exists
+
                 if (formData) {
                     await saveImage(formData, parsedJSON.newID);
-                    window.location.href = `/event/${parsedJSON.newID}`;
+                    window.location.href = `/group/${parsedJSON.newID}`;
                 } else {
                     window.location.href = `/event/${parsedJSON.newID}`;
                 }
             } else {
-                document.getElementById("error-messages").innerHTML = "Failed to create new event";
+                document.getElementById("error-messages").innerHTML = "Failed to create new Group";
             }
         } catch(error) {
             console.log(error);
@@ -321,16 +247,13 @@ document.querySelector("#finish-btn").addEventListener('click', async function()
 
 });
 
-// Code to save partially created event into database for later use
+// Code to save partially created group into database for later use
 document.querySelector("#save-quit").addEventListener('click', async function() {
 
     // receiving inputs from page 1
     let country = document.querySelector("#country-input").value;
     let province = document.querySelector("#province-input").value;
     let city = document.querySelector("#city-input").value;
-    let street = document.querySelector("#street-input").value;
-    let startTime = document.querySelector("#event-date").value;
-    let endTime = document.querySelector("#event-end-time").value;
 
     // receiving inputs from page 2
     let name = document.querySelector("#name-input").value;
@@ -346,36 +269,33 @@ document.querySelector("#save-quit").addEventListener('click', async function() 
     let terms = document.getElementById("terms-checkbox").checked;
 
     // Combine all data into a JSON object
-    let eventData = {
+    let groupData = {
         country: country,
-            province: province,
-            city: city,
-            street: street,
-            startTime: startTime,
-            endTime: endTime,
-            name: name,
-            tags: tagString,
-            description: description,
-            eventType: eventType,
-            guidelines: guidelines,
-            terms: terms,
-            saveNum: saveNum
+        province: province,
+        city: city,
+        name: name,
+        tags: tagString,
+        description: description,
+        planType: planType,
+        guidelines: guidelines,
+        terms: terms,
+        saveNum: saveNum
     }
 
-    // Send data to Server as POST request to save-event
+    // Send data to Server as POST request to save-group
     try {
-        let responseObject = await fetch(`/save-event`, {
+        let responseObject = await fetch(`/save-group`, {
             method: 'POST',
             headers: {
                 "Accept": 'application/json',
                 "Content-Type": 'application/json'
             },
-            body: JSON.stringify(eventData)
+            body: JSON.stringify(groupData)
         });
 
         let parsedJSON = await responseObject.json();
         console.log(parsedJSON);
-        //On event creation should send you to your new events homepage
+        //On group creation should send you to your new groups homepage
         if (parsedJSON.status == "success") {
             document.getElementById("error-messages").innerHTML = "Progress Saved";
             window.location.href = "/create";
@@ -388,17 +308,17 @@ document.querySelector("#save-quit").addEventListener('click', async function() 
 
 });
 
-// Used to get data from saved event
-async function loadSavedEvent(saveNum) {
+// Used to get data from saved group
+async function loadSavedGroup(saveNum) {
     if (saveNum) {
         try {
-            let response = await fetch(`/saved-events/${saveNum}`, {
+            let response = await fetch(`/saved-groups/${saveNum}`, {
                 method: 'GET'
             });
             if (response.status === 200) {
                 let data = await response.json();
                 if (data[0]) {
-                    displaySavedEvent(data[0]);
+                    displaySavedGroup(data[0]);
                 }              
             } else {
                 console.log(response.status);
@@ -409,37 +329,21 @@ async function loadSavedEvent(saveNum) {
     }
 }
 
-// Used to insert data from saved event
-function displaySavedEvent(data) {
+// Used to insert data from saved group
+function displaySavedGroup(data) {
     // inputs data for page 1
     document.querySelector("#country-input").value = data.country;
     document.querySelector("#province-input").value = data.province;
     document.querySelector("#city-input").value = data.city;
-    document.querySelector("#street-input").value = data.street;
-    if (data.event_date_time) {
-        let startTime = data.event_date_time;
-        startTime = startTime.slice(0, 19);
-        document.querySelector("#event-date").value = startTime;
-    }
-    if (data.event_end_time) {
-        let endTime = data.event_end_time;
-        endTime = endTime.slice(0, 19);
-        document.querySelector("#event-end-time").value = endTime;
-    }
 
     // inputs data for page 2
-    document.querySelector("#name-input").value = data.event_name;
+    document.querySelector("#name-input").value = data.group_name;
     document.querySelector("#tag-input").value = data.tagString;
 
     // inputs data for page 3
-    document.querySelector("#description-input").value = data.event_description;
+    document.querySelector("#description-input").value = data.group_description;
 
     // inputs data for page 4
-    if (data.event_type == false) {
-        showPrivate();
-    } else {
-        showPublic();
-    }
 
     // inputs data for page 5
     document.getElementById("guidelines-checkbox").checked = data.guidelines;
@@ -447,27 +351,27 @@ function displaySavedEvent(data) {
 }
 
 // If the user no longer wants that save let them delete it
-async function deleteSavedEvent(eventID) {
-    // Send data to Server as POST request to create-event
-    let eventData = {
+async function deleteSavedGroup(groupID) {
+    // Send data to Server as POST request to create-group
+    let groupData = {
         nothing: "nothing"
     };
     try {
-        let responseObject = await fetch(`/delete-saved-event/${eventID}`, {
+        let responseObject = await fetch(`/delete-saved-group/${groupID}`, {
             method: 'POST',
             headers: { "Accept": 'application/json',
                        "Content-Type": 'application/json'
             },
-            body: JSON.stringify(eventData)
+            body: JSON.stringify(groupData)
         });
         
         let parsedJSON = await responseObject.json();
         
-        //On event creation should send you to your new events homepage
+        //On group creation should send you to your new groups homepage
         if (parsedJSON.status == "success") {
             //the save was deleted
         } else {
-            console.log("failed to delete event")
+            console.log("failed to delete group")
         }
     } catch(error) {
         console.log(error);
@@ -476,14 +380,14 @@ async function deleteSavedEvent(eventID) {
 
 async function saveImage(imageFile, eventID) {
       
-            const options = {
-                method: 'POST',
-                body: imageFile,
-            };
-            fetch(`/upload-event-image/${eventID}`, options
-            ).then(function (res) {
-                // what do to on return from image upload
-                return
-            }).catch(function (err) { ("Error:", err) }
-            );
+    const options = {
+        method: 'POST',
+        body: imageFile,
+    };
+    fetch(`/upload-group-image/${eventID}`, options
+    ).then(function (res) {
+        // what do to on return from image upload
+        return
+    }).catch(function (err) { ("Error:", err) }
+    );
 }

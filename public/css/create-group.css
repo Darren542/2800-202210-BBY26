@@ -98,7 +98,6 @@
 #quit-box {
     width: 80%;
     margin:auto;
-    text-align: right;
 }
 
 #back-next-btns {
@@ -134,22 +133,6 @@
     font-weight: bold;
 }
 
-/* Page 1 CSS */
-#time-box {
-    display: grid;
-    grid-template-columns: 50px 1fr;
-    grid-template-rows: 20px 20px 20px;
-}
-
-#street-label {
-    grid-row: 1 / span 1;
-    grid-column: 1 / span 2;
-}
-
-#time-box input {
-    max-width: 180px;
-}
-
 /* Page 2 CSS */
 .premade-tag:hover {
     cursor: pointer;
@@ -177,8 +160,7 @@
 }
 
 /* Page 4 CSS */
-/* For the event type */
-#type-box {
+#plan-box {
     width: 80%;
     border: 1px black solid;
     border-top: 0px;
@@ -189,7 +171,7 @@
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.45);
 }
 
-#type-options {
+#plan-options {
     display: flex;
     justify-content: space-around;
     border: 1px solid black;
@@ -200,13 +182,13 @@
     gap:1px;
 }
 
-#event-type-container {
+#plan-details-container {
     background-color: white;
     padding-left: 4px;
     padding-top: 8px;
 }
 
-.type-option {
+.plan-option {
     font-size: 1.1rem;
     width: 100%;
     margin-bottom: .5px;
@@ -214,73 +196,19 @@
     padding-top: 10px;
 }
 
-.type-option:hover {
+.plan-option:hover {
     cursor: pointer;
 }
 
-#type-options > .unfilled:hover {
+#plan-options > .unfilled:hover {
     background-color: rgb(116, 170, 221);
 }
-#public-event {
+#free-plan {
     border-top-left-radius: 18px;
     border-bottom-left-radius: 18px;
 }
 
-#private-event {
-    border-top-right-radius: 18px;
-    border-bottom-right-radius: 18px;
-}
-
-/* For the event group */
-#group-box {
-    width: 80%;
-    border: 1px black solid;
-    border-top: 0px;
-    min-height: 100px;
-    border-top-left-radius: 18px;
-    border-top-right-radius: 18px;
-    padding-right:2px;
-    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.45);
-}
-
-#group-options {
-    display: flex;
-    justify-content: space-around;
-    border: 1px solid black;
-    border-radius: 20px;
-    height: 40px;
-    width: 100%;
-    background-color: black;
-    gap:1px;
-}
-
-#event-group-container {
-    background-color: white;
-    padding-left: 4px;
-    padding-top: 8px;
-}
-
-.group-option {
-    font-size: 1.1rem;
-    width: 100%;
-    margin-bottom: .5px;
-    text-align: center;
-    padding-top: 10px;
-}
-
-.group-option:hover {
-    cursor: pointer;
-}
-
-#group-options > .unfilled:hover {
-    background-color: rgb(116, 170, 221);
-}
-#non-group-event {
-    border-top-left-radius: 18px;
-    border-bottom-left-radius: 18px;
-}
-
-#group-event {
+#premium-plan {
     border-top-right-radius: 18px;
     border-bottom-right-radius: 18px;
 }

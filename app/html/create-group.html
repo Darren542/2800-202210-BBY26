@@ -5,18 +5,19 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>K9-Meet Create Event</title>
+  <title>K9-Meet Create Group</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
   <link rel="stylesheet" href="css/client.css">
-  <link rel="stylesheet" href="css/create-events.css">
+  <link rel="stylesheet" href="css/create-group.css">
 </head>
 
 <body>
   <div id="navbar-placeholder"></div>
 
+
   <div id="content">
-    <h1>Creating A New Event</h1>
+    <h1>Creating A New Group</h1>
 
     <!-- The steps on top of the progress bar -->
     <div id="progress-bar-titles">
@@ -36,16 +37,16 @@
       <div id="part-5" class="progress-bar unfilled"></div>
     </div>
 
-    <!-- Events Location Page 1 -->
+    <!-- Groups Location Page 1 -->
     <div class="page" id="page-1">
-      <h2>Event's Location & Time</h2>
+      <h2>Group's Location</h2>
 
       <div id="country-box" class="input-box">
         <div class="input-label" id="country-label">
           <span>Country:</span>
         </div>
         <div class="text-input">
-          <input type="text" id="country-input" name="country-input" placeholder="Country" maxlength="56" />
+          <input type="text" id="country-input" name="country-input" placeholder="Country" maxlength="56"/>
         </div>
       </div>
 
@@ -67,38 +68,15 @@
         </div>
       </div>
 
-      <div id="street-box" class="input-box">
-        <div class="input-label" id="street-label">
-          <span>Street Address:</span>
-        </div>
-        <div class="text-input">
-          <input type="text" id="street-input" name="street-input" placeholder="Street" maxlength="75" />
-        </div>
-      </div>
-
-      <div id="time-box" class="input-box">
-        <div class="input-label" id="time-label">
-          <span>Time & Date:</span>
-        </div>
-        <div class="input-label" id="start-label">
-          <span>Start:</span>
-        </div>
-        <input type="datetime-local" id="event-date" name="event-date" min="2021-05-16T16:30">
-        <div class="input-label" id="end-label">
-          <span>End:</span>
-        </div>
-        <input type="datetime-local" id="event-end-time" name="event-end-time" min="2021-05-16T16:30">
-      </div>
-
     </div>
 
-    <!-- Event's Name Page 2 -->
+    <!-- Group's Name Page 2 -->
     <div class="no-show" id="page-2">
-      <h2>Event's Name, Tags & Image</h2>
+      <h2>Group's Name, Tags & Image</h2>
 
       <div id="name-box" class="input-box">
         <div class="input-label" id="name-label">
-          <span>Enter Event's Name:</span>
+          <span>Enter Group's Name:</span>
         </div>
         <div class="text-input">
           <input type="text" id="name-input" name="name-input" placeholder="Name" />
@@ -110,7 +88,7 @@
           <span>Tags:</span>
         </div>
         <div class="text-input">
-          <input type="text" id="tag-input" name="tag-input" placeholder="Enter Tags with #tag" maxlength="500" />
+          <input id="tag-input" name="tag-input" placeholder="Enter Tags with #tag" maxlength="500"/>
         </div>
       </div>
 
@@ -129,7 +107,7 @@
       </div>
 
       <div id="tag-explain">
-        Tags are there to help others find your event and to let them know what it is about.
+        Tags are there to help others find your group and to let them know what it is about.
       </div>
 
       <div id="image-box" class="input-box">
@@ -139,77 +117,50 @@
         <div class="text-input">
           <input id="image-upload" type="file" accept="image/png, image/gif, image/jpeg, image/jpg" />      </div>
       </div>
-          
 
     </div>
 
-    <!-- Event's Description Page 3 -->
+    <!-- Group's Description Page 3 -->
     <div class="no-show" id="page-3">
-      <h2>Event's Description</h2>
+      <h2>Group's Description</h2>
 
       <div id="description-box" class="input-box">
         <div class="input-label" id="description-label">
           <span>Description:</span>
         </div>
         <div class="texta-input">
-          <textarea id="description-input" name="description-input"
-            placeholder="Enter your event's description in under 500 characters" maxlength="500"></textarea>
+          <textarea type="text" id="description-input" name="description-input"
+            placeholder="Enter your groups description in under 500 characters" maxlength="500"></textarea>
         </div>
       </div>
 
     </div>
 
-    <!-- Event's Type Page 4 -->
+    <!-- Group's Plan Page 4 -->
     <div class="no-show" id="page-4">
-      <h2>Event's Type</h2>
+      <h2>Group's Plan</h2>
 
-      <div id="type-box" class="input-box">
-        <div id="type-options">
-          <div id="public-event" class="type-option filled">Public</div>
-          <div id="private-event" class="type-option unfilled">Private</div>
+      <div id="plan-box" class="input-box">
+        <div id="plan-options">
+          <div id="free-plan" class="plan-option filled">Free</div>
+          <div id="premium-plan" class="plan-option unfilled">Premium</div>
         </div>
 
-        <div id="event-type-container">
-          <div id="public-event-details" class="type-details">
-            <div><b>Public</b></div>
+        <div id="plan-details-container">
+          <div id="free-plan-details" class="plan-details">
+            <div><b>Free Plan</b></div>
             <ul>
-              <li>Anyone can view this event</li>
-              <li>Anyone can comment on this event</li>
-              <li>Anyone can search for this event</li>
-              <li>Anyone can join this event</li>
+              <li>Unlimited members can join group</li>
+              <li>Unlimited number of events</li>
+              <li>Publicly visable and searchable</li>
+              <li>Public comment section</li>
               <li>Public image gallery</li>
             </ul>
           </div>
-          <div id="private-event-details" class="no-show">
-            <div><b>Private</b></div>
+          <div id="premium-plan-details" class="no-show">
+            <div><b>Premium Plan</b></div>
             <ul>
-              <li>Private events have not been implemented yet</li>
-              <li>Currently will work the same public event</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <div id="group-box" class="input-box">
-        <div id="group-options">
-          <div id="non-group-event" class="group-option filled">No Group</div>
-          <div id="group-event" class="group-option unfilled">Group</div>
-        </div>
-
-        <div id="event-group-container">
-          <div id="non-group-details" class="group-details">
-            <div><b>No Group</b></div>
-            <ul>
-              <li>This event is not part of any group</li>
-            </ul>
-          </div>
-          <div id="group-details" class="no-show">
-            <div><b>Group</b></div>
-            <ul>
-              <li>This event is attached to a group</li>
-              <li>You must be a member of the group being attached</li>
-              <li>Drop down menu here of persons groups when implemented</li>
-              <li>This has not yet been implemented</li>
+              <li>Plan not available at this time</li>
             </ul>
           </div>
         </div>
@@ -217,10 +168,10 @@
 
     </div>
 
-    <!-- Event Creation Finalization Page 5 -->
+    <!-- Group Creation Finalization Page 5 -->
     <div class="no-show" id="page-5">
-      <h2>Finalize Event Creation</h2>
-
+      <h2>Finalize Group Creation</h2>
+    
       <div id="agreements-box" class="checkbox-box">
         <div id="guidelines-box">
           <input type="checkbox" id="guidelines-checkbox" name="guidelines-checkbox">
@@ -231,7 +182,7 @@
           <label>I Agree to the <a href="/terms-and-conditions" target="_blank">Terms & Conditions.</a></label>
         </div>
       </div>
-
+    
     </div>
 
     <!-- Save and Quit for use latter -->
@@ -253,7 +204,7 @@
 
   <div id="footer-placeholder"></div>
   <script src="js/skeleton-logged-in.js"></script>
-  <script src="js/create-events.js"></script>
+  <script src="js/create-group.js"></script>
 </body>
 
 </html>

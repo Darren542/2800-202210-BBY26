@@ -34,12 +34,25 @@
         <p id="dropdown-option-3">participants</p>
       </div>
       <div id="posts-loader">
-        <p>No posts found!
-        <p>
+        <p id="loader-message"></p>
       </div>
     </div>
   </div>
 
+  <template id="post-template">
+    <div class="post">
+        <img id="event-img" alt="event image">
+        <p>Event Name: <span id="event-name-placeholder"></span></p>
+        <p>Event Location: <span id="event-street-placeholder"></span>, <span
+                id="event-address-placeholder"></span></p>
+        <p>Event Date: <span id="event-date-placeholder"></span></p>
+        <p>Event Duration: <span id="event-duration-placeholder"></span></p>
+        <p>Event Tags: not yet implemented.</p>
+        <p>Event Description: </p>
+        <p id="event-description-placeholder"></p>
+        <button id="RSVP">Reserve</button>
+    </div>
+</template>
 
   <div id="footer-placeholder"></div>
   <script src="js/skeleton-logged-in.js"></script>
