@@ -25,3 +25,37 @@ The shopping cart can be seen by:
 One problem currently is that images are not saved and loaded in your saved event/group creations. And will have to be reinputted if you tried to save one.
 I also have images limited to 150kbs max atm.
 
+
+The timeline can be seen by:
+1. Login to a user (username: bcherng, pw: 123)
+2. Open the navbar and click on profile
+3. Click on the events tab
+
+The timeline can be edited by (only as the event creator):
+1. Login to a user (username: bcherng, pw:123)
+2. Open the navbar and click on create event
+3. Fill in and confirm, on the last page, click on "join"
+4. Open the navbar and click on profile
+5. Click on the events tab
+6. Click on the edit button on the top right of the created event
+7. Edit info in the popup
+8. Press confirm and click on events tab again to see changes
+
+The timeline can be unreserved by (only as non event creator):
+1. Login to a user (username: bcherng, pw:123)
+2. Open the navbar and click on profile
+3. Click on the events tab and then clicking the "x" button on events you want to unreserve
+4. The page is reloaded, click on events tab to see that the unreserved event no longer shows up
+
+The timeline can be deleted by (only as event creator):
+1. Login to a user (username: bcherng, pw:123)
+2. Open the navbar and click on create event
+3. Fill in and confirm, on the last page, click on "join"
+4. Open the navbar and click on profile
+5. Click on the events tab
+6. Click on the "X" button on the top right of the created event
+7. The page is reloaded, click on events tab to see that the deleted event no longer shows up
+
+(8). to check that deleted events disappear from other users' RSVP list, you'll have to
+do an extra step after 5 where you login to another user (username: testuser, pw:123)
+and going to the home page, find and reserve the created event, then login back onto bcherng.
