@@ -29,6 +29,17 @@ function loadEvent() {
                 let temp = document.querySelector('#post-template');
                 let card = temp.content.cloneNode(true);
                 card.id = "post";
+                card.getElementById("RSVP").id = "event" + eventData[0].eventID;
+                card.querySelector("#event"+eventData[0].eventID).addEventListener("click", function(){
+                    const xhttp = new XMLHttpRequest();
+                    xhttp.open("post", "/event-rsvp/" + eventData[0].eventID, true);
+                    xhttp.send(); 
+                    xhttp.onreadystatechange = function () {
+                        if (this.readyState == 4 && this.status == 200) {
+                            location.reload();
+                        }
+                    }
+                });
                 card.getElementById("event-img").src = "/img/event-imgs/" + eventData[0].event_photo;
                 card.getElementById("event-name-placeholder").innerHTML = eventData[0].event_name;
                 card.getElementById("event-date-placeholder").innerHTML = eventData[0].event_date_time;

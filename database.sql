@@ -276,3 +276,15 @@ VALUES ("7599 Mission Ave", "Burnaby", 4, 2);
 SELECT * FROM BBY_26_addresses;
 SELECT * FROM BBY_26_events;
 SELECT * FROM BBY_26_RSVP;
+
+
+select * from bby_26_events
+WHERE eventID not in (select eventID from bby_26_rsvp WHERE userID = 6);
+
+
+
+
+select * from bby_26_events 
+WHERE eventID not in (select eventID from bby_26_rsvp WHERE userID = 6) AND event_date_time > CURRENT_TIMESTAMP;
+
+

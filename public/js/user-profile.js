@@ -190,8 +190,12 @@ function loadEvent(eventID) {
             card.getElementById("delete-button").eventID = eventID;
             card.getElementById("event-img").src = "/img/event-imgs/" + eventData[0].event_photo;
             card.getElementById("event-name-placeholder").innerHTML = eventData[0].event_name;
-            card.getElementById("event-address-placeholder").innerHTML = eventAddress[0].city;
-            card.getElementById("event-street-placeholder").innerHTML = eventAddress[0].street;
+            if (eventData[0].city) {
+                card.getElementById("event-address-placeholder").innerHTML = eventAddress[0].city;
+            }
+            if (eventData[0].street) {
+                card.getElementById("event-street-placeholder").innerHTML = eventAddress[0].street;
+            }
             card.getElementById("event-date-placeholder").innerHTML = eventData[0].event_date_time;
             card.getElementById("event-duration-placeholder").innerHTML = eventData[0].event_duration + " minutes";
             card.getElementById("event-description-placeholder").innerHTML = eventData[0].event_description;
