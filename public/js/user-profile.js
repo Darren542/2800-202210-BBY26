@@ -191,10 +191,10 @@ function loadEvent(eventID) {
             card.getElementById("event-img").src = "/img/event-imgs/" + eventData[0].event_photo;
             card.getElementById("event-name-placeholder").innerHTML = eventData[0].event_name;
             if (eventData[0].city) {
-                card.getElementById("event-address-placeholder").innerHTML = eventAddress[0].city;
+                card.getElementById("event-address-placeholder").innerHTML = eventData[0].city;
             }
             if (eventData[0].street) {
-                card.getElementById("event-street-placeholder").innerHTML = eventAddress[0].street;
+                card.getElementById("event-street-placeholder").innerHTML = eventData[0].street;
             }
             let newDate = new Date(eventData[0].event_date_time);
             card.getElementById("event-date-placeholder").innerHTML = newDate.toLocaleString();
