@@ -111,7 +111,7 @@ function touchingFunction(event) {
 //https://javascript.info/mouse-drag-and-drop
 // for desktop users to move bone
 function mousingFunction(event) {
-    console.log('mouse');
+
     let bone = document.querySelector("#bone");
     let shiftX = event.clientX - bone.getBoundingClientRect().left;
     let shiftY = event.clientY - bone.getBoundingClientRect().top;
