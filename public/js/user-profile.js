@@ -196,8 +196,9 @@ function loadEvent(eventID) {
             if (eventData[0].street) {
                 card.getElementById("event-street-placeholder").innerHTML = eventAddress[0].street;
             }
-            card.getElementById("event-date-placeholder").innerHTML = eventData[0].event_date_time;
-            card.getElementById("event-duration-placeholder").innerHTML = eventData[0].event_duration + " minutes";
+            let newDate = new Date(eventData[0].event_date_time);
+            card.getElementById("event-date-placeholder").innerHTML = newDate.toLocaleString();
+            card.getElementById("event-duration-placeholder").innerHTML = (eventData[0].event_duration / 60) + " minutes";
             card.getElementById("event-description-placeholder").innerHTML = eventData[0].event_description;
             document.getElementById("cancel-button").addEventListener("click", hidePopup);
             document.getElementById("confirm-button").addEventListener("click", modifyEvent);
