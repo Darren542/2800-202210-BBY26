@@ -170,23 +170,17 @@ function deleteEvent() {
 
 function loadEvent(eventID) {
     const eventDetail = new XMLHttpRequest();
-    const theAddress = new XMLHttpRequest();
     eventDetail.open("POST", "/load-event");
     eventDetail.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     eventDetail.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     eventDetail.send("eventID=" + eventID);
-    theAddress.open("post", "/get-event-address");
-    theAddress.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-    theAddress.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    theAddress.send("eventID=" + eventID);
     getUserID();
     function load() {
-        if (theAddress.readyState == 4 && theAddress.status == 200 && eventDetail.readyState == 4 && eventDetail.status == 200) {
+        if (eventDetail.readyState == 4 && eventDetail.status == 200) {
             let temp = document.querySelector('#post-template');
             let card = temp.content.cloneNode(true);
             card.id = "post";
             let eventData = JSON.parse(eventDetail.responseText);
-            let eventAddress = JSON.parse(theAddress.responseText);
             card.getElementById("delete-button").eventID = eventID;
             card.getElementById("event-img").src = "/img/event-imgs/" + eventData[0].event_photo;
             card.getElementById("event-name-placeholder").innerHTML = eventData[0].event_name;
@@ -213,8 +207,8 @@ function loadEvent(eventID) {
                     let modifyDiv = document.getElementById("modify-event-popup");
                     modifyDiv.querySelector("#event-img").src = "/img/event-imgs/" + eventData[0].event_photo;
                     modifyDiv.querySelector("#event-name-placeholder").value = eventData[0].event_name;
-                    modifyDiv.querySelector("#event-address-placeholder").value = eventAddress[0].city;
-                    modifyDiv.querySelector("#event-street-placeholder").value = eventAddress[0].street;
+                    modifyDiv.querySelector("#event-address-placeholder").value = eventData[0].city;
+                    modifyDiv.querySelector("#event-street-placeholder").value = eventData[0].street;
                     modifyDiv.querySelector("#event-date-placeholder").value = eventData[0].event_date_time;
                     modifyDiv.querySelector("#event-duration-placeholder").value = eventData[0].event_duration;
                     modifyDiv.querySelector("#event-description").value = eventData[0].event_description;
@@ -226,7 +220,6 @@ function loadEvent(eventID) {
             document.getElementById("menu-display").appendChild(card);
         }
     }
-    theAddress.onreadystatechange = load;
     eventDetail.onreadystatechange = load;
     updateProfileMenu("events-option");
 }

@@ -1049,7 +1049,7 @@ app.post("/load-event", function (req, res) {
     myPromise.then(
         function (value) {
             connection.execute(
-                "SELECT BBY_26_events.event_name, BBY_26_events.eventID, BBY_26_events.event_photo, BBY_26_events.event_date_time, BBY_26_events.event_duration, BBY_26_events.event_description, BBY_26_event_address.street, BBY_26_event_address.city, BBY_26_users.username FROM BBY_26_event_address INNER JOIN BBY_26_events ON BBY_26_event_address.eventID = BBY_26_events.eventID INNER JOIN BBY_26_users ON BBY_26_events.ownerID = BBY_26_users.userID WHERE BBY_26_events.eventID = ?",
+                "SELECT BBY_26_events.event_name, BBY_26_events.eventID, BBY_26_events.event_photo, BBY_26_events.event_date_time, BBY_26_events.event_duration, BBY_26_events.event_description, BBY_26_event_address.street, BBY_26_event_address.city, BBY_26_users.username, BBY_26_events.ownerID FROM BBY_26_event_address INNER JOIN BBY_26_events ON BBY_26_event_address.eventID = BBY_26_events.eventID INNER JOIN BBY_26_users ON BBY_26_events.ownerID = BBY_26_users.userID WHERE BBY_26_events.eventID = ?",
                 [req.body.eventID],
                 function (error, results) {
                     if (error) {
