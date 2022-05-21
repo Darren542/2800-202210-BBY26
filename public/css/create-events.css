@@ -150,6 +150,11 @@
     max-width: 180px;
 }
 
+#time-label {
+    grid-row: 1 / span 1;
+    grid-column: 1 / span 2;
+}
+
 /* Page 2 CSS */
 .premade-tag:hover {
     cursor: pointer;
