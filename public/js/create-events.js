@@ -328,14 +328,21 @@ document.querySelector("#save-quit").addEventListener('click', async function() 
     let province = document.querySelector("#province-input").value;
     let city = document.querySelector("#city-input").value;
     let street = document.querySelector("#street-input").value;
-    let startTime2 = document.querySelector("#event-date").value;
-    let endTime2 = document.querySelector("#event-end-time").value;
+    let startTime = document.querySelector("#event-date").value;
+    let endTime = document.querySelector("#event-end-time").value;
     // Trying to get timezones to save right
     // No idea why it is double timezone off
-    let startTime = new Date(startTime2);
-    startTime.setMinutes(startTime.getMinutes() - (startTime.getTimezoneOffset() * 2));
-    let endTime = new Date(endTime2);
-    endTime.setMinutes(endTime.getMinutes() - (endTime.getTimezoneOffset() * 2));
+    if (startTime) {
+        let startTime2 = new Date(startTime);
+        startTime2.setMinutes(startTime2.getMinutes() - (startTime2.getTimezoneOffset() * 2));
+        startTime = startTime2;
+    }
+    if (endTime) {
+        let endTime2 = new Date(endTime);
+        endTime2.setMinutes(endTime2.getMinutes() - (endTime2.getTimezoneOffset() * 2));
+        endTime = endTime2;
+    }
+    
 
     // receiving inputs from page 2
     let name = document.querySelector("#name-input").value;
