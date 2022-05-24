@@ -340,6 +340,104 @@ app.post("/event-rsvp/:id", function (req, res) {
     );
 })
 
+// For joining group's saves into the group member database
+// Used by the group page
+// Author Darren
+app.post("/group-join/:id", function (req, res) {
+    let connection;
+    let myPromise = new Promise((resolve, reject) => {
+
+        connection = mysql.createConnection({
+            host: "localhost",
+            user: "root",
+            password: "",
+            database: "COMP2800"
+        });
+
+        connection.connect(err => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(true);
+            }
+        });
+    });
+
+    myPromise.then(
+        function (value) {
+            connection.execute(
+                "INSERT INTO BBY_26_group_members (groupID, userID) values (?, ?)",
+                [req.params.id, req.session.userID],
+                function (error, results) {
+                    if (error) {
+                        if (error.code == 'ER_DUP_ENTRY') {
+                            res.send({ status: "failure", msg: "Group not joined." });
+                        } else {
+                            console.log(error);
+                        }    
+                    }
+                    else {
+                        res.send({ status: "success", msg: "Group Joined." });
+                    }
+                });
+            connection.end();
+        },
+        function (error) {
+            console.log(error);
+        }
+    );
+})
+
+// Used to check if user is a member of a specific group
+// Used by group page
+// Author Darren
+app.get("/check-membership/:id", function (req, res) {
+    let connection;
+    let myPromise = new Promise((resolve, reject) => {
+
+        connection = mysql.createConnection({
+            host: "localhost",
+            user: "root",
+            password: "",
+            database: "COMP2800"
+        });
+
+        connection.connect(err => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(true);
+            }
+        });
+
+    });
+
+    myPromise.then(
+        function () {
+            connection.execute(
+                "SELECT * FROM BBY_26_group_members WHERE userID = ? AND groupID = ?",
+                [req.session.userID, req.params.id],
+                function (error, results) {
+                    if (error) {
+                        console.log(error);                     
+                    }
+                    else {
+                        if (results[0]) {
+                            res.send({ status: "yes", msg: "Already joined."});
+                        } else {
+                            res.send({ status: "no", msg: "Not joined"});
+                        }                       
+                    }
+
+                });
+            connection.end();
+        },
+        function (error) {
+            console.log(error);
+        }
+    );
+});
+
 // Used to check if user is RSVPed for a specific event
 // Used by event page
 // Author Darren
@@ -2449,7 +2547,8 @@ app.get("/terms-and-conditions", function (req, res) {
 });
 
 app.use(function (req, res, next) {
-    res.status(404).send("<html><head><title>Page not found!</title></head><body><p>Nothing here.</p></body></html>");
+    let doc = fs.readFileSync("./app/html/404.html", "utf8");
+    res.status(404).send(doc);
 });
 
 let port = 8000;

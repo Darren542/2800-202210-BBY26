@@ -171,12 +171,16 @@ h2 {
 
     #main-image-desktop {
     display: block;
-    height: 95%;
-    width: 95%;
+    height: 75%;
+    width: 75%;
     max-width: calc(100% - 5px);
     object-fit: cover;
     padding-top: 5px;
     border-radius: 20px;
+    }
+
+    #buttons-div {
+        margin-top: 3%;
     }
 
     .btn {

@@ -88,10 +88,11 @@ C:.
     |       user-profile.css
     |       
     +---img
+    |   |   404.jpg                         // From Pexels.com user Javon Swaby
     |   |   blue-dog-background.png         // the dog from logo editted by Darren
     |   |   bone.svg                        // from https://www.onlinewebfonts.com/icon/556393 , darren editted colour
     |   |   chaser.png                      // the dog from logo editted by darren
-    |   |   desktop-splash.jpg              // From Pixels.com user Julissa Helmuth
+    |   |   desktop-splash.jpg              // From Pexels.com user Julissa Helmuth
     |   |   dog-signup.jpg                  // From Pinterest.com
     |   |   dog.png                         // From Pinpng.com
     |   |   favicon.ico                     // Made with favicon.io

@@ -1,6 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+<<<<<<< HEAD
 body{
     margin: 0;
+=======
+
+body {
+    margin: 0%;
+    padding: 0%;
+>>>>>>> 92e4ecd57e6dc68546f28627fbb0f84f48152627
     font-family: 'Inter', sans-serif;
     padding: 0;
 }
@@ -34,6 +41,7 @@ body{
 #img {
     max-width: 45vw;
     max-height: 60vh;
+    border-radius: 20%;
 }
 
 #content {
@@ -47,6 +55,7 @@ body{
     margin-top: 30px;
 }
 
+<<<<<<< HEAD
 /* ################ utility classes ############# */
 
 .color-dark{
@@ -60,6 +69,10 @@ body{
 }
 .color-orange{
     color: #ed6b5b;
+=======
+#logo {
+    padding-right: 12%;
+>>>>>>> 92e4ecd57e6dc68546f28627fbb0f84f48152627
 }
 
 @media screen and (max-width: 850px) {
@@ -78,10 +91,17 @@ body{
         flex-direction: column;
     }
 
+    #logo {
+        display: flex;
+        justify-content: center;
+        margin: 0%;
+        padding: 0%;
+    }
+
     #img {
         max-width: 70vw;
         max-height: 60vh;
-        margin-left: 30px;
+        border-radius: 50%;
     }
 
     #fill {
