@@ -62,33 +62,45 @@ async function updateEmail() {
     let newEmail = {
         email: document.getElementById("email").value
     };
-    let path = window.location.pathname;
-    const requestId = path.substring(path.lastIndexOf('/'));
-    await hideErrors();
-    try {
-        let responseObject = await fetch(`/update-email${requestId}`, {
-            method: 'POST',
-            headers: { "Accept": 'application/json',
-                       "Content-Type": 'application/json'
-            },
-            body: JSON.stringify(newEmail)
-        });
-        
-        let parsedJSON = await responseObject.json();       
-        if (parsedJSON.status == "success") {
-            document.getElementById("email-filler").classList.add("no-show");
-            document.getElementById("update-success-email").classList.remove("no-show");
-        } else if (parsedJSON.status == "failure") {
-            document.getElementById("email-filler").classList.add("no-show");
-            document.getElementById("update-failure-email").classList.remove("no-show");
-            document.getElementById("update-failure-email").innerHTML = parsedJSON.msg;
-        } else {
-            document.getElementById("email-filler").classList.add("no-show");
-            document.getElementById("update-failure-email").classList.remove("no-show");
+
+    // Regex to check if valid email address
+    var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+    if (newEmail.email.match(validRegex)) {
+        let path = window.location.pathname;
+        const requestId = path.substring(path.lastIndexOf('/'));
+        await hideErrors();
+        try {
+            let responseObject = await fetch(`/update-email${requestId}`, {
+                method: 'POST',
+                headers: {
+                    "Accept": 'application/json',
+                    "Content-Type": 'application/json'
+                },
+                body: JSON.stringify(newEmail)
+            });
+
+            let parsedJSON = await responseObject.json();
+            if (parsedJSON.status == "success") {
+                document.getElementById("email-filler").classList.add("no-show");
+                document.getElementById("update-success-email").classList.remove("no-show");
+            } else if (parsedJSON.status == "failure") {
+                document.getElementById("email-filler").classList.add("no-show");
+                document.getElementById("update-failure-email").classList.remove("no-show");
+                document.getElementById("update-failure-email").innerHTML = parsedJSON.msg;
+            } else {
+                document.getElementById("email-filler").classList.add("no-show");
+                document.getElementById("update-failure-email").classList.remove("no-show");
+            }
+        } catch (error) {
+            console.log(error);
         }
-    } catch(error) {
-        console.log(error);
+    } else {
+        document.getElementById("email-filler").classList.add("no-show");
+        document.getElementById("update-failure-email").classList.remove("no-show");
+        document.getElementById("update-failure-email").innerHTML = "Invalid Email";
     }
+
 }
 
 async function updatePassword() {

@@ -17,6 +17,13 @@ document.getElementById("submit").addEventListener("click", function (e) {
         confirmPassword: document.getElementById("confirm-password").value
     };
 
+    // Regex to check if valid email address
+    var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    if (formData.email.match(validRegex)) {
+        console.log("email matched")
+    } else {
+        
+    }
     if (document.getElementById("email").value == ""
         || document.getElementById("username").value == ""
         || document.getElementById("password").value == ""
@@ -24,11 +31,20 @@ document.getElementById("submit").addEventListener("click", function (e) {
         document.getElementById("top-filler").classList.add("no-show");
         document.getElementById("empty-field").classList.remove("no-show");
     } else {
-        if (formData.password != formData.confirmPassword) {
+        if (!formData.email.match(validRegex)) {
+            console.log("email didn't match")
             document.getElementById("password").value = "";
             document.getElementById("confirm-password").value = "";
             document.getElementById("bottom-filler").classList.add("no-show");
             document.getElementById("no-match").classList.remove("no-show");
+            document.getElementById("no-match").innerHTML = "Email not valid";
+        }
+        else if (formData.password != formData.confirmPassword) {
+            document.getElementById("password").value = "";
+            document.getElementById("confirm-password").value = "";
+            document.getElementById("bottom-filler").classList.add("no-show");
+            document.getElementById("no-match").classList.remove("no-show");
+            document.getElementById("no-match").innerHTML = "Passwords do not match";
         }
         else {
             const xhr = new XMLHttpRequest();
