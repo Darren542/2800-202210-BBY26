@@ -37,33 +37,38 @@ function displayGroupInfo(data) {
 
 getGroupInfo(window.location.pathname);
 
-
+// for fixing double joining groups
+var haveJoined = false;
 // Creates an RSVP for the currently logged in user for the currently view event
 async function joinGroup(groupID) {
-    let eventData = {
-        data: "nothing"
-    }
-    try {
-        let responseObject = await fetch(`/group-join/${groupID}`, {
-            method: 'POST',
-            headers: { "Accept": 'application/json',
-                       "Content-Type": 'application/json'
-            },
-            body: JSON.stringify(eventData)
-        });
-        
-        let parsedJSON = await responseObject.json();
-        //console.log(parsedJSON);
-        if (parsedJSON.status == "success") {
-            document.getElementById("join-button").innerHTML = "Joined"
-            document.getElementById("join-button").style.backgroundColor = "green";
-        } else {
-            document.getElementById("join-button").innerHTML = "Failed"
-            document.getElementById("join-button").style.backgroundColor = "red";
+    if (!haveJoined) {
+        let eventData = {
+            data: "nothing"
         }
-    } catch(error) {
-        console.log(error);
+        try {
+            let responseObject = await fetch(`/group-join/${groupID}`, {
+                method: 'POST',
+                headers: { "Accept": 'application/json',
+                           "Content-Type": 'application/json'
+                },
+                body: JSON.stringify(eventData)
+            });
+            
+            let parsedJSON = await responseObject.json();
+            //console.log(parsedJSON);
+            if (parsedJSON.status == "success") {
+                document.getElementById("join-button").innerHTML = "Joined"
+                document.getElementById("join-button").style.backgroundColor = "green";
+                haveJoined = true;
+            } else {
+                document.getElementById("join-button").innerHTML = "Failed"
+                document.getElementById("join-button").style.backgroundColor = "red";
+            }
+        } catch(error) {
+            console.log(error);
+        }
     }
+    
 }
 
 // Checks if the logged in user is already RSVPed for the viewed event
@@ -73,6 +78,7 @@ async function checkForGroup(groupID) {
         if (data.status == "yes") {
             document.getElementById("join-button").innerHTML = "Joined"
             document.getElementById("join-button").style.backgroundColor = "green";
+            haveJoined = true;
         } else {
             document.getElementById("join-button").addEventListener("click", () => {
                 joinGroup(groupID)});
