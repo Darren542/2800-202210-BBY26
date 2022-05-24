@@ -30,23 +30,24 @@ body {
 
 /* Navbar styling */
 #nav {
-    height: 100px;
+    height: 80px;
     width:100%;
     position: fixed;
     z-index: 100;
+
 }
 
 #navbar-placeholder {
-    height: 100px;
+    height: 80px;
     width:100%;
     position: fixed;
     z-index: 100;
 }
 
 #navbar {
-    height: 100px;
+    height: 90px;
     width:100%;
-    background-color:rgb(51, 72, 210);
+    background-color:#3a3e59;
     display:grid;
     grid-template-rows: 100%;
     grid-template-columns: 1fr 100px 100px;
@@ -60,8 +61,8 @@ body {
 }
 
 #logo-image {
-    height: 95%;
-    width: 95%;
+    height: 85%;
+    width: 85%;
     object-fit: cover;
 }
 
@@ -82,16 +83,18 @@ body {
     cursor:pointer;
 }
 
+
+
 #nav-items {
     position: fixed;
     display: flex;
     top: 100px;
     right: 0;
     width: 300px;
-    height: calc(100vh);
+    height: calc(90vh);
     padding: 30px;
     list-style:none;
-    background-color: rgb(67, 136, 201);
+    background-color: #3a3e59;
     padding:0;
     margin:0;
     flex-direction: column;
@@ -108,11 +111,12 @@ body {
 
 .nav-btn {
     font-size: 1.4em;
-    color: black;
+    color: #ed6b5b;
+    font-weight: bold;
     width: 100%;
     height: 50px;
-    background-color:rgb(130, 177, 221);
-    border: 1px solid rgb(69, 69, 206);
+    background-color:#3a3e59;
+    border: 1px solid #f9ac66;
 
     text-decoration: none;
     display:flex;
@@ -125,7 +129,8 @@ body {
 
 .nav-btn:hover {
     cursor: pointer;
-    background-color: rgb(69, 69, 206);
+    background-color: #f9ac66;
+    scale: 1.2;
 }
 
 #hambuger-icon {
@@ -134,7 +139,7 @@ body {
 }
 
 .no-scroll {
-    overflow:auto;
+    overflow:hidden;
     /* change this back to hidden if you want to remove page scroll while hamburger menu open */
     /* overflow: hidden; */
   }
@@ -178,7 +183,7 @@ body {
     grid-column: 1 / span 1;
     height: 50px;
     width:100%;
-    background: rgb(51, 72, 210);
+    background: #3a3e59;
 }
 
 #footer {
@@ -194,10 +199,34 @@ body {
 
 .footer-link {
     color:white;
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 .footer-link:hover {
     cursor: pointer;
-    color:rgb(182, 220, 253);
+    color:#f9ac66;
+}
+
+/* ######## utility classes ########## */
+
+.color-dark{
+    color: #3a3e59;
+}
+.color-pink{
+    color: #c36b84
+}
+.color-yellow{
+    color: #f9ac66;
+}
+.color-orange{
+    color: #ed6b5b;
+}
+.bold-font{
+    font-weight: bold;
+}
+.bolder-font{
+    font-weight: bolder;
+}
+.color-white{
+    color: #fff;
 }

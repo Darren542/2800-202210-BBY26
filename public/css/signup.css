@@ -16,14 +16,15 @@ body {
     color: black;
     width: 100px;
     height: 50px;
-    background-color: rgb(130, 177, 221);
+    background-color: #f9ac66;
     border: 1px solid black;
     border-radius: 10px;
 }
 
 .btn:hover {
     cursor: pointer;
-    background-color:rgb(69, 69, 206);
+    background-color:#3a3e59;
+    color: white;
 }
 
 #button {
