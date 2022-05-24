@@ -2547,7 +2547,8 @@ app.get("/terms-and-conditions", function (req, res) {
 });
 
 app.use(function (req, res, next) {
-    res.status(404).send("<html><head><title>Page not found!</title></head><body><p>Nothing here.</p></body></html>");
+    let doc = fs.readFileSync("./app/html/404.html", "utf8");
+    res.status(404).send(doc);
 });
 
 let port = 8000;
