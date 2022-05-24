@@ -31,14 +31,6 @@ CREATE table IF NOT EXISTS BBY_26_profiles(
 		ON UPDATE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS BBY_26_address(
-    addressID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    street varchar(75),
-    city varchar(50),
-	province varchar(50),
-	country varchar(56)
-);
-
  CREATE TABLE IF NOT EXISTS BBY_26_events(
     eventID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	ownerID int NOT NULL,
@@ -54,6 +46,21 @@ CREATE TABLE IF NOT EXISTS BBY_26_address(
 		ON UPDATE CASCADE
 ); 
 
+CREATE TABLE IF NOT EXISTS BBY_26_event_address(
+    addressID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    street varchar(75),
+    city varchar(50),
+	province varchar(50),
+	country varchar(56),
+	eventID int NOT NULL,
+	ownerID int NOT NULL,
+	FOREIGN KEY (ownerID) REFERENCES BBY_26_users (userID)
+		ON UPDATE CASCADE,
+		FOREIGN KEY (eventID) REFERENCES BBY_26_events (eventID)
+	ON DELETE CASCADE
+	ON UPDATE CASCADE
+);
+
 CREATE TABLE IF NOT EXISTS BBY_26_tag(
 	tagID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	tags varchar(50),
@@ -63,6 +70,26 @@ CREATE TABLE IF NOT EXISTS BBY_26_tag(
 	ON UPDATE CASCADE
 );
 
+/* For saving events to reload in later */
+CREATE TABLE IF NOT EXISTS BBY_26_saved_event(
+	savedID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	ownerID int NOT NULL,
+	event_name varchar(30),
+    country varchar(56),
+	province varchar(50),
+	city varchar(50),
+	street varchar(75),
+	event_description varchar(500),
+	event_type boolean,
+	tagString varchar(500),
+	event_date_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    event_end_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	creationTime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	guidelines boolean DEFAULT FALSE,
+	terms boolean DEFAULT FALSE,	
+	FOREIGN KEY (ownerID) REFERENCES BBY_26_users (userID)
+		ON UPDATE CASCADE
+);
 	-- event_type boolean, 
 -- event-type false is private & public is true
 -- need add a filed for user taking in photos
@@ -88,7 +115,8 @@ CREATE TABLE IF NOT EXISTS BBY_26_groups(
 	province varchar(50),
 	city varchar(50),
 	group_description varchar(500),
-	group_type varchar(10), 
+	group_type varchar(10),
+	group_photo varchar(50) DEFAULT "groups.png",
 	creationTime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	FOREIGN KEY (ownerID) REFERENCES BBY_26_users (userID)
 		ON UPDATE CASCADE

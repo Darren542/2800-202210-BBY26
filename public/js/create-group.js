@@ -142,6 +142,26 @@ document.querySelector("#finish-btn").addEventListener('click', async function()
     let tagString = document.querySelector("#tag-input").value;
     let tags = tagString.split("#");
 
+    // Need to add code for the images here
+    let formData;
+    const imageUpload = document.querySelector('#image-upload');
+    const maxEventImageSize = 150000;
+    if (imageUpload.files[0]) {
+        if (imageUpload.files[0].size < maxEventImageSize) {
+            formData = new FormData();
+            
+    
+            // put the images from the input into the form data
+            formData.append("files", imageUpload.files[0]);
+    
+        } else {
+            valid = false;
+            errorMsg = "Image too large."
+        }
+    } else {
+        // they don't need to submit image
+    }
+
     // checking and receiving inputs from page 3
     let description = document.querySelector("#description-input").value;
     if (description.length < 1) {
@@ -166,6 +186,7 @@ document.querySelector("#finish-btn").addEventListener('click', async function()
         valid = false;
         errorMsg = "Must agree to Terms & Conditions."
     }
+    
 
     // If all inputs are not valid send error msg to user
     // Else send request to server to make new group
@@ -173,7 +194,7 @@ document.querySelector("#finish-btn").addEventListener('click', async function()
         document.getElementById("error-messages").innerHTML = errorMsg;
     } else {
         document.getElementById("error-messages").innerHTML = "";
-
+        window.location.href = "/grouphome";
         // Combine all data into a JSON object
         let groupData = {
             country: country,
@@ -203,6 +224,16 @@ document.querySelector("#finish-btn").addEventListener('click', async function()
             //On group creation should send you to your new groups homepage
             if (parsedJSON.status == "success") {
                 document.getElementById("error-messages").innerHTML = "Created new Group";
+                // delete the saved partial group if it exists
+                if (saveNum) {
+                    await deleteSavedGroup(saveNum);
+                } else {
+                    
+                }
+
+                if (formData) {
+                    saveImage(formData, parsedJSON.newID);
+                }
             } else {
                 document.getElementById("error-messages").innerHTML = "Failed to create new Group";
             }
@@ -314,4 +345,45 @@ function displaySavedGroup(data) {
     // inputs data for page 5
     document.getElementById("guidelines-checkbox").checked = data.guidelines;
     document.getElementById("terms-checkbox").checked = data.terms;
+}
+
+// If the user no longer wants that save let them delete it
+async function deleteSavedGroup(groupID) {
+    // Send data to Server as POST request to create-group
+    let groupData = {
+        nothing: "nothing"
+    };
+    try {
+        let responseObject = await fetch(`/delete-saved-group/${groupID}`, {
+            method: 'POST',
+            headers: { "Accept": 'application/json',
+                       "Content-Type": 'application/json'
+            },
+            body: JSON.stringify(groupData)
+        });
+        
+        let parsedJSON = await responseObject.json();
+        
+        //On group creation should send you to your new groups homepage
+        if (parsedJSON.status == "success") {
+            //the save was deleted
+        } else {
+            console.log("failed to delete group")
+        }
+    } catch(error) {
+        console.log(error);
+    }
+}
+
+function saveImage(imageFile, eventID) {
+      
+    const options = {
+        method: 'POST',
+        body: imageFile,
+    };
+    fetch(`/upload-group-image/${eventID}`, options
+    ).then(function (res) {
+        // what do to on return from image upload
+    }).catch(function (err) { ("Error:", err) }
+    );
 }
