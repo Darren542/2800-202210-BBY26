@@ -17,32 +17,37 @@ fetch(data).then(x => x.json()).then(async function(y) {
     checkForRSVP(y.eventID);      
 });
 
+var haveJoined = false;
 // Creates an RSVP for the currently logged in user for the currently view event
 async function joinEvent(eventID) {
-    let eventData = {
-        data: "nothing"
-    }
-    try {
-        let responseObject = await fetch(`/event-rsvp/${eventID}`, {
-            method: 'POST',
-            headers: { "Accept": 'application/json',
-                       "Content-Type": 'application/json'
-            },
-            body: JSON.stringify(eventData)
-        });
-        
-        let parsedJSON = await responseObject.json();
-        //console.log(parsedJSON);
-        if (parsedJSON.status == "success") {
-            document.getElementById("join-button").innerHTML = "Joined"
-            document.getElementById("join-button").style.backgroundColor = "green";
-        } else {
-            document.getElementById("join-button").innerHTML = "Failed"
-            document.getElementById("join-button").style.backgroundColor = "red";
+    if (!haveJoined) {
+        let eventData = {
+            data: "nothing"
         }
-    } catch(error) {
-        console.log(error);
+        try {
+            let responseObject = await fetch(`/event-rsvp/${eventID}`, {
+                method: 'POST',
+                headers: { "Accept": 'application/json',
+                           "Content-Type": 'application/json'
+                },
+                body: JSON.stringify(eventData)
+            });
+            
+            let parsedJSON = await responseObject.json();
+            //console.log(parsedJSON);
+            if (parsedJSON.status == "success") {
+                document.getElementById("join-button").innerHTML = "Joined"
+                document.getElementById("join-button").style.backgroundColor = "green";
+                haveJoined = true;
+            } else {
+                document.getElementById("join-button").innerHTML = "Failed"
+                document.getElementById("join-button").style.backgroundColor = "red";
+            }
+        } catch(error) {
+            console.log(error);
+        }
     }
+    
 }
 
 // Checks if the logged in user is already RSVPed for the viewed event
@@ -52,10 +57,13 @@ async function checkForRSVP(eventID) {
         if (data.status == "yes") {
             document.getElementById("join-button").innerHTML = "Joined"
             document.getElementById("join-button").style.backgroundColor = "green";
+            var haveJoined = true;
         } else {
             document.getElementById("join-button").addEventListener("click", () => {
                 joinEvent(eventID)});
         }
     })
 }
+
+
 
