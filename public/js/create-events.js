@@ -183,11 +183,11 @@ document.querySelector("#finish-btn").addEventListener('click', async function()
         valid = false;
         errorMsg = "Must fill out street address."
     }
-    if (startTime == null) {
+    if (startTime == null || startTime == "") {
         valid = false;
         errorMsg = "Must fill out start time."
     }
-    if (endTime == null) {
+    if (endTime == null || endTime == "") {
         valid = false;
         errorMsg = "Must fill out end time."
     }
