@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
-body{
-    margin: 0px;
+
+body {
+    margin: 0%;
+    padding: 0%;
     font-family: 'Inter', sans-serif;
 }
 
@@ -33,6 +35,7 @@ body{
 #img {
     max-width: 45vw;
     max-height: 60vh;
+    border-radius: 20%;
 }
 
 #content {
@@ -44,6 +47,10 @@ body{
 #login {
     margin-left: 30px;
     margin-top: 30px;
+}
+
+#logo {
+    padding-right: 12%;
 }
 
 @media screen and (max-width: 850px) {
@@ -62,10 +69,17 @@ body{
         flex-direction: column;
     }
 
+    #logo {
+        display: flex;
+        justify-content: center;
+        margin: 0%;
+        padding: 0%;
+    }
+
     #img {
         max-width: 70vw;
         max-height: 60vh;
-        margin-left: 30px;
+        border-radius: 50%;
     }
 
     #fill {
