@@ -65,5 +65,22 @@ async function checkForRSVP(eventID) {
     })
 }
 
+// Function to get number of users who have joined event and display it
+async function numUsers(eventID) {
+    try {
+        let responseObject = await fetch(`/check-RSVPS/${eventID}`, {
+            method: 'GET'
+        });
+        let parsedJSON = await responseObject.json();
+        if (parsedJSON.status == "success") {
+            document.getElementById('member-count').innerHTML += parsedJSON.usernames.length;
+        } else {
+            console.log(parsedJSON);
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+// Function to display info about joined users
 
-
+// COmment stuff
