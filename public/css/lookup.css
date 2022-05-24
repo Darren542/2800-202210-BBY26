@@ -1,45 +1,20 @@
 @media only screen and (max-width: 600px) {
 
-    
-    #greeting {
-        width: 100%;
-        display: grid;
-        grid-template-columns: 3% 20% 74% 3%;
-        grid-template-rows: 30% 40% 30%;
-        height: 75px;
-        letter-spacing: -1px;
-    }
-
-    #greeting>#avatar {
-        grid-column: 2 / span 1;
-        grid-row: 2 / span 1;
-        width: 100%;
-        height: 64px;
-        border: 1px solid black;
-    }
     #epic-image {
-        position: relative;
-        width: 60px;
-        height: 60px;
-        left: 300px;
-        top: 62px;
-        z-index: 1;
+        width: 12vw;
+        height: 8vw;
+        margin-left: 2vw;
     }
-
-    #welcome {
-        width: 100%;
-        grid-column: 3 / span 1;
-        grid-row: 1 / span 1;
-        font-size: 24px;
-        margin-left: 10px;
+    
+    #title {
+        font-size: 9vw;
     }
-
-    #username-placeholder {
-        grid-row: 1 / span 1;
-        font-size: 24px;
-        margin-left: 10px;
+    
+    #title-div {
+        display: flex;
+        justify-content: center;
+        margin-top: 40px;
     }
-
 
     #searchbar {
         margin-left: 2%;
@@ -51,6 +26,17 @@
         margin-bottom: 12px;
     }
 
+    #card-loader {
+        position: relative;
+    }
+    #card-loader-image {
+        position: absolute;
+        width: 60px;
+        height: 60px;
+        right: 5vw;
+        top: -50px;
+        z-index: 1;
+    }
 
     input {
         width: 50%;
@@ -73,20 +59,32 @@
         margin-bottom: 7px !important;
         border-radius: 30px;
         background: white;
+        border: 1px solid black;
     }
 
     .card>* {
         margin-left: 30px;
     }
 
-    body {
-        background: rgb(239, 203, 203);
-    }
-
 }
 
 @media only screen and (min-width: 601px) {
 
+    #epic-image {
+        width: 12vw;
+        height: 8vw;
+        margin-left: 2vw;
+    }
+    
+    #title {
+        font-size: 9vw;
+    }
+    
+    #title-div {
+        display: flex;
+        justify-content: center;
+        margin-top: 40px;
+    }
     input {
         width: 300px;
     }
@@ -95,64 +93,31 @@
         color: red;
     }
 
-    body {
-        background: rgb(239, 203, 203);
-    }
-
     .card {
         border-radius: 30px;
-        margin-left: auto !important;
-        margin-right: auto !important;
+        margin-left: 2vw !important;
+        margin-right: 2vw !important;
         margin-bottom: 7px;
         overflow-x: hidden;
         background: white;
-        box-shadow: 0px 5px rgb(240, 157, 157);
+        border: 1px solid black;
     }
-
-    #epic-image {
+    #card-loader {
         position: relative;
-        width: 120px;
-        height: 120px;
-        left: 70vw;
-        top: 12px;
+    }
+    #card-loader-image {
+        position: absolute;
+        width: 60px;
+        height: 60px;
+        right: 5vw;
+        top: -50px;
         z-index: 1;
     }
+
     .card>* {
         margin-left: 30px;
     }
 
-
-    #greeting {
-        display: grid;
-        grid-template-columns: 3% 8% 86% 3%;
-        grid-template-rows: 30% 40% 30%;
-        height: 75px;
-        letter-spacing: -1px;
-    }
-
-    #greeting>#avatar {
-        grid-column: 2 / span 1;
-        grid-row: 2;
-        width: 100%;
-        min-width: 80px;
-        height: 64px;
-        border: 1px solid black;
-    }
-
-    #welcome {
-        grid-column: 3 / span 1;
-        grid-row: 1 / span 1;
-        font-size: 32px;
-        margin-left: 40px;
-        margin-top: 15px;
-    }
-
-    #username-placeholder {
-        grid-column: 3 / span 1;
-        grid-row: 3 / span 1;
-        font-size: 32px;
-        margin-left: 10px;
-    }
 
     #searchbar {
         margin-left: 2%;

@@ -870,6 +870,14 @@ app.get("/photos", function (req, res) {
     res.send("photos section is still under construction");
 });
 
+app.get("/advanced-search" ,function (req, res) {
+    if (req.session.loggedIn){
+        let doc = fs.readFileSync("./app/html/advanced-search.html", "utf8");
+        res.send(doc);
+    } else {
+        res.redirect("/");
+    }
+});
 //LOADING unreserved, future events ONTO HOME PAGE
 //author: Brian
 app.get("/get-events", function (req, res) {
@@ -897,7 +905,7 @@ app.get("/get-events", function (req, res) {
     myPromise.then(
         function (value) {
             connection.execute(
-                "select * from bby_26_events WHERE eventID not in (select eventID from bby_26_rsvp WHERE userID = ?) AND event_date_time > CURRENT_TIMESTAMP;", 
+                "select * from bby_26_events WHERE eventID not in (select eventID from bby_26_rsvp WHERE userID = ?) AND event_end_time > CURRENT_TIMESTAMP;", 
                 [req.session.userID],
                 function (error, results) {
                     if (error) {
@@ -910,6 +918,55 @@ app.get("/get-events", function (req, res) {
                                 index++;
                             });
                             res.send(events);
+                        }
+                        else {
+                            res.send({ status: "fail", msg: "No events found." });
+                        }
+                    }
+                });
+            connection.end();
+        },
+        function (error) {
+            console.log(error);
+        }
+    );
+})
+
+//Loading events based on city and tags onto advanced-search page
+//author: Brian
+app.post("/advanced-search-events", function (req, res) {
+    let events = [];
+    let connection;
+    let myPromise = new Promise((resolve, reject) => {
+
+        connection = mysql.createConnection({
+            host: "localhost",
+            user: "root",
+            password: "",
+            database: "COMP2800"
+        });
+
+        connection.connect(err => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(true);
+            }
+        });
+
+    });
+    myPromise.then(
+        function (value) {
+            connection.execute(
+                "SELECT city, street, bby_26_events.eventID, event_name, event_date_time, event_end_time, event_duration, event_photo, event_description FROM bby_26_events INNER JOIN bby_26_event_address ON bby_26_events.eventID = bby_26_event_address.eventID WHERE bby_26_events.eventID IN (SELECT eventID FROM bby_26_tag WHERE ((tags = 'smallDogs' AND ?) OR (tags = 'bigDogs' AND ?) OR (tags = 'allDogs' AND ?) OR (tags = 'puppies' AND ?) OR (tags = 'oldDogs' AND ?) OR (tags = 'outside' AND ?) OR (tags = 'youngPeople' AND ?) OR (tags = 'oldPeople' AND ?))) AND bby_26_event_address.city = ? AND event_end_time > CURRENT_TIMESTAMP;", 
+                [req.body.smallDogs, req.body.bigDogs, req.body.allDogs, req.body.puppies, req.body.oldDogs, req.body.outside, req.body.youngPeople, req.body.oldPeople, req.body.city],
+                function (error, results) {
+                    if (error) {
+                        console.log(error);
+                    }
+                    else {
+                        if (results[0] != null) {
+                            res.send(results);
                         }
                         else {
                             res.send({ status: "fail", msg: "No events found." });
@@ -1049,7 +1106,7 @@ app.post("/load-event", function (req, res) {
     myPromise.then(
         function (value) {
             connection.execute(
-                "SELECT BBY_26_events.event_name, BBY_26_events.eventID, BBY_26_events.event_photo, BBY_26_events.event_date_time, BBY_26_events.event_duration, BBY_26_events.event_description, BBY_26_event_address.street, BBY_26_event_address.city, BBY_26_users.username, BBY_26_events.ownerID FROM BBY_26_event_address INNER JOIN BBY_26_events ON BBY_26_event_address.eventID = BBY_26_events.eventID INNER JOIN BBY_26_users ON BBY_26_events.ownerID = BBY_26_users.userID WHERE BBY_26_events.eventID = ?",
+                "SELECT BBY_26_events.event_name, BBY_26_events.eventID, BBY_26_events.event_photo, BBY_26_events.event_date_time, BBY_26_events.event_duration, BBY_26_events.event_description, BBY_26_event_address.street, BBY_26_event_address.city, BBY_26_users.username, BBY_26_events.ownerID FROM BBY_26_event_address INNER JOIN BBY_26_events ON BBY_26_event_address.eventID = BBY_26_events.eventID INNER JOIN BBY_26_users ON BBY_26_events.ownerID = BBY_26_users.userID WHERE BBY_26_events.eventID = ? ",
                 [req.body.eventID],
                 function (error, results) {
                     if (error) {
