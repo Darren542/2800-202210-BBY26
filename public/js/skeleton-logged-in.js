@@ -2,6 +2,7 @@
 async function loadSkeleton() {
     await $('#navbar-placeholder').load('/nav');
     await $('#footer-placeholder').load('/footer');
+    await $('#share-page').load('/share-event')
 
 
 
