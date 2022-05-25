@@ -101,6 +101,9 @@ C:.
     |   |   logo-transparent.png            // Made using Adobe logomaker
     |   |   profile.jpg                     // Made by Darren in paint
     |   |   signup-page-desktop.jpg         // From Pinterest.com
+    |   |   paws.png                        // From freepik.com
+    |   |   checkmark.png                   // From pngitem.com
+    |   |   dropdown.png                    // From wikimedia.org
     |   |   splash-image.jpg                // Photo taken by Darren
     |   |   steveston-dog-park.jpg          // Image of steveston dog park from thedognetwork.ca
     |   |   

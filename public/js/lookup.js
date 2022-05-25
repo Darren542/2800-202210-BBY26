@@ -2,23 +2,10 @@
 
 let userList;
 
-function navigate() {
-    
-    location.href="/profile?username=" + this.id;
-}
 
 function ready() {
     document.getElementById("searchbar").addEventListener("keyup", searchUser);
 
-
-    const getname = new XMLHttpRequest();
-    getname.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("username-placeholder").innerHTML = this.responseText;
-        }
-    }
-    getname.open("GET", "/username", true);
-    getname.send();
     const xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -31,10 +18,8 @@ function ready() {
                 let card = temp.content.cloneNode(true);
                 card.querySelector("div").id += ("card" + index);
                 card.getElementById("username").innerHTML = "Username: " + data[index].username;
-                let btn = card.querySelector('.view-profile-Btn');
-                btn.id = data[index].username;
-                btn.addEventListener("click", navigate);
-                
+                let link = card.querySelector('.view-profile-link');
+                link.href ="/profile?username=" + data[index].username;
                 col++;
                 if (col > 3) {
                     col = 1;
@@ -50,22 +35,6 @@ function ready() {
 
 ready();
 
-function shuffle() {
-    var col = 1;
-    var index = 0;
-    userList.forEach(function () {
-        let card = document.getElementById("" + userList[index].username);
-        if (card.style.display == "grid") {
-            let text = "grid-column:" + col + ";";
-            card.style.cssText += text;
-            col++;
-        }
-        if (col > 3) {
-            col = 1;
-        }
-        index++;
-    });
-}
 
 function searchUser() {
     let i, txtValue;
@@ -73,10 +42,9 @@ function searchUser() {
     for (i = 0; i < userList.length; i++) {
         txtValue = userList[i].username;
         if (txtValue.toUpperCase().indexOf(input) > -1) {
-            document.getElementById("card" + i).style.display = "grid";
+            document.getElementById("card" + i).style.display = "flex";
         } else {
             document.getElementById("card" + i).style.display = "none";
         }
     }
-    shuffle();
 }
