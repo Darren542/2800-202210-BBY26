@@ -32,6 +32,7 @@ ready(function () {
                 //console.log(dataParsed);
                 if (dataParsed.status == "fail") {
                     document.getElementById("no-match").classList.remove("no-show");
+                    document.getElementById("password").value = "";
                 } else {
                     window.location.href = "/";
                 }
