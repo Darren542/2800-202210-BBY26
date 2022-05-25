@@ -116,7 +116,7 @@ document.querySelector("#comments-option").addEventListener("click", () => {
     ShowOption("#comments-option")
 });
 
-// For highlighting the current menu option
+// For highlighting and displaying the current menu option
 function ShowOption(option) {
     var counter = 0;
     document.querySelectorAll(".event-menu").forEach( (choice) => {
