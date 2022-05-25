@@ -31,8 +31,9 @@ function displayGroupInfo(data) {
     fetch(`/username/${data.ownerID}`).then( response => response.json()).then(name => {
         document.getElementById("group-owner").innerHTML += name.username;
     });
-    document.getElementById("temp-display").innerHTML = data.group_description;
-    checkForGroup(data.groupID);  
+    document.getElementById("group-description").innerHTML = data.group_description;
+    checkForGroup(data.groupID); 
+    numUsers(data.groupID) 
 }
 
 getGroupInfo(window.location.pathname);
@@ -84,4 +85,101 @@ async function checkForGroup(groupID) {
                 joinGroup(groupID)});
         }
     })
+}
+
+// Function to get number of users who have joined event and display it
+async function numUsers(groupID) {
+    try {
+        let responseObject = await fetch(`/check-members/${groupID}`, {
+            method: 'GET'
+        });
+        let parsedJSON = await responseObject.json();
+        if (parsedJSON.status == "success") {
+            let usernames = parsedJSON.usernames;
+            for (let username of usernames) {
+                displayGroupMember(username);
+            }
+            document.getElementById('member-count').innerHTML += parsedJSON.usernames.length;
+        } else {
+            console.log(parsedJSON);
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+// Function to display info about joined users
+// Called by numUsers
+// Creates cards with the username and profile image of all RSVPed users
+function displayGroupMember(data) {
+    let cardTemplate = document.querySelector('#member-card-template');
+    let newCard = cardTemplate.content.cloneNode(true);
+    newCard.querySelector(".member-card").setAttribute("id", "userName" + data.username);
+    newCard.querySelector('.member-name').innerHTML = data.username;
+    newCard.querySelector('.member-img').src = `/img/profile-imgs/${data.profileImg}`;
+    
+    document.querySelector("#member-cards").appendChild(newCard);
+}
+
+// Different options for viewing on event page
+document.querySelector("#description-option").addEventListener("click", () => {
+    ShowOption("#description-option")
+});
+
+document.querySelector("#members-option").addEventListener("click", () => {
+    ShowOption("#members-option")
+});
+
+document.querySelector("#events-option").addEventListener("click", () => {
+    ShowOption("#events-option")
+});
+
+document.querySelector("#photos-option").addEventListener("click", () => {
+    ShowOption("#photos-option")
+});
+
+document.querySelector("#comments-option").addEventListener("click", () => {
+    ShowOption("#comments-option")
+});
+
+// For highlighting and displaying the current menu option
+function ShowOption(option) {
+    var counter = 0;
+    document.querySelectorAll(".group-menu").forEach( (choice) => {
+        choice.classList.remove("selected");
+        counter++;
+        if (counter == 5) {
+            document.querySelector(option).classList.add("selected");
+        }
+    });
+
+    if (option == "#description-option") {
+        document.querySelector("#group-description").classList.remove("no-show");
+    } else {
+        document.querySelector("#group-description").classList.add("no-show");
+    }
+
+    if (option == "#members-option") {
+        document.querySelector("#group-members").classList.remove("no-show");
+    } else {
+        document.querySelector("#group-members").classList.add("no-show");
+    }
+
+    if (option == "#events-option") {
+        document.querySelector("#group-events").classList.remove("no-show");
+    } else {
+        document.querySelector("#group-events").classList.add("no-show");
+    }
+
+    if (option == "#photos-option") {
+        document.querySelector("#group-photos").classList.remove("no-show");
+    } else {
+        document.querySelector("#group-photos").classList.add("no-show");
+    }
+
+    if (option == "#comments-option") {
+        document.querySelector("#group-comments").classList.remove("no-show");
+    } else {
+        document.querySelector("#group-comments").classList.add("no-show");
+    }
+
 }

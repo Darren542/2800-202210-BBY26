@@ -5,6 +5,49 @@
     grid-template-columns: 250px 1fr;
 }
 
+.no-show {
+    display: none;
+}
+.selected {
+    background-color: rgb(69, 69, 206) !important; 
+}
+
+/* CSS for member cards */
+#members-title {
+    font-weight: bold;
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#member-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.member-card {
+    width: 150px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 15px;
+}
+
+.member-img-div {
+    display: flex;
+    align-items: center;
+}
+
+.member-img {
+    object-fit: fill;
+    width: 70px;
+    height: 70px;
+    margin: 5px;
+    border: 1px solid black;
+    border-radius: 8px;
+}
 
 /* Main Image CSS */
 #group-image-div {
