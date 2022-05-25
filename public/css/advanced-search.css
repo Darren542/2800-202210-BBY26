@@ -295,6 +295,17 @@
         cursor: pointer;
         font-size: 3vw;
     }
+    #search-options-div > button {
+        background-color: rgb(207, 207, 207);
+        border: 2px solid black;
+        font-size: 3.5vw;
+        cursor: pointer;
+    }
+
+    #search-options-div > button:hover {
+        cursor: pointer;
+        background-color:rgb(148, 148, 148)
+    }
 }
 
 
@@ -596,5 +607,16 @@
         border: 0.5px solid rgb(173, 173, 173);
         cursor: pointer;
         font-size: 3vw;
+    }
+    #search-options-div > button {
+        background-color: rgb(207, 207, 207);
+        border: 2px solid black;
+        font-size: 3.5vw;
+        cursor: pointer;
+    }   
+
+    #search-options-div > button:hover {
+        cursor: pointer;
+        background-color:rgb(148, 148, 148)
     }
 }
