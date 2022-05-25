@@ -42,7 +42,7 @@ body {
 #content {
     display: flex;
     justify-content: center;
-    margin: 20px;
+    
 }
 
 #login {
@@ -68,8 +68,40 @@ body {
     padding-right: 12%;
 }
 
-@media screen and (max-width: 850px) {
-        
+@media (min-width: 851px) {
+    #logo {
+        padding-right: 0%;
+        padding-left: 30px;
+        padding-top: 20px;
+        width: 50%;
+    }
+
+    #fill {
+        display: grid;
+        grid-template-rows: 27% 27% 27% 27% 27%;
+        grid-template-columns: 100%;
+    
+    }
+
+    #login {
+        margin-left: 0px;
+        margin-right: 20px;
+        margin-top: 30px;
+        width: 50%;
+    }
+}
+
+@media (max-width: 850px) {
+
+    #log {
+        margin-top: 5px;
+    
+    }
+
+    .label {
+        margin-top: 0px;
+    }
+
     #no-match {
         color: red;
     }
@@ -80,7 +112,6 @@ body {
     #content {
         display: flex;
         justify-content: flex-start;
-        margin-top: 7px;
         flex-direction: column;
     }
 
@@ -88,24 +119,25 @@ body {
         display: flex;
         justify-content: center;
         margin: 0%;
+        margin-top: 10px;
         padding: 0%;
+        max-height: 250px;
     }
 
     #img {
-        max-width: 70vw;
-        max-height: 60vh;
+        max-width: 250px;
+        max-height: 250px;
         border-radius: 50%;
+        object-fit:contain;
     }
 
     #fill {
         display: grid;
-        grid-template-rows: 20% 20% 20% 20% 27%;
+        grid-template-rows: 15% 20% 15% 20% 20% 20%;
         grid-template-columns: 80%;
-    
+        height: 180px;
     }
-    #content {
-        min-height: 60vh;
-    }
+
     #login{
         margin-top: 10px;
     }

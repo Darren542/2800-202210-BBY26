@@ -2761,6 +2761,16 @@ app.get("/terms-and-conditions", function (req, res) {
     res.send(doc)
 });
 
+app.get("/contact-us", function (req, res) {
+    let doc = fs.readFileSync("./app/html/contact-us.html", "utf8");
+    res.send(doc)
+});
+
+app.get("/about-us", function (req, res) {
+    let doc = fs.readFileSync("./app/html/about-us.html", "utf8");
+    res.send(doc)
+});
+
 app.use(function (req, res, next) {
     let doc = fs.readFileSync("./app/html/404.html", "utf8");
     res.status(404).send(doc);
