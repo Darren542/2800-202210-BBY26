@@ -1,4 +1,16 @@
 "use strict";
+
+
+let loggedInUserName;
+const xhttp = new XMLHttpRequest();
+xhttp.open("get", "/username", true);
+xhttp.send();
+xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+        loggedInUserName = this.responseText;
+    }
+};
+
 let userID;
 function getemail() {
     const getemail = new XMLHttpRequest();
@@ -153,7 +165,7 @@ function unreserveEvent() {
     xhttp.open("delete", "/unreserve-event", true);
     xhttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhttp.send("eventID="+this.eventID+"&userID="+this.userID);
+    xhttp.send("eventID=" + this.eventID + "&userID=" + this.userID);
 }
 
 
@@ -165,7 +177,7 @@ function deleteEvent() {
     xhttp.open("delete", "/delete-event", true);
     xhttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhttp.send("eventID="+this.eventID);
+    xhttp.send("eventID=" + this.eventID);
 }
 
 function loadEvent(eventID) {
@@ -177,6 +189,7 @@ function loadEvent(eventID) {
     getUserID();
     function load() {
         if (eventDetail.readyState == 4 && eventDetail.status == 200) {
+
             let temp = document.querySelector('#post-template');
             let card = temp.content.cloneNode(true);
             card.id = "post";
@@ -196,6 +209,7 @@ function loadEvent(eventID) {
             card.getElementById("event-description-placeholder").innerHTML = eventData[0].event_description;
             document.getElementById("cancel-button").addEventListener("click", hidePopup);
             document.getElementById("confirm-button").addEventListener("click", modifyEvent);
+
             if (userID == eventData[0].ownerID) {
                 card.getElementById("delete-button").addEventListener("click", deleteEvent);
                 card.getElementById("modify-button").style = "display: inline";
@@ -218,7 +232,13 @@ function loadEvent(eventID) {
                 card.getElementById("delete-button").addEventListener("click", unreserveEvent);
             }
             document.getElementById("menu-display").appendChild(card);
+            if (loggedInUserName != location.pathname.substring(location.pathname.lastIndexOf(('/')) + 1)) {
+                document.querySelectorAll("#delete-button").forEach((button) => {
+                    button.style.display = "none";
+                });
+            };
         }
+
     }
     eventDetail.onreadystatechange = load;
     updateProfileMenu("events-option");
@@ -258,6 +278,11 @@ function displayProfileInfo(data) {
     if (data.quote == undefined) {
         location.href = "/user-profile";
     }
+
+    if (loggedInUserName != data.username) {
+        document.getElementById("edit-button").disabled = true;
+    }
+    
     document.getElementById("user-quote").innerHTML = data.quote;
     document.getElementById("user-description").innerHTML = data.userDescription;
     if (data.showLoc) {
