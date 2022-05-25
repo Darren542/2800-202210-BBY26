@@ -14,7 +14,8 @@ fetch(data).then(x => x.json()).then(async function(y) {
     let newDate = new Date(y.event_date_time);
     document.getElementById('event-time').innerHTML += newDate.toLocaleString();
     document.getElementById("event-image").src = `/img/event-imgs/${y.event_photo}`;
-    checkForRSVP(y.eventID);      
+    checkForRSVP(y.eventID);
+    numUsers(y.eventID);
 });
 
 var haveJoined = false;
@@ -73,6 +74,10 @@ async function numUsers(eventID) {
         });
         let parsedJSON = await responseObject.json();
         if (parsedJSON.status == "success") {
+            let usernames = parsedJSON.usernames;
+            for (let username of usernames) {
+                displayRSVPedUser(username)
+            }
             document.getElementById('member-count').innerHTML += parsedJSON.usernames.length;
         } else {
             console.log(parsedJSON);
@@ -82,5 +87,60 @@ async function numUsers(eventID) {
     }
 }
 // Function to display info about joined users
+// Called by numUsers
+// Creates cards with the username and profile image of all RSVPed users
+function displayRSVPedUser(data) {
+    let cardTemplate = document.querySelector('#member-card-template');
+    let newCard = cardTemplate.content.cloneNode(true);
+    newCard.querySelector(".member-card").setAttribute("id", "userName" + data.username);
+    newCard.querySelector('.member-name').innerHTML = data.username;
+    newCard.querySelector('.member-img').src = `/img/profile-imgs/${data.profileImg}`;
+    
+    document.querySelector("#member-cards").appendChild(newCard);
+}
 
-// COmment stuff
+// Different options for viewing on event page
+document.querySelector("#description-option").addEventListener("click", () => {
+    //getDogs();
+    ShowOption("#description-option")
+});
+
+document.querySelector("#members-option").addEventListener("click", () => {
+    //getPhotos();
+    ShowOption("#members-option")
+});
+
+document.querySelector("#photos-option").addEventListener("click", () => {
+    //getGroups();
+    ShowOption("#photos-option")
+});
+
+document.querySelector("#comments-option").addEventListener("click", () => {
+    //getGroups();
+    ShowOption("#comments-option")
+});
+
+// For highlighting the current menu option
+function ShowOption(option) {
+    var counter = 0;
+    document.querySelectorAll(".event-menu").forEach( (choice) => {
+        choice.classList.remove("selected");
+        counter++;
+        if (counter == 4) {
+            document.querySelector(option).classList.add("selected");
+        }
+    });
+
+    if (option == "#description-option") {
+        document.querySelector("#event-description").classList.remove("no-show");
+    } else {
+        document.querySelector("#event-description").classList.add("no-show");
+    }
+
+    if (option == "#members-option") {
+        document.querySelector("#event-members").classList.remove("no-show");
+    } else {
+        document.querySelector("#event-members").classList.add("no-show");
+    }
+
+}
