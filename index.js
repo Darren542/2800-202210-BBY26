@@ -488,6 +488,108 @@ app.get("/check-RSVP/:id", function (req, res) {
     );
 });
 
+// Used to get all the users RSVPed to an event
+// Used by event page
+// Author Darren
+app.get("/check-RSVPS/:id", function (req, res) {
+        let connection;
+        let myPromise = new Promise((resolve, reject) => {
+
+            connection = mysql.createConnection({
+                host: "localhost",
+                user: "root",
+                password: "",
+                database: "COMP2800"
+            });
+
+            connection.connect(err => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(true);
+                }
+            });
+
+        });
+
+        myPromise.then(
+            function () {
+                connection.execute(
+                    `SELECT BBY_26_users.username, BBY_26_profiles.profileImg FROM BBY_26_RSVP 
+                        INNER JOIN BBY_26_users
+                            ON BBY_26_users.userID = BBY_26_RSVP.userID
+                        INNER JOIN BBY_26_profiles 
+                            ON BBY_26_profiles.username = BBY_26_users.username
+                        WHERE BBY_26_RSVP.eventID = ?`,
+                    [req.params.id],
+                    function (error, results) {
+                        if (error) {
+                            console.log(error);
+                        }
+                        else {
+                            res.send({ status: "success", msg: "Updated Username.", usernames: results });
+                        }
+
+                    });
+                connection.end();
+            },
+            function (error) {
+                console.log(error);
+            }
+        );
+});
+
+// Used to get all the members of a group
+// Used by group page
+// Author Darren
+app.get("/check-members/:id", function (req, res) {
+    let connection;
+    let myPromise = new Promise((resolve, reject) => {
+
+        connection = mysql.createConnection({
+            host: "localhost",
+            user: "root",
+            password: "",
+            database: "COMP2800"
+        });
+
+        connection.connect(err => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(true);
+            }
+        });
+
+    });
+
+    myPromise.then(
+        function () {
+            connection.execute(
+                `SELECT BBY_26_users.username, BBY_26_profiles.profileImg FROM BBY_26_group_members 
+                    INNER JOIN BBY_26_users
+                        ON BBY_26_users.userID = BBY_26_group_members.userID
+                    INNER JOIN BBY_26_profiles 
+                        ON BBY_26_profiles.username = BBY_26_users.username
+                    WHERE BBY_26_group_members.groupID = ?`,
+                [req.params.id],
+                function (error, results) {
+                    if (error) {
+                        console.log(error);
+                    }
+                    else {
+                        res.send({ status: "success", msg: "Updated Username.", usernames: results });
+                    }
+
+                });
+            connection.end();
+        },
+        function (error) {
+            console.log(error);
+        }
+    );
+});
+
 //author: Brian
 app.delete("/delete-event", function (req, res) {
     let connection;
