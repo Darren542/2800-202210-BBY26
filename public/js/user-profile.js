@@ -167,26 +167,32 @@ function getUserID() {
 }
 
 function unreserveEvent() {
-    const xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-        location.reload();
+    let text = "This will unreserve the event from your timeline.\nOk or Cancel.";
+    if (confirm(text)) {
+        const xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            location.reload();
+        }
+        xhttp.open("delete", "/unreserve-event", true);
+        xhttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+        xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhttp.send("eventID=" + this.eventID + "&userID=" + this.userID);
     }
-    xhttp.open("delete", "/unreserve-event", true);
-    xhttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-    xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhttp.send("eventID=" + this.eventID + "&userID=" + this.userID);
 }
 
 
 function deleteEvent() {
-    const xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-        location.reload();
+    let text = "This will delete the event.\nOk or Cancel.";
+    if (confirm(text)) {
+        const xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            location.reload();
+        }
+        xhttp.open("delete", "/delete-event", true);
+        xhttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+        xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhttp.send("eventID=" + this.eventID + "&userID=" + this.userID);
     }
-    xhttp.open("delete", "/delete-event", true);
-    xhttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-    xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhttp.send("eventID=" + this.eventID + "&userID=" + this.userID);
 }
 
 function loadEvent(eventID) {
