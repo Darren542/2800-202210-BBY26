@@ -57,31 +57,35 @@ function hidePopup() {
 }
 
 function modifyEvent() {
-    let formData = {
-        eventID: this.eventID,
-        // eventImage: document.getElementById("event-img").src,
-        eventName: document.getElementById("event-name-placeholder").value,
-        eventLocationCity: document.getElementById("event-street-placeholder").value,
-        eventLocationStreet: document.getElementById("event-address-placeholder").value,
-        eventDateTime: document.getElementById("event-date-placeholder").value,
-        eventDuration: document.getElementById("event-duration-placeholder").value,
-        eventDescription: document.getElementById("event-description").value,
-    }
-    let params = typeof formData == 'string' ? formData : Object.keys(formData).map(
-        function (k) { return encodeURIComponent(k) + '=' + encodeURIComponent(formData[k]) }
-    ).join('&');
-    const xhttp = new XMLHttpRequest;
+    if (this.disabled) {
 
-    xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            hidePopup();
-            location.reload();
+    } else {
+        let formData = {
+            eventID: this.eventID,
+            // eventImage: document.getElementById("event-img").src,
+            eventName: document.getElementById("event-name-placeholder").value,
+            eventLocationCity: document.getElementById("event-street-placeholder").value,
+            eventLocationStreet: document.getElementById("event-address-placeholder").value,
+            eventDateTime: document.getElementById("event-date-placeholder").value,
+            eventDuration: document.getElementById("event-duration-placeholder").value,
+            eventDescription: document.getElementById("event-description").value,
         }
+        let params = typeof formData == 'string' ? formData : Object.keys(formData).map(
+            function (k) { return encodeURIComponent(k) + '=' + encodeURIComponent(formData[k]) }
+        ).join('&');
+        const xhttp = new XMLHttpRequest;
+    
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                hidePopup();
+                location.reload();
+            }
+        }
+        xhttp.open("PUT", "/update-event", true);
+        xhttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+        xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhttp.send(params);
     }
-    xhttp.open("PUT", "/update-event", true);
-    xhttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-    xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhttp.send(params);
 }
 
 
