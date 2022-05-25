@@ -212,6 +212,8 @@ function loadEvent(eventID) {
             card.getElementById("delete-button").eventID = eventID;
             card.getElementById("event-img").src = "/img/event-imgs/" + eventData[0].event_photo;
             card.getElementById("event-name-placeholder").innerHTML = eventData[0].event_name;
+            card.getElementById("event-name-placeholder").addEventListener("click", () => {
+                window.location.href = `/event/${eventID}`});
             if (eventData[0].city) {
                 card.getElementById("event-address-placeholder").innerHTML = eventData[0].city;
             }

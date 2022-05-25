@@ -586,3 +586,13 @@ button:disabled {
     opacity: 0.3;
 
 }
+
+#event-name-placeholder {
+    color:rgb(102, 107, 170);
+    text-decoration: underline;
+}
+
+#event-name-placeholder:hover {
+    color:rgb(60, 67, 163);
+    cursor: pointer;
+}
