@@ -1005,7 +1005,7 @@ app.post("/advanced-search-groups", function (req, res) {
     myPromise.then(
         function (value) {
             connection.execute(
-                "SELECT city, group_name, group_photo, group_description FROM BBY_26_groups WHERE groupID IN (SELECT groupID FROM bby_26_tag WHERE ((tags = 'smallDogs' AND ?) OR (tags = 'bigDogs' AND ?) OR (tags = 'allDogs' AND ?) OR (tags = 'puppies' AND ?) OR (tags = 'oldDogs' AND ?) OR (tags = 'outside' AND ?) 	OR (tags = 'youngPeople' AND ?) OR (tags = 'oldPeople' AND ?)));",
+                "SELECT city, groupID, group_name, group_photo, group_description FROM BBY_26_groups WHERE groupID IN (SELECT groupID FROM bby_26_tag WHERE ((tags = 'smallDogs' AND ?) OR (tags = 'bigDogs' AND ?) OR (tags = 'allDogs' AND ?) OR (tags = 'puppies' AND ?) OR (tags = 'oldDogs' AND ?) OR (tags = 'outside' AND ?) 	OR (tags = 'youngPeople' AND ?) OR (tags = 'oldPeople' AND ?)));",
                 [req.body.smallDogs, req.body.bigDogs, req.body.allDogs, req.body.puppies, req.body.oldDogs, req.body.outside, req.body.youngPeople, req.body.oldPeople],
                 function (error, results) {
                     if (error) {
