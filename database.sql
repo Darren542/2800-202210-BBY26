@@ -122,6 +122,12 @@ CREATE TABLE IF NOT EXISTS BBY_26_groups(
 		ON UPDATE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS BBY_26_groupcomments(
+	groupID int NOT NULL,
+	comment varchar(10000)
+);
+alter table bby_26_groupcomments add constraint foreign key (groupID) references bby_26_groups (groupID);
+
 CREATE TABLE IF NOT EXISTS BBY_26_group_tags(
 	id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	groupID int NOT NULL,

@@ -1,17 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300&family=Saira:ital,wght@1,500&family=Sansita+Swashed:wght@500&family=Square+Peg&family=Work+Sans:wght@300&display=swap');
 
 body {
-    background-color: rgb(96 164 164);
+    background-color: white;
 }
 
 .container {
     margin: 10px;
     color: white;
     display: grid;
-    grid-template-columns: 28% 30% 42%;
+    grid-template-columns: 28% 34% 46%;
     height: 35vh;
-    border: 1px solid black;
-    border-radius: 10px;
 }
 
 
@@ -23,7 +21,7 @@ body {
 
 .owjoin {
     display: grid;
-    grid-template-columns: 75% 25%;
+    grid-template-columns: 60% 40%;
     margin: 5px;
     margin-top: 20px;
 }
@@ -39,8 +37,17 @@ body {
 }
 
 .btn{
-    min-width: 7vw;
-    background-color: #46465f;
+    color: black;
+    width: 100px;
+    height: 40px;
+    background-color: rgb(130, 177, 221);
+    border: 1px solid black;
+    border-radius: 20px;
+}
+
+.btn:hover {
+    cursor: pointer;
+    background-color:rgb(69, 69, 206);
 }
 
 .btns button{
@@ -52,9 +59,9 @@ body {
 .section{
     text-align: center;
     border: 1px solid black;
-    height: 27vh;
+    height: 20vh;
     margin: 5px;
-    border-radius: 10px;
+    width: 40vw;
 }
 
 @media screen and (max-width : 901px){
@@ -73,6 +80,9 @@ body {
         grid-template-columns: 75% 25%;
         margin: 5px;
         min-width: 10vw;
+    }
+    .section{
+        width: 55vw;
     }
     
 }
