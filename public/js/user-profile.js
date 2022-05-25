@@ -90,6 +90,9 @@ function getDogs() {
     theDogs.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("menu-description").innerHTML = this.responseText;
+            document.querySelectorAll("#menu-display > *:not(p)").forEach(element => {
+                document.getElementById("menu-display").removeChild(element);
+            });
         }
     }
     theDogs.open("GET", "/dogs", true);
@@ -102,6 +105,9 @@ function getPhotos() {
     thePhotos.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("menu-description").innerHTML = this.responseText;
+            document.querySelectorAll("#menu-display > *:not(p)").forEach(element => {
+                document.getElementById("menu-display").removeChild(element);
+            });
         }
     }
     thePhotos.open("GET", "/photos", true);
@@ -114,6 +120,9 @@ function getGroups() {
     theGroups.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("menu-description").innerHTML = this.responseText;
+            document.querySelectorAll("#menu-display > *:not(p)").forEach(element => {
+                document.getElementById("menu-display").removeChild(element);
+            });
         }
     }
     theGroups.open("GET", "/my-groups", true);
