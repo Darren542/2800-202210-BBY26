@@ -18,9 +18,8 @@ body {
 
 #fill {
     display: grid;
-    grid-template-rows: 20vh 20vh 20vh 20vh 20vh;
-    grid-template-columns: 100vw;
-
+    grid-template-rows: 27% 27% 27% 27% 27%;
+    grid-template-columns: 180%;
 }
 
 .label {
