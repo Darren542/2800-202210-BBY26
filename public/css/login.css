@@ -4,6 +4,7 @@ body {
     margin: 0%;
     padding: 0%;
     font-family: 'Inter', sans-serif;
+    padding: 0;
 }
 
 
@@ -17,8 +18,8 @@ body {
 
 #fill {
     display: grid;
-    grid-template-rows: 27% 27% 27% 27% 27%;
-    grid-template-columns: 180%;
+    grid-template-rows: 20vh 20vh 20vh 20vh 20vh;
+    grid-template-columns: 100vw;
 
 }
 
@@ -49,6 +50,20 @@ body {
     margin-top: 30px;
 }
 
+/* ################ utility classes ############# */
+
+.color-dark{
+    color: #3a3e59;
+}
+.color-pink{
+    color: #c36b84
+}
+.color-yellow{
+    color: #f9ac66;
+}
+.color-orange{
+    color: #ed6b5b;
+}
 #logo {
     padding-right: 12%;
 }
