@@ -101,22 +101,18 @@ function displayRSVPedUser(data) {
 
 // Different options for viewing on event page
 document.querySelector("#description-option").addEventListener("click", () => {
-    //getDogs();
     ShowOption("#description-option")
 });
 
 document.querySelector("#members-option").addEventListener("click", () => {
-    //getPhotos();
     ShowOption("#members-option")
 });
 
 document.querySelector("#photos-option").addEventListener("click", () => {
-    //getGroups();
     ShowOption("#photos-option")
 });
 
 document.querySelector("#comments-option").addEventListener("click", () => {
-    //getGroups();
     ShowOption("#comments-option")
 });
 
@@ -141,6 +137,18 @@ function ShowOption(option) {
         document.querySelector("#event-members").classList.remove("no-show");
     } else {
         document.querySelector("#event-members").classList.add("no-show");
+    }
+
+    if (option == "#photos-option") {
+        document.querySelector("#group-photos").classList.remove("no-show");
+    } else {
+        document.querySelector("#group-photos").classList.add("no-show");
+    }
+
+    if (option == "#comments-option") {
+        document.querySelector("#group-comments").classList.remove("no-show");
+    } else {
+        document.querySelector("#group-comments").classList.add("no-show");
     }
 
 }
