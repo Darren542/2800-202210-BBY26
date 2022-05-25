@@ -5,10 +5,17 @@ async function getRightNavbar(){
             method: 'GET'
         });
         if (response.status === 200) {
-            console.log(response);
-            let element = document.createElement('script');
-            element.src = "/js/skeleton-logged-in.js"
-            document.body.append(element);
+            let name = await response.text();
+            if (name) {
+                let element = document.createElement('script');
+                element.src = "/js/skeleton-logged-in.js"
+                document.body.append(element);
+            } else {
+                let element = document.createElement('script');
+                element.src = "/js/skeleton.js"
+                document.body.append(element);
+            }
+            
         } else {
             console.log(response.status);
         }
