@@ -57,35 +57,31 @@ function hidePopup() {
 }
 
 function modifyEvent() {
-    if (this.disabled) {
-
-    } else {
-        let formData = {
-            eventID: this.eventID,
-            // eventImage: document.getElementById("event-img").src,
-            eventName: document.getElementById("event-name-placeholder").value,
-            eventLocationCity: document.getElementById("event-street-placeholder").value,
-            eventLocationStreet: document.getElementById("event-address-placeholder").value,
-            eventDateTime: document.getElementById("event-date-placeholder").value,
-            eventDuration: document.getElementById("event-duration-placeholder").value,
-            eventDescription: document.getElementById("event-description").value,
-        }
-        let params = typeof formData == 'string' ? formData : Object.keys(formData).map(
-            function (k) { return encodeURIComponent(k) + '=' + encodeURIComponent(formData[k]) }
-        ).join('&');
-        const xhttp = new XMLHttpRequest;
-    
-        xhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                hidePopup();
-                location.reload();
-            }
-        }
-        xhttp.open("PUT", "/update-event", true);
-        xhttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-        xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        xhttp.send(params);
+    let formData = {
+        eventID: this.eventID,
+        // eventImage: document.getElementById("event-img").src,
+        eventName: document.getElementById("event-name-placeholder").value,
+        eventLocationCity: document.getElementById("event-street-placeholder").value,
+        eventLocationStreet: document.getElementById("event-address-placeholder").value,
+        eventDateTime: document.getElementById("event-date-placeholder").value,
+        eventDuration: document.getElementById("event-duration-placeholder").value,
+        eventDescription: document.getElementById("event-description").value,
     }
+    let params = typeof formData == 'string' ? formData : Object.keys(formData).map(
+        function (k) { return encodeURIComponent(k) + '=' + encodeURIComponent(formData[k]) }
+    ).join('&');
+    const xhttp = new XMLHttpRequest;
+
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            hidePopup();
+            location.reload();
+        }
+    }
+    xhttp.open("PUT", "/update-event", true);
+    xhttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhttp.send(params);
 }
 
 
@@ -190,7 +186,7 @@ function deleteEvent() {
     xhttp.open("delete", "/delete-event", true);
     xhttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhttp.send("eventID=" + this.eventID);
+    xhttp.send("eventID=" + this.eventID + "&userID=" + this.userID);
 }
 
 function loadEvent(eventID) {

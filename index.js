@@ -255,40 +255,45 @@ app.post("/delete-user", function (req, res) {
 
 //author: Brian
 app.delete("/unreserve-event", function (req, res) {
-    let connection;
-    let myPromise = new Promise((resolve, reject) => {
+    if (req.session.userID != req.body.userID) {
 
-        connection = mysql.createConnection({
-            host: "localhost",
-            user: "root",
-            password: "",
-            database: "COMP2800"
+    } else {
+        let connection;
+        let myPromise = new Promise((resolve, reject) => {
+    
+            connection = mysql.createConnection({
+                host: "localhost",
+                user: "root",
+                password: "",
+                database: "COMP2800"
+            });
+    
+            connection.connect(err => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(true);
+                }
+            });
+    
         });
-
-        connection.connect(err => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(true);
-            }
-        });
-
-    });
-
-    myPromise.then(
-        function (value) {
-            connection.execute(
-                "DELETE FROM BBY_26_RSVP WHERE userID = ? AND eventID = ?;",
-                [req.body.userID, req.body.eventID],
-                function (error, results) {
-                    if (error) {
-                        console.log(error);
-                    }
-                    else {
-                    }
-                });
-            connection.end();
-        });
+    
+        myPromise.then(
+            function (value) {
+                connection.execute(
+                    "DELETE FROM BBY_26_RSVP WHERE userID = ? AND eventID = ?;",
+                    [req.body.userID, req.body.eventID],
+                    function (error, results) {
+                        if (error) {
+                            console.log(error);
+                        }
+                        else {
+                        }
+                    });
+                connection.end();
+            });
+    }
+    
 });
 
 // For saving event RSVP's into the RSVP database
@@ -592,40 +597,44 @@ app.get("/check-members/:id", function (req, res) {
 
 //author: Brian
 app.delete("/delete-event", function (req, res) {
-    let connection;
-    let myPromise = new Promise((resolve, reject) => {
+    if (req.session.userID != req.body.userID) {
 
-        connection = mysql.createConnection({
-            host: "localhost",
-            user: "root",
-            password: "",
-            database: "COMP2800"
+    } else {
+        let connection;
+        let myPromise = new Promise((resolve, reject) => {
+
+            connection = mysql.createConnection({
+                host: "localhost",
+                user: "root",
+                password: "",
+                database: "COMP2800"
+            });
+
+            connection.connect(err => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(true);
+                }
+            });
+
         });
 
-        connection.connect(err => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(true);
-            }
-        });
-
-    });
-
-    myPromise.then(
-        function (value) {
-            connection.execute(
-                "DELETE FROM BBY_26_events WHERE eventID = ?;",
-                [req.body.eventID],
-                function (error, results) {
-                    if (error) {
-                        console.log(error);
-                    }
-                    else {
-                    }
-                });
-            connection.end();
-        });
+        myPromise.then(
+            function (value) {
+                connection.execute(
+                    "DELETE FROM BBY_26_events WHERE eventID = ?;",
+                    [req.body.eventID],
+                    function (error, results) {
+                        if (error) {
+                            console.log(error);
+                        }
+                        else {
+                        }
+                    });
+                connection.end();
+            });
+        }
 });
 
 
