@@ -34,6 +34,7 @@
                 <img id="epic-image" src="/img/paws.png">
             </div>
             <div id="tag-picker">
+                <p id="event-header" class="header">Searching for events: </p>
                 <p id="choose-tag">choose tag</p>
                 <div id="tags-div">
                     <button id="small-dogs" class="tag">Small Dogs <img class="checkmark" src="/img/checkmark.png"
@@ -95,6 +96,40 @@
                 <button id="back-to-home-button">Home</button>
             </div>
         </div>
+        <div class="page" id="page-4">
+            <div id="title-div">
+                <span id="title">Advanced Search</span>
+                <img id="epic-image" src="/img/paws.png">
+            </div>
+            <div id="tag-picker">
+                <p id="group-header" class="header">Searching for groups: </p>
+                <p id="choose-tag">choose tag</p>
+                <div id="tags-div">
+                    <button id="small-dogs-2" class="tag-2">Small Dogs <img class="checkmark" src="/img/checkmark.png"
+                            alt="checkmark"></button>
+                    <button id="big-dogs-2" class="tag-2">Big Dogs <img class="checkmark" src="/img/checkmark.png"
+                            alt="checkmark"></button>
+                    <button id="all-dogs-2" class="tag-2">All Dogs <img class="checkmark" src="/img/checkmark.png"
+                            alt="checkmark"></button>
+                    <button id="puppies-2" class="tag-2">Puppies <img class="checkmark" src="/img/checkmark.png"
+                            alt="checkmark"></button>
+                    <button id="old-dogs-2" class="tag-2">Old Dogs <img class="checkmark" src="/img/checkmark.png"
+                            alt="checkmark"></button>
+                    <button id="outside-2" class="tag-2">Outside <img class="checkmark" src="/img/checkmark.png"
+                            alt="checkmark"></button>
+                    <button id="young-people-2" class="tag-2">Young Ppl <img class="checkmark" src="/img/checkmark.png"
+                            alt="checkmark"></button>
+                    <button id="old-people-2" class="tag-2">Old Ppl <img class="checkmark" src="/img/checkmark.png"
+                            alt="checkmark"></button>
+                </div>
+            </div>
+
+            <p id="error-message-2"></p>
+            <div id="wrapper">
+                <button id="back-button-2">Back</button>
+                <button id="search-button-2">Search</button>
+            </div>
+        </div>
     </div>
     <template id="post-template">
         <div class="post">
@@ -110,7 +145,17 @@
             <a href="#" id="link">Read More</a>
         </div>
     </template>
-
+    <template id="group-template">
+        <div class="group">
+            <img id="group-img" alt="group image">
+            <p>Group Name: <span id="group-name-placeholder"></span></p>
+            <p>City: <span id="group-city-placeholder"></p>
+            <p>Group Description: </p>
+            <p id="group-description-placeholder"></p>
+            <br></br>
+            <a href="#" id="link">Read More</a>
+        </div>
+    </template>
 
     <div id="footer-placeholder"></div>
     <script src="js/skeleton-logged-in.js"></script>

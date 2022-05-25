@@ -935,7 +935,6 @@ app.get("/get-events", function (req, res) {
 //Loading events based on city and tags onto advanced-search page
 //author: Brian
 app.post("/advanced-search-events", function (req, res) {
-    let events = [];
     let connection;
     let myPromise = new Promise((resolve, reject) => {
 
@@ -960,6 +959,54 @@ app.post("/advanced-search-events", function (req, res) {
             connection.execute(
                 "SELECT city, street, bby_26_events.eventID, event_name, event_date_time, event_end_time, event_duration, event_photo, event_description FROM bby_26_events INNER JOIN bby_26_event_address ON bby_26_events.eventID = bby_26_event_address.eventID WHERE bby_26_events.eventID IN (SELECT eventID FROM bby_26_tag WHERE ((tags = 'smallDogs' AND ?) OR (tags = 'bigDogs' AND ?) OR (tags = 'allDogs' AND ?) OR (tags = 'puppies' AND ?) OR (tags = 'oldDogs' AND ?) OR (tags = 'outside' AND ?) OR (tags = 'youngPeople' AND ?) OR (tags = 'oldPeople' AND ?))) AND bby_26_event_address.city = ? AND event_end_time > CURRENT_TIMESTAMP;", 
                 [req.body.smallDogs, req.body.bigDogs, req.body.allDogs, req.body.puppies, req.body.oldDogs, req.body.outside, req.body.youngPeople, req.body.oldPeople, req.body.city],
+                function (error, results) {
+                    if (error) {
+                        console.log(error);
+                    }
+                    else {
+                        if (results[0] != null) {
+                            res.send(results);
+                        }
+                        else {
+                            res.send({ status: "fail", msg: "No events found." });
+                        }
+                    }
+                });
+            connection.end();
+        },
+        function (error) {
+            console.log(error);
+        }
+    );
+})
+
+//Loading groups based on tags onto advanced-search page
+//author: Brian
+app.post("/advanced-search-groups", function (req, res) {
+    let connection;
+    let myPromise = new Promise((resolve, reject) => {
+
+        connection = mysql.createConnection({
+            host: "localhost",
+            user: "root",
+            password: "",
+            database: "COMP2800"
+        });
+
+        connection.connect(err => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(true);
+            }
+        });
+
+    });
+    myPromise.then(
+        function (value) {
+            connection.execute(
+                "SELECT city, group_name, group_photo, group_description FROM BBY_26_groups WHERE groupID IN (SELECT groupID FROM bby_26_tag WHERE ((tags = 'smallDogs' AND ?) OR (tags = 'bigDogs' AND ?) OR (tags = 'allDogs' AND ?) OR (tags = 'puppies' AND ?) OR (tags = 'oldDogs' AND ?) OR (tags = 'outside' AND ?) 	OR (tags = 'youngPeople' AND ?) OR (tags = 'oldPeople' AND ?)));",
+                [req.body.smallDogs, req.body.bigDogs, req.body.allDogs, req.body.puppies, req.body.oldDogs, req.body.outside, req.body.youngPeople, req.body.oldPeople],
                 function (error, results) {
                     if (error) {
                         console.log(error);
