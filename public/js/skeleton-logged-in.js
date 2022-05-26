@@ -19,7 +19,7 @@ $(document).ready(function () {
             
         });
         getUsername();
-    }, 250);
+    }, 450);
 
 });
 

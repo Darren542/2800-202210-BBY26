@@ -1548,13 +1548,16 @@ app.post("/save-event", function (req, res) {
         myPromise.then(
             function () {
                 let startTime = req.body.startTime
-                if (startTime == "") {
-                    
+                if (startTime == "") {   
                     startTime = '2022-05-19T09:48';
+                } else {
+                    startTime = startTime.slice(0, 16);
                 }
                 let endTime = req.body.endTime
                 if (endTime == "") {
                     endTime = '2022-05-19T09:48';
+                } else {
+                    endTime = endTime.slice(0, 16);
                 }
                 console.log("this start time2", startTime);
                 connection.query('INSERT INTO BBY_26_saved_event (ownerID, event_name, country, province, city, street, event_description, event_type, tagString, guidelines, terms, event_date_time, event_end_time) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',

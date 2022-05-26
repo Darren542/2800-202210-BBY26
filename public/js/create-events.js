@@ -331,10 +331,9 @@ document.querySelector("#save-quit").addEventListener('click', async function() 
     let startTime = document.querySelector("#event-date").value;
     let endTime = document.querySelector("#event-end-time").value;
     // Trying to get timezones to save right
-    // No idea why it is double timezone off
     if (startTime) {
         let startTime2 = new Date(startTime);
-        startTime2.setMinutes(startTime2.getMinutes() - (startTime2.getTimezoneOffset() * 2));
+        startTime2.setMinutes(startTime2.getMinutes() - (startTime2.getTimezoneOffset()));
         startTime = startTime2;
     }
     if (endTime) {

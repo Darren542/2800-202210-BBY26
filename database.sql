@@ -209,7 +209,7 @@ CREATE TABLE IF NOT EXISTS BBY_26_events(
 */
 
 INSERT INTO BBY_26_events (event_name, ownerID, event_duration, event_date_time, event_end_time, event_description, event_type) 
-VALUES ("Future Event", 1, "2033-05-19 16:19:19", "9999999", "9999-12-31 23:59:59", "Event for any time travellers", true);
+VALUES ("Future Event", 1, "2033-05-19 16:19:19", 99999, "2999-12-31 23:59:59", "Event for any time travellers", true);
 
 
 CREATE TABLE IF NOT EXISTS BBY_26_RSVP(
