@@ -112,6 +112,7 @@
     display: block;
     color: black;
     width: 100px;
+    min-width: 100px;
     height: 40px;
     background-color: rgb(130, 177, 221);
     border: 1px solid black;
@@ -126,6 +127,7 @@
 #quit-box {
     display: flex;
     text-align: left;
+    gap: 10px;
     justify-content: space-between;
 }
 
@@ -148,6 +150,11 @@
 
 #time-box input {
     max-width: 180px;
+}
+
+#time-label {
+    grid-row: 1 / span 1;
+    grid-column: 1 / span 2;
 }
 
 /* Page 2 CSS */

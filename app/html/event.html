@@ -26,7 +26,7 @@
 
     <div id="event-info">
       <div id="event-location">📍 </div>
-      <div id="member-count">👥 Number of Event Members</div>
+      <div id="member-count">👥 Members: </div>
       <div id="event-owner">👤 Owned by: </div>
       <div id="event-time">⏰ </div>
     </div>
@@ -43,9 +43,26 @@
     </div>
     <div id="menu-display">
       <div id="event-description">Info from the menu options will go here</div>
+      <div id="event-members" class="no-show">
+        <div id="members-title">These people have RSVPed for the event so far!</div>
+        <div id="member-cards">
+          <!-- Cards of the RSVPed members go here-->
+        </div>  
+      </div>
+      <div id="group-photos" class="no-show">Coming soon</div>
+      <div id="group-comments" class="no-show">Coming soon</div>
     </div>
 
   </div>
+
+  <template id="member-card-template">
+    <div class="member-card">
+      <div class="member-img-div">
+        <img class="member-img" src="/img/profile-imgs/profile.jpg" alt="profile image" />
+      </div>
+      <div class="member-name">Darren</div>
+    </div>
+  </template>
 
   <div id="footer-placeholder"></div>
   <script src="/js/skeleton-logged-in.js"></script>

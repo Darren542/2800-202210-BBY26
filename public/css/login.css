@@ -1,7 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
-body{
-    margin: 0px;
+
+body {
+    margin: 0%;
+    padding: 0%;
     font-family: 'Inter', sans-serif;
+    padding: 0;
 }
 
 
@@ -17,7 +20,6 @@ body{
     display: grid;
     grid-template-rows: 27% 27% 27% 27% 27%;
     grid-template-columns: 180%;
-
 }
 
 .label {
@@ -33,12 +35,13 @@ body{
 #img {
     max-width: 45vw;
     max-height: 60vh;
+    border-radius: 20%;
 }
 
 #content {
     display: flex;
     justify-content: center;
-    margin: 20px;
+    
 }
 
 #login {
@@ -46,8 +49,58 @@ body{
     margin-top: 30px;
 }
 
-@media screen and (max-width: 850px) {
-        
+/* ################ utility classes ############# */
+
+.color-dark{
+    color: #3a3e59;
+}
+.color-pink{
+    color: #c36b84
+}
+.color-yellow{
+    color: #f9ac66;
+}
+.color-orange{
+    color: #ed6b5b;
+}
+#logo {
+    padding-right: 12%;
+}
+
+@media (min-width: 851px) {
+    #logo {
+        padding-right: 0%;
+        padding-left: 30px;
+        padding-top: 20px;
+        width: 50%;
+    }
+
+    #fill {
+        display: grid;
+        grid-template-rows: 27% 27% 27% 27% 27%;
+        grid-template-columns: 100%;
+    
+    }
+
+    #login {
+        margin-left: 0px;
+        margin-right: 20px;
+        margin-top: 30px;
+        width: 50%;
+    }
+}
+
+@media (max-width: 850px) {
+
+    #log {
+        margin-top: 5px;
+    
+    }
+
+    .label {
+        margin-top: 0px;
+    }
+
     #no-match {
         color: red;
     }
@@ -58,25 +111,32 @@ body{
     #content {
         display: flex;
         justify-content: flex-start;
-        margin-top: 7px;
         flex-direction: column;
     }
 
+    #logo {
+        display: flex;
+        justify-content: center;
+        margin: 0%;
+        margin-top: 10px;
+        padding: 0%;
+        max-height: 250px;
+    }
+
     #img {
-        max-width: 70vw;
-        max-height: 60vh;
-        margin-left: 30px;
+        max-width: 250px;
+        max-height: 250px;
+        border-radius: 50%;
+        object-fit:contain;
     }
 
     #fill {
         display: grid;
-        grid-template-rows: 20% 20% 20% 20% 27%;
+        grid-template-rows: 15% 20% 15% 20% 20% 20%;
         grid-template-columns: 80%;
-    
+        height: 180px;
     }
-    #content {
-        min-height: 60vh;
-    }
+
     #login{
         margin-top: 10px;
     }

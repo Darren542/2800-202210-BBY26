@@ -1,0 +1,23 @@
+#content {
+   display: flex;
+   flex-direction: column;
+align-items: center;
+}
+
+#image-holder {
+    width:99%;
+    max-height: 385px;
+    max-width: 525px;
+}
+#image {
+    object-fit: fill;
+    width: calc(100% - 10px);
+    height: calc(100% - 10px);
+    margin: 5px;
+    border: 1px solid black;
+    border-radius: 8px;
+}
+
+#content h1 {
+    font-size: 70px;
+}

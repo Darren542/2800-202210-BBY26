@@ -13,23 +13,37 @@
         justify-content: center;
     }
 
+   
     #modify-event-popup {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        grid-template-rows: 5% 25% 10% 10% 10% 10% 10% 20%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        overflow-y: scroll;
         border-radius: 20px;
         margin-left: 20%;
         margin-right: 20%;
-        margin-top: 5%;
         margin-bottom: auto;
-        padding: 20px;
-        padding-left: 50px;
+        padding: 5px;
         opacity: 0;
         z-index: -2;
         position: absolute;
         width: 60%;
         height: 60%;
         background: white;
+    }
+    #modify-event-popup img {
+        opacity: 0.6;
+    }
+    
+            
+    #modify-event-popup > input {
+        width: auto;
+        padding: 12px 20px;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        background-color: #f8f8f8;
+        height: 100px;
+        padding-left: 3px;
     }
     #modify-button {
         display: none;
@@ -42,6 +56,10 @@
         font-size: 35px;
         background: none;
         padding: 0;
+    }
+    #modify-button > img {
+        width: 50px;
+        height: 50px;
     }
 
     #menu-description {
@@ -63,6 +81,10 @@
         background: white;
         color: rgb(205, 129, 129);
         font-size: 35px;
+    }
+
+    #delete-button:hover {
+        cursor: pointer;
     }
 
     #event-img {
@@ -247,6 +269,8 @@
     }
 }
 
+
+
 @media only screen and (min-width: 751px) {
     #background {
         width: 100%;
@@ -342,6 +366,10 @@
         background: white;
         color: rgb(205, 129, 129);
         font-size: 35px;
+    }
+
+    #delete-button:hover {
+        cursor: pointer;
     }
 
     #event-img {
@@ -551,4 +579,20 @@
     #user-quote {
         font-size: 1.2rem;
     }
+}
+
+
+button:disabled {
+    opacity: 0.3;
+
+}
+
+#event-name-placeholder {
+    color:rgb(102, 107, 170);
+    text-decoration: underline;
+}
+
+#event-name-placeholder:hover {
+    color:rgb(60, 67, 163);
+    cursor: pointer;
 }
