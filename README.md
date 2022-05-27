@@ -266,6 +266,7 @@ K9-Meet listening on port 8000!
 
 ### Login/Signup ###
 K9-Meet will launch onto the splash screen where you navigate to log in or sign up<br/>
+This page also has an Easter Egg on it where you can drag and drop the bone on the logo in the top left corner to play fetch with the dog<br/>
 You can sign up for a new account using a unique username and email, this will make a regular user account<br/>
 If you sign into an admin account you will be sent to admin dashboard where you can edit, add or delete other users accounts<br/>
 If you sign into a regular user account you will be sent to the apps home page

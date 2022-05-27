@@ -101,7 +101,7 @@ document.getElementById("search-button").addEventListener("click", function () {
                         card.getElementById("event-date-placeholder").innerHTML = newDate.toLocaleString();
                         card.getElementById("event-duration-placeholder").innerHTML = (data[index].event_duration / 60) + " minutes";
                         card.getElementById("event-description-placeholder").innerHTML = data[index].event_description;
-                        document.getElementsByClassName("link").href = "/event/" + data[index].eventID;
+                        card.querySelector(".link").href = "/event/" + data[index].eventID;
                         document.getElementById("card-loader").appendChild(card);
                         index++;
                     })
@@ -148,7 +148,7 @@ document.getElementById("search-button-2").addEventListener("click", function ()
                         card.getElementById("group-name-placeholder").innerHTML = data[index].group_name;
                         card.getElementById("group-city-placeholder").innerHTML = data[index].city;
                         card.getElementById("group-description-placeholder").innerHTML = data[index].group_description;
-                        document.getElementsByClassName("link").href = "/group/" + data[index].groupID;
+                        card.querySelector(".link").href = "/group/" + data[index].groupID;
                         document.getElementById("card-loader").appendChild(card);
                         index++;
                     })
