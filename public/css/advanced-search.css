@@ -114,28 +114,28 @@
         cursor: pointer;
     }
 
-    #epic-image {
+    .epic-image {
         width: 12vw;
         height: 8vw;
         margin-left: 2vw;
     }
 
-    #title {
+    .title {
         font-size: 9vw;
     }
 
-    #title-div {
+    .title-div {
         display: flex;
         justify-content: center;
         margin-top: 40px;
     }
 
-    #choose-tag {
+    .choose-tag {
         margin-left: 6.55vw;
         font-size: 4.5vw;
     }
 
-    #tags-div {
+    .tags-div {
         display: grid;
         grid-template-rows: 1fr 1fr;
         grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -228,7 +228,7 @@
         width: 6vw;
         height: auto;
     }
-    #wrapper {
+    .wrapper {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
@@ -427,28 +427,28 @@
         cursor: pointer;
     }
 
-    #epic-image {
+    .epic-image {
         width: 12vw;
         height: 8vw;
         margin-left: 2vw;
     }
 
-    #title {
+    .title {
         font-size: 9vw;
     }
 
-    #title-div {
+    .title-div {
         display: flex;
         justify-content: center;
         margin-top: 40px;
     }
 
-    #choose-tag {
+    .choose-tag {
         margin-left: 6.55vw;
         font-size: 4.5vw;
     }
 
-    #tags-div {
+    .tags-div {
         display: grid;
         grid-template-rows: 1fr 1fr;
         grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -541,7 +541,7 @@
         width: 6vw;
         height: auto;
     }
-    #wrapper {
+    .wrapper {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
