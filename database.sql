@@ -242,3 +242,14 @@ VALUES ('outside', 1), ('allDogs', 1), ('smallDogs', 2), ('youngPeople', 3), ('b
 INSERT INTO BBY_26_RSVP (eventID, userID) 
 VALUES (1, 1), (2, 1), (3, 1), (3, 2), (3, 3), (3, 4), (3, 5), (4, 1), (4, 2), (4, 3), (4, 4), (4, 5), (4, 6);
 
+/* adding a new group */
+INSERT INTO BBY_26_groups (ownerID, group_name, country, province, city, group_description, group_type)
+VALUES (2, "Starter Group", "Canada", "British Columbia", "Richmond", "This is a group created on database creation.", "free");
+
+/* add tags to new group */
+INSERT INTO BBY_26_group_tags (tag_name, groupID)
+VALUES ('outside', 1), ('allDogs', 1), ('smallDogs', 1), ('youngPeople', 1), ('bigDogs', 1);
+
+/* adding members to the new group */
+INSERT INTO BBY_26_group_members (groupID, userID)
+VALUES (1, 1), (1, 2), (1, 3);
