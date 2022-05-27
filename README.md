@@ -306,6 +306,13 @@ https://javascript.info/mouse-drag-and-drop
 Styling to get abbr to work on mobile from:<br/>
 https://bitsofco.de/making-abbr-work-for-touchscreen-keyboard-mouse/
 
+creating share event app to share the page using different platforms: whatsApp, twitter, telegram:
+https://developers.facebook.com/docs/whatsapp/
+https://developer.twitter.com/en/docs/api-reference-index
+https://core.telegram.org/api/bots/buttons
+
+used general styling code from my last project (Germanpreet Singh)
+
 ## Contact Information ##
 
 Developer Contacts: <br/>
