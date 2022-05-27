@@ -44,7 +44,7 @@ function displaySavedGroup(data) {
     newCard.querySelector('.delete-btn').addEventListener("click", () => {
         deleteSavedGroup(data.savedID);
     });
-    document.querySelector("#saved-box").appendChild(newCard);
+    document.querySelector(".saved-box").appendChild(newCard);
 }
 
 // If the user no longer wants that save let them delete it
@@ -110,7 +110,7 @@ function displaySavedEvent(data) {
     newCard.querySelector('.delete-btn').addEventListener("click", () => {
         deleteSavedEvent(data.savedID);
     });
-    document.querySelector("#saved-box").appendChild(newCard);
+    document.querySelector(".saved-box").appendChild(newCard);
 }
 
 // If the user no longer wants that save let them delete it

@@ -66,7 +66,7 @@ document.getElementById("back-button-2").addEventListener("click", function () {
 
 document.getElementById("search-button").addEventListener("click", function () {
     if (document.querySelectorAll(".selected").length == 0) {
-        document.getElementById("error-message").innerHTML = "must select at least one tag";
+        document.getElementById("error-message").innerHTML = "Please Select at Least One Tag";
     } else {
         showHidePages(3);
         let formData = {
@@ -106,7 +106,7 @@ document.getElementById("search-button").addEventListener("click", function () {
                         index++;
                     })
                 } else {
-                    document.getElementById("card-loader").innerHTML = "<p>no posts found</p>";
+                    document.getElementById("card-loader").innerHTML = "<p>No Posts Found</p>";
                 }
             }
         }
