@@ -260,14 +260,28 @@ K9-Meet listening on port 8000!
 
 ## Project Features ##
 
+
 ## Credits and References ##
+
+Code to prevent nodejs server from crashing if database not found from<br/>
+@author banguncool & Dharman<br/>
+@see https://stackoverflow.com/questions/57469707/how-to-catch-connection-error-with-nodejs-mysql2-library-async-await
+
+Code for drag and drop from feature on Splash page:<br/>
+https://javascript.info/mouse-drag-and-drop
+
+Styling to get abbr to work on mobile from:<br/>
+https://bitsofco.de/making-abbr-work-for-touchscreen-keyboard-mouse/
 
 ## Contact Information ##
 
-Developer Contacts: <br>
+Developer Contacts: <br/>
 <ul>
 <li>Darren - dluck4@my.bcit.ca</li>
+<li>Brian - briancherngsch@gmail.com</li>
+<li>Aryan - aryan.jand@gmail.com</li>
+<li>Pahul - sidhupahul0@gmail.com</li>
+<li>Germanpreet - germanpreet3533@gmail.com</li>
 </ul>
 
-
-For question about online version or github repo contact Darren<br>
+For question about online version or github repo contact Darren<br/>
