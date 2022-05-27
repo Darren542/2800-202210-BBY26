@@ -10,9 +10,6 @@ const mysql = require('mysql2');
 const multer = require("multer");
 const crypto = require("crypto");
 const path = require("path");
-const mys = require("mysql2/promise");
-const { isInt32Array } = require("util/types");
-// const { createQuery } = require("mysql2/typings/mysql/lib/Connection");
 
 // Creating Events
 app.use(express.json());
@@ -2778,5 +2775,5 @@ app.use(function (req, res, next) {
 
 let port = 8000;
 app.listen(port, function () {
-    console.log("Example app listening on port " + port + "!");
+    console.log("K9-Meet listening on port " + port + "!");
 });
