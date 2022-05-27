@@ -306,6 +306,10 @@ https://javascript.info/mouse-drag-and-drop
 Styling to get abbr to work on mobile from:<br/>
 https://bitsofco.de/making-abbr-work-for-touchscreen-keyboard-mouse/
 
+SQL Joining Tables Quert
+Jason Wilder
+https://www.w3schools.com/sql/sql_join.asp
+
 creating share event app to share the page using different platforms: whatsApp, twitter, telegram:
 https://developers.facebook.com/docs/whatsapp/
 https://developer.twitter.com/en/docs/api-reference-index
