@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>K9-Meet Event</title>
+  <title>K9-Meet Create</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
   <link rel="stylesheet" href="css/client.css">
@@ -19,7 +19,7 @@
   <div id="content">
 
     <!-- Banners that let users know they have saved incomplete groups or events go here-->
-    <div id="saved-box">
+    <div class="saved-box">
 
     </div>
 
@@ -39,7 +39,7 @@
   </div>
 
   <template id="saved-group-template">
-    <div id="saved-box">
+    <div class="saved-box">
       <div class="card">
         <div class="card-descriptiom">
           You have an incomplete group
@@ -54,10 +54,11 @@
           </div>
         </div>        
       </div>
+      </div>
   </template>
 
   <template id="saved-event-template">
-    <div id="saved-box">
+    <div class="saved-box">
       <div class="card">
         <div class="card-descriptiom">
           You have an incomplete event
@@ -71,6 +72,7 @@
             <button type="button" class="delete-btn banner-btn">Delete</button>
           </div>
         </div>        
+      </div>
       </div>
   </template>
 

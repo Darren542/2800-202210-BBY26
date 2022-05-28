@@ -145,7 +145,6 @@ document.querySelector("#group-event").addEventListener('click', ()=> {
     eventGroup = 0;
 });
 
-
 // Code for finishing event creation
 // Have to check all fields are filled and have valid entries
 document.querySelector("#finish-btn").addEventListener('click', async function() {
@@ -184,11 +183,11 @@ document.querySelector("#finish-btn").addEventListener('click', async function()
         valid = false;
         errorMsg = "Must fill out street address."
     }
-    if (startTime == null) {
+    if (startTime == null || startTime == "") {
         valid = false;
         errorMsg = "Must fill out start time."
     }
-    if (endTime == null) {
+    if (endTime == null || endTime == "") {
         valid = false;
         errorMsg = "Must fill out end time."
     }
@@ -331,6 +330,19 @@ document.querySelector("#save-quit").addEventListener('click', async function() 
     let street = document.querySelector("#street-input").value;
     let startTime = document.querySelector("#event-date").value;
     let endTime = document.querySelector("#event-end-time").value;
+    // Trying to get timezones to save right
+    // No idea why it is double timezone off
+    if (startTime) {
+        let startTime2 = new Date(startTime);
+        startTime2.setMinutes(startTime2.getMinutes() - (startTime2.getTimezoneOffset() * 2));
+        startTime = startTime2;
+    }
+    if (endTime) {
+        let endTime2 = new Date(endTime);
+        endTime2.setMinutes(endTime2.getMinutes() - (endTime2.getTimezoneOffset() * 2));
+        endTime = endTime2;
+    }
+    
 
     // receiving inputs from page 2
     let name = document.querySelector("#name-input").value;

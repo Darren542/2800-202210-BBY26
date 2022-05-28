@@ -5,12 +5,18 @@ Aryan Jand, A01169131, Set 1C, May 13th 2022
 Pahul Sidhu, A01310077, Set 1A, May 13th 2022
 Germanpreet Singh, A01312851, Set 1A, May 13th 2022
 
-This assignment is 95% complete.
+This assignment is 90% complete.
 
 The default password for all users in 123
 
-Most of functionality for milestone #4 is present, but the code could use better documentation.
+All of the functionality for all milestones is present, but the ui/ux could use more work.
 
+There is some work that needs to be done on the backend dealing with timezones, generally times are taken from users and displayed as if they are all UTC,
+but the search function searches on the users timezone.
+
+Some of the pages need more work on their CSS, especially on their desktop views.
+
+Milestone #3 Instructions
 We have implemented both a pseduo shopping cart and a timeline.
 
 The shopping cart can be seen by:

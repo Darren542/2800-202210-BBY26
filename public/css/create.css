@@ -52,7 +52,7 @@ h1{
 }
 
 /* CSS for the loading saved events/groups banner */
-#saved-box {
+.saved-box {
     width: calc(100% - 6px);
 }
 

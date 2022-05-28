@@ -10,9 +10,6 @@ const mysql = require('mysql2');
 const multer = require("multer");
 const crypto = require("crypto");
 const path = require("path");
-const mys = require("mysql2/promise");
-const { isInt32Array } = require("util/types");
-// const { createQuery } = require("mysql2/typings/mysql/lib/Connection");
 
 // Creating Events
 app.use(express.json());
@@ -255,40 +252,45 @@ app.post("/delete-user", function (req, res) {
 
 //author: Brian
 app.delete("/unreserve-event", function (req, res) {
-    let connection;
-    let myPromise = new Promise((resolve, reject) => {
+    if (req.session.userID != req.body.userID) {
 
-        connection = mysql.createConnection({
-            host: "localhost",
-            user: "root",
-            password: "",
-            database: "COMP2800"
+    } else {
+        let connection;
+        let myPromise = new Promise((resolve, reject) => {
+    
+            connection = mysql.createConnection({
+                host: "localhost",
+                user: "root",
+                password: "",
+                database: "COMP2800"
+            });
+    
+            connection.connect(err => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(true);
+                }
+            });
+    
         });
-
-        connection.connect(err => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(true);
-            }
-        });
-
-    });
-
-    myPromise.then(
-        function (value) {
-            connection.execute(
-                "DELETE FROM BBY_26_RSVP WHERE userID = ? AND eventID = ?;",
-                [req.body.userID, req.body.eventID],
-                function (error, results) {
-                    if (error) {
-                        console.log(error);
-                    }
-                    else {
-                    }
-                });
-            connection.end();
-        });
+    
+        myPromise.then(
+            function (value) {
+                connection.execute(
+                    "DELETE FROM BBY_26_RSVP WHERE userID = ? AND eventID = ?;",
+                    [req.body.userID, req.body.eventID],
+                    function (error, results) {
+                        if (error) {
+                            console.log(error);
+                        }
+                        else {
+                        }
+                    });
+                connection.end();
+            });
+    }
+    
 });
 
 // For saving event RSVP's into the RSVP database
@@ -340,6 +342,104 @@ app.post("/event-rsvp/:id", function (req, res) {
     );
 })
 
+// For joining group's saves into the group member database
+// Used by the group page
+// Author Darren
+app.post("/group-join/:id", function (req, res) {
+    let connection;
+    let myPromise = new Promise((resolve, reject) => {
+
+        connection = mysql.createConnection({
+            host: "localhost",
+            user: "root",
+            password: "",
+            database: "COMP2800"
+        });
+
+        connection.connect(err => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(true);
+            }
+        });
+    });
+
+    myPromise.then(
+        function (value) {
+            connection.execute(
+                "INSERT INTO BBY_26_group_members (groupID, userID) values (?, ?)",
+                [req.params.id, req.session.userID],
+                function (error, results) {
+                    if (error) {
+                        if (error.code == 'ER_DUP_ENTRY') {
+                            res.send({ status: "failure", msg: "Group not joined." });
+                        } else {
+                            console.log(error);
+                        }    
+                    }
+                    else {
+                        res.send({ status: "success", msg: "Group Joined." });
+                    }
+                });
+            connection.end();
+        },
+        function (error) {
+            console.log(error);
+        }
+    );
+})
+
+// Used to check if user is a member of a specific group
+// Used by group page
+// Author Darren
+app.get("/check-membership/:id", function (req, res) {
+    let connection;
+    let myPromise = new Promise((resolve, reject) => {
+
+        connection = mysql.createConnection({
+            host: "localhost",
+            user: "root",
+            password: "",
+            database: "COMP2800"
+        });
+
+        connection.connect(err => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(true);
+            }
+        });
+
+    });
+
+    myPromise.then(
+        function () {
+            connection.execute(
+                "SELECT * FROM BBY_26_group_members WHERE userID = ? AND groupID = ?",
+                [req.session.userID, req.params.id],
+                function (error, results) {
+                    if (error) {
+                        console.log(error);                     
+                    }
+                    else {
+                        if (results[0]) {
+                            res.send({ status: "yes", msg: "Already joined."});
+                        } else {
+                            res.send({ status: "no", msg: "Not joined"});
+                        }                       
+                    }
+
+                });
+            connection.end();
+        },
+        function (error) {
+            console.log(error);
+        }
+    );
+});
+
 // Used to check if user is RSVPed for a specific event
 // Used by event page
 // Author Darren
@@ -390,8 +490,61 @@ app.get("/check-RSVP/:id", function (req, res) {
     );
 });
 
-//author: Brian
-app.delete("/delete-event", function (req, res) {
+// Used to get all the users RSVPed to an event
+// Used by event page
+// Author Darren
+app.get("/check-RSVPS/:id", function (req, res) {
+        let connection;
+        let myPromise = new Promise((resolve, reject) => {
+
+            connection = mysql.createConnection({
+                host: "localhost",
+                user: "root",
+                password: "",
+                database: "COMP2800"
+            });
+
+            connection.connect(err => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(true);
+                }
+            });
+
+        });
+
+        myPromise.then(
+            function () {
+                connection.execute(
+                    `SELECT BBY_26_users.username, BBY_26_profiles.profileImg FROM BBY_26_RSVP 
+                        INNER JOIN BBY_26_users
+                            ON BBY_26_users.userID = BBY_26_RSVP.userID
+                        INNER JOIN BBY_26_profiles 
+                            ON BBY_26_profiles.username = BBY_26_users.username
+                        WHERE BBY_26_RSVP.eventID = ?`,
+                    [req.params.id],
+                    function (error, results) {
+                        if (error) {
+                            console.log(error);
+                        }
+                        else {
+                            res.send({ status: "success", msg: "Updated Username.", usernames: results });
+                        }
+
+                    });
+                connection.end();
+            },
+            function (error) {
+                console.log(error);
+            }
+        );
+});
+
+// Used to get all the members of a group
+// Used by group page
+// Author Darren
+app.get("/check-members/:id", function (req, res) {
     let connection;
     let myPromise = new Promise((resolve, reject) => {
 
@@ -413,19 +566,72 @@ app.delete("/delete-event", function (req, res) {
     });
 
     myPromise.then(
-        function (value) {
+        function () {
             connection.execute(
-                "DELETE FROM BBY_26_events WHERE eventID = ?;",
-                [req.body.eventID],
+                `SELECT BBY_26_users.username, BBY_26_profiles.profileImg FROM BBY_26_group_members 
+                    INNER JOIN BBY_26_users
+                        ON BBY_26_users.userID = BBY_26_group_members.userID
+                    INNER JOIN BBY_26_profiles 
+                        ON BBY_26_profiles.username = BBY_26_users.username
+                    WHERE BBY_26_group_members.groupID = ?`,
+                [req.params.id],
                 function (error, results) {
                     if (error) {
                         console.log(error);
                     }
                     else {
+                        res.send({ status: "success", msg: "Updated Username.", usernames: results });
                     }
+
                 });
             connection.end();
+        },
+        function (error) {
+            console.log(error);
+        }
+    );
+});
+
+//author: Brian
+app.delete("/delete-event", function (req, res) {
+    if (req.session.userID != req.body.userID) {
+
+    } else {
+        let connection;
+        let myPromise = new Promise((resolve, reject) => {
+
+            connection = mysql.createConnection({
+                host: "localhost",
+                user: "root",
+                password: "",
+                database: "COMP2800"
+            });
+
+            connection.connect(err => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(true);
+                }
+            });
+
         });
+
+        myPromise.then(
+            function (value) {
+                connection.execute(
+                    "DELETE FROM BBY_26_events WHERE eventID = ?;",
+                    [req.body.eventID],
+                    function (error, results) {
+                        if (error) {
+                            console.log(error);
+                        }
+                        else {
+                        }
+                    });
+                connection.end();
+            });
+        }
 });
 
 
@@ -870,6 +1076,14 @@ app.get("/photos", function (req, res) {
     res.send("photos section is still under construction");
 });
 
+app.get("/advanced-search" ,function (req, res) {
+    if (req.session.loggedIn){
+        let doc = fs.readFileSync("./app/html/advanced-search.html", "utf8");
+        res.send(doc);
+    } else {
+        res.redirect("/");
+    }
+});
 //LOADING unreserved, future events ONTO HOME PAGE
 //author: Brian
 app.get("/get-events", function (req, res) {
@@ -897,7 +1111,7 @@ app.get("/get-events", function (req, res) {
     myPromise.then(
         function (value) {
             connection.execute(
-                "select * from bby_26_events WHERE eventID not in (select eventID from bby_26_rsvp WHERE userID = ?) AND event_date_time > CURRENT_TIMESTAMP;", 
+                "select * from bby_26_events WHERE eventID not in (select eventID from bby_26_rsvp WHERE userID = ?) AND event_end_time > CURRENT_TIMESTAMP;", 
                 [req.session.userID],
                 function (error, results) {
                     if (error) {
@@ -910,6 +1124,102 @@ app.get("/get-events", function (req, res) {
                                 index++;
                             });
                             res.send(events);
+                        }
+                        else {
+                            res.send({ status: "fail", msg: "No events found." });
+                        }
+                    }
+                });
+            connection.end();
+        },
+        function (error) {
+            console.log(error);
+        }
+    );
+})
+
+//Loading events based on city and tags onto advanced-search page
+//author: Brian
+app.post("/advanced-search-events", function (req, res) {
+    let connection;
+    let myPromise = new Promise((resolve, reject) => {
+
+        connection = mysql.createConnection({
+            host: "localhost",
+            user: "root",
+            password: "",
+            database: "COMP2800"
+        });
+
+        connection.connect(err => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(true);
+            }
+        });
+
+    });
+    myPromise.then(
+        function (value) {
+            connection.execute(
+                "SELECT city, street, bby_26_events.eventID, event_name, event_date_time, event_end_time, event_duration, event_photo, event_description FROM bby_26_events INNER JOIN bby_26_event_address ON bby_26_events.eventID = bby_26_event_address.eventID WHERE bby_26_events.eventID IN (SELECT eventID FROM bby_26_tag WHERE ((tags = 'smallDogs' AND ?) OR (tags = 'bigDogs' AND ?) OR (tags = 'allDogs' AND ?) OR (tags = 'puppies' AND ?) OR (tags = 'oldDogs' AND ?) OR (tags = 'outside' AND ?) OR (tags = 'youngPeople' AND ?) OR (tags = 'oldPeople' AND ?))) AND bby_26_event_address.city = ? AND event_end_time > CURRENT_TIMESTAMP;", 
+                [req.body.smallDogs, req.body.bigDogs, req.body.allDogs, req.body.puppies, req.body.oldDogs, req.body.outside, req.body.youngPeople, req.body.oldPeople, req.body.city],
+                function (error, results) {
+                    if (error) {
+                        console.log(error);
+                    }
+                    else {
+                        if (results[0] != null) {
+                            res.send(results);
+                        }
+                        else {
+                            res.send({ status: "fail", msg: "No events found." });
+                        }
+                    }
+                });
+            connection.end();
+        },
+        function (error) {
+            console.log(error);
+        }
+    );
+})
+
+//Loading groups based on tags onto advanced-search page
+//author: Brian
+app.post("/advanced-search-groups", function (req, res) {
+    let connection;
+    let myPromise = new Promise((resolve, reject) => {
+
+        connection = mysql.createConnection({
+            host: "localhost",
+            user: "root",
+            password: "",
+            database: "COMP2800"
+        });
+
+        connection.connect(err => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(true);
+            }
+        });
+
+    });
+    myPromise.then(
+        function (value) {
+            connection.execute(
+                "SELECT city, groupID, group_name, group_photo, group_description FROM BBY_26_groups WHERE groupID IN (SELECT groupID FROM bby_26_tag WHERE ((tags = 'smallDogs' AND ?) OR (tags = 'bigDogs' AND ?) OR (tags = 'allDogs' AND ?) OR (tags = 'puppies' AND ?) OR (tags = 'oldDogs' AND ?) OR (tags = 'outside' AND ?) 	OR (tags = 'youngPeople' AND ?) OR (tags = 'oldPeople' AND ?)));",
+                [req.body.smallDogs, req.body.bigDogs, req.body.allDogs, req.body.puppies, req.body.oldDogs, req.body.outside, req.body.youngPeople, req.body.oldPeople],
+                function (error, results) {
+                    if (error) {
+                        console.log(error);
+                    }
+                    else {
+                        if (results[0] != null) {
+                            res.send(results);
                         }
                         else {
                             res.send({ status: "fail", msg: "No events found." });
@@ -1049,7 +1359,7 @@ app.post("/load-event", function (req, res) {
     myPromise.then(
         function (value) {
             connection.execute(
-                "SELECT BBY_26_events.event_name, BBY_26_events.eventID, BBY_26_events.event_photo, BBY_26_events.event_date_time, BBY_26_events.event_duration, BBY_26_events.event_description, BBY_26_event_address.street, BBY_26_event_address.city, BBY_26_users.username, BBY_26_events.ownerID FROM BBY_26_event_address INNER JOIN BBY_26_events ON BBY_26_event_address.eventID = BBY_26_events.eventID INNER JOIN BBY_26_users ON BBY_26_events.ownerID = BBY_26_users.userID WHERE BBY_26_events.eventID = ?",
+                "SELECT BBY_26_events.event_name, BBY_26_events.eventID, BBY_26_events.event_photo, BBY_26_events.event_date_time, BBY_26_events.event_duration, BBY_26_events.event_description, BBY_26_event_address.street, BBY_26_event_address.city, BBY_26_users.username, BBY_26_events.ownerID FROM BBY_26_event_address INNER JOIN BBY_26_events ON BBY_26_event_address.eventID = BBY_26_events.eventID INNER JOIN BBY_26_users ON BBY_26_events.ownerID = BBY_26_users.userID WHERE BBY_26_events.eventID = ? ",
                 [req.body.eventID],
                 function (error, results) {
                     if (error) {
@@ -2448,11 +2758,22 @@ app.get("/terms-and-conditions", function (req, res) {
     res.send(doc)
 });
 
+app.get("/contact-us", function (req, res) {
+    let doc = fs.readFileSync("./app/html/contact-us.html", "utf8");
+    res.send(doc)
+});
+
+app.get("/about-us", function (req, res) {
+    let doc = fs.readFileSync("./app/html/about-us.html", "utf8");
+    res.send(doc)
+});
+
 app.use(function (req, res, next) {
-    res.status(404).send("<html><head><title>Page not found!</title></head><body><p>Nothing here.</p></body></html>");
+    let doc = fs.readFileSync("./app/html/404.html", "utf8");
+    res.status(404).send(doc);
 });
 
 let port = 8000;
 app.listen(port, function () {
-    console.log("Example app listening on port " + port + "!");
+    console.log("K9-Meet listening on port " + port + "!");
 });

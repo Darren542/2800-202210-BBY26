@@ -2,9 +2,6 @@
 async function loadSkeleton() {
     await $('#navbar-placeholder').load('/nav');
     await $('#footer-placeholder').load('/footer');
-
-
-
 }
 loadSkeleton(); 
 
@@ -22,7 +19,7 @@ $(document).ready(function () {
             
         });
         getUsername();
-    }, 100);
+    }, 250);
 
 });
 

@@ -235,7 +235,7 @@ document.querySelector("#finish-btn").addEventListener('click', async function()
                     await saveImage(formData, parsedJSON.newID);
                     window.location.href = `/group/${parsedJSON.newID}`;
                 } else {
-                    window.location.href = `/event/${parsedJSON.newID}`;
+                    window.location.href = `/group/${parsedJSON.newID}`;
                 }
             } else {
                 document.getElementById("error-messages").innerHTML = "Failed to create new Group";
